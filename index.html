@@ -304,6 +304,1379 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Oracle数据库优化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/Oracle数据库优化/" itemprop="url">Oracle数据库优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T17:01:43+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  467
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>除了给table建立索引之外，保持良好的SQL语句编写。</p>
+<h3 id="1、通过变量的方式来设置参数"><a href="#1、通过变量的方式来设置参数" class="headerlink" title="1、通过变量的方式来设置参数"></a>1、通过变量的方式来设置参数</h3><p>　　比如动态查询的时候，尽量这样写</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好：string strSql=" <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> PEOPLE P <span class="keyword">WHERE</span> P.ID=? <span class="string">";</span></span><br><span class="line"><span class="string">坏：string strSql="</span> <span class="keyword">SELECT</span> * FROMM PEOPLE P <span class="keyword">WHERE</span> P.ID= <span class="string">"+ID;</span></span><br></pre></td></tr></table></figure>
+<p>数据库的SQL解析和执行会保存在缓存中，SQL只要有变化，就要重新解析。而”where p.id=”+id的方式在id值发生改变得时候需要重新解析SQL，浪费时间。</p>
+<h3 id="2、尽量不要使用select"><a href="#2、尽量不要使用select" class="headerlink" title="2、尽量不要使用select *"></a>2、尽量不要使用select *</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好：string strSql=" <span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">from</span> people <span class="string">";</span></span><br><span class="line"><span class="string">坏：string strSql="</span> slect I <span class="keyword">from</span> people<span class="string">";</span></span><br></pre></td></tr></table></figure>
+<p>select * 会增加SQL解析的时间，而且把不需要的数据也查询了出来，数据传输很浪费时间。</p>
+<h3 id="3、谨慎使用模糊查询"><a href="#3、谨慎使用模糊查询" class="headerlink" title="3、谨慎使用模糊查询"></a>3、谨慎使用模糊查询</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好：string strSql=" <span class="keyword">select</span> * <span class="keyword">from</span> people p <span class="keyword">where</span> p.id <span class="keyword">like</span> <span class="string">'parm%'</span> <span class="string">";</span></span><br><span class="line"><span class="string">坏：string strSql="</span> <span class="keyword">select</span> * <span class="keyword">from</span> people p <span class="keyword">where</span> p.id <span class="keyword">like</span> <span class="string">'%parm%'</span> <span class="string">";</span></span><br></pre></td></tr></table></figure>
+<p>当模糊匹配以%开头，这一列的索引将彻底失效，导致全表扫描，如果不以%开头，则这一列的索引还是有效的。</p>
+<h3 id="4、优先使用UNION-ALL-避免使用UNION"><a href="#4、优先使用UNION-ALL-避免使用UNION" class="headerlink" title="4、优先使用UNION ALL,避免使用UNION"></a>4、优先使用UNION ALL,避免使用UNION</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好：string strSql=" <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> people <span class="keyword">union</span> all <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> teacher <span class="string">";</span></span><br><span class="line"><span class="string">坏：string strSql="</span> <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> people <span class="keyword">union</span> <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> teacher <span class="string">";</span></span><br></pre></td></tr></table></figure>
+<p>因为UNION会将各查询的子集记录进行比较，比起来UNION ALL，速度会慢很多。</p>
+<h3 id="5、在where语句或者order-by语句中，避免对索引字段进行计算操作。"><a href="#5、在where语句或者order-by语句中，避免对索引字段进行计算操作。" class="headerlink" title="5、在where语句或者order by语句中，避免对索引字段进行计算操作。"></a>5、在where语句或者order by语句中，避免对索引字段进行计算操作。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好：string strSql=" <span class="keyword">select</span> <span class="keyword">name</span> ,age <span class="keyword">from</span> people <span class="keyword">where</span> <span class="built_in">date</span>=? <span class="string">";</span></span><br><span class="line"><span class="string">坏：string strSql="</span> <span class="keyword">select</span> <span class="keyword">name</span>,age <span class="keyword">from</span> people wehre trunc(<span class="built_in">date</span>)=? <span class="string">";</span></span><br></pre></td></tr></table></figure>
+<h3 id="6、永远为每张表设置一个ID"><a href="#6、永远为每张表设置一个ID" class="headerlink" title="6、永远为每张表设置一个ID"></a>6、永远为每张表设置一个ID</h3><p>数据库的每一张表都应该设置一个ID作为主键，而且是int型，推荐使用UNSIGNED,并且设置上自动增加的AUTO_INCREMENT的标志。</p>
+<p>即使你的people表有一个主键叫做name的字段，你也别让它成为主键，使用varchar类型作为主键会使得性能下降。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Oracle数据库之存储过程与游标/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/Oracle数据库之存储过程与游标/" itemprop="url">Oracle数据库之存储过程与游标</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:57:45+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、存储过程"><a href="#一、存储过程" class="headerlink" title="一、存储过程"></a>一、存储过程</h1><p>　　一组为了完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给出参数，来执行它。</p>
+<p>在大型数据库中，存储过程和触发器具有重要的作用。无论是存储过程还是触发器，都是SQL语句和流程控制语句的集合。</p>
+<p>存储过程的优点：</p>
+<h4 id="1、存储过程只在创造时进行编译，以后每次执行存储过程都不需要重新编译，一般的SQL语句执行一次就要编译一次，所以使用存储过程可以提高数据库执行速度。"><a href="#1、存储过程只在创造时进行编译，以后每次执行存储过程都不需要重新编译，一般的SQL语句执行一次就要编译一次，所以使用存储过程可以提高数据库执行速度。" class="headerlink" title="　　1、存储过程只在创造时进行编译，以后每次执行存储过程都不需要重新编译，一般的SQL语句执行一次就要编译一次，所以使用存储过程可以提高数据库执行速度。"></a>　　1、存储过程只在创造时进行编译，以后每次执行存储过程都不需要重新编译，一般的SQL语句执行一次就要编译一次，所以使用存储过程可以提高数据库执行速度。</h4><h4 id="2、当对数据库进行复杂操作时（比如对多个表进行CRUD时），可以将复杂的CRUD操作用存储过程封装起来与数据库提供的事务处理结合在一块使用。"><a href="#2、当对数据库进行复杂操作时（比如对多个表进行CRUD时），可以将复杂的CRUD操作用存储过程封装起来与数据库提供的事务处理结合在一块使用。" class="headerlink" title="　　2、当对数据库进行复杂操作时（比如对多个表进行CRUD时），可以将复杂的CRUD操作用存储过程封装起来与数据库提供的事务处理结合在一块使用。"></a>　　2、当对数据库进行复杂操作时（比如对多个表进行CRUD时），可以将复杂的CRUD操作用存储过程封装起来与数据库提供的事务处理结合在一块使用。</h4><h4 id="3、存储过程可以重复使用，可以减少数据库开发人员的工作量。"><a href="#3、存储过程可以重复使用，可以减少数据库开发人员的工作量。" class="headerlink" title="　　3、存储过程可以重复使用，可以减少数据库开发人员的工作量。"></a>　　3、存储过程可以重复使用，可以减少数据库开发人员的工作量。</h4><h4 id="4、存储过程安全性搞，可以设定只有某个用户才具有对指定存储过程的使用权。"><a href="#4、存储过程安全性搞，可以设定只有某个用户才具有对指定存储过程的使用权。" class="headerlink" title="　　4、存储过程安全性搞，可以设定只有某个用户才具有对指定存储过程的使用权。"></a>　　4、存储过程安全性搞，可以设定只有某个用户才具有对指定存储过程的使用权。</h4><p>Oracle的存储过程分为两种：系统存储过程和自定义存储过程。</p>
+<p>系统存储过程：Oracle预先提供的一组完成特功能的存储过程，安装完Oracle 就有。</p>
+<p>自定义存储过程：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Create</span> [<span class="keyword">Or</span> <span class="keyword">Replace</span>] <span class="keyword">Procedure</span> 过程名[参数[<span class="keyword">in</span>/<span class="keyword">out</span>/<span class="keyword">in</span> <span class="keyword">out</span>]]</span><br><span class="line"></span><br><span class="line"><span class="keyword">AS</span>/<span class="keyword">IS</span></span><br><span class="line"></span><br><span class="line">说明部分</span><br><span class="line"></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"></span><br><span class="line">可执行部分</span><br><span class="line"></span><br><span class="line">[<span class="keyword">EXCEPTION</span> 错误处理部分]</span><br><span class="line"></span><br><span class="line"><span class="keyword">END</span> [过程名];</span><br></pre></td></tr></table></figure>
+<p>注：可选的replace：表示如果存储过程已经存在，则用新的存储过程覆盖掉原来的，常用语存储过程的重建。</p>
+<p>参数部分：用于定义多个参数（如果没有参数，可以不写），参数有三种形式：IN,OUT,INT OUT。一般没有指定参数形式的话，默认为IN。</p>
+<p>关键字AS也可以写成IS，后面跟存储过程的说明部分，也可以在这块定义存储过程的局部变量。</p>
+<ul>
+<li>删除存储过程： DROP PROCEDURE 存储过程名；</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建一个统计产品表总数的存储过程CREATE OR REPLACE PROCEDURE product_countAS PRODUCT_SUM NUMBER(10);BEGIN</span></span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">INTO</span> PRODUCT_SUM <span class="keyword">FROM</span> product_table;</span><br><span class="line">    DBMS_OUTPUT.PUT_LINE('产品数量是：'||PRODUCT_SUM);<span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>无参的存储过程：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建一个打印HelloWorld的无参存储过程</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">procedure</span> printHelloWorldas <span class="comment">--说明部分begin</span></span><br><span class="line">    dbms_output.put_line(<span class="string">'Hello World'</span>);</span><br><span class="line"><span class="keyword">end</span> </span><br><span class="line"> printHelloWorld;<span class="comment">--无参数存储过程的调用</span></span><br><span class="line">方法1、exec printHelloWorld();</span><br><span class="line">方法2、<span class="keyword">begin</span> printHelloWorld();</span><br><span class="line">     <span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="二、游标（Cursor）"><a href="#二、游标（Cursor）" class="headerlink" title="二、游标（Cursor）"></a>二、游标（Cursor）</h1><p>游标：一种PL/SQL控制结构，对SQL语句的处理进行显示控制，便于对表的行数据逐条进行处理。，游标只存留在内存中。一般使用方法是：声明游标—&gt;打开游标—&gt;取出结果—&gt;关闭游标。</p>
+<p>一般使用for循环来操作游标</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--利用for循环创建操作游标DELCARE --声明游标</span></span><br><span class="line">    CURSOR testCursor IS <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> product_table <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">1</span>;</span><br><span class="line">    productInfo product_table%ROWTYPE;<span class="comment">--ROWTYPE类型：表示一行的数据</span></span><br><span class="line">    count NUMBER;<span class="keyword">BEGIN</span>    <span class="comment">--开始操作游标</span></span><br><span class="line">    <span class="keyword">FOR</span> productInfo <span class="keyword">IN</span> testCursor</span><br><span class="line">    <span class="keyword">LOOP</span>    </span><br><span class="line">        <span class="keyword">count</span>:=testCursor%ROWCOUT;<span class="comment">--ROWCOUNT 对游标所操作的行数进行记录</span></span><br><span class="line">        DBMS_OUTPUT.put_line(count||'产品编号：'||productInfo.id);</span><br><span class="line">        DBMS_OUTPUT.put_line(count||'产品名称：'||productInfo.name);    </span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">LOOP</span>;<span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+<p>游标的作用：</p>
+<h4 id="1、指定结果集中特定行的位置"><a href="#1、指定结果集中特定行的位置" class="headerlink" title="1、指定结果集中特定行的位置"></a>1、指定结果集中特定行的位置</h4><h4 id="2、根据当前的结果接位置检索一行或者连续的几行"><a href="#2、根据当前的结果接位置检索一行或者连续的几行" class="headerlink" title="2、根据当前的结果接位置检索一行或者连续的几行"></a>2、根据当前的结果接位置检索一行或者连续的几行</h4><h4 id="3、在结果集的当前位置修改行中的数据"><a href="#3、在结果集的当前位置修改行中的数据" class="headerlink" title="3、在结果集的当前位置修改行中的数据"></a>3、在结果集的当前位置修改行中的数据</h4><h4 id="4、对其他用户所做的数据更改定义不同的敏感级别"><a href="#4、对其他用户所做的数据更改定义不同的敏感级别" class="headerlink" title="4、对其他用户所做的数据更改定义不同的敏感级别"></a>4、对其他用户所做的数据更改定义不同的敏感级别</h4><h4 id="5、根据编程的方式访问数据库"><a href="#5、根据编程的方式访问数据库" class="headerlink" title="5、根据编程的方式访问数据库"></a>5、根据编程的方式访问数据库</h4><p>因为游标的效率比较差，如果游标操作的数据超过一万行，那么就要改写。</p>
+<ul>
+<li><p>显式游标：用户显式的声明的游标，也就是指定的结果集，当查询返回结果超过一行，就需要一个显式游标。</p>
+</li>
+<li><p>隐式游标：所有的CRUD记录为隐式游标，系统帮我们定义。</p>
+<ul>
+<li>%Found：用于校验游标是否成功。</li>
+<li>%NotFound：最后一条记录是否提取，到了游标的尾部，没有记录了就返回true</li>
+<li>%ISOpen：游标是否打开，打开为true</li>
+<li>%RowCount：游标当前提取的行数。</li>
+</ul>
+</li>
+</ul>
+<h1 id="三、创建函数"><a href="#三、创建函数" class="headerlink" title="三、创建函数"></a>三、创建函数</h1><p>语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">create</span> [<span class="keyword">or</span> <span class="keyword">replace</span>] <span class="keyword">function</span> 函数名(参数列表[<span class="keyword">in</span>/<span class="keyword">out</span>/<span class="keyword">in</span> <span class="keyword">out</span>])</span><br><span class="line">　　<span class="comment">--参数列表的类型：in：输入的参数，out：返回的参数，in out:即是输入参数也是返回参数</span></span><br><span class="line">　　<span class="keyword">return</span> datatype<span class="comment">--返回值类型</span></span><br><span class="line">　　<span class="keyword">as</span>/<span class="keyword">is</span></span><br><span class="line">　　说明部分</span><br><span class="line">　　<span class="keyword">begin</span></span><br><span class="line"> 　　<span class="comment">--执行的SQL</span></span><br><span class="line">　　<span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建一个计算产品平均价格的函数</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">function</span> avg_function_product(product_sum_price <span class="keyword">in</span> <span class="built_in">number</span>(<span class="number">10</span>,<span class="number">2</span>),product_count <span class="keyword">in</span> <span class="keyword">out</span> <span class="built_in">number</span>(<span class="number">10</span>,<span class="number">2</span>)) <span class="keyword">return</span> <span class="built_in">number</span>(<span class="number">10</span>,<span class="number">2</span>)<span class="keyword">as</span></span><br><span class="line">    product_price <span class="built_in">number</span>(<span class="number">10</span>,<span class="number">2</span>);<span class="keyword">begin</span></span><br><span class="line">    product_price:=product_sum_weight/product_count;    </span><br><span class="line">    return product_price;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建一个比较大小的自定义函数</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">function</span> testCompare(args1 <span class="keyword">in</span> <span class="built_in">number</span>,args2 <span class="keyword">in</span> <span class="built_in">number</span>)<span class="keyword">return</span> numberasbegin</span><br><span class="line">    <span class="keyword">if</span> args1&gt;args2 <span class="keyword">then</span> <span class="keyword">return</span> args1;</span><br><span class="line">    else return args2;</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"><span class="keyword">end</span> testCompare;<span class="comment">--测试调用</span></span><br><span class="line"><span class="keyword">select</span> testCompare(<span class="number">12</span>,<span class="number">57</span>) <span class="keyword">from</span> product_table;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Oracle数据库之触发器/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/Oracle数据库之触发器/" itemprop="url">Oracle数据库之触发器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:56:22+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  273
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、触发器"><a href="#一、触发器" class="headerlink" title="一、触发器"></a>一、触发器</h1><p>有点类似AOP里的拦截器，触发器不能传递参数，也不能输出参数，也不能显式调用，只有当满足触发器条件的时候Oracle会自动调用。</p>
+<p>触发器：</p>
+<h4 id="1、语句级别的触发器：CRUD操作"><a href="#1、语句级别的触发器：CRUD操作" class="headerlink" title="　　1、语句级别的触发器：CRUD操作"></a>　　1、语句级别的触发器：CRUD操作</h4><h4 id="2、行级别的触发器"><a href="#2、行级别的触发器" class="headerlink" title="　　2、行级别的触发器"></a>　　2、行级别的触发器</h4><h4 id="3、系统级别的触发器：数据库的关闭，启动"><a href="#3、系统级别的触发器：数据库的关闭，启动" class="headerlink" title="　　3、系统级别的触发器：数据库的关闭，启动"></a>　　3、系统级别的触发器：数据库的关闭，启动</h4><h4 id="4、用户事件的触发器：进行drop，alter，create时候触发"><a href="#4、用户事件的触发器：进行drop，alter，create时候触发" class="headerlink" title="　　4、用户事件的触发器：进行drop，alter，create时候触发"></a>　　4、用户事件的触发器：进行drop，alter，create时候触发</h4><h1 id="二、触发器的创建"><a href="#二、触发器的创建" class="headerlink" title="二、触发器的创建"></a>二、触发器的创建</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建行级别的触发器CREATE OR REPLACE trigger trigger_update_product_table</span></span><br><span class="line">AFTER UPDATEON product_tableFOR EACH ROW    <span class="comment">--每更新一行，就触发一次BEGIN</span></span><br><span class="line">    <span class="comment">--Oracle里面对触发器提供了特殊的对象:NEW   :OLD来访问更新前后的数据</span></span><br><span class="line">    DBMS_OUTPUT.put_line('更新后'||:NEW.name);<span class="comment">--orcle使用||符号链接字符串而已，相当于java中的+连接字符串</span></span><br><span class="line">    DBMS_OUTPUT.put_line('更新前'||:OLD.name);    </span><br><span class="line">    IF UPDATING THEN</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">IF</span>;    </span><br><span class="line">    IF INSETINGEND;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建表级别的触发器CREATE OR REPLACE trigger trigger_update_product_table</span></span><br><span class="line">AFTER UPDATEON product_tableBEGIN</span><br><span class="line">    <span class="comment">--表级别触发器里面，不允许使用:NEW  :OLD变量</span></span><br><span class="line">    <span class="comment">--DBMS.OUTPUT.put_line('更新后：'||:NEW.name);</span></span><br><span class="line">    <span class="comment">--DBMS.OUTPUT.put_line('更新前：'||:OLD.name);END;</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Oracle数据库/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/Oracle数据库/" itemprop="url">Oracle数据库</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:53:35+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  769
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法"><a href="#1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法" class="headerlink" title="1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法"></a>1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> ( <span class="keyword">select</span> <span class="keyword">rownum</span> rn,a <span class="keyword">from</span> tabName <span class="keyword">where</span> <span class="keyword">rownum</span>&lt;=<span class="number">20</span>) </span><br><span class="line"><span class="keyword">where</span> rn&gt;<span class="number">10</span></span><br></pre></td></tr></table></figure>
+<h3 id="2、Oracle的索引使用"><a href="#2、Oracle的索引使用" class="headerlink" title="2、Oracle的索引使用"></a>2、Oracle的索引使用</h3><h4 id="创建索引："><a href="#创建索引：" class="headerlink" title="创建索引："></a>创建索引：</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> index_name <span class="keyword">on</span> table_name(collum_name)</span><br></pre></td></tr></table></figure>
+<h4 id="索引使用规则："><a href="#索引使用规则：" class="headerlink" title="索引使用规则："></a>索引使用规则：</h4><p>　　1、经常和其他表进行连接的表，在连接字段上应该建立索引。</p>
+<p>　　2、经常出现在where子句中的字段而且过滤性很强的，特别是大表的字段，应该建立索引</p>
+<h4 id="索引的优点："><a href="#索引的优点：" class="headerlink" title="索引的优点："></a>索引的优点：</h4><p>　　1、建立唯一性索引，可以保证数据库表中的每一行数据的唯一性</p>
+<p>　　2、大大加快数据的检索速度，加速了表和表之间的连接，特别是实现数据的参照完整性。</p>
+<p>　　3、在使用分组和排序子句进行数据检索时，同样可以显著减少查询中分组和排序的时间</p>
+<h4 id="索引的缺点："><a href="#索引的缺点：" class="headerlink" title="索引的缺点："></a>索引的缺点：</h4><p>　　1、索引创建在表上，不能创建在索引上</p>
+<p>　　2、创建索引和维护索引耗费时间，时间随着数据量的增加而增加</p>
+<p>　　3、索引需要占用物理空间，除了数据表占用数据空间之外，每一个索引还要占用一定的物理空间，如果要建立聚集索引，那么消耗的空间更大，一个表只能有一个聚集索引。</p>
+<p>　　4、当对表中的数据进行增加，删除，修改的时候，索引也需要动态的维护，降低了数据的维护速度。</p>
+<h3 id="3、视图的使用"><a href="#3、视图的使用" class="headerlink" title="3、视图的使用"></a>3、视图的使用</h3><h4 id="创建视图："><a href="#创建视图：" class="headerlink" title="创建视图："></a>创建视图：</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_name <span class="keyword">as</span> <span class="keyword">select</span> column_name <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
+<h4 id="视图的优点："><a href="#视图的优点：" class="headerlink" title="视图的优点："></a>视图的优点：</h4><p>　　1、可以简单的将视图理解为SQL查询语句，视图最大的好处就是不占用系统空间</p>
+<p>　　2、一些安全性很高的系统，不会公布系统的表结构，可能会使用视图将一些敏感信息过滤或者重命名后公布结构</p>
+<p>　　3、简化查询，可以控制权限，在使用的时候需要将视图的使用权限grant给用户。</p>
+<h3 id="4、合并查询"><a href="#4、合并查询" class="headerlink" title="4、合并查询"></a>4、合并查询</h3><p>有时候，为了合并多个select语句的结果，可以使用集合操作符号UNION，UNION ALL，INTERSECT，MINUS多用于数据量比较大的数据库，运行速度快。</p>
+<p>　　1、union：取得两个结果集的并集，使用它时，会自动去掉结果集中重复行</p>
+<p>　　2、union all：也是取得两个结果集的并集，但是不会取消重复行，也不会排序。</p>
+<p>　　3、intersect：取得两个结果集的交集</p>
+<p>　　4、minus：取得两个结果集的差集。</p>
+<h3 id="5、维护数据的完整性"><a href="#5、维护数据的完整性" class="headerlink" title="5、维护数据的完整性"></a>5、维护数据的完整性</h3><p>数据的完整性用于确保数据库数据遵从一定的商业规则和逻辑规则。</p>
+<p>Oracle中，数据完整性可以使用约束，触发器，应用程序（存储过程，函数）来实现。这三个因为约束更容易维护，并且具有最好的性能，所以作为维护数据完整性的首选。</p>
+<p>不过约束还可以用:not null，unique，primary key，foreign key，check</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/数组与链表/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/数组与链表/" itemprop="url">数组与链表</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:51:52+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  789
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="内存的工作原理"><a href="#内存的工作原理" class="headerlink" title="内存的工作原理"></a>内存的工作原理</h1><h3 id="1-个人理解："><a href="#1-个人理解：" class="headerlink" title="1.个人理解："></a>1.个人理解：</h3><p>　　比如你要去逛超市，需要将东西寄存，寄存处有一个柜子，柜子有很多抽屉。每个抽屉可以放一样东西，你有两样东西，所以要了两个抽屉。这大概就是计算机内存的工作原理。计算机就像很多抽屉的集合体，每个抽屉都有地址。</p>
+<p>　　当你需要将数据存储到内存时，你请求计算机提供存储空间，计算机会给你一个存储地址。但是当你要存储多项数据时，有两种基本方式：1.使用数组 2.使用链表，但是他们并不是都适用于所有的情形，要进行适当的选择。</p>
+<h3 id="2-数组和链表"><a href="#2-数组和链表" class="headerlink" title="2.数组和链表"></a>2.数组和链表</h3><p>数组：在内存中都是相连的（紧靠在一起的）</p>
+<p>链表：链表中的严肃可存储在内存的任何地方。链表的每个元素都存储了下一个元素的地址，从而使得一系列随机的内存地址串在了一起。</p>
+<ul>
+<li><h4 id="访问元素（查询）：数组更好选择"><a href="#访问元素（查询）：数组更好选择" class="headerlink" title="访问元素（查询）：数组更好选择"></a>访问元素（查询）：数组更好选择</h4></li>
+</ul>
+<p>　　但是链表存在问题，比如当你需要读取链表的最后一个元素时，你不能直接读取，因为你根本不知道它所处的地址，所以必须先访问第一个元素，然后获取第二个元素的地址，在访问第三个，以此类推，直到访问到最后一个元素。当你需要同时读取所有元素时，链表的效率很高。但是当你需要跳跃读取某个元素，链表的效率很低。数组不一样，因为你是知道每个元素的地址的，根据数组的下标可以算出来。比如一个数组里有五个元素，起始地址为000，那么第五个元素的地址肯定是004.所以当你需要随机访问元素时，数组效率很高，可以迅速的找到数组的任何元素。在链表中，元素并非靠在一起，你无法迅速计算出第五个元素的内存地址，必须县访问第一个元素以获取第二个，依次下去。</p>
+<ul>
+<li><h4 id="插入操作（中间插入）：链表更好选择"><a href="#插入操作（中间插入）：链表更好选择" class="headerlink" title="插入操作（中间插入）：链表更好选择"></a>插入操作（中间插入）：链表更好选择</h4></li>
+</ul>
+<p>　　加入你要在中间插入一个元素，使用链表时，插入元素很简单，只需要修改前面那个元素的指针指向。但是使用数组时，则必须先将后面的元素都向后移动，如果没有足够的空间，可能还要将整个数组复制到其他地方。</p>
+<ul>
+<li><h4 id="删除操作：链表更好选择"><a href="#删除操作：链表更好选择" class="headerlink" title="删除操作：链表更好选择"></a>删除操作：链表更好选择</h4></li>
+</ul>
+<p>　　因为你只需要修改前一个元素指向的地址就行。使用数组，删除元素后，比如将后面的元素都向前移动。不同于插入，删除元素总能成功。如果内存中没有足够的空间，插入操作可能失败，但是任何情况下都能将元素删除</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">比较</th>
+<th style="text-align:center">数组</th>
+<th style="text-align:center">链表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">读取</td>
+<td style="text-align:center">O(1)</td>
+<td style="text-align:center">O(N)</td>
+</tr>
+<tr>
+<td style="text-align:center">插入</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:center">删除</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/折半查找/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/折半查找/" itemprop="url">折半查找</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:48:23+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  423
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><ul>
+<li><p>线性结构：顺序查找，折半查找，分块查找</p>
+</li>
+<li><p>树形结构：二叉搜索树（二叉排序树），AVL平衡二叉树，B树，B+树</p>
+</li>
+<li><p>散列结构：散列表Hash，性能分析，冲突处理，效率指标–平均查找长度，查找成功，查找失败</p>
+</li>
+</ul>
+<h4 id="线性表顺序查找："><a href="#线性表顺序查找：" class="headerlink" title="线性表顺序查找："></a>线性表顺序查找：</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">List</span>&#123;</span></span><br><span class="line">    ElemType *elem;</span><br><span class="line">    <span class="keyword">int</span> table_len;<span class="comment">//表长</span></span><br><span class="line">&#125;SSTable;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Seq</span><span class="params">(SSTable st,ElemType key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//顺序表st种顺序查找关键字key的元素，并返回元素的表中位置</span></span><br><span class="line">    st.elem[<span class="number">0</span>]=key;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=st.table_len;st.elem[i]!=key;--i)<span class="comment">//从后往找</span></span><br><span class="line">    &#123;        <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>折半查找：二分查找，只用在有序的顺序表</p>
+</li>
+<li><p>算法思想：首先将给定值key和表中中间位置元素的关键字比较，如果相等，成功，返回元素位置</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Binary_Search</span><span class="params">(SeqList L,ElemType key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low=<span class="number">0</span>,mid;</span><br><span class="line">    <span class="keyword">int</span> high=L.Table_len<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(low&lt;=high)</span><br><span class="line">    &#123;</span><br><span class="line">        mid=(low+high)/<span class="number">2</span>;<span class="comment">//取中间位置</span></span><br><span class="line">        <span class="keyword">if</span>(L.elem[mid==key])<span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(L.elem[mid]&gt;key)high=mid<span class="number">-1</span>;<span class="comment">//关键字比中间值小，从前半部分查找</span></span><br><span class="line">        <span class="keyword">else</span> low=mid+<span class="number">1</span>;<span class="comment">//关键字比中间值大，从后半部分查找</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;<span class="comment">//时间复杂度为O(logN)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>分块查找：索引顺序查找，吸取顺序查找和折半查找的优点，有动态结构，适用于快速查找</p>
+</li>
+<li><p>B树：多路平衡查找树</p>
+</li>
+<li><p>Hash表：一个把查找表中的关键字映射成该关键字对应地址的函数，叫做Hash(key)=Addr。</p>
+</li>
+<li><p>散列表：根据关键字而直接进行访问的数据结构，也就是，散列表建立了关键字和存储地址之间的一种直接映射关系。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/二叉树/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/二叉树/" itemprop="url">二叉树</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:36:24+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  959
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="二叉树的遍历："><a href="#二叉树的遍历：" class="headerlink" title="二叉树的遍历："></a>二叉树的遍历：</h2><ul>
+<li><p>前序遍历：根左右</p>
+</li>
+<li><p>中序遍历：左根右</p>
+</li>
+<li><p>后序遍历：左右根</p>
+</li>
+<li><p>层次遍历：一层一层的遍历，类似广度优先</p>
+</li>
+</ul>
+<h2 id="二叉树的存储结构"><a href="#二叉树的存储结构" class="headerlink" title="二叉树的存储结构"></a>二叉树的存储结构</h2><ul>
+<li>二叉树以二叉链表结构存储，也就是1个数据域，两个指针域（分别指向左右孩子）</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二叉树的二叉链表结构定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> ElemType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> *<span class="title">lchild</span>,*<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode,*BiTree</span><br></pre></td></tr></table></figure>
+<ul>
+<li>二叉树的建立，先按照前序遍历的方式建立二叉树，当然也可以按照中序遍历或者后序遍历的方式建立二叉树</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以前序遍历的方式建立二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBiTree</span><span class="params">(BiTree *T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ElemType ch;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;ch;</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">'#'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *T=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        *T=(BiTNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BiTNode));</span><br><span class="line">        <span class="keyword">if</span>(!*T)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">exit</span>(OVERFLOW);<span class="comment">//分配内存失败退出</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            (*T)-&gt;data=ch;<span class="comment">//生成结点</span></span><br><span class="line">            CreateBiTree(&amp;(*T)-&gt;lchild);<span class="comment">//构造左子树</span></span><br><span class="line">            CreateBiTree(&amp;(*T)-&gt;rchild);<span class="comment">//构造右子树</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归前序遍历二叉树"><a href="#递归前序遍历二叉树" class="headerlink" title="递归前序遍历二叉树"></a>递归前序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归方式前序遍历二叉树</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);<span class="comment">//输出了层数</span></span><br><span class="line">        PreOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PreOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归中序遍历二叉树"><a href="#递归中序遍历二叉树" class="headerlink" title="递归中序遍历二叉树"></a>递归中序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        InOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">        InOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归后序遍历二叉树"><a href="#递归后序遍历二叉树" class="headerlink" title="递归后序遍历二叉树"></a>递归后序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归后序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        PostOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PostOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="中序遍历非递归"><a href="#中序遍历非递归" class="headerlink" title="中序遍历非递归"></a>中序遍历非递归</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrder</span><span class="params">(BiTree T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	InitStack(S);</span><br><span class="line">	BiTree p=T;<span class="comment">//p是遍历指针</span></span><br><span class="line">	<span class="keyword">while</span>(p||!isEmpty(S))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(p)<span class="comment">//根指针进站，遍历左子树</span></span><br><span class="line">		&#123;</span><br><span class="line">			Push(S,p);</span><br><span class="line">			p=p-&gt;lchild;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			Pop(S,p);</span><br><span class="line">			visit(p);</span><br><span class="line">			p=p-&gt;rchild;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="完整代码如下："><a href="#完整代码如下：" class="headerlink" title="完整代码如下："></a>完整代码如下：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;  </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> ElemType;<span class="comment">//二叉树的二叉链表结构，也就是二叉树的存储结构，1个数据域，2个指针域（分别指向左右子结点）</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> &#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> <span class="title">lchild</span>,<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode,*BiTree;</span><br><span class="line"></span><br><span class="line"><span class="comment">//以前序遍历的方式建立二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBiTree</span><span class="params">(BiTree *T)</span> </span>&#123;</span><br><span class="line">    ElemType ch;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;ch;</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">'#'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *T=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">`       T=(BiTNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BiTNode));</span><br><span class="line">        <span class="keyword">if</span>(!T)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">exit</span>(OVERFLOW);<span class="comment">//分配内存失败退出</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">             (T)-&gt;data=ch;<span class="comment">//生成结点</span></span><br><span class="line">             CreateBiTree(&amp;(T)-&gt;lchild);<span class="comment">//构造左子树</span></span><br><span class="line">             CreateBiTree(&amp;(*T)-&gt;rchild);<span class="comment">//构造右子树</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line"><span class="comment">//将二叉树前序遍历输出</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Display</span><span class="params">(ElemType ch)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ch&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在输出的基础上，输出层数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Floor</span><span class="params">(ElemType ch,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ch&lt;&lt;<span class="string">"在第"</span>&lt;&lt;level&lt;&lt;<span class="string">"层"</span>&lt;&lt;end;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归方式前序遍历二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);<span class="comment">//输出了层数</span></span><br><span class="line">        PreOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PreOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        InOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">        InOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归后序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        PostOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PostOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">int</span> level=<span class="number">1</span>;<span class="comment">//表示层数</span></span><br><span class="line">    BiTree T=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"请以前序遍历的方式输入二叉树："</span>;<span class="comment">//类似输入AB#D##C##</span></span><br><span class="line">    CreateBiTree(&amp;T);<span class="comment">//建立二叉树，没有树，无法遍历</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归前序遍历输出："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    PostOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;end;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归中序遍历输出为："</span>&lt;&lt;end;</span><br><span class="line">    InOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归后序遍历输出为："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    PostOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Python3入门/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1084,757 +2457,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/about/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/about/" itemprop="url">about</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T10:55:23+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/关于/" itemprop="url" rel="index">
-                    <span itemprop="name">关于</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  78
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><p>欢迎来到我的博客，这是一个热衷于技术分享，涉及软件开发， 计算机基础，高等数学，数据库，人工智能等热门前沿技术的分享论坛。</p>
-<h4 id="email-1397743321-qq-com"><a href="#email-1397743321-qq-com" class="headerlink" title="email:1397743321@qq.com"></a>email:<a href="mailto:1397743321@qq.com" target="_blank" rel="noopener">1397743321@qq.com</a></h4><h4 id="微信公众号：Victor的分享论坛"><a href="#微信公众号：Victor的分享论坛" class="headerlink" title="微信公众号：Victor的分享论坛"></a>微信公众号：Victor的分享论坛</h4><h4 id="博客园：https-www-cnblogs-com-drq1"><a href="#博客园：https-www-cnblogs-com-drq1" class="headerlink" title="博客园：https://www.cnblogs.com/drq1/"></a>博客园：<a href="https://www.cnblogs.com/drq1/" target="_blank" rel="noopener">https://www.cnblogs.com/drq1/</a></h4>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/数据结构/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/数据结构/" itemprop="url">数据结构</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T10:36:17+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  4k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  17
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h1><h4 id="线性表：顺序存储——顺序表"><a href="#线性表：顺序存储——顺序表" class="headerlink" title="线性表：顺序存储——顺序表"></a>线性表：顺序存储——顺序表</h4><h4 id="链式存储—-单链表，双链表，循环链表—指针实现"><a href="#链式存储—-单链表，双链表，循环链表—指针实现" class="headerlink" title="链式存储—-单链表，双链表，循环链表—指针实现"></a>链式存储—-单链表，双链表，循环链表—指针实现</h4><h4 id="静态链表（借助数组实现）"><a href="#静态链表（借助数组实现）" class="headerlink" title="静态链表（借助数组实现）"></a>静态链表（借助数组实现）</h4><h4 id="线性表的基本操作："><a href="#线性表的基本操作：" class="headerlink" title="线性表的基本操作："></a>线性表的基本操作：</h4><ul>
-<li>InitList(&amp;L)</li>
-<li>Length(L)</li>
-<li>LocateElem(L,e)</li>
-<li>ListInsert(&amp;L,i,e)</li>
-<li>ListDelete(&amp;L,i,&amp;e)</li>
-<li>PrintList(L)</li>
-<li>DestroyList(&amp;L)</li>
-</ul>
-<p>注：&amp;是C++中的引用，传入的变量是指针型的变量</p>
-<p>函数体内要对传入的指针进行改变，将用到执行变量的引用</p>
-<p>C中采用*，指针的效果也可以</p>
-<h4 id="顺序表的定义"><a href="#顺序表的定义" class="headerlink" title="顺序表的定义"></a>顺序表的定义</h4><p>地址连续的存储单元，依次存储线性表中的数据元素，逻辑上相邻的两个元素在物理位置上也相邻。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MaxSize 50<span class="comment">//定义线性表的最大长度</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">    ElemType data[MaxSize];<span class="comment">//顺序表的元素</span></span><br><span class="line">    <span class="keyword">int</span> length;<span class="comment">// 顺序表当前长度   </span></span><br><span class="line">&#125;SqList;<span class="comment">//顺序表的类型定义</span></span><br><span class="line">一位数组静态分配，动态分配。</span><br><span class="line">静态分配：数组大小和空间已经固定，当空间占满，再加入元素，将产生溢出，导致程序崩溃</span><br><span class="line">动态分配：存储数组的空间在程序执行过程中通过动态分配语句分配的。</span><br><span class="line">一旦数据空间站满，可以另外开辟一块更大的存储空间，替换原来的存储空间。</span><br><span class="line">从而达到扩充存储数组空间的目的</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> InitSize 100</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">	ElemType *data;</span><br><span class="line">    <span class="keyword">int</span> MaxSize,length;</span><br><span class="line">&#125;SeqList;</span><br><span class="line">C的动态分配：</span><br><span class="line">L.dada=(ElemType*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ElemType)*InitSize)</span><br><span class="line">C++的动态分配：</span><br><span class="line">L.data=<span class="keyword">new</span> ElemType[InitSize];</span><br></pre></td></tr></table></figure>
-<p>注：顺序表的主要特点：随机访问，通过首地址和元素序号可以再O(1)的时间内</p>
-<p>找到指定的元素。</p>
-<p>顺序表的存储密度高，每个节点只存储数据元素</p>
-<p>顺序比哦啊逻辑上相邻的元素物理上也是相邻。插入和删除需要移动大量元素</p>
-<h4 id="顺序表的基本操作-实现"><a href="#顺序表的基本操作-实现" class="headerlink" title="顺序表的基本操作 实现"></a>顺序表的基本操作 实现</h4><ul>
-<li><p>插入操作</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">ListInsert</span><span class="params">(SqList &amp;L,<span class="keyword">int</span> i,ElemType e)</span></span>&#123;<span class="comment">//本算法实现将元素e插入到顺序表L中第i个位置,注：第i个位置的元素，数组下标是i-1</span></span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;L.length+<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(L.length&gt;=MaxSize)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=L.lenght;j&gt;=i;j--)<span class="comment">//将第i个元素以及后面的元素后移</span></span><br><span class="line">        L.data[j]=L.data[j<span class="number">-1</span>];</span><br><span class="line">    L.data[i<span class="number">-1</span>]=e;<span class="comment">//在位置i处放入e</span></span><br><span class="line">    L.length++;<span class="comment">//线性表长度+1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//时间复杂度：O(n)</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除操作</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">ListDelete</span><span class="params">(SqList &amp;L,<span class="keyword">int</span> i,ElemType &amp;e)</span></span>&#123;<span class="comment">//将顺序表L中第i个位置的元素删除</span></span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;L.length)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    e=L.data[i<span class="number">-1</span>];<span class="comment">//将被删除的元素赋值给e</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;L.length;j++)<span class="comment">//将第i个位置之后的元素向前移动</span></span><br><span class="line">        L.data[j<span class="number">-1</span>]=L.data[j];</span><br><span class="line">    L.length--;<span class="comment">//线性表长度-1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//时间复杂度：O(n)</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>按值查找（顺序查找）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LocateElem</span><span class="params">(SqList L,ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="comment">//查找顺序表L中值为e的元素，返回元素的位置号，下标为i的元素，是第i+1个位置</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;L.length;i++)</span><br><span class="line">        <span class="keyword">if</span>(L.data[i]==e)</span><br><span class="line">            <span class="keyword">return</span> i+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//时间复杂度：O(1)</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h4><p>顺序表的插入，删除需要移动大量元素，引入线性表的链式存储。不需要使用地址连续的存储单元</p>
-<p>不要求逻辑上相邻的两个元素在物理位置上相邻。</p>
-<h5 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span><span class="comment">//单链表的节点</span></span><br><span class="line">    ElemType data;<span class="comment">//数据域</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">next</span>;</span><span class="comment">//指针域</span></span><br><span class="line">&#125;LNode,*LinkList;</span><br></pre></td></tr></table></figure>
-<p>注：用头指针标识一个单链表，如果单链表L，L-&gt;next=NULL，表示为一个空表</p>
-<p>头结点，头指针区别：</p>
-<p>不管带不带头结点，头指针始终只想链表的第一个节点，头结点是一个带头结点链表的第一个节点</p>
-<p>通常节点不存储信息。</p>
-<ul>
-<li><p>头插法建立单链表</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LinkList <span class="title">CreateList</span><span class="params">(LinkList &amp;L)</span></span>&#123;</span><br><span class="line">    Node *s;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    L=(LinkList)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));<span class="comment">//创建头结点</span></span><br><span class="line">    L-&gt;next=<span class="literal">NULL</span>;<span class="comment">//头指针为空，初始化为空表</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);<span class="comment">//输入节点的值</span></span><br><span class="line">    <span class="keyword">while</span>(x!=<span class="number">9999</span>)&#123;</span><br><span class="line">        s=(Node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">        s-&gt;data=x;</span><br><span class="line">        s-&gt;next=L-&gt;next;<span class="comment">//s放在L-&gt;next是下一个元素之前</span></span><br><span class="line">        L-&gt;next=s;<span class="comment">//头指针L-&gt;next指向s</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> L;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//插入时间复杂度：O(1)</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>尾插法建立单链表</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LinkList <span class="title">CreateList</span><span class="params">(LinkList &amp;L)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    L=(LinkList)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node);</span><br><span class="line">    Node *s,*r=L;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</span><br><span class="line">    <span class="keyword">while</span>(x!=<span class="number">9999</span>)&#123;</span><br><span class="line">        s=(Node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">        s-&gt;data=x;</span><br><span class="line">        r-&gt;next=s;<span class="comment">//尾指针r等于L,让r-&gt;next指向新插入的节点s</span></span><br><span class="line">        r=s;<span class="comment">//调整尾指针r指向s</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</span><br><span class="line">    &#125;</span><br><span class="line">    r-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> L;                   </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//时间复杂度：O(n)</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>按序号查找节点</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Node *<span class="title">GetElem</span><span class="params">(LinkList L,<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="comment">//取出单链表L中第i个位置的节点指针</span></span><br><span class="line">    <span class="keyword">int</span> flag=<span class="number">1</span>;</span><br><span class="line">    LNode *p=L-&gt;next;</span><br><span class="line">    <span class="keyword">if</span>(i==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> L;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(p&amp;&amp;i&gt;flag)&#123;<span class="comment">//从第i个节点开始找，查找第i个节点</span></span><br><span class="line">        p=p-&gt;next;<span class="comment">//import step循环。</span></span><br><span class="line">        flag++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p;<span class="comment">//返回第i个节点的指针，如果i大于表长，p=NULL</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//时间复杂度：O(n)</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>按照值来查找节点</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Node *<span class="title">LocateElem</span><span class="params">(LinkList L,ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="comment">//查找单链表L，数据域值为e的节点指针，否则返回NULL</span></span><br><span class="line">    Node *P=L-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>&amp;&amp;p-&gt;data!=e)&#123;</span><br><span class="line">        p=p-&gt;next;<span class="comment">//从第1个节点开始查找data域为e的节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//时间复杂度：O(n)</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>插入节点操作</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p=GetElem(L,i<span class="number">-1</span>);</span><br><span class="line">s-&gt;next=p-&gt;next;</span><br><span class="line">p-&gt;next=s;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除节点操作</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p=GetElem(L,i<span class="number">-1</span>);</span><br><span class="line">q=p-&gt;next;</span><br><span class="line">p-&gt;next=q-&gt;next;</span><br><span class="line"><span class="built_in">free</span>(q);   </span><br><span class="line"></span><br><span class="line"><span class="comment">//method 2：</span></span><br><span class="line">p-&gt;data=p-&gt;next-&gt;data;</span><br><span class="line">p-&gt;next=p-&gt;next-&gt;next;</span><br><span class="line"><span class="built_in">free</span>(p-&gt;next)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h4><p>单链表的节点中只有一个指向后继的指针，单链表只能从头结点依次顺序的向后遍历</p>
-<p>想访问某个节点的前驱节点，比如插入，删除，只能从头遍历。</p>
-<h5 id="双链表的节点："><a href="#双链表的节点：" class="headerlink" title="双链表的节点："></a>双链表的节点：</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">DNode</span>&#123;</span></span><br><span class="line">    ElemType data;<span class="comment">//数据域</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">DNode</span> *<span class="title">prior</span>,*<span class="title">next</span>;</span><span class="comment">//前驱，后继指针</span></span><br><span class="line">&#125;DNode,*DLinkList;</span><br></pre></td></tr></table></figure>
-<p>关键在于保证在修改的过程不断链。双链表可以方便的找到前驱节点。插入、删除节点的时间复杂度仅为O(1)</p>
-<ul>
-<li><p>双链表的插入操作</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s-&gt;next=p-&gt;next;</span><br><span class="line">p-&gt;next-&gt;prior=s;</span><br><span class="line">s-&gt;prior=p;</span><br><span class="line">p-&gt;next=s;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>双链表的删除操作</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p-&gt;next=q-&gt;next;</span><br><span class="line">q-&gt;next-&gt;prior=p;</span><br><span class="line"><span class="built_in">free</span>(q);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h4><p>循环链表与单链表的区别：表中最后一个节点的指针不为NULL，改为指向头结点。</p>
-<p>单链表中只能从表头节点开始往后顺序遍历整个链表，而循环单链表可以从表中的任一节点开始遍历整个链表。有时对单链表常做的操作是在表头和表尾进行的，此时可对循环单链表不设头指针而设尾指针。</p>
-<h4 id="静态链表"><a href="#静态链表" class="headerlink" title="静态链表"></a>静态链表</h4><p>是借助数组来描述线性表的链式存储结构，节点也有数据域data和指针域next。</p>
-<p>指针是数组的下标，也叫游标。</p>
-<h5 id="静态链表结构的定义："><a href="#静态链表结构的定义：" class="headerlink" title="静态链表结构的定义："></a>静态链表结构的定义：</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MaxSize 50</span></span><br><span class="line">typedf <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="keyword">int</span> next;</span><br><span class="line">&#125;SLinkList[MaxSize];</span><br></pre></td></tr></table></figure>
-<h1 id="栈Stack"><a href="#栈Stack" class="headerlink" title="栈Stack"></a>栈Stack</h1><h4 id="栈的基本操作："><a href="#栈的基本操作：" class="headerlink" title="栈的基本操作："></a>栈的基本操作：</h4><ul>
-<li><p>InitStack(&amp;S):初始化一个空栈S</p>
-</li>
-<li><p>StackEmpty(S)：判断一个栈是否为空，S为空返回true，否则false</p>
-</li>
-<li><p>Push(&amp;S,x)：进栈，如果栈S未满，将x加入让它成为新的栈顶</p>
-</li>
-<li><p>Pop(&amp;S,&amp;x)：出栈，如果栈S非空，弹出栈顶元素，并用x返回</p>
-</li>
-<li><p>GetTop(S,&amp;x)：读取栈顶元素 ，如果栈S非空，用x返回栈顶元素</p>
-</li>
-<li><p>ClearStack(&amp;S)：销毁栈，并释放栈S占用的存储空间</p>
-<p>注：&amp;是C++的特有，用来引用，采用C的写法是*，用来传达地址的目的</p>
-</li>
-</ul>
-<h4 id="顺序栈："><a href="#顺序栈：" class="headerlink" title="顺序栈："></a>顺序栈：</h4><ul>
-<li><p>顺序栈的实现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#define MaxSize 50</span><br><span class="line">typedef struct&#123;</span><br><span class="line">    ElemType data[MaxSize];</span><br><span class="line">    int top;</span><br><span class="line">&#125;SqStack;</span><br><span class="line">栈顶指针：初始化为S.top=-1</span><br><span class="line">栈顶元素：S.data[S.top]</span><br><span class="line">进栈操作：S is not full,top++</span><br><span class="line">出栈操作：S is not empty,get top ,top--</span><br><span class="line">栈空条件:S.top==-1</span><br><span class="line">栈满条件：S.top==MaxSize-1</span><br><span class="line">栈长：S.top+1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>顺序栈的基本运算</p>
-<ul>
-<li><p>初始化</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitStack</span><span class="params">(SqStack &amp;S)</span></span>&#123;</span><br><span class="line">    S.top=<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>判断栈空</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">StackEmpty</span><span class="params">(SqStack S)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>进栈</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Push</span><span class="params">(SqStack &amp;S,ElemType x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==MaxSize<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    S.data[++S.top]=x;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>出栈</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">boop <span class="title">Pop</span><span class="params">(SqStack &amp;S,ElemType &amp;x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    x=S.data[S.top--];</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>读取栈顶元素</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">GetTop</span><span class="params">(SqStack S,ElemType &amp;x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">    	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    x=S.data[S.top--];</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="链式栈"><a href="#链式栈" class="headerlink" title="链式栈"></a>链式栈</h4><ul>
-<li><p>链栈的节点定义</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;*ListStack;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="队列Queue"><a href="#队列Queue" class="headerlink" title="队列Queue"></a>队列Queue</h1><h4 id="队列的常见基本操作"><a href="#队列的常见基本操作" class="headerlink" title="队列的常见基本操作"></a>队列的常见基本操作</h4><ul>
-<li>InitQueue(&amp;Q)：初始化队列，构建一个空队列Q</li>
-<li>QueueEmpty(Q)：判断队列为空，Q为空返回true，否则false</li>
-<li>EnQueue(&amp;Q,x)：入队，若队列Q未满，将x加入，成为新的队尾</li>
-<li>DeQueue(&amp;Q,&amp;x)：出队，若队列Q非空，将队头元素赋值给x</li>
-<li>GetHead(Q,&amp;x)：读取队头元素，若队列Q非空，将队头元素赋值给x</li>
-</ul>
-<h5 id="顺序队列"><a href="#顺序队列" class="headerlink" title="顺序队列"></a>顺序队列</h5><ul>
-<li><p>节点定义：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MaxSize 50</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType data[MaxSize];</span><br><span class="line">    <span class="keyword">int</span> front,rear;</span><br><span class="line">&#125;SqQueue;</span><br><span class="line">队空条件：Q.front==Q.rear==<span class="number">0</span></span><br><span class="line">进队操作：Queue is <span class="keyword">not</span> full,enqueue data,rear+<span class="number">1</span></span><br><span class="line">出队操作：Queue is <span class="keyword">not</span> empty,dequeue data,front+<span class="number">1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>循环队列</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始化：Q.front==Q.rear=0</span><br><span class="line">队首指针rear：Q.rear=(Q.front+1)%MaxSize</span><br><span class="line">队尾指针front:Q.rear=(Q.rear+1)%MaxSize</span><br><span class="line">队列长度：(Q.rear+MaxSize-Q.front)%MaxSize</span><br><span class="line">队满条件：(Q.rear+1)%MaxSize==Q.front</span><br><span class="line">队空条件：Q.front==Q.rear</span><br><span class="line">队中元素个数：(Q.rear-Q.front+MaxSize)%MaxSize</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>循环队列的操作</p>
-<ul>
-<li><p>初始化</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitQueue</span><span class="params">(SqQueue &amp;Q)</span></span>&#123;</span><br><span class="line">    Q.rear=Q.front=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>判断队空</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isEmpty</span><span class="params">(SqQueue Q)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Q.rear==Q.front)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>入队</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">EnQueue</span><span class="params">(SqQueue &amp;Q,ElemType x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>((Q.rear+<span class="number">1</span>)%MaxSize==Q.front)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    Q.data[Q.rear]=x;</span><br><span class="line">    Q.rear=(Q.rear+<span class="number">1</span>)%MaxSize;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>出队</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">DeQueue</span><span class="params">(SqQueue &amp;Q,ElemType &amp;x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Q.rear==Q.front)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    x=Q.data[Q.front];</span><br><span class="line">    Q.front=(Q.front+<span class="number">1</span>)%MaxSize;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="链队"><a href="#链队" class="headerlink" title="链队"></a>链队</h4><ul>
-<li><p>链队节点定义：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">LinkNode</span></span></span><br><span class="line"><span class="class">&#125;<span class="title">LinkNode</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    LinkNode *front,*rear;</span><br><span class="line">&#125;LinkQueue;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>链式队列的基本操作</p>
-<ul>
-<li><p>初始化</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitQueue</span><span class="params">(LinkQueue &amp;Q)</span></span>&#123;</span><br><span class="line">    Q.front=Q.rear=(LinkNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LinkNode));</span><br><span class="line">    Q.front-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>判断队空</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsEmpty</span><span class="params">(LinkQueue Q)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Q.front==Q.rear)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>入队</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EnQueue</span><span class="params">(LinkQueue &amp;Q,ElemType x)</span></span>&#123;</span><br><span class="line">    s=(LinkNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LinkNode));</span><br><span class="line">    s-&gt;data=x;</span><br><span class="line">    s-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    Q.rear-&gt;next=s;</span><br><span class="line">    Q.rear=s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>出队</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">DeQueue</span><span class="params">(LinkQueue &amp;Q,ElemType &amp;x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Q.front==Q.rear)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    p=Q.front-&gt;next;</span><br><span class="line">    x=p-&gt;data;</span><br><span class="line">    Q.front-&gt;next=p-&gt;next;</span><br><span class="line">    <span class="keyword">if</span>(Q.rear==p)</span><br><span class="line">        Q.rear=Q.front;<span class="comment">//原来队列中如果只有一个节点，删除后变为空</span></span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="队列在计算机系统中的应用"><a href="#队列在计算机系统中的应用" class="headerlink" title="队列在计算机系统中的应用"></a>队列在计算机系统中的应用</h4><p>队列在计算机系统中应用非常广泛：</p>
-<ul>
-<li><p>解决主机CPU与外部设备IO之间的速度不匹配问题</p>
-</li>
-<li><p>解决由多用户引起的资源竞争问题</p>
-<p>主机与打印机之间速度不匹配的问题：主机输出数据给打印机打印，输出数据的速度比打印数据的速度要快很多。由于速度不匹配，如果直接把输出的数据送给打印机打印显然是不行的</p>
-<p>解决方法：设置一个打印数据的缓冲区，主机把要打印输出的数据依次写入到这个缓冲区。写满后就暂停输出，转去做其他事情。打印机就从缓冲区中按照先进先出的原则依次取出数据并打印。打印完后再向主机发出请求。</p>
-<p>CPU资源的竞争是一个典型的队列应用问题。在一个带有终端的计算机系统上，有多个用户需要CPU格子运行自己的程序，它们分别通过各自的终端向系统提出占用CPU的请求。操作系统通常按照每个用户请求在时间上的先后顺序，把它们排成一个队列。每次把CPU分配给队首的用户使用。当相应的程序运行结束后，或者用户用完规定的时间片后，让它出队，再把CPU分配给新的队首请求的用户使用。</p>
-</li>
-</ul>
-<h4 id="括号匹配问题"><a href="#括号匹配问题" class="headerlink" title="括号匹配问题"></a>括号匹配问题</h4><p>算法思想：扫描每个字符，遇到花，中，圆左括号进栈，遇到花，中，圆有括号出栈</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">BracketsCheck</span><span class="params">(<span class="keyword">char</span> *str)</span></span>&#123;</span><br><span class="line">    InitStack(SqStack S);</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(str[i]!=<span class="string">'\0'</span>)&#123;</span><br><span class="line">        <span class="keyword">switch</span>(str[i])&#123;</span><br><span class="line">            <span class="comment">//左括号入栈    </span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">'('</span>:Push(S,<span class="string">'('</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'['</span>:Push(S,<span class="string">'['</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'&#123;'</span>:Push(S,<span class="string">'&#123;'</span>);<span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//遇到右括号，检测栈顶</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">')'</span>:Pop(S,e);</span><br><span class="line">                <span class="keyword">if</span>(e!=<span class="string">'('</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">']'</span>:Pop(S,e);</span><br><span class="line">                <span class="keyword">if</span>(e!=<span class="string">'['</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'&#125;'</span>:Pop(S,e);</span><br><span class="line">                <span class="keyword">if</span>(e!=<span class="string">'&#123;'</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:<span class="keyword">break</span>;    </span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!IsEmpty(S))&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"括号不匹配\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"括号匹配\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="树与二叉树"><a href="#树与二叉树" class="headerlink" title="树与二叉树"></a>树与二叉树</h1><ul>
-<li><p>二叉树链式存储节点：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> *<span class="title">lchild</span>,*<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode,*BiTree;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>二叉树的遍历</p>
-<ul>
-<li><p>先序遍历PreOrder</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrder</span><span class="params">(BiTree T)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        visit(T);</span><br><span class="line">        PreOrder(T-&gt;lchild);</span><br><span class="line">        PreOrder(T-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>中序遍历InOrder</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrder</span><span class="params">(BiTree T)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T!=<span class="literal">NULL</span>)&#123;&#125;</span><br><span class="line">    InOrder(T-&gt;lchild);</span><br><span class="line">    visit(T);</span><br><span class="line">    InOrder(T-&gt;rchild);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>后序遍历PostOrder</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrder</span><span class="params">(BiTree T)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        PostOrder(T-&gt;lchild);</span><br><span class="line">        PostOrder(T-&gt;rchild);</span><br><span class="line">        visit(T);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>三种遍历方式的时间复杂度，空间复杂度都为O(n)</p>
-</li>
-<li><p>层次遍历LevelOrder</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LevelOrder</span><span class="params">(BiTree T)</span></span>&#123;</span><br><span class="line">    <span class="comment">//需要借助到队列Queue</span></span><br><span class="line">    InitQueue(Q);</span><br><span class="line">    BiTree p;</span><br><span class="line">    EnQueue(Q,T);<span class="comment">//根节点入队</span></span><br><span class="line">    <span class="keyword">while</span>(!IsEmpty(Q))&#123;</span><br><span class="line">        DeQueue(Q,p);<span class="comment">//队列不空，队头元素出队</span></span><br><span class="line">        visit(p);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;lchild!=<span class="literal">NULL</span>)</span><br><span class="line">            EnQueue(Q,p-&gt;lchild);<span class="comment">//左子树不空，左子树入队</span></span><br><span class="line">        <span class="keyword">if</span>(p-&gt;rchild!=<span class="literal">NULL</span>)</span><br><span class="line">            EnQueue(Q,p-&gt;rchild);<span class="comment">//右子树不空，右子树入队</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>中序遍历非递归</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrder</span><span class="params">(BiTree T)</span></span>&#123;<span class="comment">//需要借助一个栈</span></span><br><span class="line">    InitStack(S);<span class="comment">//初始化栈S，</span></span><br><span class="line">    BiTree p=T;<span class="comment">//p是遍历指针</span></span><br><span class="line">    <span class="keyword">while</span>(p||!IsEmpty(S))&#123;<span class="comment">//栈不为空，p不空循环</span></span><br><span class="line">        <span class="keyword">if</span>(p)&#123;</span><br><span class="line">            Push(S,p);<span class="comment">//根指针进栈</span></span><br><span class="line">            p=p-&gt;lchild;<span class="comment">//遍历左子树</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            Pop(S,p);<span class="comment">//根指针出栈</span></span><br><span class="line">            visit(p);<span class="comment">//访问根节点</span></span><br><span class="line">            p=p-&gt;rchild<span class="comment">//遍历右子树</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>后序遍历非递归</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrder</span><span class="params">(BiTree T)</span></span>&#123;</span><br><span class="line">    InitStack(S);</span><br><span class="line">    BiTree p=T;<span class="comment">//p是遍历指针</span></span><br><span class="line">    BiTree r=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(p||!IsEmpty(S))&#123;</span><br><span class="line">        <span class="keyword">if</span>(p)&#123;<span class="comment">//走到最左边</span></span><br><span class="line">            push(S,p);</span><br><span class="line">            p=p-&gt;lchild;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;<span class="comment">//向右</span></span><br><span class="line">            GetTop(S,p);<span class="comment">//获取栈顶节点</span></span><br><span class="line">            <span class="keyword">if</span>(p-&gt;rchild&amp;&amp;p-&gt;rchild!=r)&#123;<span class="comment">//如果右子树存在，且未被访问</span></span><br><span class="line">                p=p-&gt;rchild;<span class="comment">//转向右子树</span></span><br><span class="line">                push(S,p);<span class="comment">//将右子树节点进栈</span></span><br><span class="line">                p=p-&gt;lchild;<span class="comment">//然后转向最左边</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;<span class="comment">//没有右子树，弹出节点并访问</span></span><br><span class="line">                pop(S,p);<span class="comment">//将节点弹出</span></span><br><span class="line">                visit(p-&gt;data);<span class="comment">//访问节点</span></span><br><span class="line">                r=p;<span class="comment">//记录最近访问的节点</span></span><br><span class="line">                p=<span class="literal">NULL</span>;<span class="comment">//节点访问完后，重置p指针</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="二叉排序树BST"><a href="#二叉排序树BST" class="headerlink" title="二叉排序树BST"></a>二叉排序树BST</h4><p>也叫二叉查找树，左&lt;根&lt;右</p>
-<ul>
-<li><p>二叉排序树的查找</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BSTNode *<span class="title">BST_search</span><span class="params">(BiTree T,ElemType key,BSTNode *&amp;p)</span></span>&#123;</span><br><span class="line">    p=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(T!=<span class="literal">NULL</span>&amp;&amp;key!=T-&gt;data)&#123;</span><br><span class="line">        p=T;</span><br><span class="line">        <span class="keyword">if</span>(key&lt;T-&gt;data)</span><br><span class="line">            T=T-&gt;lchild;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            T=T-&gt;rchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>二叉排序树的插入</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BST_Insert</span><span class="params">(BiTree &amp;T,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        T=(BiTree)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BSTNode));</span><br><span class="line">        T-&gt;key=k;</span><br><span class="line">        T-&gt;lchild=T-&gt;rchild=<span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;<span class="comment">//返回1，表示成功</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(k==T-&gt;key)<span class="comment">//树中存在相同的关键字节点，返回0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(k&lt;T-&gt;key)<span class="comment">//递归，插入到T的左子树中</span></span><br><span class="line">        <span class="keyword">return</span> BST_Insert(T-&gt;lchild,k);</span><br><span class="line">    <span class="keyword">else</span><span class="comment">//递归，插入到T的右子树中</span></span><br><span class="line">        <span class="keyword">return</span> BST_Insert(T-&gt;rchild,k);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>二叉排序树的构造</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Create_BST</span><span class="params">(BiTree &amp;T,<span class="keyword">char</span> str[],<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    T=<span class="literal">NULL</span>;<span class="comment">//初始化的时候T为空树</span></span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;n)&#123;<span class="comment">//依次将每个元素插入</span></span><br><span class="line">        BST_Insert(T,str[i]);</span><br><span class="line">        i++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="平衡二叉树VAL"><a href="#平衡二叉树VAL" class="headerlink" title="平衡二叉树VAL"></a>平衡二叉树VAL</h4><p>平衡二叉树的各个节点的平衡因子只能为-1,0,1 </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/hello-world/" itemprop="url">Hello ，Hexo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T10:29:28+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/关于/" itemprop="url" rel="index">
-                    <span itemprop="name">关于</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  73
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1880,7 +2509,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1891,7 +2520,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1983,7 +2612,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">8k</span>
+    <span title="Site words total count">12.9k</span>
   
 </div>
 <div class="powered-by">
