@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-14T12:57:14.204Z</updated>
+  <updated>2018-12-14T13:00:22.723Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2018/12/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/"/>
     <id>http://yoursite.com/2018/12/14/数据库范式/</id>
     <published>2018-12-14T12:55:44.000Z</published>
-    <updated>2018-12-14T12:57:14.204Z</updated>
+    <updated>2018-12-14T13:00:22.723Z</updated>
     
     <content type="html"><![CDATA[<h1 id="范式-Normal-Form-NF"><a href="#范式-Normal-Form-NF" class="headerlink" title="范式(Normal Form,NF)"></a>范式(Normal Form,NF)</h1><p>设计关系型数据库时，需要遵从不同的规范要求，设计出合理的关系型数据库。越高的范式数据库冗余越小。</p><ul><li><p>范式的优点：消除重复数据，减少数据冗余，让数据库内的数据更好的组织，让磁盘空间得到更有效的利用。</p></li><li><p>范式的缺点：范式使得查询变得相当复杂，在查询的时候需要更多的连接，一些复合索引的列由于范式化的需要被分割到不同的表中，导致索引策略不佳。</p></li></ul><p>第一范式(1NF)：每一个属性不可再分。</p><table><thead><tr><th style="text-align:center">范式</th><th style="text-align:center">特征</th><th style="text-align:center">详解</th><th style="text-align:center">举例</th></tr></thead><tbody><tr><td style="text-align:center">第一范式1NF</td><td style="text-align:center">每一个属性不可再分</td><td style="text-align:center">1NF,对域添加的一个规范要求，所有的域都应该是原子性的也就是数据表的每一列都是不可分割的原子数据项，而不能是集合，数组等。也就是某个属性有多个值，必须将它拆分为不同的属性。不满足1NF的不是关系数据库。满足1NF的表必须要有主键，每个属性不可再分。</td><td style="text-align:center">比如说员工表，有员工号，姓名，电话号码组成。但是一个人可能有座机号码和移动号码。需要将它拆分为两个属性，也就是员工表(员工号，姓名，座机号码，移动号码)</td></tr><tr><td style="text-align:center">第二范式2NF</td><td style="text-align:center">符合1NF,并且非主属性完全依赖于码</td><td style="text-align:center">在1NF的基础上，每一个非主属性必须完全依赖于码，消除非主属性的对主键的部分函数依赖也即是实体的属性完全依赖于主关键字。完全依赖是不能存在只依赖主关键字的一部分。</td><td style="text-align:center">选课关系(学号，课程号，成绩，学分)，码为组合关键字(课程号，学号)但是非主属性学分只依赖课程号，对关键字(学号，课程号)只是部份依赖。不是完全依赖。所以要拆分为两个关系模式：学生表(学号，课程号，分数)课程表(课程号，学分)，新的关系通过学生表中的外键课程号联系，需要时通过两个表的连接获取数据</td></tr><tr><td style="text-align:center">第三范式3NF</td><td style="text-align:center">符合1NF,且每个非主属性既不部分依赖码，也不传递依赖码也就是在2NF的基础上消除传递依赖</td><td style="text-align:center"></td><td style="text-align:center"></td></tr><tr><td style="text-align:center"></td><td style="text-align:center"></td><td style="text-align:center"></td><td style="text-align:center"></td></tr></tbody></table>]]></content>
     
@@ -34,8 +34,8 @@
     
     </summary>
     
+      <category term="数据库" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   
