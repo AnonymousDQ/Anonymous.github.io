@@ -304,6 +304,789 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Oracle数据库之触发器/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/Oracle数据库之触发器/" itemprop="url">Oracle数据库之触发器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:56:22+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  273
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、触发器"><a href="#一、触发器" class="headerlink" title="一、触发器"></a>一、触发器</h1><p>有点类似AOP里的拦截器，触发器不能传递参数，也不能输出参数，也不能显式调用，只有当满足触发器条件的时候Oracle会自动调用。</p>
+<p>触发器：</p>
+<h4 id="1、语句级别的触发器：CRUD操作"><a href="#1、语句级别的触发器：CRUD操作" class="headerlink" title="　　1、语句级别的触发器：CRUD操作"></a>　　1、语句级别的触发器：CRUD操作</h4><h4 id="2、行级别的触发器"><a href="#2、行级别的触发器" class="headerlink" title="　　2、行级别的触发器"></a>　　2、行级别的触发器</h4><h4 id="3、系统级别的触发器：数据库的关闭，启动"><a href="#3、系统级别的触发器：数据库的关闭，启动" class="headerlink" title="　　3、系统级别的触发器：数据库的关闭，启动"></a>　　3、系统级别的触发器：数据库的关闭，启动</h4><h4 id="4、用户事件的触发器：进行drop，alter，create时候触发"><a href="#4、用户事件的触发器：进行drop，alter，create时候触发" class="headerlink" title="　　4、用户事件的触发器：进行drop，alter，create时候触发"></a>　　4、用户事件的触发器：进行drop，alter，create时候触发</h4><h1 id="二、触发器的创建"><a href="#二、触发器的创建" class="headerlink" title="二、触发器的创建"></a>二、触发器的创建</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建行级别的触发器CREATE OR REPLACE trigger trigger_update_product_table</span></span><br><span class="line">AFTER UPDATEON product_tableFOR EACH ROW    <span class="comment">--每更新一行，就触发一次BEGIN</span></span><br><span class="line">    <span class="comment">--Oracle里面对触发器提供了特殊的对象:NEW   :OLD来访问更新前后的数据</span></span><br><span class="line">    DBMS_OUTPUT.put_line('更新后'||:NEW.name);<span class="comment">--orcle使用||符号链接字符串而已，相当于java中的+连接字符串</span></span><br><span class="line">    DBMS_OUTPUT.put_line('更新前'||:OLD.name);    </span><br><span class="line">    IF UPDATING THEN</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">IF</span>;    </span><br><span class="line">    IF INSETINGEND;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建表级别的触发器CREATE OR REPLACE trigger trigger_update_product_table</span></span><br><span class="line">AFTER UPDATEON product_tableBEGIN</span><br><span class="line">    <span class="comment">--表级别触发器里面，不允许使用:NEW  :OLD变量</span></span><br><span class="line">    <span class="comment">--DBMS.OUTPUT.put_line('更新后：'||:NEW.name);</span></span><br><span class="line">    <span class="comment">--DBMS.OUTPUT.put_line('更新前：'||:OLD.name);END;</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Oracle数据库/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/Oracle数据库/" itemprop="url">Oracle数据库</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:53:35+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  769
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法"><a href="#1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法" class="headerlink" title="1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法"></a>1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> ( <span class="keyword">select</span> <span class="keyword">rownum</span> rn,a <span class="keyword">from</span> tabName <span class="keyword">where</span> <span class="keyword">rownum</span>&lt;=<span class="number">20</span>) </span><br><span class="line"><span class="keyword">where</span> rn&gt;<span class="number">10</span></span><br></pre></td></tr></table></figure>
+<h3 id="2、Oracle的索引使用"><a href="#2、Oracle的索引使用" class="headerlink" title="2、Oracle的索引使用"></a>2、Oracle的索引使用</h3><h4 id="创建索引："><a href="#创建索引：" class="headerlink" title="创建索引："></a>创建索引：</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> index_name <span class="keyword">on</span> table_name(collum_name)</span><br></pre></td></tr></table></figure>
+<h4 id="索引使用规则："><a href="#索引使用规则：" class="headerlink" title="索引使用规则："></a>索引使用规则：</h4><p>　　1、经常和其他表进行连接的表，在连接字段上应该建立索引。</p>
+<p>　　2、经常出现在where子句中的字段而且过滤性很强的，特别是大表的字段，应该建立索引</p>
+<h4 id="索引的优点："><a href="#索引的优点：" class="headerlink" title="索引的优点："></a>索引的优点：</h4><p>　　1、建立唯一性索引，可以保证数据库表中的每一行数据的唯一性</p>
+<p>　　2、大大加快数据的检索速度，加速了表和表之间的连接，特别是实现数据的参照完整性。</p>
+<p>　　3、在使用分组和排序子句进行数据检索时，同样可以显著减少查询中分组和排序的时间</p>
+<h4 id="索引的缺点："><a href="#索引的缺点：" class="headerlink" title="索引的缺点："></a>索引的缺点：</h4><p>　　1、索引创建在表上，不能创建在索引上</p>
+<p>　　2、创建索引和维护索引耗费时间，时间随着数据量的增加而增加</p>
+<p>　　3、索引需要占用物理空间，除了数据表占用数据空间之外，每一个索引还要占用一定的物理空间，如果要建立聚集索引，那么消耗的空间更大，一个表只能有一个聚集索引。</p>
+<p>　　4、当对表中的数据进行增加，删除，修改的时候，索引也需要动态的维护，降低了数据的维护速度。</p>
+<h3 id="3、视图的使用"><a href="#3、视图的使用" class="headerlink" title="3、视图的使用"></a>3、视图的使用</h3><h4 id="创建视图："><a href="#创建视图：" class="headerlink" title="创建视图："></a>创建视图：</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_name <span class="keyword">as</span> <span class="keyword">select</span> column_name <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
+<h4 id="视图的优点："><a href="#视图的优点：" class="headerlink" title="视图的优点："></a>视图的优点：</h4><p>　　1、可以简单的将视图理解为SQL查询语句，视图最大的好处就是不占用系统空间</p>
+<p>　　2、一些安全性很高的系统，不会公布系统的表结构，可能会使用视图将一些敏感信息过滤或者重命名后公布结构</p>
+<p>　　3、简化查询，可以控制权限，在使用的时候需要将视图的使用权限grant给用户。</p>
+<h3 id="4、合并查询"><a href="#4、合并查询" class="headerlink" title="4、合并查询"></a>4、合并查询</h3><p>有时候，为了合并多个select语句的结果，可以使用集合操作符号UNION，UNION ALL，INTERSECT，MINUS多用于数据量比较大的数据库，运行速度快。</p>
+<p>　　1、union：取得两个结果集的并集，使用它时，会自动去掉结果集中重复行</p>
+<p>　　2、union all：也是取得两个结果集的并集，但是不会取消重复行，也不会排序。</p>
+<p>　　3、intersect：取得两个结果集的交集</p>
+<p>　　4、minus：取得两个结果集的差集。</p>
+<h3 id="5、维护数据的完整性"><a href="#5、维护数据的完整性" class="headerlink" title="5、维护数据的完整性"></a>5、维护数据的完整性</h3><p>数据的完整性用于确保数据库数据遵从一定的商业规则和逻辑规则。</p>
+<p>Oracle中，数据完整性可以使用约束，触发器，应用程序（存储过程，函数）来实现。这三个因为约束更容易维护，并且具有最好的性能，所以作为维护数据完整性的首选。</p>
+<p>不过约束还可以用:not null，unique，primary key，foreign key，check</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/数组与链表/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/数组与链表/" itemprop="url">数组与链表</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:51:52+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  789
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="内存的工作原理"><a href="#内存的工作原理" class="headerlink" title="内存的工作原理"></a>内存的工作原理</h1><h3 id="1-个人理解："><a href="#1-个人理解：" class="headerlink" title="1.个人理解："></a>1.个人理解：</h3><p>　　比如你要去逛超市，需要将东西寄存，寄存处有一个柜子，柜子有很多抽屉。每个抽屉可以放一样东西，你有两样东西，所以要了两个抽屉。这大概就是计算机内存的工作原理。计算机就像很多抽屉的集合体，每个抽屉都有地址。</p>
+<p>　　当你需要将数据存储到内存时，你请求计算机提供存储空间，计算机会给你一个存储地址。但是当你要存储多项数据时，有两种基本方式：1.使用数组 2.使用链表，但是他们并不是都适用于所有的情形，要进行适当的选择。</p>
+<h3 id="2-数组和链表"><a href="#2-数组和链表" class="headerlink" title="2.数组和链表"></a>2.数组和链表</h3><p>数组：在内存中都是相连的（紧靠在一起的）</p>
+<p>链表：链表中的严肃可存储在内存的任何地方。链表的每个元素都存储了下一个元素的地址，从而使得一系列随机的内存地址串在了一起。</p>
+<ul>
+<li><h4 id="访问元素（查询）：数组更好选择"><a href="#访问元素（查询）：数组更好选择" class="headerlink" title="访问元素（查询）：数组更好选择"></a>访问元素（查询）：数组更好选择</h4></li>
+</ul>
+<p>　　但是链表存在问题，比如当你需要读取链表的最后一个元素时，你不能直接读取，因为你根本不知道它所处的地址，所以必须先访问第一个元素，然后获取第二个元素的地址，在访问第三个，以此类推，直到访问到最后一个元素。当你需要同时读取所有元素时，链表的效率很高。但是当你需要跳跃读取某个元素，链表的效率很低。数组不一样，因为你是知道每个元素的地址的，根据数组的下标可以算出来。比如一个数组里有五个元素，起始地址为000，那么第五个元素的地址肯定是004.所以当你需要随机访问元素时，数组效率很高，可以迅速的找到数组的任何元素。在链表中，元素并非靠在一起，你无法迅速计算出第五个元素的内存地址，必须县访问第一个元素以获取第二个，依次下去。</p>
+<ul>
+<li><h4 id="插入操作（中间插入）：链表更好选择"><a href="#插入操作（中间插入）：链表更好选择" class="headerlink" title="插入操作（中间插入）：链表更好选择"></a>插入操作（中间插入）：链表更好选择</h4></li>
+</ul>
+<p>　　加入你要在中间插入一个元素，使用链表时，插入元素很简单，只需要修改前面那个元素的指针指向。但是使用数组时，则必须先将后面的元素都向后移动，如果没有足够的空间，可能还要将整个数组复制到其他地方。</p>
+<ul>
+<li><h4 id="删除操作：链表更好选择"><a href="#删除操作：链表更好选择" class="headerlink" title="删除操作：链表更好选择"></a>删除操作：链表更好选择</h4></li>
+</ul>
+<p>　　因为你只需要修改前一个元素指向的地址就行。使用数组，删除元素后，比如将后面的元素都向前移动。不同于插入，删除元素总能成功。如果内存中没有足够的空间，插入操作可能失败，但是任何情况下都能将元素删除</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">比较</th>
+<th style="text-align:center">数组</th>
+<th style="text-align:center">链表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">读取</td>
+<td style="text-align:center">O(1)</td>
+<td style="text-align:center">O(N)</td>
+</tr>
+<tr>
+<td style="text-align:center">插入</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:center">删除</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/折半查找/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/折半查找/" itemprop="url">折半查找</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:48:23+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  423
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><ul>
+<li><p>线性结构：顺序查找，折半查找，分块查找</p>
+</li>
+<li><p>树形结构：二叉搜索树（二叉排序树），AVL平衡二叉树，B树，B+树</p>
+</li>
+<li><p>散列结构：散列表Hash，性能分析，冲突处理，效率指标–平均查找长度，查找成功，查找失败</p>
+</li>
+</ul>
+<h4 id="线性表顺序查找："><a href="#线性表顺序查找：" class="headerlink" title="线性表顺序查找："></a>线性表顺序查找：</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">List</span>&#123;</span></span><br><span class="line">    ElemType *elem;</span><br><span class="line">    <span class="keyword">int</span> table_len;<span class="comment">//表长</span></span><br><span class="line">&#125;SSTable;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Seq</span><span class="params">(SSTable st,ElemType key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//顺序表st种顺序查找关键字key的元素，并返回元素的表中位置</span></span><br><span class="line">    st.elem[<span class="number">0</span>]=key;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=st.table_len;st.elem[i]!=key;--i)<span class="comment">//从后往找</span></span><br><span class="line">    &#123;        <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>折半查找：二分查找，只用在有序的顺序表</p>
+</li>
+<li><p>算法思想：首先将给定值key和表中中间位置元素的关键字比较，如果相等，成功，返回元素位置</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Binary_Search</span><span class="params">(SeqList L,ElemType key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low=<span class="number">0</span>,mid;</span><br><span class="line">    <span class="keyword">int</span> high=L.Table_len<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(low&lt;=high)</span><br><span class="line">    &#123;</span><br><span class="line">        mid=(low+high)/<span class="number">2</span>;<span class="comment">//取中间位置</span></span><br><span class="line">        <span class="keyword">if</span>(L.elem[mid==key])<span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(L.elem[mid]&gt;key)high=mid<span class="number">-1</span>;<span class="comment">//关键字比中间值小，从前半部分查找</span></span><br><span class="line">        <span class="keyword">else</span> low=mid+<span class="number">1</span>;<span class="comment">//关键字比中间值大，从后半部分查找</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;<span class="comment">//时间复杂度为O(logN)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>分块查找：索引顺序查找，吸取顺序查找和折半查找的优点，有动态结构，适用于快速查找</p>
+</li>
+<li><p>B树：多路平衡查找树</p>
+</li>
+<li><p>Hash表：一个把查找表中的关键字映射成该关键字对应地址的函数，叫做Hash(key)=Addr。</p>
+</li>
+<li><p>散列表：根据关键字而直接进行访问的数据结构，也就是，散列表建立了关键字和存储地址之间的一种直接映射关系。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/二叉树/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1846,192 +2629,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/hello-world/" itemprop="url">Hello ，Hexo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T10:29:28+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/关于/" itemprop="url" rel="index">
-                    <span itemprop="name">关于</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  73
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2079,7 +2681,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2090,7 +2692,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2182,7 +2784,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">18.6k</span>
+    <span title="Site words total count">25.7k</span>
   
 </div>
 <div class="powered-by">

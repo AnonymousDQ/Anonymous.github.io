@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="drqblog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1、物理层Physical Layer： 物理层单位是比特，bit，任务是透明的传输比特流  功能：物理媒体上为数据端设备透明的传输原始比特流  物理层主要定义数据终端设备DTE，数据通信设备DCE，他们的逻辑连接方法。所有的物理层协议就走物理层接口标准  物理层研究内容：规定接口的一些参数，机械的形状和尺寸，交换电路的数量和排列等。比如笔记本上的网线接口，就是物理层规定的内容。  物理层还规定通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络(三)">
+<meta property="og:url" content="http://yoursite.com/2018/12/14/计算机网络-三/index.html">
+<meta property="og:site_name" content="drqblog">
+<meta property="og:description" content="1、物理层Physical Layer： 物理层单位是比特，bit，任务是透明的传输比特流  功能：物理媒体上为数据端设备透明的传输原始比特流  物理层主要定义数据终端设备DTE，数据通信设备DCE，他们的逻辑连接方法。所有的物理层协议就走物理层接口标准  物理层研究内容：规定接口的一些参数，机械的形状和尺寸，交换电路的数量和排列等。比如笔记本上的网线接口，就是物理层规定的内容。  物理层还规定通">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-14T13:23:24.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机网络(三)">
+<meta name="twitter:description" content="1、物理层Physical Layer： 物理层单位是比特，bit，任务是透明的传输比特流  功能：物理媒体上为数据端设备透明的传输原始比特流  物理层主要定义数据终端设备DTE，数据通信设备DCE，他们的逻辑连接方法。所有的物理层协议就走物理层接口标准  物理层研究内容：规定接口的一些参数，机械的形状和尺寸，交换电路的数量和排列等。比如笔记本上的网线接口，就是物理层规定的内容。  物理层还规定通">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/14/计算机网络-三/">
+
+
+
+
+
+  <title>计算机网络(三) | drqblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/AnonymousDQ">
+	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub">
+	</a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">drqblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/计算机网络-三/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络(三)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:15:32+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1、物理层Physical-Layer："><a href="#1、物理层Physical-Layer：" class="headerlink" title="1、物理层Physical Layer："></a>1、物理层Physical Layer：</h3><ul>
+<li><p>物理层单位是比特，bit，任务是透明的传输比特流</p>
+</li>
+<li><p>功能：物理媒体上为数据端设备透明的传输原始比特流</p>
+</li>
+<li><p>物理层主要定义数据终端设备DTE，数据通信设备DCE，他们的逻辑连接方法。所有的物理层协议就走物理层接口标准</p>
+</li>
+<li><p>物理层研究内容：规定接口的一些参数，机械的形状和尺寸，交换电路的数量和排列等。比如笔记本上的网线接口，就是物理层规定的内容。</p>
+</li>
+<li><p>物理层还规定通信链路上的传输信号的意义和电气特征，比如物理层规定信号A代表数字0，那么当节点要传输数字0的时候就会发送信号A</p>
+</li>
+<li><p>物理层的一些物理媒体：双绞线，光缆，无线通道。</p>
+</li>
+</ul>
+<h3 id="2、数据链路层（Data-Link-Layer）"><a href="#2、数据链路层（Data-Link-Layer）" class="headerlink" title="2、数据链路层（Data Link Layer）"></a>2、数据链路层（Data Link Layer）</h3><ul>
+<li><p>数据链路层的传输单位是帧（Frame）</p>
+</li>
+<li><p>任务就是：把网络层传下来的IP数据报，组装成帧</p>
+</li>
+<li><p>数据链路层的功能：成帧，差错控制，流量控制，传输控制</p>
+</li>
+<li><p>典型的数据链路层协议：SDLC,HDLC,PPP,STP,帧中继</p>
+</li>
+</ul>
+<h3 id="3、网络层（Network-Layer）"><a href="#3、网络层（Network-Layer）" class="headerlink" title="3、网络层（Network Layer）"></a>3、网络层（Network Layer）</h3><ul>
+<li><p>网络层的传输单位：数据报（package）</p>
+</li>
+<li><p>重点：通信子网的运行控制</p>
+</li>
+<li><p>主要任务：把网络层的协议数据单元（分组）从源端传送到目的端。为分组交换网上的不同主机提供通信服务。</p>
+</li>
+<li><p>关键问题：对分组进行路由选择，实现流量控制，拥塞控制，差错控制，网际互联，节点A到节点B传输一个分组，有很多条可以选择路由。而网络层的作用就是根据网络的情况，利用相应的路由算法计算出一条合适的路径，让这个分组顺利的到达。 </p>
+</li>
+<li><p>流量控制：和数据链路层的流浪控制一样，都是协调A的发送速度和B的接收速度</p>
+</li>
+<li><p>差错控制：通信的两个节点之间约定特定的检错规则，比如奇偶校验码，接收方根据这个规则检查接受的分组是否出现了差错，如果出现了差错，可以纠错就纠错，不能则丢弃。确保向上层提交的数据是无误的。</p>
+</li>
+<li><p>拥塞控制：所有节点都处于来不来及接受分组，而要丢弃大量分组的情况的话，网络就处于拥塞状态。</p>
+</li>
+<li><p>拥塞状态使得网络中两个节点无法正常通信，玩过曾采用一定的措施，缓解这种拥塞，就是拥塞控制。 </p>
+</li>
+<li><p>因特网是一个很大的互联网，由大量的异构网络通过路由器相互连接起来。</p>
+</li>
+<li><p>因特网主要的网络层协议是无连接的网络协议IP，和许多路由选择协议，因此网络层也叫网际层，或者叫IP层</p>
+</li>
+<li><p>网络层协议：IP，IPX，ICMP，ARP，IGMP，RARP，OSPF</p>
+</li>
+</ul>
+<h3 id="4、传输层（Transport-Layer）"><a href="#4、传输层（Transport-Layer）" class="headerlink" title="4、传输层（Transport Layer）"></a>4、传输层（Transport Layer）</h3><p>也叫运输层，传输单位是报文段（TCP），用户数据段（UDP）</p>
+<ul>
+<li><p>主要任务：负责主机中两个进程之间的通信</p>
+</li>
+<li><p>功能：为端到端连接提供可靠地传输服务，为端到端提供流量的控制，差错控制，服务质量，数据传输管理等。</p>
+</li>
+<li><p>数据链路层提供的是点对点PPP的通信，传输层提供的是端到端的通信。</p>
+</li>
+<li><p>使用传输层的服务，高层用户可以直接进行端到端的数据传输，从而忽略通信子网的存在。</p>
+</li>
+<li><p>通过传输层的屏蔽，高层用户看不到子网的交替变化，由于要给主机可以同时运行多个进程。因此传输层具有复用和分用功能。</p>
+</li>
+<li><p>复用：就是多个应用层的进程可以同时使用下面传输层的服务，多路复用</p>
+</li>
+<li><p>分用：就是传输层把收到的信息分别交付给上面应用层的相应进程。</p>
+</li>
+<li><p>传输层的协议：TCP/UDP</p>
+</li>
+</ul>
+<h3 id="5、会话层（Session-Layer）"><a href="#5、会话层（Session-Layer）" class="headerlink" title="5、会话层（Session Layer）"></a>5、会话层（Session Layer）</h3><ul>
+<li><p>会话层允许不同主机上各种进程之间的会话。会话层利用传输层提供的端对端的服务，向表示层提供他的增值服务。</p>
+</li>
+<li><p>这种服务主要是向表示层实体或者用户进程提供建立并在连接上有序的传输数据，这就是会话。也叫建立同步(SYN)</p>
+</li>
+<li><p>会话层负责管理主机间的会话进程：建立，管理，终止进程间的会话。</p>
+</li>
+<li><p>会话层使用校验点可以让通信会话在通信失效的时候从校验点继续恢复通信，实现数据同步。</p>
+</li>
+</ul>
+<h3 id="6、表示层（Presentation-Layer）"><a href="#6、表示层（Presentation-Layer）" class="headerlink" title="6、表示层（Presentation Layer）"></a>6、表示层（Presentation Layer）</h3><ul>
+<li><p>主要用于处理两个通信系统中交换信息的表达方式。不同机器采用的编码和表示方式不同，使用的数据结构也不同。</p>
+</li>
+<li><p>为了让不同的表示方法的数据和信息之间能相互交换，表示层采用抽象的数据压缩，加密和解密，是表示层可以提供数据表示变换功能。</p>
+</li>
+</ul>
+<h3 id="7、应用层（Application-Layer）"><a href="#7、应用层（Application-Layer）" class="headerlink" title="7、应用层（Application Layer）"></a>7、应用层（Application Layer）</h3><ul>
+<li><p>应用层是OSI参考模型的最高层，是用户和网络的界面。</p>
+</li>
+<li><p>应用层为特定类型的网络应用提供访问OSI的环境手段。所以用户的实际应用多种多样，就要求应用不同的应用协议来解决不同类型的应用请求。所以应用层也是最复杂的一层，使用的协议也是最多的。</p>
+</li>
+<li><p>典型的协议:FTP,SMTP(电子邮件协议)，HTTP(万维网协议)</p>
+</li>
+</ul>
+<h2 id="二、TCP-IP模型"><a href="#二、TCP-IP模型" class="headerlink" title="二、TCP/IP模型"></a>二、TCP/IP模型</h2><ul>
+<li><p>网络接口层：对应OSI参考模型中的物理层和数据链路层</p>
+</li>
+<li><p>网际层</p>
+</li>
+<li><p>传输层</p>
+</li>
+<li><p>应用层：对应OSI参考模型中的会话层，表示层和应用层</p>
+</li>
+</ul>
+<h3 id="1、网络接口层：功能类似OSI的物理层和数据链路层"><a href="#1、网络接口层：功能类似OSI的物理层和数据链路层" class="headerlink" title="1、网络接口层：功能类似OSI的物理层和数据链路层"></a>1、网络接口层：功能类似OSI的物理层和数据链路层</h3><ul>
+<li><p>表示与物理网络的接口，主机必须使用某种协议与网络连接，以便于在上面传递IP分组。</p>
+</li>
+<li><p>具体的物理网络可以是各种类型的局域网：以太网，令牌环网，令牌总线网等</p>
+</li>
+<li><p>还可以是：电话网，SDH，X.25，帧中继，ATM等公共数据网络。</p>
+</li>
+<li><p>网络接口层的责任是：从主机后者节点接收IP分组，把他们发送到指定的物理网络上。</p>
+</li>
+</ul>
+<h3 id="2、网际层（主机-主机）：是TCP-IP体系的关键"><a href="#2、网际层（主机-主机）：是TCP-IP体系的关键" class="headerlink" title="2、网际层（主机-主机）：是TCP/IP体系的关键"></a>2、网际层（主机-主机）：是TCP/IP体系的关键</h3><p>和OSI网络层的功能非常相似，网际层是将分组发往任何网络，并为它独立的选择合适的路由</p>
+<p>但是它不能保证各个分组有序的到达，各个分组的有序交付是由高层负责。</p>
+<ul>
+<li><p>网际层定义的标准分组格式和协议，也就是IP协议</p>
+</li>
+<li><p>当前采用的IP协议是IPv4，下一个版本是IPv6</p>
+</li>
+</ul>
+<h3 id="3、传输层（应用-应用，进程-进程）"><a href="#3、传输层（应用-应用，进程-进程）" class="headerlink" title="3、传输层（应用-应用，进程-进程）"></a>3、传输层（应用-应用，进程-进程）</h3><p>功能和OSI的传输层类似，是让发送端和目的端主机上的对等实体可以进行会话。</p>
+<p>传输层的主要协议：</p>
+<ul>
+<li><p>传输控制协议（Transmission Control Protocol，TCP）:面向连接的，数据传输的单位是报文段，能够提供可靠的交付。</p>
+</li>
+<li><p>用户数据报协议（User Datagram Protocol，UDP）：无连接的，数据传输单位是用户数据报，不能保证提供可靠的交付，只能尽最大努力交付。</p>
+</li>
+</ul>
+<h3 id="4、应用层（用户-用户）：包含所有的高层协议"><a href="#4、应用层（用户-用户）：包含所有的高层协议" class="headerlink" title="4、应用层（用户-用户）：包含所有的高层协议"></a>4、应用层（用户-用户）：包含所有的高层协议</h3><p>虚拟终端协议（Telnet），文件传输协议（FTP），域名解析服务（DNS）,电子邮件协议（SMTP）,超文本传输协议（HTTP）</p>
+<h2 id="三、OSI参考模型和TCP-IP模型的比较"><a href="#三、OSI参考模型和TCP-IP模型的比较" class="headerlink" title="三、OSI参考模型和TCP/IP模型的比较"></a>三、OSI参考模型和TCP/IP模型的比较</h2><ul>
+<li><p>OSI 参考模型：精确定义3个概念：服务，协议，接口和面向对象的程序设计思想吻合，TCP/IP模型并没有加以区分</p>
+</li>
+<li><p>OSI参考模型产生在协议发明之前，没有偏向于任何特定的协议，通用性良好。但是设计者在协议方面没有太多经验，不知道把哪些功能放到哪一层更好TCP/IP模型正好相反，首先出现的是协议，模型实际上是对已有的协议的描述。因此不会出现协议不能匹配模型的情况，但是模型不适合于其他任何非TCP/IP协议栈</p>
+</li>
+<li><p>TCP/IP模型在设计的时候就考虑到多种异构网的互联问题将网际协议IP作为一个单独的重要层次。</p>
+</li>
+<li><p>OSI参考模型在网络层支持无连接和面向连接的通信，但是在传输层仅有面向连接的通信。TCP/IP模型任务可靠性是端到端的问题，因此在网际层仅有一种无连接的通信模式，IP，但是在传输层支持无连接和面向连接的两种模式，TCP,UDP</p>
+</li>
+</ul>
+<h2 id="四、通信协议栈进行通信的节点数据传输过程"><a href="#四、通信协议栈进行通信的节点数据传输过程" class="headerlink" title="四、通信协议栈进行通信的节点数据传输过程"></a>四、通信协议栈进行通信的节点数据传输过程</h2><ul>
+<li><p>每个协议栈的最顶端都是一个面向用于的接口，下面各层是为通信服务的协议。</p>
+</li>
+<li><p>用户要传输一个数据报的时候，通常是给用户能够理解的自然语言，然后通过应用层，自然语言会转化为用于通信的通信数据，通信数据到达传输层，作为传输层的数据部分也就是传输层的SDU，在加上运输层的控制信息，也就是运输层的PCI，然后组成运输层的PDU,然后交到网络层。</p>
+</li>
+<li><p>运输层的PDU下放到网络层后，就成为了网络层的SDU，然后加上网络层的PCI，又组成了网络层的PDU.</p>
+</li>
+<li><p>下放到数据链路层，就这样层层下方，层层包裹，最后形成的数据报通过通信线路传输，到达接收方节点协议栈。</p>
+</li>
+<li><p>接收方然后逆向的一层一层的把包裹拆开，然后把收到的数据提交给用户。</p>
+</li>
+</ul>
+<h2 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h2><ul>
+<li><p>在OSI模型中，网络层支持，无连接和面向连接的通信。传输层只支持面向连接的通信。</p>
+<ul>
+<li><p>TCP/IP模型：网络只有无连接的通信，也就是IP。传输层支持无连接和面向连接，TCP,UDP</p>
+</li>
+<li><p>流量控制：限制发送方发出数据流量让它发送速率不能超过接收方速率的一种技术</p>
+</li>
+<li><p>流量控制功能可以在数据链路层以及以上各层使用。</p>
+</li>
+<li><p>目前提供的流量控制功能主要是：数据链路层，网络层，传输层</p>
+</li>
+</ul>
+</li>
+<li><p>集线器是一个多端口的中继器，工作在物理层。以太网交换机是一个多端口的网桥，工作在数据链路层</p>
+</li>
+<li><p>协议是水平的，服务是垂直的，协议是控制两个对等实体的通信规则，服务是下层建立接口向上层提供服务。</p>
+</li>
+</ul>
+<h5 id="计算机网络和分布式计算机系统的区别？"><a href="#计算机网络和分布式计算机系统的区别？" class="headerlink" title="计算机网络和分布式计算机系统的区别？"></a>计算机网络和分布式计算机系统的区别？</h5><ul>
+<li><p>分布式系统：整个系统中的各个计算机对用户都是透明的，用户铜鼓哦输入命令就可以运行程序。但是用户并不知道是哪一台在为他运行程序。</p>
+</li>
+<li><p>计算机网络：用户必须在想要运行程序的计算机上进行登录，然后按照计算机的地址，将程序通过计算机网络传送给计算机上去运行。最后，根据用户的命令将结果传送到指定的计算机。</p>
+</li>
+</ul>
+<h5 id="主要的区别还是软件不同。"><a href="#主要的区别还是软件不同。" class="headerlink" title="主要的区别还是软件不同。"></a>主要的区别还是软件不同。</h5><ul>
+<li><p>Internet使用的IP协议是无连接的，也就是传输的时候是不可靠的</p>
+</li>
+<li><p>端到端通信和点到点通信的区别</p>
+<ul>
+<li><p>本质上：物理层，数据链路层和网络层组成的通信子网为网络环境中的主机提供点到点服务</p>
+</li>
+<li><p>传输层为网络层的主机提供端到端的通信</p>
+</li>
+</ul>
+</li>
+<li><p>端：用户程序的端口，端口号标识了应用层不同的进程</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/计算机网络-二/" rel="next" title="计算机网络(二)">
+                <i class="fa fa-chevron-left"></i> 计算机网络(二)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="Victor Drq">
+            
+              <p class="site-author-name" itemprop="name">Victor Drq</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AnonymousDQ" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1397743321@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/drq1/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-globe"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、物理层Physical-Layer："><span class="nav-number">1.</span> <span class="nav-text">1、物理层Physical Layer：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、数据链路层（Data-Link-Layer）"><span class="nav-number">2.</span> <span class="nav-text">2、数据链路层（Data Link Layer）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、网络层（Network-Layer）"><span class="nav-number">3.</span> <span class="nav-text">3、网络层（Network Layer）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、传输层（Transport-Layer）"><span class="nav-number">4.</span> <span class="nav-text">4、传输层（Transport Layer）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、会话层（Session-Layer）"><span class="nav-number">5.</span> <span class="nav-text">5、会话层（Session Layer）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、表示层（Presentation-Layer）"><span class="nav-number">6.</span> <span class="nav-text">6、表示层（Presentation Layer）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、应用层（Application-Layer）"><span class="nav-number">7.</span> <span class="nav-text">7、应用层（Application Layer）</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#二、TCP-IP模型"><span class="nav-number"></span> <span class="nav-text">二、TCP/IP模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、网络接口层：功能类似OSI的物理层和数据链路层"><span class="nav-number">1.</span> <span class="nav-text">1、网络接口层：功能类似OSI的物理层和数据链路层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、网际层（主机-主机）：是TCP-IP体系的关键"><span class="nav-number">2.</span> <span class="nav-text">2、网际层（主机-主机）：是TCP/IP体系的关键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、传输层（应用-应用，进程-进程）"><span class="nav-number">3.</span> <span class="nav-text">3、传输层（应用-应用，进程-进程）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、应用层（用户-用户）：包含所有的高层协议"><span class="nav-number">4.</span> <span class="nav-text">4、应用层（用户-用户）：包含所有的高层协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、OSI参考模型和TCP-IP模型的比较"><span class="nav-number"></span> <span class="nav-text">三、OSI参考模型和TCP/IP模型的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、通信协议栈进行通信的节点数据传输过程"><span class="nav-number"></span> <span class="nav-text">四、通信协议栈进行通信的节点数据传输过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注："><span class="nav-number"></span> <span class="nav-text">注：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#计算机网络和分布式计算机系统的区别？"><span class="nav-number">0.0.1.</span> <span class="nav-text">计算机网络和分布式计算机系统的区别？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主要的区别还是软件不同。"><span class="nav-number">0.0.2.</span> <span class="nav-text">主要的区别还是软件不同。</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Victor Drq</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">25.7k</span>
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
