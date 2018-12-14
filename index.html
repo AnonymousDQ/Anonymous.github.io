@@ -304,6 +304,200 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据库范式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/数据库范式/" itemprop="url">数据库范式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T20:55:44+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  627
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="范式-Normal-Form-NF"><a href="#范式-Normal-Form-NF" class="headerlink" title="范式(Normal Form,NF)"></a>范式(Normal Form,NF)</h1><p>设计关系型数据库时，需要遵从不同的规范要求，设计出合理的关系型数据库。越高的范式数据库冗余越小。</p>
+<ul>
+<li><p>范式的优点：消除重复数据，减少数据冗余，让数据库内的数据更好的组织，让磁盘空间得到更有效的利用。</p>
+</li>
+<li><p>范式的缺点：范式使得查询变得相当复杂，在查询的时候需要更多的连接，一些复合索引的列由于范式化的需要被分割到不同的表中，导致索引策略不佳。</p>
+</li>
+</ul>
+<p>第一范式(1NF)：每一个属性不可再分。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">范式</th>
+<th style="text-align:center">特征</th>
+<th style="text-align:center">详解</th>
+<th style="text-align:center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">第一范式1NF</td>
+<td style="text-align:center">每一个属性不可再分</td>
+<td style="text-align:center">1NF,对域添加的一个规范要求，所有的域都应该是原子性的也就是数据表的每一列都是不可分割的原子数据项，而不能是集合，数组等。也就是某个属性有多个值，必须将它拆分为不同的属性。不满足1NF的不是关系数据库。满足1NF的表必须要有主键，每个属性不可再分。</td>
+<td style="text-align:center">比如说员工表，有员工号，姓名，电话号码组成。但是一个人可能有座机号码和移动号码。需要将它拆分为两个属性，也就是员工表(员工号，姓名，座机号码，移动号码)</td>
+</tr>
+<tr>
+<td style="text-align:center">第二范式2NF</td>
+<td style="text-align:center">符合1NF,并且非主属性完全依赖于码</td>
+<td style="text-align:center">在1NF的基础上，每一个非主属性必须完全依赖于码，消除非主属性的对主键的部分函数依赖也即是实体的属性完全依赖于主关键字。完全依赖是不能存在只依赖主关键字的一部分。</td>
+<td style="text-align:center">选课关系(学号，课程号，成绩，学分)，码为组合关键字(课程号，学号)但是非主属性学分只依赖课程号，对关键字(学号，课程号)只是部份依赖。不是完全依赖。所以要拆分为两个关系模式：学生表(学号，课程号，分数)课程表(课程号，学分)，新的关系通过学生表中的外键课程号联系，需要时通过两个表的连接获取数据</td>
+</tr>
+<tr>
+<td style="text-align:center">第三范式3NF</td>
+<td style="text-align:center">符合1NF,且每个非主属性既不部分依赖码，也不传递依赖码也就是在2NF的基础上消除传递依赖</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/電商推薦系統/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -358,8 +552,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/計算機/" itemprop="url" rel="index">
-                    <span itemprop="name">計算機</span>
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
                   </a>
                 </span>
 
@@ -2235,201 +2429,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/二叉树/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/二叉树/" itemprop="url">二叉树</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:36:24+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  959
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="二叉树的遍历："><a href="#二叉树的遍历：" class="headerlink" title="二叉树的遍历："></a>二叉树的遍历：</h2><ul>
-<li><p>前序遍历：根左右</p>
-</li>
-<li><p>中序遍历：左根右</p>
-</li>
-<li><p>后序遍历：左右根</p>
-</li>
-<li><p>层次遍历：一层一层的遍历，类似广度优先</p>
-</li>
-</ul>
-<h2 id="二叉树的存储结构"><a href="#二叉树的存储结构" class="headerlink" title="二叉树的存储结构"></a>二叉树的存储结构</h2><ul>
-<li>二叉树以二叉链表结构存储，也就是1个数据域，两个指针域（分别指向左右孩子）</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二叉树的二叉链表结构定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> ElemType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> *<span class="title">lchild</span>,*<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode,*BiTree</span><br></pre></td></tr></table></figure>
-<ul>
-<li>二叉树的建立，先按照前序遍历的方式建立二叉树，当然也可以按照中序遍历或者后序遍历的方式建立二叉树</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以前序遍历的方式建立二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBiTree</span><span class="params">(BiTree *T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ElemType ch;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;ch;</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">'#'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *T=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        *T=(BiTNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BiTNode));</span><br><span class="line">        <span class="keyword">if</span>(!*T)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">exit</span>(OVERFLOW);<span class="comment">//分配内存失败退出</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            (*T)-&gt;data=ch;<span class="comment">//生成结点</span></span><br><span class="line">            CreateBiTree(&amp;(*T)-&gt;lchild);<span class="comment">//构造左子树</span></span><br><span class="line">            CreateBiTree(&amp;(*T)-&gt;rchild);<span class="comment">//构造右子树</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归前序遍历二叉树"><a href="#递归前序遍历二叉树" class="headerlink" title="递归前序遍历二叉树"></a>递归前序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归方式前序遍历二叉树</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);<span class="comment">//输出了层数</span></span><br><span class="line">        PreOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PreOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归中序遍历二叉树"><a href="#递归中序遍历二叉树" class="headerlink" title="递归中序遍历二叉树"></a>递归中序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        InOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">        InOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归后序遍历二叉树"><a href="#递归后序遍历二叉树" class="headerlink" title="递归后序遍历二叉树"></a>递归后序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归后序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        PostOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PostOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="中序遍历非递归"><a href="#中序遍历非递归" class="headerlink" title="中序遍历非递归"></a>中序遍历非递归</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrder</span><span class="params">(BiTree T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	InitStack(S);</span><br><span class="line">	BiTree p=T;<span class="comment">//p是遍历指针</span></span><br><span class="line">	<span class="keyword">while</span>(p||!isEmpty(S))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(p)<span class="comment">//根指针进站，遍历左子树</span></span><br><span class="line">		&#123;</span><br><span class="line">			Push(S,p);</span><br><span class="line">			p=p-&gt;lchild;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			Pop(S,p);</span><br><span class="line">			visit(p);</span><br><span class="line">			p=p-&gt;rchild;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="完整代码如下："><a href="#完整代码如下：" class="headerlink" title="完整代码如下："></a>完整代码如下：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;  </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> ElemType;<span class="comment">//二叉树的二叉链表结构，也就是二叉树的存储结构，1个数据域，2个指针域（分别指向左右子结点）</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> &#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> <span class="title">lchild</span>,<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode,*BiTree;</span><br><span class="line"></span><br><span class="line"><span class="comment">//以前序遍历的方式建立二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBiTree</span><span class="params">(BiTree *T)</span> </span>&#123;</span><br><span class="line">    ElemType ch;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;ch;</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">'#'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *T=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">`       T=(BiTNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BiTNode));</span><br><span class="line">        <span class="keyword">if</span>(!T)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">exit</span>(OVERFLOW);<span class="comment">//分配内存失败退出</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">             (T)-&gt;data=ch;<span class="comment">//生成结点</span></span><br><span class="line">             CreateBiTree(&amp;(T)-&gt;lchild);<span class="comment">//构造左子树</span></span><br><span class="line">             CreateBiTree(&amp;(*T)-&gt;rchild);<span class="comment">//构造右子树</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line"><span class="comment">//将二叉树前序遍历输出</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Display</span><span class="params">(ElemType ch)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ch&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在输出的基础上，输出层数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Floor</span><span class="params">(ElemType ch,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ch&lt;&lt;<span class="string">"在第"</span>&lt;&lt;level&lt;&lt;<span class="string">"层"</span>&lt;&lt;end;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归方式前序遍历二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);<span class="comment">//输出了层数</span></span><br><span class="line">        PreOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PreOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        InOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">        InOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归后序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        PostOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PostOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">int</span> level=<span class="number">1</span>;<span class="comment">//表示层数</span></span><br><span class="line">    BiTree T=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"请以前序遍历的方式输入二叉树："</span>;<span class="comment">//类似输入AB#D##C##</span></span><br><span class="line">    CreateBiTree(&amp;T);<span class="comment">//建立二叉树，没有树，无法遍历</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归前序遍历输出："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    PostOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;end;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归中序遍历输出为："</span>&lt;&lt;end;</span><br><span class="line">    InOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归后序遍历输出为："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    PostOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2482,7 +2481,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2493,7 +2492,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2504,7 +2503,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2585,7 +2584,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">18k</span>
+    <span title="Site words total count">18.6k</span>
   
 </div>
 <div class="powered-by">

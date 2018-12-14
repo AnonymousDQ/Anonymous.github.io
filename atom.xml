@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-14T12:50:41.972Z</updated>
+  <updated>2018-12-14T12:57:14.204Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>数据库范式</title>
+    <link href="http://yoursite.com/2018/12/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/"/>
+    <id>http://yoursite.com/2018/12/14/数据库范式/</id>
+    <published>2018-12-14T12:55:44.000Z</published>
+    <updated>2018-12-14T12:57:14.204Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="范式-Normal-Form-NF"><a href="#范式-Normal-Form-NF" class="headerlink" title="范式(Normal Form,NF)"></a>范式(Normal Form,NF)</h1><p>设计关系型数据库时，需要遵从不同的规范要求，设计出合理的关系型数据库。越高的范式数据库冗余越小。</p><ul><li><p>范式的优点：消除重复数据，减少数据冗余，让数据库内的数据更好的组织，让磁盘空间得到更有效的利用。</p></li><li><p>范式的缺点：范式使得查询变得相当复杂，在查询的时候需要更多的连接，一些复合索引的列由于范式化的需要被分割到不同的表中，导致索引策略不佳。</p></li></ul><p>第一范式(1NF)：每一个属性不可再分。</p><table><thead><tr><th style="text-align:center">范式</th><th style="text-align:center">特征</th><th style="text-align:center">详解</th><th style="text-align:center">举例</th></tr></thead><tbody><tr><td style="text-align:center">第一范式1NF</td><td style="text-align:center">每一个属性不可再分</td><td style="text-align:center">1NF,对域添加的一个规范要求，所有的域都应该是原子性的也就是数据表的每一列都是不可分割的原子数据项，而不能是集合，数组等。也就是某个属性有多个值，必须将它拆分为不同的属性。不满足1NF的不是关系数据库。满足1NF的表必须要有主键，每个属性不可再分。</td><td style="text-align:center">比如说员工表，有员工号，姓名，电话号码组成。但是一个人可能有座机号码和移动号码。需要将它拆分为两个属性，也就是员工表(员工号，姓名，座机号码，移动号码)</td></tr><tr><td style="text-align:center">第二范式2NF</td><td style="text-align:center">符合1NF,并且非主属性完全依赖于码</td><td style="text-align:center">在1NF的基础上，每一个非主属性必须完全依赖于码，消除非主属性的对主键的部分函数依赖也即是实体的属性完全依赖于主关键字。完全依赖是不能存在只依赖主关键字的一部分。</td><td style="text-align:center">选课关系(学号，课程号，成绩，学分)，码为组合关键字(课程号，学号)但是非主属性学分只依赖课程号，对关键字(学号，课程号)只是部份依赖。不是完全依赖。所以要拆分为两个关系模式：学生表(学号，课程号，分数)课程表(课程号，学分)，新的关系通过学生表中的外键课程号联系，需要时通过两个表的连接获取数据</td></tr><tr><td style="text-align:center">第三范式3NF</td><td style="text-align:center">符合1NF,且每个非主属性既不部分依赖码，也不传递依赖码也就是在2NF的基础上消除传递依赖</td><td style="text-align:center"></td><td style="text-align:center"></td></tr><tr><td style="text-align:center"></td><td style="text-align:center"></td><td style="text-align:center"></td><td style="text-align:center"></td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;范式-Normal-Form-NF&quot;&gt;&lt;a href=&quot;#范式-Normal-Form-NF&quot; class=&quot;headerlink&quot; title=&quot;范式(Normal Form,NF)&quot;&gt;&lt;/a&gt;范式(Normal Form,NF)&lt;/h1&gt;&lt;p&gt;设计关系型数据库
+      
+    
+    </summary>
+    
+    
+      <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
     <title>電商推薦系統</title>
     <link href="http://yoursite.com/2018/12/14/%E9%9B%BB%E5%95%86%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/"/>
     <id>http://yoursite.com/2018/12/14/電商推薦系統/</id>
     <published>2018-12-14T12:49:28.000Z</published>
-    <updated>2018-12-14T12:50:41.972Z</updated>
+    <updated>2018-12-14T12:52:50.724Z</updated>
     
     <content type="html"><![CDATA[<h2 id="电商网站用户行为分析及服务推荐"><a href="#电商网站用户行为分析及服务推荐" class="headerlink" title="电商网站用户行为分析及服务推荐"></a>电商网站用户行为分析及服务推荐</h2><h4 id="推荐系统和搜索引擎"><a href="#推荐系统和搜索引擎" class="headerlink" title="推荐系统和搜索引擎"></a>推荐系统和搜索引擎</h4><ul><li>搜索引擎满足有明确目标用户的需求</li><li>推荐系统能够帮助用户发现其感兴趣的内容</li></ul><p>当用户访问网站页面时，系统会记录用户访问呢网站的日志，记录用户IP，用户访问的时间，访问内容等多项属性的记录。</p><ul><li>按地域研究用户访问呢时间，访问内容和访问次数等分析主题，深入了解用户对访问呢网站的行为和目的及关心的内容</li><li>借助大量的用户的访问记录，发现用户的访问行为习惯，对不同需求的用户进行相关的服务页面的推荐。</li></ul><p>为了更好的帮助用户从海量数据中快速的发现感兴趣的网页，在目前相对单一的推荐系统上进行补充，采用协同过滤算法进行推荐。</p><p>用于用户访问网站的数据记录很多，如果对数据不进行分类处理，对所有记录直接采用推荐系统给进行推荐。会出现问题：</p><ul><li>数据量太大意味着物品数与用户数很多，在模型构建用户与物品的系数矩阵的时候，出现设备内存空间不够的情况，并且模型计算需要消耗大量的时间</li><li>用户区别很大，不同的用户关注的信息不一样，因此，即使能够得到推荐结果，其推荐效果也会不好。所以要进行分类处理与分析。</li><li>需要对用户的兴趣爱好以及需求进行分类。</li></ul>]]></content>
     
@@ -34,7 +57,7 @@
     
     </summary>
     
-      <category term="計算機" scheme="http://yoursite.com/categories/%E8%A8%88%E7%AE%97%E6%A9%9F/"/>
+      <category term="计算机" scheme="http://yoursite.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
     
   </entry>
