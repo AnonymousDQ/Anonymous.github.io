@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="drqblog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1、数据链路层的功能数据链路层在物理层提供服务的基础上向网络层提供服务。 作用：加强物理层传输原始比特流的功能，将物理层提供的可能出错的物理连接改造成逻辑上无差错的数据链路。让它对网络层表现为一条无差错的链路。 1.1、为网络层提供的服务 无确认的无连接的服务：源机器发送数据帧之前不用先建立链路连接，目的机器收到数据帧后也不要发回确认。对丢失的帧，数据链路层不负责重发而交给上层处理，用来实时通信或">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据链路层(续)">
+<meta property="og:url" content="http://yoursite.com/2018/12/14/数据链路层-续/index.html">
+<meta property="og:site_name" content="drqblog">
+<meta property="og:description" content="1、数据链路层的功能数据链路层在物理层提供服务的基础上向网络层提供服务。 作用：加强物理层传输原始比特流的功能，将物理层提供的可能出错的物理连接改造成逻辑上无差错的数据链路。让它对网络层表现为一条无差错的链路。 1.1、为网络层提供的服务 无确认的无连接的服务：源机器发送数据帧之前不用先建立链路连接，目的机器收到数据帧后也不要发回确认。对丢失的帧，数据链路层不负责重发而交给上层处理，用来实时通信或">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-14T13:38:35.402Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据链路层(续)">
+<meta name="twitter:description" content="1、数据链路层的功能数据链路层在物理层提供服务的基础上向网络层提供服务。 作用：加强物理层传输原始比特流的功能，将物理层提供的可能出错的物理连接改造成逻辑上无差错的数据链路。让它对网络层表现为一条无差错的链路。 1.1、为网络层提供的服务 无确认的无连接的服务：源机器发送数据帧之前不用先建立链路连接，目的机器收到数据帧后也不要发回确认。对丢失的帧，数据链路层不负责重发而交给上层处理，用来实时通信或">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/14/数据链路层-续/">
+
+
+
+
+
+  <title>数据链路层(续) | drqblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/AnonymousDQ">
+	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub">
+	</a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">drqblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据链路层-续/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据链路层(续)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:31:35+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1、数据链路层的功能"><a href="#1、数据链路层的功能" class="headerlink" title="1、数据链路层的功能"></a>1、数据链路层的功能</h3><p>数据链路层在物理层提供服务的基础上向网络层提供服务。</p>
+<p>作用：加强物理层传输原始比特流的功能，将物理层提供的可能出错的物理连接改造成逻辑上无差错的数据链路。让它对网络层表现为一条无差错的链路。</p>
+<h4 id="1-1、为网络层提供的服务"><a href="#1-1、为网络层提供的服务" class="headerlink" title="1.1、为网络层提供的服务"></a>1.1、为网络层提供的服务</h4><ul>
+<li><p>无确认的无连接的服务：源机器发送数据帧之前不用先建立链路连接，目的机器收到数据帧后也不要发回确认。对丢失的帧，数据链路层不负责重发而交给上层处理，用来实时通信或者误码率较低的通信信道。以太网就是这种机制服务</p>
+</li>
+<li><p>有确认无连接的服务：源机器发送数据帧不需要建立链路连接，但是目的机器收到数据帧后必须发回确认。源机器在所规定的时间内没有收到确认信号，就会重新传丢失的帧。用来提高传输的可靠性。这种服务常用在误码率高的通信信道，比如无线通信。</p>
+</li>
+<li><p>有确认的面向连接的服务：帧传输分为三个过程：建立数据链路，传输帧，释放数据链路。这种服务用语通信要求，可靠性，实时性较高的情况下。</p>
+</li>
+</ul>
+<p>注：有连接就一定要有确认</p>
+<h4 id="1-2数据链路层的链路管理"><a href="#1-2数据链路层的链路管理" class="headerlink" title="1.2数据链路层的链路管理"></a>1.2数据链路层的链路管理</h4><ul>
+<li><p>数据链路层，连接的建立，维持，释放，三个过程叫做链路管理，主要还是面向连接的服务。两个工作栈之间进行传输信息的时候，必须将网络层的分组（package）封装成帧（Frame），然后用帧的格式进行传送。在数据的前后分别加上帧头和帧尾，就构成了帧。</p>
+</li>
+<li><p>帧头和帧尾的作用：确定帧的界限，也就是帧定界。HDLC标准帧格式：前后都有标志位F（01111110）</p>
+</li>
+<li><p>透明传输：不管所传数据是什么样的比特组合，都可以在连路上传送</p>
+</li>
+</ul>
+<h4 id="1-3、流量控制"><a href="#1-3、流量控制" class="headerlink" title="1.3、流量控制"></a>1.3、流量控制</h4><p>由于发送方和接收方的工作速率和缓存空间的差异，可能出现发送方发送能力大于接收方的能力。如果不对链路上的信息流量限制，前面来不及接收的帧就会被后面不断发送的帧淹没，造成帧的丢失而出错。</p>
+<ul>
+<li><p>流量控制：就是限制发送方的数据流量，使其发送速率不超过接收速率。其实流量控制其它层也提供这个功能，只不过控制的对象不同而已。对于数据链路层：控制的是相邻两个节点之间的数据链路上的流量。而对于传输层：控制的是从源端口到目的端口的流量。</p>
+</li>
+<li><p>流量控制的基本方法：接收方控制发送方发送数据的速率</p>
+</li>
+</ul>
+<h5 id="常见方式：停止等待协议，滑动窗口协议"><a href="#常见方式：停止等待协议，滑动窗口协议" class="headerlink" title="常见方式：停止等待协议，滑动窗口协议"></a>常见方式：停止等待协议，滑动窗口协议</h5><ul>
+<li><p>停止等待协议：发送方发送一帧，都要等待接收方得应答信号，才能发送下一帧。同样，接收方每接收一帧，都要反馈一个应答信号，这种传输效率很低。</p>
+</li>
+<li><p>滑动窗口协议：任何时刻，发送方都维持一组连续的允许发送的帧的序号，这个叫发送窗口</p>
+</li>
+</ul>
+<p>同样接收方也维持一组连续的允许接受帧的序号，叫接收窗口。发送窗口用来对发送方进行流量控制。</p>
+<p>可靠传输机制：确认机制，超时重传机制。</p>
+<ul>
+<li><p>多帧滑动窗口-选择重传协议SR</p>
+</li>
+<li><p>多帧滑动窗口-后退N帧协议GBN。</p>
+</li>
+<li>后退N帧式ARQ中，发送方不需要再收到上一个帧的ACK后才能开始发送下一帧，也就是可以连续发送帧。</li>
+</ul>
+<h4 id="1-4、差错控制"><a href="#1-4、差错控制" class="headerlink" title="1.4、差错控制"></a>1.4、差错控制</h4><p>由于信道噪声等因素，帧传输可能出现错误。</p>
+<p>位错：帧的某些位出现了差错，采用循环冗余校验CRC，通过自动重传请求ARQ方式来重传错误的帧</p>
+<p>注：介质访问控制MAC（Medium Access Control）</p>
+<p>信道划分介质访问控制有四种：频分多路复用FDM，时分多路复用TDM，波分多路复用WDM，码分多路复用CDM</p>
+<h3 id="2、随机访问MAC"><a href="#2、随机访问MAC" class="headerlink" title="2、随机访问MAC"></a>2、随机访问MAC</h3><p>在随机访问协议中，不采用集中控制方式解决信息发送的次序问题。所有用户都可以根据自己的意愿随机发送信息，占用信道全部速率。在总线网中，当有两个或者多个用户同时发送信息的时候，就会产生帧的冲突。这导致所有冲突用户的发送均失败。</p>
+<p>为了解决随机接入发生的碰撞，每个用户需要按照一定的规则反复的重传他的帧。知道帧没有碰撞到通过。</p>
+<p>这些规则就是随机访问MAC协议。</p>
+<ul>
+<li>重用的协议：ALOHA协议，CSMA协议，CSMA/CD协议，CSMA/CA协议</li>
+</ul>
+<p>这些协议的核心思想都是：胜利者通过争用获得信道，进而获得信息的发送权，所以说随机访问MAC协议，也叫争用型协议。</p>
+<p>MAC采用信道划分机制，那么节点之间的通信，要不就是共享空间，要不就共享时间，要不就两个都共享。</p>
+<p>随机MAC：实质上是一种广播信道转化为点到点信道的行为。</p>
+<p>因为交换机可以转发广播，随机访问MAC，可以将广播转化为point to point </p>
+<h4 id="2-1、ALOHA协议：随机接入系统协议"><a href="#2-1、ALOHA协议：随机接入系统协议" class="headerlink" title="2.1、ALOHA协议：随机接入系统协议"></a>2.1、ALOHA协议：随机接入系统协议</h4><h4 id="2-2、CSMA协议："><a href="#2-2、CSMA协议：" class="headerlink" title="2.2、CSMA协议："></a>2.2、CSMA协议：</h4><ul>
+<li><p>如果每个站点在发送前都先侦听一下公用的信道，那么发送信道空闲后再发送，那么将会大大减小冲突的可能。从而提高信道的利用率。</p>
+</li>
+<li><p>载波侦听多路访问（Carrier Sense Multiple Access，CSMA）。CSMA协议对ALOHA协议的一种改进，也就是多了一个载波侦听装置。</p>
+</li>
+</ul>
+<h4 id="2-3、CSMA-CD协议：载波侦听多路访问-碰撞检测"><a href="#2-3、CSMA-CD协议：载波侦听多路访问-碰撞检测" class="headerlink" title="2.3、CSMA/CD协议：载波侦听多路访问/碰撞检测"></a>2.3、CSMA/CD协议：载波侦听多路访问/碰撞检测</h4><ul>
+<li><p>是对CSMA协议的改进方案，适用于总线型网络或者半双工网络环境</p>
+</li>
+<li><p>载波侦听：也就是发送前先侦听，每次发送数据之前都要先检查一下总线上是否有其他站点在发送数据，如果有。则暂时不要发送数据，等待信道变为空闲的时候再发送。</p>
+</li>
+<li><p>碰撞检测：就是一边发送一边侦听，适配器在发送数据的时候变检测信道上的信号电压的变化情况，用来判断自己在发送数据的时候其他站点是否也在发送数据。</p>
+</li>
+<li><p>CSMA/CD工作流程：先听后发，边听边发，冲突停发，随机重发</p>
+</li>
+<li><p>总线的传播时延对CSMA/CD的影响很大，CSMA/CD中的站不能同时发送和接收。所以CSMA/CD的以太网是不进行全双工通信，只能进行半双工通信</p>
+</li>
+</ul>
+<h4 id="2-4、CSMA-CA协议"><a href="#2-4、CSMA-CA协议" class="headerlink" title="2.4、CSMA/CA协议"></a>2.4、CSMA/CA协议</h4><ul>
+<li><p>CSMA/CD协议已经应用在使用有线连接的局域网中，但是要在无线局域网的环境下，却不能用。</p>
+</li>
+<li><p>CSMA/CD协议，尤其是碰撞部分，因为无线局域网中，接受信号的强度远远小于发送信号的强度。而且在无线介质上信号强度变化范围很广，要实现碰撞检测，那么在硬件上要花费很大。</p>
+</li>
+<li><p>在无线通信中，并非所有的站点都可以侦听到对方，也就是隐蔽站的问题。</p>
+</li>
+<li><p>CSMA/CA协议，广泛用于无线局域网。</p>
+</li>
+<li><p>把碰撞检测改成了碰撞避免（Collision Avoidance，CA）</p>
+</li>
+<li><p>碰撞避免：不是指协议可以完全避免碰撞，而是指协议的设计要尽量减少碰撞的发生概率。</p>
+</li>
+<li><p>CSMA/CA采用二进制指数退避算法。通过预约信道，ACK帧，RTS/CTS帧，三种机制来实现碰撞避免RTS/CTS帧，主要用来解决无线网的隐蔽站问题。</p>
+</li>
+<li><p>预约信道，ACK帧，都是必须要实现的</p>
+</li>
+<li><p>预约信道：发送方在发送数据的同时想起他站点通过告知自己传输数据需要的时间长度，方便让其他站点在这段时间内部发送数据，避免碰撞。</p>
+</li>
+<li><p>ACK帧：所有站点在正确接收到发送给自己的数据帧后，都需要向发送方应答一个ACK帧。</p>
+</li>
+</ul>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><ul>
+<li><p>CSMA/CA协议的基本思想：发送数据的时候先广播告知其他节点，让其他节点在某个时间段内不要发送数据，避免碰撞。</p>
+</li>
+<li><p>CSMA/CD协议的基本思想：发送前先侦听，边发送边侦听，一旦出现碰撞马上停止发送。</p>
+</li>
+</ul>
+<h3 id="3、轮询访问MAC：令牌传递协议"><a href="#3、轮询访问MAC：令牌传递协议" class="headerlink" title="3、轮询访问MAC：令牌传递协议"></a>3、轮询访问MAC：令牌传递协议</h3><ul>
+<li><p>在轮询访问中，用户不能随机的发送信息，是通过集中控制的监控站，以循环的方式轮询每个节点。然后决定信道的分配。</p>
+</li>
+<li><p>当某个节点使用信道的时候，其他节点都不能使用信道。典型的轮询MAC协议是令牌传递协议，令牌环局域网。</p>
+</li>
+<li><p>令牌传递协议：一个令牌在各个节点以一个固定的次序交换。令牌是个特殊的比特组成的帧，当换上的站希望传递帧的时候，就必须等待令牌，一旦收到令牌，站点就可以启动发送帧。</p>
+</li>
+<li><p>轮询MAC适合复杂很高的广播信道，负载很高的信道就是多个节点在同一时刻发送数据概率很大的信道。</p>
+</li>
+<li><p>如果广播信道采用随机MAC，发生冲突的概率很大，而采用轮询MAC则可以更好满足各个节点的要求。</p>
+</li>
+<li><p>轮序的实质：不共享时间，空间。实质上就是在随机MAC的基础上，限定了有权利发送数据的节点只能有一个</p>
+</li>
+<li><p>即使是广播信道，都可以通过MAC使得广播信道逻辑上变成点对点的信道。所以说数据链路层研究的是点对点之间的通信。</p>
+</li>
+</ul>
+<h3 id="4、局域网（Local-Area-Network-LAN）"><a href="#4、局域网（Local-Area-Network-LAN）" class="headerlink" title="4、局域网（Local Area Network,LAN）"></a>4、局域网（Local Area Network,LAN）</h3><h4 id="4-1、局域网的特点："><a href="#4-1、局域网的特点：" class="headerlink" title="4.1、局域网的特点："></a>4.1、局域网的特点：</h4><ul>
+<li><p>为一个单位所拥有的，地理范围和站点数目有限</p>
+</li>
+<li><p>所有的站共享较高的总带宽，也就是共享较高的数据传输率</p>
+</li>
+<li><p>较低的时延和较低的误码率</p>
+</li>
+<li><p>各站为平等关系而不是主动关系</p>
+</li>
+<li><p>能进行广播和组播</p>
+</li>
+</ul>
+<h4 id="4-2、局域网的拓扑结构："><a href="#4-2、局域网的拓扑结构：" class="headerlink" title="4.2、局域网的拓扑结构："></a>4.2、局域网的拓扑结构：</h4><p>星型，环形，总线型，星型+总线型复杂复合</p>
+<h4 id="4-3、局域网的传输介质："><a href="#4-3、局域网的传输介质：" class="headerlink" title="4.3、局域网的传输介质："></a>4.3、局域网的传输介质：</h4><ul>
+<li><p>双绞线，同轴电缆，光纤，其中双绞线是主流</p>
+</li>
+<li><p>局域网的介质访问控制方法：CSMA/CD,令牌总线，令牌环。这是交换机常用于局域网，而局域网接入广域网要用路由器</p>
+</li>
+<li><p>CSMA/CD，令牌总线访问控制方法用于总线型网络</p>
+</li>
+<li><p>令牌环用于环形局域网</p>
+</li>
+</ul>
+<h4 id="4-4、以太网"><a href="#4-4、以太网" class="headerlink" title="4.4、以太网"></a>4.4、以太网</h4><h5 id="使用范围最广的局域网，逻辑拓扑是总线型结构，物理拓扑是星型，或者扩展星型"><a href="#使用范围最广的局域网，逻辑拓扑是总线型结构，物理拓扑是星型，或者扩展星型" class="headerlink" title="使用范围最广的局域网，逻辑拓扑是总线型结构，物理拓扑是星型，或者扩展星型"></a>使用范围最广的局域网，逻辑拓扑是总线型结构，物理拓扑是星型，或者扩展星型</h5><ul>
+<li><p>令牌环（Token Ring）：逻辑拓扑是环形，物理拓扑是双环</p>
+</li>
+<li><p>FDDI（光纤分布数字接口）：逻辑拓扑是环形，物理拓扑是双环</p>
+</li>
+</ul>
+<h5 id="由于以太网在局域网市场中垄断地位，几乎成为局域网的代名词"><a href="#由于以太网在局域网市场中垄断地位，几乎成为局域网的代名词" class="headerlink" title="由于以太网在局域网市场中垄断地位，几乎成为局域网的代名词"></a>由于以太网在局域网市场中垄断地位，几乎成为局域网的代名词</h5><ul>
+<li><p>LLC子层也叫逻辑链路控制子层，由于他的作用不大，所以现在的网卡只有MAC协议没有LLC协议。</p>
+</li>
+<li><p>以太网逻辑上采用总线型拓扑结构，以太网中所有计算机共享同一条总线，信息以广播方式发送。</p>
+</li>
+<li><p>以太网简化了通信并且使用了CSMA/CD方式对总线进行访问控制。</p>
+</li>
+<li><p>计算机与外界局域网的连接是通过主机里的一块网络适配器（Adapter），也叫网卡NIC</p>
+</li>
+<li><p>网卡上有处理器和存储器，他工作在数据链路层的网络组件。</p>
+</li>
+<li><p>网卡是局域网连接计算机和传输介质的接口，不仅能实现于局域网传输介质之间的物理连接和电信号匹配。还涉及帧的发送与接收，帧的封装与拆封，介质访问控制MAC,数据的编码和解码，数据缓存等功能。</p>
+</li>
+<li><p>全世界的每一块网卡在出厂的时候都有一个唯一的代码，叫做价值访问控制MAC地址。MAC地址用来控制主机在网络上的数据通信。</p>
+</li>
+</ul>
+<h5 id="数据链路层的设备：网卡，网桥，交换机。"><a href="#数据链路层的设备：网卡，网桥，交换机。" class="headerlink" title="数据链路层的设备：网卡，网桥，交换机。"></a>数据链路层的设备：网卡，网桥，交换机。</h5><ul>
+<li><p>网桥，交换机都是使用各个网卡的MAC地址。网卡控制着主机对介质的访问，因此网卡也工作在物理层，只关注比特流。</p>
+</li>
+<li><p>以太网常用的传输介质：粗缆，细缆，双绞线，光纤</p>
+</li>
+<li><p>MAC地址：物理地址，6个10进制数组成。速率达到或者超过100Mb/s的以太网叫高速以太网。</p>
+</li>
+</ul>
+<h3 id="5、广域网（Wide-Area-Network-WAN）"><a href="#5、广域网（Wide-Area-Network-WAN）" class="headerlink" title="5、广域网（Wide Area Network,WAN）"></a>5、广域网（Wide Area Network,WAN）</h3><ul>
+<li><p>广域网是Internet的核心部分，通过长距离运送主机所发送的数据，连接广域网各个节点的交换机的链路都是高速链路。距离是几千公里的光缆线路。广域网覆盖方位很广，远远超过一个城市。</p>
+</li>
+<li><p>广域网的组成：节点交换机+链路</p>
+</li>
+<li><p>节点交换机：和路由器一样都是用来转发分组的</p>
+</li>
+<li><p>节点交换机实在单个网络中转发分组，路由器是在多个网络构成的互联网转发分组。节点之间都是点到点连接。为了提高网络的可靠性，通常一个节点交换机往往与多个节点交换机相连。</p>
+</li>
+</ul>
+<h4 id="5-1、广域网和局域网的区别很大："><a href="#5-1、广域网和局域网的区别很大：" class="headerlink" title="5.1、广域网和局域网的区别很大："></a>5.1、广域网和局域网的区别很大：</h4><p>局域网使用的协议主要在数据链路层。</p>
+<p>广域网使用的协议主要在网络层。</p>
+<p>也就是说网络中的两个节点要进行数据交换，节点除了要给出数据外，还要给数据包装上一层控制信息，用来实现</p>
+<p>检错纠错的功能。如果这层信息是数据链路层的协议控制信息，就叫做使用了数据链路的协议，如果这层控制信息是在网络层，就是使用了网络层的协议。</p>
+<ul>
+<li><p>广域网强调：资源共享</p>
+</li>
+<li><p>局域网强调：数据传输</p>
+</li>
+<li><p>广域网中一个重要问题：路由选择和分组转发</p>
+</li>
+<li><p>路由选择协议：负责搜索分组从某个节点到目的节点的最佳路由，以便构成路由表。</p>
+</li>
+<li><p>分组转发：从路由表构造出转发分组的转发表。</p>
+</li>
+<li><p>PPP协议和HDLC协议是目前最常用的两种广域网数据链路层的面向字节的协议</p>
+</li>
+</ul>
+<h5 id="5-1-1、PPP协议（Point-to-Point-Protocol）"><a href="#5-1-1、PPP协议（Point-to-Point-Protocol）" class="headerlink" title="5.1.1、PPP协议（Point to Point Protocol）:"></a>5.1.1、PPP协议（Point to Point Protocol）:</h5><p>使用串行线路通信的面向字节的协议，PPP协议应用在直接连接的两个节点的连路上。</p>
+<ul>
+<li><p>目的：通过拨号或者专线方式建立点对点的连接放松数据，让它成为各种主机，网桥，路由器之间简单连接的解决方法。</p>
+</li>
+<li><p>PPP协议：在SLIP的基础上发展而来，可以在异步线路上传输，也可以在同步线路上用。不仅用于Modem链路，还可以用于路由器和路由器之间的链路。</p>
+</li>
+</ul>
+<h5 id="PPP组成："><a href="#PPP组成：" class="headerlink" title="PPP组成："></a>PPP组成：</h5><ul>
+<li><p>链路控制协议LCP：用来建立，配置，测试，管理数据链路</p>
+</li>
+<li><p>网络控制协议NCP：由于PPP可以同时用多种网络层协议，每个不同的网络层协议要用一个相应的NCP来配置。一个将IP数据报封装到串行链路的方法。</p>
+</li>
+<li><p>PPP帧和HDLC帧的格式一样，收尾都是相同的标志字段为7E</p>
+</li>
+<li><p>PPP协议是点对点的，不是总线型，不用CSMA/CD协议。</p>
+</li>
+</ul>
+<h5 id="5-1-2、HDLC协议"><a href="#5-1-2、HDLC协议" class="headerlink" title="5.1.2、HDLC协议"></a>5.1.2、HDLC协议</h5><p>高级数据链路控制（High-level Data Link Control）：面向比特的数据链路层协议。</p>
+<ul>
+<li><p>HDLC协议不依赖任何一种字符集编码，数据报文可以透明传输。</p>
+</li>
+<li><p>PPP是面向字节的，HDLC协议是面向比特的</p>
+</li>
+<li><p>TCP/IP协议簇：TCP,IP,ICMP,ARP,RARP,UDP,DNS,FTP,HTTP</p>
+</li>
+<li><p>HDLC,PPP是ISO提出的数据链路层协议，不属于TCP/IP协议簇</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/数据链路层/" rel="next" title="数据链路层">
+                <i class="fa fa-chevron-left"></i> 数据链路层
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/14/JAVA中的NIO与IO/" rel="prev" title="JAVA中的NIO与IO">
+                JAVA中的NIO与IO <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="Victor Drq">
+            
+              <p class="site-author-name" itemprop="name">Victor Drq</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AnonymousDQ" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1397743321@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/drq1/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-globe"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、数据链路层的功能"><span class="nav-number">1.</span> <span class="nav-text">1、数据链路层的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1、为网络层提供的服务"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、为网络层提供的服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2数据链路层的链路管理"><span class="nav-number">1.2.</span> <span class="nav-text">1.2数据链路层的链路管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3、流量控制"><span class="nav-number">1.3.</span> <span class="nav-text">1.3、流量控制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常见方式：停止等待协议，滑动窗口协议"><span class="nav-number">1.3.1.</span> <span class="nav-text">常见方式：停止等待协议，滑动窗口协议</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4、差错控制"><span class="nav-number">1.4.</span> <span class="nav-text">1.4、差错控制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、随机访问MAC"><span class="nav-number">2.</span> <span class="nav-text">2、随机访问MAC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1、ALOHA协议：随机接入系统协议"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、ALOHA协议：随机接入系统协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2、CSMA协议："><span class="nav-number">2.2.</span> <span class="nav-text">2.2、CSMA协议：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3、CSMA-CD协议：载波侦听多路访问-碰撞检测"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、CSMA/CD协议：载波侦听多路访问/碰撞检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4、CSMA-CA协议"><span class="nav-number">2.4.</span> <span class="nav-text">2.4、CSMA/CA协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结："><span class="nav-number">2.5.</span> <span class="nav-text">总结：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、轮询访问MAC：令牌传递协议"><span class="nav-number">3.</span> <span class="nav-text">3、轮询访问MAC：令牌传递协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、局域网（Local-Area-Network-LAN）"><span class="nav-number">4.</span> <span class="nav-text">4、局域网（Local Area Network,LAN）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1、局域网的特点："><span class="nav-number">4.1.</span> <span class="nav-text">4.1、局域网的特点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2、局域网的拓扑结构："><span class="nav-number">4.2.</span> <span class="nav-text">4.2、局域网的拓扑结构：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3、局域网的传输介质："><span class="nav-number">4.3.</span> <span class="nav-text">4.3、局域网的传输介质：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4、以太网"><span class="nav-number">4.4.</span> <span class="nav-text">4.4、以太网</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用范围最广的局域网，逻辑拓扑是总线型结构，物理拓扑是星型，或者扩展星型"><span class="nav-number">4.4.1.</span> <span class="nav-text">使用范围最广的局域网，逻辑拓扑是总线型结构，物理拓扑是星型，或者扩展星型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#由于以太网在局域网市场中垄断地位，几乎成为局域网的代名词"><span class="nav-number">4.4.2.</span> <span class="nav-text">由于以太网在局域网市场中垄断地位，几乎成为局域网的代名词</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据链路层的设备：网卡，网桥，交换机。"><span class="nav-number">4.4.3.</span> <span class="nav-text">数据链路层的设备：网卡，网桥，交换机。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、广域网（Wide-Area-Network-WAN）"><span class="nav-number">5.</span> <span class="nav-text">5、广域网（Wide Area Network,WAN）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1、广域网和局域网的区别很大："><span class="nav-number">5.1.</span> <span class="nav-text">5.1、广域网和局域网的区别很大：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-1、PPP协议（Point-to-Point-Protocol）"><span class="nav-number">5.1.1.</span> <span class="nav-text">5.1.1、PPP协议（Point to Point Protocol）:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PPP组成："><span class="nav-number">5.1.2.</span> <span class="nav-text">PPP组成：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-2、HDLC协议"><span class="nav-number">5.1.3.</span> <span class="nav-text">5.1.2、HDLC协议</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Victor Drq</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">39.1k</span>
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="drqblog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="1、数据链路层设备1.1、网桥两个，或者多个以太网通过网桥连接起来后，就成为了一个覆盖范围更大的以太网，从而原来的没个以太网就可以叫做一个网段。 网桥工作在数据链路层的MAC子层，可以使得以太网各网段成为隔离开的碰撞域或（冲突域） 如果把网桥换曾工作在物理层的转发器，就没有了这种过滤通信量的功能。网桥处理的数据对象是帧（Frame），所以工作在数据链路层。中继器，集线器Hub处理的数据对象是信号，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据链路层">
+<meta property="og:url" content="http://yoursite.com/2018/12/14/数据链路层/index.html">
+<meta property="og:site_name" content="drqblog">
+<meta property="og:description" content="1、数据链路层设备1.1、网桥两个，或者多个以太网通过网桥连接起来后，就成为了一个覆盖范围更大的以太网，从而原来的没个以太网就可以叫做一个网段。 网桥工作在数据链路层的MAC子层，可以使得以太网各网段成为隔离开的碰撞域或（冲突域） 如果把网桥换曾工作在物理层的转发器，就没有了这种过滤通信量的功能。网桥处理的数据对象是帧（Frame），所以工作在数据链路层。中继器，集线器Hub处理的数据对象是信号，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-14T13:30:50.391Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据链路层">
+<meta name="twitter:description" content="1、数据链路层设备1.1、网桥两个，或者多个以太网通过网桥连接起来后，就成为了一个覆盖范围更大的以太网，从而原来的没个以太网就可以叫做一个网段。 网桥工作在数据链路层的MAC子层，可以使得以太网各网段成为隔离开的碰撞域或（冲突域） 如果把网桥换曾工作在物理层的转发器，就没有了这种过滤通信量的功能。网桥处理的数据对象是帧（Frame），所以工作在数据链路层。中继器，集线器Hub处理的数据对象是信号，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/14/数据链路层/">
+
+
+
+
+
+  <title>数据链路层 | drqblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/AnonymousDQ">
+	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub">
+	</a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">drqblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据链路层/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据链路层</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:28:59+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1、数据链路层设备"><a href="#1、数据链路层设备" class="headerlink" title="1、数据链路层设备"></a>1、数据链路层设备</h3><h4 id="1-1、网桥"><a href="#1-1、网桥" class="headerlink" title="1.1、网桥"></a>1.1、网桥</h4><p>两个，或者多个以太网通过网桥连接起来后，就成为了一个覆盖范围更大的以太网，从而原来的没个以太网就可以叫做一个网段。</p>
+<p>网桥工作在数据链路层的MAC子层，可以使得以太网各网段成为隔离开的碰撞域或（冲突域）</p>
+<p>如果把网桥换曾工作在物理层的转发器，就没有了这种过滤通信量的功能。网桥处理的数据对象是帧（Frame），所以工作在数据链路层。中继器，集线器Hub处理的数据对象是信号，工作在物理层。</p>
+<h4 id="1-2、交换机"><a href="#1-2、交换机" class="headerlink" title="1.2、交换机"></a>1.2、交换机</h4><h5 id="1-2-1、局域网交换机"><a href="#1-2-1、局域网交换机" class="headerlink" title="1.2.1、局域网交换机"></a>1.2.1、局域网交换机</h5><p>网桥主要是限制在任意时刻通常只能执行一个帧的转发操作。局域网交换机也叫以太网交换机，本质上说，就是一个多端口的网桥，工作在数据链路层。交换机可以经济的将网络分成小的冲突域，为每个工作栈提供更高的带宽。</p>
+<p>以太网交换机对工作栈是透明的，管理开销低廉，简化了网络节点的增加，移动和网络变化的操作。</p>
+<p>利用交换机还可以方便的实现虚拟局域网（Virtual LAN，VLAN），VLAN不仅可以隔离冲突域，还可以隔离广播域</p>
+<h5 id="1-2-2、以太网交换机的工作原理"><a href="#1-2-2、以太网交换机的工作原理" class="headerlink" title="1.2.2、以太网交换机的工作原理"></a>1.2.2、以太网交换机的工作原理</h5><p>检测从交换机端口来的数据帧和目的地的MAC地址，然后和系统内部的动态查找表进行比较，</p>
+<p>如果数据帧的MAC地址没有在查找表中，就把这个数据帧的MAC地址加入到查找表，然后将数据帧发送给相应的目的端口。</p>
+<p>以太网交换机：每个端口都是直接与单个主机相连，网桥的端口往往是连接到以太网的一个网段。</p>
+<p>交换机的工作方式是全双工方式。</p>
+<p>以太网交换机由于使用了专用的交换结构芯片，交换速率高。以太网交换机独占传输媒体的带宽。</p>
+<p>比如普通的10Mb/s的共享式以太网，如果有N个用户，每个用于占用的平均带宽只有总带宽的N分之一不到。</p>
+<p>但是使用了交换机，虽然每个端口到主机的带宽还是10Mb/s，但是由于一个用户在通信，因此对于拥有N对端口</p>
+<p>的交换机总量为N*10Mb/s。</p>
+<h5 id="1-2-3、交换机的两种交换模式"><a href="#1-2-3、交换机的两种交换模式" class="headerlink" title="1.2.3、交换机的两种交换模式"></a>1.2.3、交换机的两种交换模式</h5><ul>
+<li><p>直通式交换机：只检查帧的目的地址，这种方式速度快，但是缺乏智能和安全性。无法进行不同速率的端口交换。</p>
+</li>
+<li><p>存储转发式交换机：先接收到帧缓存到高速缓存器中，然后检查数据是否正确，确认无误后，通过查找表转换成输出端口将帧发送出去。如果检查数据帧有错，就可以丢弃掉。存储转发交换机：可靠性高，还可以支持不同速度端口的转换，但是延迟比较大。</p>
+</li>
+</ul>
+<h5 id="注：冲突域（碰撞域）和广播域的区别："><a href="#注：冲突域（碰撞域）和广播域的区别：" class="headerlink" title="注：冲突域（碰撞域）和广播域的区别："></a>注：冲突域（碰撞域）和广播域的区别：</h5><h5 id="当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。"><a href="#当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。" class="headerlink" title="当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。"></a>当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。</h5><h5 id="一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域"><a href="#一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域" class="headerlink" title="一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域"></a>一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域</h5><h5 id="一个局域网就是一个广播域。"><a href="#一个局域网就是一个广播域。" class="headerlink" title="一个局域网就是一个广播域。"></a>一个局域网就是一个广播域。</h5><table>
+<thead>
+<tr>
+<th style="text-align:center">设备名称</th>
+<th style="text-align:center">工作层</th>
+<th style="text-align:center">能够隔离冲突域</th>
+<th style="text-align:center">能否隔离广播域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">集线器Hub</td>
+<td style="text-align:center">物理层</td>
+<td style="text-align:center">不能</td>
+<td style="text-align:center">不能</td>
+</tr>
+<tr>
+<td style="text-align:center">中继器</td>
+<td style="text-align:center">物理层</td>
+<td style="text-align:center">不能</td>
+<td style="text-align:center">不能</td>
+</tr>
+<tr>
+<td style="text-align:center">交换机</td>
+<td style="text-align:center">数据链路层</td>
+<td style="text-align:center">能</td>
+<td style="text-align:center">不能</td>
+</tr>
+<tr>
+<td style="text-align:center">网桥</td>
+<td style="text-align:center">数据链路层</td>
+<td style="text-align:center">能</td>
+<td style="text-align:center">不能</td>
+</tr>
+<tr>
+<td style="text-align:center">路由器</td>
+<td style="text-align:center">网络层</td>
+<td style="text-align:center">能</td>
+<td style="text-align:center">能</td>
+</tr>
+</tbody>
+</table>
+<p>总结：中继器，集线器Hub，工作在同一个冲突域（也就是同一个网段）只是对信号放大而已，也就是说能隔离冲突域的只要工作在物理层之上就可以。因为局域网通过路由器连接到广域网，而一个广播域就是一个局域网，所以说路由器可以隔离广播域</p>
+<p>而交换机叫做以太网交换机，是在局域网当中的，不能隔离广播域。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/计算机网络-三/" rel="next" title="计算机网络(三)">
+                <i class="fa fa-chevron-left"></i> 计算机网络(三)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/14/数据链路层-续/" rel="prev" title="数据链路层(续)">
+                数据链路层(续) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="Victor Drq">
+            
+              <p class="site-author-name" itemprop="name">Victor Drq</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AnonymousDQ" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1397743321@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/drq1/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-globe"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、数据链路层设备"><span class="nav-number">1.</span> <span class="nav-text">1、数据链路层设备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1、网桥"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、网桥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2、交换机"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、交换机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1、局域网交换机"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1、局域网交换机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2、以太网交换机的工作原理"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2、以太网交换机的工作原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-3、交换机的两种交换模式"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3、交换机的两种交换模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注：冲突域（碰撞域）和广播域的区别："><span class="nav-number">1.2.4.</span> <span class="nav-text">注：冲突域（碰撞域）和广播域的区别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。"><span class="nav-number">1.2.5.</span> <span class="nav-text">当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域"><span class="nav-number">1.2.6.</span> <span class="nav-text">一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一个局域网就是一个广播域。"><span class="nav-number">1.2.7.</span> <span class="nav-text">一个局域网就是一个广播域。</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Victor Drq</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">39.1k</span>
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
