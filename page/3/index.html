@@ -304,6 +304,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的NIO与IO/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/JAVA中的NIO与IO/" itemprop="url">JAVA中的NIO与IO</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:39:38+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  953
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、JAVA的NIO和IO"><a href="#一、JAVA的NIO和IO" class="headerlink" title="一、JAVA的NIO和IO"></a><strong>一、JAVA的NIO和IO</strong></h1><h3 id="1、NIO：面向缓冲区（buffer）（分为非阻塞模式IO和阻塞模式IO）组成部分：Channels管道，Buffers缓冲区，Selectors选择器"><a href="#1、NIO：面向缓冲区（buffer）（分为非阻塞模式IO和阻塞模式IO）组成部分：Channels管道，Buffers缓冲区，Selectors选择器" class="headerlink" title="1、NIO：面向缓冲区（buffer）（分为非阻塞模式IO和阻塞模式IO）组成部分：Channels管道，Buffers缓冲区，Selectors选择器"></a>1、<strong>NIO：面向缓冲区（buffer）（分为非阻塞模式IO和阻塞模式IO）组成部分：Channels管道，Buffers缓冲区，Selectors选择器</strong></h3><h3 id="2、IO：面向流（Stream）（阻塞的IO）"><a href="#2、IO：面向流（Stream）（阻塞的IO）" class="headerlink" title="2、IO：面向流（Stream）（阻塞的IO）"></a>2、<strong>IO：面向流（Stream）（阻塞的IO）</strong></h3><p><strong>面向流</strong>：当一个线程调用read() 或 write()时，线程被阻塞，直到有一些数据被读取，或数据完全写入。该线程在此期间不能再干任何事情了。流就像一根水管从操作系统的缓存中读取数据，而且只能顺序从流中读取数据，如果需要跳过一些字节或者再读取已经读过的字节，你必须将从流中读取的数据先缓存起来<strong>。</strong></p>
+<p><strong>面向缓冲区</strong>：数据是先被读/写到buffer中的，根据需要你可以控制读取什么位置的数据。这在处理的过程中给用户多了一些灵活性<strong>，</strong>然而，你需要额外做的工作是检查你需要的数据是否已经全部到了buffer中，如果你还需要保证当有更多的数据进入buffer中时，buffer中未处理的数据不会被覆盖就行。</p>
+<h4 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h4><ul>
+<li><p>所有的JAVA的IO流都是阻塞的，JAVA NIO的阻塞模式NIO除了使用buffer存储数据以外和JAVA IO基本没区别。</p>
+</li>
+<li><p>JAVA NIO的非阻塞模式允许一条线程从管道channel中读取数据，通过返回值来判断buffer中是否有数据，如果没有数据，NIO不糊阻塞，不阻塞这个线程就意味着这个线程可以去做其他的事情，过一段时间再回来判断有没有数据。</p>
+</li>
+<li><p>JAVA NIO的写入也是如此，一个线程将buffer中的数据写入管道channel中，它不会等待数据全部写完才会返回，而是调用完write()方法就会继续向下执行。</p>
+</li>
+</ul>
+<h1 id="二、JAVA-NIO的Selectors（选择器）"><a href="#二、JAVA-NIO的Selectors（选择器）" class="headerlink" title="二、JAVA NIO的Selectors（选择器）"></a>二、JAVA NIO的Selectors（选择器）</h1><p>　　选择器（Selectors）允许一个线程去监控多个channels的输入，也就是说可以在一个selector上注册多个管道channel，然后通过调用selector的select()方法判断是否有新的连接进来或者已经在selector上注册的channel是否有数据进入。selector的机制让一个线程挂你多个管道变简单。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建选择器</span></span><br><span class="line">Selector selector=Selector.open();</span><br><span class="line"><span class="comment">//注册通道Channel</span></span><br><span class="line"><span class="comment">//与选择器Selector一块使用的时候，Channel必须是非阻塞模式。</span></span><br><span class="line">channel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line"><span class="comment">//第二个参数：Selector监听channel时所作的事件</span></span><br><span class="line"><span class="comment">//SelectionKey.OP_CONNECT/SelectionKey.OP_ACCEPT/SelectionKey.OP_READ/SelectionKey.OP_WRITE</span></span><br><span class="line">SelectionKey key=channel.register(selector,SelectionKey.OP_READ);</span><br><span class="line"><span class="comment">//SelectionKey包含了interest集合，ready集合，Channel，Selector的对象。</span></span><br><span class="line"><span class="keyword">int</span> interestSet=key.interestOps();</span><br></pre></td></tr></table></figure>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><ul>
+<li><p>NIO允许用一个单独的线程或者几个线程管理很多个管道（channels），只是程序的处理会比JAVA IO更加复杂。</p>
+</li>
+<li><p>一般来说，你如果只有少量的连接但是每个连接都会占有很高的带宽，同时发送很多的数据，传统的JAVA IO会更好。</p>
+</li>
+<li><p>一般来说，如果你需要同时管理成千上万的连接，但是每个连接只是发送少量的数据，选择JAVA NIO会更好，比如一个聊天服务器，使用NIO更好。</p>
+</li>
+</ul>
+<h1 id="三、JAVA-NIO的Channel管道"><a href="#三、JAVA-NIO的Channel管道" class="headerlink" title="三、JAVA NIO的Channel管道"></a>三、JAVA NIO的Channel管道</h1><h4 id="主要包括了UDP-TCP-SOCKET等网络IO-以及File文件IO"><a href="#主要包括了UDP-TCP-SOCKET等网络IO-以及File文件IO" class="headerlink" title="主要包括了UDP,TCP,SOCKET等网络IO,以及File文件IO:"></a>主要包括了UDP,TCP,SOCKET等网络IO,以及File文件IO:</h4><ul>
+<li>FileChannel　　</li>
+<li>DatagramChannel　　</li>
+<li>SocketChannel　　</li>
+<li>ServlerSocketChannel</li>
+</ul>
+<h3 id="读取数据："><a href="#读取数据：" class="headerlink" title="读取数据："></a>读取数据：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int bytesRead=inChannel.read(buf);</span><br></pre></td></tr></table></figure>
+<h3 id="写入数据："><a href="#写入数据：" class="headerlink" title="写入数据："></a>写入数据：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> bytesWrite=inChannel.write(buf);</span><br><span class="line"><span class="comment">/*SocketChannel通道*/</span></span><br><span class="line"><span class="comment">//建立SocketChannel通道</span></span><br><span class="line">SocketChannel socketChannel=SocketChannel.open();</span><br><span class="line">socketChannel.connect(<span class="keyword">new</span> IntSocketAddress(<span class="string">"LOL.exe"</span>,<span class="number">10</span>));</span><br><span class="line"><span class="comment">//读取数据</span></span><br><span class="line">ByteBuffer buf=ByteBuffer.allocate(<span class="number">20</span>);</span><br><span class="line"><span class="keyword">int</span> bytesRead=socketChannel.read(buf);</span><br><span class="line"><span class="comment">//写入数据</span></span><br><span class="line">String data=<span class="string">"HelloWorld"</span>+System.currentTimeMills();</span><br><span class="line">ByteBuffer buf=ByteBuffer.allocate(<span class="number">20</span>);</span><br><span class="line">buf.clear();<span class="comment">//清空整个缓冲区。</span></span><br><span class="line">buf.put(data.getBytes());<span class="comment">//写入数据</span></span><br><span class="line">buf.flip();<span class="comment">//将Buffer从写入模式切换到读取模式</span></span><br><span class="line"><span class="keyword">while</span>(buf.hasRemaining())&#123;</span><br><span class="line">    socketChannel.write(buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="四、JAVA-NIO的Buffer缓冲区"><a href="#四、JAVA-NIO的Buffer缓冲区" class="headerlink" title="四、JAVA NIO的Buffer缓冲区"></a>四、JAVA NIO的Buffer缓冲区</h1><h4 id="主要包括了读基本数据类型的实现Buffer"><a href="#主要包括了读基本数据类型的实现Buffer" class="headerlink" title="主要包括了读基本数据类型的实现Buffer:"></a>主要包括了读基本数据类型的实现Buffer:</h4><ul>
+<li>ByteBuffer　　</li>
+<li>CharBuffer　　</li>
+<li>DoubleBuffer　　</li>
+<li>FloatBuffer　　</li>
+<li>IntBuffer　　</li>
+<li>LongBuffer　　</li>
+<li>ShortBuffer</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据链路层-续/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2757,248 +2966,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/OGG的组件解析/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/OGG的组件解析/" itemprop="url">OGG的组件解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T17:19:16+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  810
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="/2018/12/12/OGG的组件解析/F:/blog\source\_posts\OGG的组件解析\ce01e554bd1d3a1935e08c1835696e0b.jpg" alt="mylove"></p>
-<h3 id="一、OGG的各个组件解析（Oracle-GoldenGate）"><a href="#一、OGG的各个组件解析（Oracle-GoldenGate）" class="headerlink" title="一、OGG的各个组件解析（Oracle GoldenGate）"></a>一、OGG的各个组件解析（Oracle GoldenGate）</h3><h4 id="1、Manager："><a href="#1、Manager：" class="headerlink" title="1、Manager："></a>1、Manager：</h4><p>Manager进程是GoldenGate中进程的控制进程，用于管理Extract，Data Pump，Replicat等进程</p>
-<p>在Extract，Data Pump，Replicat进程启动之前，Manager进程必须先要在</p>
-<p>源端和目标端启动，在整个Golden Gate运行期间，它必须保持运行状态</p>
-<ul>
-<li><p>监控与启动Golden Gate的其他进程</p>
-</li>
-<li><p>管理trail文件及Reporting</p>
-</li>
-<li><p>在windows系统上，Manager进程是作为一个服务来启动的，在Unix系统下是一个进程</p>
-</li>
-</ul>
-<h4 id="2、Extract"><a href="#2、Extract" class="headerlink" title="2、Extract"></a>2、Extract</h4><p>Extract进程运行在数据库源端上，他是Golden Gate的捕获机制，可以配置</p>
-<p>Extract进程来做如下工作：</p>
-<ul>
-<li><p>初始数据装载：对于初始数据装载，Extract进程直接从源对象中提取数据</p>
-</li>
-<li><p>同步变换捕获：保持源数据与其他数据集的同步，初始数据同事完成后</p>
-</li>
-<li><p>Extract进程捕获源数据的变换，比如DML变换(增删改)，DDL变化(drop,create,alter)</p>
-</li>
-</ul>
-<h4 id="3、Replicat"><a href="#3、Replicat" class="headerlink" title="3、Replicat"></a>3、Replicat</h4><p>Replicat进程是运行在目标端系统的一个进程，负责读取Extract进程提取到的数据（变更的事务或者DDL变化）</p>
-<p>然后应用到目标数据库</p>
-<p>配置Replicat进程完成如下工作：</p>
-<ul>
-<li>初始化数据装载：对于初始化数据转载，Replicat进程应用数据到目标对象或者路由</li>
-</ul>
-<p>它们一个高速的Bulk-load工具上</p>
-<ul>
-<li>数据同步，将Extract进程捕获到的提交了的事务应用到目标数据库中</li>
-</ul>
-<h4 id="4、Collector"><a href="#4、Collector" class="headerlink" title="4、Collector"></a>4、Collector</h4><p>Collector是一个运行在目标端的一个后台进程</p>
-<p>接收从TCP/IP网路传输过来的数据变化，并写道Trail文件里</p>
-<ul>
-<li>动态Collector：由管理进程自动启动的collector叫做动态collector，用户不能</li>
-</ul>
-<p>与动态collector交互</p>
-<ul>
-<li>静态Collector：可以配置成手工运行Collector，这个就是静态的</li>
-</ul>
-<h4 id="5、Trails"><a href="#5、Trails" class="headerlink" title="5、Trails"></a>5、Trails</h4><p>为了持续的提取与复制数据库变化，Golden Gate将捕获到的数据变化临时存放在磁盘上</p>
-<p>的一系列文件中，这些文件叫做Trail 文件</p>
-<p>这些文件可以在source DB上也可以在Target DB上，也可以在中间系统上，这依赖</p>
-<p>于选择哪种配置情况</p>
-<ul>
-<li><p>在数据库源端上叫做Local Trail或者Extract Trail</p>
-</li>
-<li><p>在目标端的叫做Remote Trail</p>
-</li>
-</ul>
-<h4 id="6、Data-Pumps"><a href="#6、Data-Pumps" class="headerlink" title="6、Data Pumps"></a>6、Data Pumps</h4><p>Data Pump是一个配置在源端的复制的Extract机制</p>
-<p>Data Pump是一个可选组件，如果不配置Data Pump,那么由Extract主进程</p>
-<p>将数据发送到目标端的Remote Trail中</p>
-<p>如果配置了Data Pump，会由Data Pump将Extract主进程写好的本地Trail文件通过网络发送到</p>
-<p>目标端的Remote Trail文件中</p>
-<p>使用Data Pump的好处：</p>
-<ul>
-<li><p>如果目标端或者网络失败，源端的Extract进程不会意外终止</p>
-</li>
-<li><p>需要在不同的阶段实现数据的过滤或者转换</p>
-</li>
-<li><p>多个源数据复制到数据中心</p>
-</li>
-<li><p>数据需要复制到多个目标数据库</p>
-</li>
-</ul>
-<h4 id="7、ADG的解释"><a href="#7、ADG的解释" class="headerlink" title="7、ADG的解释"></a>7、ADG的解释</h4><p>所谓的ADG，就是在备份库，应用redo log的同时，避免资源的浪费</p>
-<p>OGG侧重于数据备份，ADG侧重于高可用</p>
-<p>OGG可以异构，也就是不仅可以用在Oracle，ADG只有oracle可以用</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3051,7 +3018,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3154,7 +3121,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">44.5k</span>
+    <span title="Site words total count">45.3k</span>
   
 </div>
 <div class="powered-by">
