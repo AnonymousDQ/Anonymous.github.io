@@ -304,6 +304,954 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/计算机网络-二/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/计算机网络-二/" itemprop="url">计算机网络(二)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:12:02+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>通信子网：对于OSI参考模型的下三层，包括物理层，数据链路层，网络层。</p>
+<ul>
+<li><p>集线器（Hub）：物理层</p>
+</li>
+<li><p>交换机（Switch）：数据链路层</p>
+</li>
+<li><p>路由器（Route）：网络层</p>
+</li>
+<li><p>资源子网：对网络用户提供可共享资源的硬件，软件和信息资源。</p>
+</li>
+<li><p>中继器和桥连接器（网桥）：用在局域网的物理层和数据链路层的联网设备。</p>
+</li>
+</ul>
+<h3 id="1、计算机网络的分层结构："><a href="#1、计算机网络的分层结构：" class="headerlink" title="1、计算机网络的分层结构："></a>1、计算机网络的分层结构：</h3><p>每一层都有自己传送的数据单位，名称，大小，含义不同。</p>
+<p>计算机网络的各个层次中，每一个报文都是由两部分组成，一个是数据部分，也就是SDU,一个控制信息部分，PCI，他们共同组成PDU.</p>
+<ul>
+<li><p>SDU:服务数据单元</p>
+</li>
+<li><p>PCI：协议控制信息</p>
+</li>
+<li><p>PDU：协议数据单元</p>
+</li>
+</ul>
+<h3 id="2、协议：规则的集合"><a href="#2、协议：规则的集合" class="headerlink" title="2、协议：规则的集合"></a>2、协议：规则的集合</h3><p>为了在网络中有条不紊的交换数据，必须遵循事先约定好的规则，Network protocol协议是控制两个或者多个对等的实体进行通信的规则集合。不对等的实体之间是没有协议的，比如TCP/IP协议栈</p>
+<p>节点A的传输层和节点B的传输层之间存在协议。但是节点A的传输层和节点B的网络层不存在协议。</p>
+<ul>
+<li><p>协议：语法+语义+同步</p>
+</li>
+<li><p>语法规定传输数据格式，语义规定要完成的功能，同步规定执行各种操作的条件和时序。</p>
+</li>
+<li><p>完整的协议：具有线路管理(建立连接，释放连接)，差错控制，数据转换，功能。</p>
+</li>
+</ul>
+<h3 id="3、接口"><a href="#3、接口" class="headerlink" title="3、接口"></a>3、接口</h3><ul>
+<li><p>同一节点内相邻两层间交换信息的连接点。每一层只能为紧邻的层次之间定义接口，不能跨层定义接口</p>
+</li>
+<li><p>同一节点相邻两层的实体通过服务访问点(Service Access Point，SAP)进行交换。而局域网接入到广域网是通过路由器的互连设备实现。</p>
+</li>
+</ul>
+<h3 id="4、服务"><a href="#4、服务" class="headerlink" title="4、服务"></a>4、服务</h3><p>也就是下层为紧相邻的上层提供的功能调用。</p>
+<p>上层使用下层所提供的的服务，必须通过与下层交换一些命令。</p>
+<p>这些命令在OSI中成为服务原语。</p>
+<ul>
+<li><p>请求Request：由服务用户发往服务提供者，请求完成某个工作</p>
+</li>
+<li><p>指示Indication：由服务提供者发往服务使用者，指示用户做某个工作</p>
+</li>
+<li><p>响应Response：由服务用户发送服务提供者，作为对指示的响应</p>
+</li>
+<li><p>正式Conformation：由服务提供者发往服务用户，作为对请求的证实</p>
+</li>
+</ul>
+<h3 id="5、计算机网络提供的服务分类"><a href="#5、计算机网络提供的服务分类" class="headerlink" title="5、计算机网络提供的服务分类"></a>5、计算机网络提供的服务分类</h3><p>面向连接服务和无连接服务</p>
+<ul>
+<li>面向连接服务：通信前双方必须建立连接，分配相应的资源（缓冲区），为了保证通信能正常运行。</li>
+</ul>
+<p>传输结束后释放连接和所占用的资源。</p>
+<p>面向连接服务的过程：建立连接，数据传输，释放连接，三个阶段，TCP就是面向连接服务的协议。</p>
+<ul>
+<li>无连接服务：通信前双方不需要先建立，需要发送数据的时候就直接发送，把每个带有目的地址的包传送到</li>
+</ul>
+<p>线路上，由系统选定线路进行传输，一种不可靠的服务。IP，UDP一种无连接的服务协议。</p>
+<h3 id="6、可靠服务和不可靠服务"><a href="#6、可靠服务和不可靠服务" class="headerlink" title="6、可靠服务和不可靠服务"></a>6、可靠服务和不可靠服务</h3><ul>
+<li><p>可靠服务：网络具有纠错，检错，应答机制，能够保证数据的正确，可靠地传送目的地</p>
+</li>
+<li><p>不可靠服务：网络只是尽量正确，可靠地传送，但是不能保证数据正确，可靠地到达目的地。</p>
+</li>
+</ul>
+<h3 id="7、有应答服务和无应答服务"><a href="#7、有应答服务和无应答服务" class="headerlink" title="7、有应答服务和无应答服务"></a>7、有应答服务和无应答服务</h3><ul>
+<li><p>有应答服务：接收方在收到数据后向发送方给出相应的应答，这个应答是传输系统内部自动实现。并不是用户实现。例如文件传输服务FTP,是一种有应答服务。</p>
+</li>
+<li><p>无应答服务：接收方收到数据后不自动的给出应答，如果要应答，则由高层实现。比如WWW服务，客户端收到服务器发送的页面文件后不给出应答。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/计算机网络-一/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/计算机网络-一/" itemprop="url">计算机网络(一)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:06:25+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1、计算机网络"><a href="#1、计算机网络" class="headerlink" title="1、计算机网络"></a>1、计算机网络</h3><p>一些互连得，自治的计算机系统的集合。也就是说能够以相互共享资源的方式来互联起来的自治的计算机系统的集合。</p>
+<ul>
+<li><p>计算机网络的目的：资源共享</p>
+</li>
+<li><p>组成部分：分布在不同地理位置的多台独立的自治计算机</p>
+</li>
+<li><p>遵循的规则：网络协议</p>
+</li>
+</ul>
+<h3 id="2、计算机网络的组成"><a href="#2、计算机网络的组成" class="headerlink" title="2、计算机网络的组成"></a>2、计算机网络的组成</h3><ul>
+<li><p>组成部分：硬件，软件，协议</p>
+</li>
+<li><p>硬件：主机(端系统)，通信链路（双绞线，光纤），交换设备（交换机，路由器），通信处理机（网卡）</p>
+</li>
+<li><p>软件：各种实现资源共享的软件，比如网络操作系统，邮件收发程序，FTP,聊天程序等。软件多属于应用层</p>
+</li>
+<li><p>协议：计算机网络的核心，如同交通规则一样。协议规定了网络传输数据的规范。</p>
+</li>
+</ul>
+<h3 id="3、计算机网络的功能"><a href="#3、计算机网络的功能" class="headerlink" title="3、计算机网络的功能"></a>3、计算机网络的功能</h3><ul>
+<li><p>数据通信：比如，文件传输，电子邮件等，离开了网络无法实现</p>
+</li>
+<li><p>资源共享：软件共享，数据共享，硬件共享等。计算机网络中的资源互通是否分工协作，大大的提高资源利用率</p>
+</li>
+<li><p>分布式处理：计算机网络中的某个计算机系统负荷过重，可以将它处理的某个复杂任务分配给网络中的其他计算机系统，也就是利用了空闲计算机资源来提高整个系统的资源利用率</p>
+</li>
+<li><p>提高可靠性：计算机网络中的各台计算机可以通过网络互为替代机</p>
+</li>
+<li><p>负载均衡：将工作任何均衡的分配给计算机网络中的各台计算机</p>
+</li>
+</ul>
+<h3 id="4、计算机网络的分类"><a href="#4、计算机网络的分类" class="headerlink" title="4、计算机网络的分类"></a>4、计算机网络的分类</h3><h4 id="4-1、按照分布范围："><a href="#4-1、按照分布范围：" class="headerlink" title="4.1、按照分布范围："></a>4.1、按照分布范围：</h4><ul>
+<li>广域网WAN：提供长距离通信，运送主机发送的数据，覆盖范围常是几十到几千公里的区域。</li>
+</ul>
+<p>广域网是Internet的核心部分。连接广域网的各个节点交换机的链路一般都是高速链路，而且还有较大的通信容量。</p>
+<ul>
+<li><p>城域网MAN：城域网覆盖范围是几个街区或者整个城市。城域网大多采用以太网技术</p>
+</li>
+<li><p>局域网LAN：局域网一般用于微机或者工作站，通过高速线路相连，覆盖范围小。一般是几十米到几千米的区域。</p>
+</li>
+<li><p>局域网在计算机配置的数量上没有太多的限制，少的可以两台，多的可以达到几百台。传统上，局域网使用广播技术，广域网则采用交换技术</p>
+</li>
+<li><p>个人区域网PAN：个人区域网也及时在个人工作的地方，就是WLAN,WIFI吧。</p>
+</li>
+</ul>
+<h4 id="4-2、按照传播技术："><a href="#4-2、按照传播技术：" class="headerlink" title="4.2、按照传播技术："></a>4.2、按照传播技术：</h4><ul>
+<li><p>广播式网络：所有联网计算机都共享一个公共通信信道</p>
+</li>
+<li><p>点对点网络PPP：每条物理线路连接一对计算机。如果同性能的两台主机之间没有直接连接的线路，那么</p>
+</li>
+</ul>
+<p>他们之间的分组传输就要通过中间节点的接收，存储和转发，直到目的节点，基本广域网都是采用点对点网络</p>
+<h4 id="4-3、按照拓扑结构："><a href="#4-3、按照拓扑结构：" class="headerlink" title="4.3、按照拓扑结构："></a>4.3、按照拓扑结构：</h4><ul>
+<li><p>网络拓扑结构：通过网络中节点与通信线路之间的几何关系，表示的网络结构。通常是通信子网的拓扑结构</p>
+</li>
+<li><p>拓扑结构中的节点：路由器，交换机</p>
+</li>
+<li><p>通信线路：网线</p>
+</li>
+<li><p>几何关系：环形，总线型，星型，网状型</p>
+</li>
+<li><p>环形，星型，总线型常用语局域网。网状型用于广域网</p>
+</li>
+</ul>
+<h4 id="4-4、按照使用者分类："><a href="#4-4、按照使用者分类：" class="headerlink" title="4.4、按照使用者分类："></a>4.4、按照使用者分类：</h4><ul>
+<li><p>公用网：Public Network，电信公司出资建造的大型网络</p>
+</li>
+<li><p>专用网：Private Network,某个部门为本单位的特殊业务的需要建造的网络，比如铁路，军队，电力等。</p>
+</li>
+</ul>
+<h4 id="4-5、按照交换技术分类："><a href="#4-5、按照交换技术分类：" class="headerlink" title="4.5、按照交换技术分类："></a>4.5、按照交换技术分类：</h4><ul>
+<li><p>交换技术：主机之间，通信设备之间，主机和通信设备之间，交换信息的时候采用的数据格式和交换装置的方式</p>
+</li>
+<li><p>电路交换：典型的电路交换是传统的电话网线。数据直接传送，延迟小，线路利用率低，不能充分利用线路容量。</p>
+</li>
+<li><p>报文交换：将用户数据加上源地址，目的地址，校验码等信息，然后封装成报文。整个报文传送到相邻节点，全部存储下来后，在转发个下一个节点。</p>
+</li>
+<li><p>优点：充分利用线路容量，实现了不同链路之间不同数据率的转换。可以实现格式转换，可以实现一对多，多对一的访问，可以实现差错控制。</p>
+</li>
+<li><p>缺点：增加了资源开销，辅助信息导致处理时间和资源存储开销，增加了缓冲延迟。额外的控制机制保证多个报文的顺序不会乱序。而且缓冲区难以管理，因为报文的大小不确定，接收方在接收报文之前不能预知报文的大小。</p>
+</li>
+<li><p>分组交换网络（包交换网络）：将数据分成较短的固定长度的数据块，在每个数据块上加上目的地址，源地址等辅助信息，组成分组（包），然后用存储-转发方式传输</p>
+</li>
+<li><p>分组交换网络：缓冲便于管理，包的平均延迟更小，网络中占用的平均缓冲区更小。而且容易标准化，更容易应用。</p>
+</li>
+<li><p>现在的主流网络基本都是分组交换网络，也就是包交换。</p>
+</li>
+</ul>
+<h4 id="4-6、按照传输介质分类："><a href="#4-6、按照传输介质分类：" class="headerlink" title="4.6、按照传输介质分类：　"></a>4.6、按照传输介质分类：　</h4><ul>
+<li><p>传输介质可以分为有线和无线</p>
+</li>
+<li><p>因此分为有线网络和无线网络</p>
+</li>
+<li><p>有线网络：双绞线网络，同轴电缆网络</p>
+</li>
+<li><p>无线网络：蓝牙，微波，无线电等</p>
+</li>
+</ul>
+<h4 id="4-7、计算机网络标准化："><a href="#4-7、计算机网络标准化：" class="headerlink" title="4.7、计算机网络标准化："></a>4.7、计算机网络标准化：</h4><p>RFC（Request For Comments）：并非每个RFC都是因特网的标准</p>
+<h4 id="4-8、计算机网络的性能指标："><a href="#4-8、计算机网络的性能指标：" class="headerlink" title="4.8、计算机网络的性能指标："></a>4.8、计算机网络的性能指标：</h4><ul>
+<li>带宽（BandWidth）：表示通信线路允许通过的信号频带范围，单位是Hz</li>
+</ul>
+<p>计算机网络中的带宽表示：通信线路所能传送数据的能力，是数字信道所传送的最高数据率，单位是b/s,比特每秒</p>
+<ul>
+<li><p>时延（Delay）：数据（报文，分组）从网络的一端传送到另一端所需要的总时间。</p>
+</li>
+<li><p>时延：发送时延，传播时延，处理时延，排队时延</p>
+</li>
+<li><p>发送时延=分组长度/信道宽度</p>
+</li>
+<li><p>传播时延=信道长度/电磁波在信道上的速度</p>
+</li>
+<li><p>处理时延：数据在交换节点为存储转化而进行的一些必要的处理事件，比如分析分组的首部，从分组中提取数据部分，进行差错校验，查找适当的路由等操作时间。</p>
+</li>
+<li><p>排队时延：分组在进入路由器后要现在输入队列中等待处理。在路由器确定了准发端口后，还要在输出队列中排队等待转发，产生了排队时延。</p>
+</li>
+<li><p>总时延=发送时延+传播时延+处理时延+排队时延</p>
+</li>
+<li><p>一般来说，排队时延和处理时延都可以忽略不计。对于高速链路，提高的仅是数据发送速度而不是比特在链路上的传播速度。提高数据的发送速度只是为了减少数据的发送时延。</p>
+</li>
+<li><p>时延带宽积=传播时延*信道宽度</p>
+</li>
+<li><p>往返时延RTT（Round-Trip Time）：从发送端发送数据开始，到发送端收到了来自接收端的确认总共经历的时延</p>
+</li>
+<li><p>吞吐量（ThroughPut）：表示单位时间内通过某个网络（比如信道或者接口）的数据量，吞吐量受网络或者网络的额定速度限制。</p>
+</li>
+<li><p>速率Speed：网络中的速率指的是计算机网络中的主机在数字信道上传送数据的速率。也叫比特率，单位是b/s,bit/s,bps。Kb/s(K=1000),Mb/s(M=10^6),Gb/s(G=10^9)，计算机网络中，通常把这些数据率叫做带宽。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/SQL应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/SQL应用/" itemprop="url">SQL应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:03:35+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  845
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、工作总结："><a href="#一、工作总结：" class="headerlink" title="一、工作总结：　"></a><strong>一、工作总结：</strong>　</h2><p>　　今天工作中遇到了这样一个需求，具体是根据某张表的某一列值得不同，进行不同关联操作。起初自己的想法是采用UNION操作，把两种情况连接起来，但是会出现一个问题，当进行动态传值SQL拼接的时候，只能给最后面加，而不能给两种情况的结果集都动态拼接，导致查询结果和预期不一样。　　</p>
+<p>自己的SQL语句如下，自己使用UNION进行结果集连接。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> C.TUUSERNA,C.TUCLASID,C.TUUSERID,C.TUEMAIL,C.TUPHONE,C.TUACEMAIL,C.TUACMOBILE,C.TUCOMP,C.TUACTIVE,</span><br><span class="line">                                C.TUENNAME,B.UJPAPARV <span class="keyword">AS</span> TUUSERNA,A.UJPAPARV <span class="keyword">AS</span> OFFCCODE,D.TBDTL2 <span class="keyword">FROM</span></span><br><span class="line">                                <span class="keyword">FROM</span> WEBNFLIB.URUSERPF C</span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF B <span class="keyword">ON</span> B.TUUSERID=C.TUUSERID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF A <span class="keyword">ON</span> A.TUUSERID=C.TUUSERID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> CDFLIB.CDTABDPF D <span class="keyword">ON</span> D.TBCODE=A.UJPAPARV </span><br><span class="line">                                <span class="keyword">WHERE</span> B.UJPAPARN = <span class="string">'FWD_FRTP'</span> <span class="keyword">AND</span> A.UJPAPARN = <span class="string">'FWD_OFFC'</span> <span class="keyword">AND</span> C.TUACTIVE=<span class="number">1</span> <span class="keyword">AND</span> C.TUCLASID <span class="keyword">IN</span>(<span class="string">'A'</span>,<span class="string">'B'</span>) <span class="keyword">AND</span> D.TBTYPE=<span class="string">'OFFC'</span></span><br><span class="line">                                <span class="keyword">UNION</span></span><br><span class="line">                              <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> C.TUUSERNA,C.TUCLASID,C.TUUSERID,C.TUEMAIL,C.TUPHONE,C.TUACEMAIL,C.TUACMOBILE,C.TUCOMP,C.TUACTIVE,</span><br><span class="line">                                C.TUENNAME,B.UJPAPARV <span class="keyword">AS</span> TUUSERNA,A.UJPAPARV <span class="keyword">AS</span> OFFCCODE,D.TBDTL2 <span class="keyword">FROM</span></span><br><span class="line">                                <span class="keyword">FROM</span> WEBNFLIB.URUSERPF C</span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF B <span class="keyword">ON</span> B.TUUSERID=C.TUFUSRID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF A <span class="keyword">ON</span> A.TUUSERID=C.TUFUSRID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> CDFLIB.CDTABDPF D <span class="keyword">ON</span> D.TBCODE=A.UJPAPARV </span><br><span class="line">                                <span class="keyword">WHERE</span> B.UJPAPARN = <span class="string">'FWD_FRTP'</span> <span class="keyword">AND</span> A.UJPAPARN = <span class="string">'FWD_OFFC'</span> <span class="keyword">AND</span> C.TUACTIVE=<span class="number">1</span> <span class="keyword">AND</span> C.TUCLASID <span class="keyword">IN</span>(<span class="string">'A'</span>,<span class="string">'B'</span>) <span class="keyword">AND</span> D.TBTYPE=<span class="string">'OFFC'</span></span><br></pre></td></tr></table></figure>
+<p>底层方法进行动态传值，进行SQL拼接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public bool GetOffcInfo(IBaseDataAccess baseReadOnlyDataAccess, DataSet ds,ParmArray parmArray)</span><br><span class="line">        &#123;</span><br><span class="line">            //TBDTL2=中文名，TBDTL1=英文名，TBCODE=代码</span><br><span class="line">            string sql = @&quot; SELECT DISTINCT C.TUUSERNA,C.TUCLASID,C.TUUSERID,C.TUEMAIL,C.TUPHONE,C.TUACEMAIL,C.TUACMOBILE,C.TUCOMP,C.TUACTIVE,</span><br><span class="line">                                C.TUENNAME,B.UJPAPARV AS TUUSERNA,A.UJPAPARV AS OFFCCODE,D.TBDTL2 FROM</span><br><span class="line">                                FROM WEBNFLIB.URUSERPF C</span><br><span class="line">                                INNER JOIN WEBNFLIB.URUSOBNOPF B ON B.TUUSERID=C.TUUSERID </span><br><span class="line">                                INNER JOIN WEBNFLIB.URUSOBNOPF A ON A.TUUSERID=C.TUUSERID </span><br><span class="line">                                INNER JOIN CDFLIB.CDTABDPF D ON D.TBCODE=A.UJPAPARV </span><br><span class="line">                                WHERE B.UJPAPARN = &apos;FWD_FRTP&apos; AND A.UJPAPARN = &apos;FWD_OFFC&apos; AND C.TUACTIVE=1 AND C.TUCLASID IN(&apos;A&apos;,&apos;B&apos;) AND D.TBTYPE=&apos;OFFC&apos;</span><br><span class="line">                                UNION</span><br><span class="line">                              SELECT DISTINCT C.TUUSERNA,C.TUCLASID,C.TUUSERID,C.TUEMAIL,C.TUPHONE,C.TUACEMAIL,C.TUACMOBILE,C.TUCOMP,C.TUACTIVE,</span><br><span class="line">                                C.TUENNAME,B.UJPAPARV AS TUUSERNA,A.UJPAPARV AS OFFCCODE,D.TBDTL2 FROM</span><br><span class="line">                                FROM WEBNFLIB.URUSERPF C</span><br><span class="line">                                INNER JOIN WEBNFLIB.URUSOBNOPF B ON B.TUUSERID=C.TUFUSRID </span><br><span class="line">                                INNER JOIN WEBNFLIB.URUSOBNOPF A ON A.TUUSERID=C.TUFUSRID </span><br><span class="line">                                INNER JOIN CDFLIB.CDTABDPF D ON D.TBCODE=A.UJPAPARV </span><br><span class="line">                                WHERE B.UJPAPARN = &apos;FWD_FRTP&apos; AND A.UJPAPARN = &apos;FWD_OFFC&apos; AND C.TUACTIVE=1 AND C.TUCLASID IN(&apos;A&apos;,&apos;B&apos;) AND D.TBTYPE=&apos;OFFC&apos; &quot;;</span><br><span class="line">            ParmArray keyArray = new ParmArray();</span><br><span class="line">            if (parmArray.parmNameList.Contains(&quot;TBDTL2&quot;))</span><br><span class="line">            &#123;</span><br><span class="line">                string strTBDTL2 = parmArray.GetParmValue(&quot;TBDTL2&quot;).ToString().Trim();</span><br><span class="line">                keyArray.Add(&quot;TBDTL2&quot;,  &quot;%&quot;+strTBDTL2+&quot;%&quot;);</span><br><span class="line">                sql += &quot; AND D.TBDTL2 LIKE ? &quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (parmArray.parmNameList.Contains(&quot;OFFCCODE&quot;))</span><br><span class="line">            &#123;</span><br><span class="line">                keyArray.Add(&quot;OFFCCODE&quot;, parmArray.GetParmValue(&quot;OFFCCODE&quot;).ToString().Trim()+&quot;%&quot;);</span><br><span class="line">                sql += &quot; AND A.UJPAPARV LIKE ? &quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (parmArray.parmNameList.Contains(&quot;TUUSERNA&quot;))</span><br><span class="line">            &#123;</span><br><span class="line">                keyArray.Add(&quot;TUUSERNA&quot;,parmArray.GetParmValue(&quot;TUUSERNA&quot;).ToString().Trim());</span><br><span class="line">                sql += &quot; AND C.TUUSERNA = ? &quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            return baseReadOnlyDataAccess.FillDataSetByCondition(sql, ds, keyArray);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>这样sql，除了大量重复，臃肿，而且，传值只能加载最后面。不可行。</p>
+<p>　　改进方法：采用oracle的case  when方法进行操作。</p>
+<h3 id="Case…-When的用法："><a href="#Case…-When的用法：" class="headerlink" title="Case….When的用法："></a>Case….When的用法：</h3><p><strong>CASE 列名</strong></p>
+<p><strong>WHEN 条件1 THEN 选项1</strong></p>
+<p><strong>WHEN 条件2 THEN 选项2</strong></p>
+<p><strong>ELSE 默认值 END</strong></p>
+<p>SQL语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> C.TUUSERNA,C.TUCLASID,C.TUUSERID,C.TUEMAIL,C.TUPHONE,C.TUACEMAIL,C.TUACMOBILE,C.TUCOMP,C.TUACTIVE,</span><br><span class="line">                                C.TUENNAME,B.UJPAPARV <span class="keyword">AS</span> TUUSERNA,A.UJPAPARV <span class="keyword">AS</span> OFFCCODE,D.TBDTL2 <span class="keyword">FROM</span></span><br><span class="line">                                (<span class="keyword">SELECT</span> (<span class="keyword">CASE</span> <span class="keyword">WHEN</span> A.TUFUSRID&gt;<span class="number">0</span> <span class="keyword">THEN</span> A.TUFUSRID <span class="keyword">ELSE</span> A.TUUSERID <span class="keyword">END</span>) <span class="keyword">AS</span> CUSERID,A.* <span class="keyword">FROM</span> WEBNFLIB.URUSERPF A) C</span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF B <span class="keyword">ON</span> B.TUUSERID=C.CUSERID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF A <span class="keyword">ON</span> A.TUUSERID=C.CUSERID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> CDFLIB.CDTABDPF D <span class="keyword">ON</span> D.TBCODE=A.UJPAPARV </span><br><span class="line">                                <span class="keyword">WHERE</span> B.UJPAPARN = <span class="string">'FWD_FRTP'</span> <span class="keyword">AND</span> A.UJPAPARN = <span class="string">'FWD_OFFC'</span> <span class="keyword">AND</span> C.TUACTIVE=<span class="number">1</span> <span class="keyword">AND</span> C.TUCLASID <span class="keyword">IN</span>(<span class="string">'A'</span>,<span class="string">'B'</span>) <span class="keyword">AND</span> D.TBTYPE=<span class="string">'OFFC'</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据库范式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/数据库范式/" itemprop="url">数据库范式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T20:55:44+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  627
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="范式-Normal-Form-NF"><a href="#范式-Normal-Form-NF" class="headerlink" title="范式(Normal Form,NF)"></a>范式(Normal Form,NF)</h1><p>设计关系型数据库时，需要遵从不同的规范要求，设计出合理的关系型数据库。越高的范式数据库冗余越小。</p>
+<ul>
+<li><p>范式的优点：消除重复数据，减少数据冗余，让数据库内的数据更好的组织，让磁盘空间得到更有效的利用。</p>
+</li>
+<li><p>范式的缺点：范式使得查询变得相当复杂，在查询的时候需要更多的连接，一些复合索引的列由于范式化的需要被分割到不同的表中，导致索引策略不佳。</p>
+</li>
+</ul>
+<p>第一范式(1NF)：每一个属性不可再分。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">范式</th>
+<th style="text-align:center">特征</th>
+<th style="text-align:center">详解</th>
+<th style="text-align:center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">第一范式1NF</td>
+<td style="text-align:center">每一个属性不可再分</td>
+<td style="text-align:center">1NF,对域添加的一个规范要求，所有的域都应该是原子性的也就是数据表的每一列都是不可分割的原子数据项，而不能是集合，数组等。也就是某个属性有多个值，必须将它拆分为不同的属性。不满足1NF的不是关系数据库。满足1NF的表必须要有主键，每个属性不可再分。</td>
+<td style="text-align:center">比如说员工表，有员工号，姓名，电话号码组成。但是一个人可能有座机号码和移动号码。需要将它拆分为两个属性，也就是员工表(员工号，姓名，座机号码，移动号码)</td>
+</tr>
+<tr>
+<td style="text-align:center">第二范式2NF</td>
+<td style="text-align:center">符合1NF,并且非主属性完全依赖于码</td>
+<td style="text-align:center">在1NF的基础上，每一个非主属性必须完全依赖于码，消除非主属性的对主键的部分函数依赖也即是实体的属性完全依赖于主关键字。完全依赖是不能存在只依赖主关键字的一部分。</td>
+<td style="text-align:center">选课关系(学号，课程号，成绩，学分)，码为组合关键字(课程号，学号)但是非主属性学分只依赖课程号，对关键字(学号，课程号)只是部份依赖。不是完全依赖。所以要拆分为两个关系模式：学生表(学号，课程号，分数)课程表(课程号，学分)，新的关系通过学生表中的外键课程号联系，需要时通过两个表的连接获取数据</td>
+</tr>
+<tr>
+<td style="text-align:center">第三范式3NF</td>
+<td style="text-align:center">符合1NF,且每个非主属性既不部分依赖码，也不传递依赖码也就是在2NF的基础上消除传递依赖</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/電商推薦系統/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1628,808 +2576,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Oracle数据库/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/Oracle数据库/" itemprop="url">Oracle数据库</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:53:35+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  769
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法"><a href="#1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法" class="headerlink" title="1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法"></a>1、Oracle中使用rownum来进行分页，这个是效率最好的分页方法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> ( <span class="keyword">select</span> <span class="keyword">rownum</span> rn,a <span class="keyword">from</span> tabName <span class="keyword">where</span> <span class="keyword">rownum</span>&lt;=<span class="number">20</span>) </span><br><span class="line"><span class="keyword">where</span> rn&gt;<span class="number">10</span></span><br></pre></td></tr></table></figure>
-<h3 id="2、Oracle的索引使用"><a href="#2、Oracle的索引使用" class="headerlink" title="2、Oracle的索引使用"></a>2、Oracle的索引使用</h3><h4 id="创建索引："><a href="#创建索引：" class="headerlink" title="创建索引："></a>创建索引：</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> index_name <span class="keyword">on</span> table_name(collum_name)</span><br></pre></td></tr></table></figure>
-<h4 id="索引使用规则："><a href="#索引使用规则：" class="headerlink" title="索引使用规则："></a>索引使用规则：</h4><p>　　1、经常和其他表进行连接的表，在连接字段上应该建立索引。</p>
-<p>　　2、经常出现在where子句中的字段而且过滤性很强的，特别是大表的字段，应该建立索引</p>
-<h4 id="索引的优点："><a href="#索引的优点：" class="headerlink" title="索引的优点："></a>索引的优点：</h4><p>　　1、建立唯一性索引，可以保证数据库表中的每一行数据的唯一性</p>
-<p>　　2、大大加快数据的检索速度，加速了表和表之间的连接，特别是实现数据的参照完整性。</p>
-<p>　　3、在使用分组和排序子句进行数据检索时，同样可以显著减少查询中分组和排序的时间</p>
-<h4 id="索引的缺点："><a href="#索引的缺点：" class="headerlink" title="索引的缺点："></a>索引的缺点：</h4><p>　　1、索引创建在表上，不能创建在索引上</p>
-<p>　　2、创建索引和维护索引耗费时间，时间随着数据量的增加而增加</p>
-<p>　　3、索引需要占用物理空间，除了数据表占用数据空间之外，每一个索引还要占用一定的物理空间，如果要建立聚集索引，那么消耗的空间更大，一个表只能有一个聚集索引。</p>
-<p>　　4、当对表中的数据进行增加，删除，修改的时候，索引也需要动态的维护，降低了数据的维护速度。</p>
-<h3 id="3、视图的使用"><a href="#3、视图的使用" class="headerlink" title="3、视图的使用"></a>3、视图的使用</h3><h4 id="创建视图："><a href="#创建视图：" class="headerlink" title="创建视图："></a>创建视图：</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_name <span class="keyword">as</span> <span class="keyword">select</span> column_name <span class="keyword">from</span> table_name</span><br></pre></td></tr></table></figure>
-<h4 id="视图的优点："><a href="#视图的优点：" class="headerlink" title="视图的优点："></a>视图的优点：</h4><p>　　1、可以简单的将视图理解为SQL查询语句，视图最大的好处就是不占用系统空间</p>
-<p>　　2、一些安全性很高的系统，不会公布系统的表结构，可能会使用视图将一些敏感信息过滤或者重命名后公布结构</p>
-<p>　　3、简化查询，可以控制权限，在使用的时候需要将视图的使用权限grant给用户。</p>
-<h3 id="4、合并查询"><a href="#4、合并查询" class="headerlink" title="4、合并查询"></a>4、合并查询</h3><p>有时候，为了合并多个select语句的结果，可以使用集合操作符号UNION，UNION ALL，INTERSECT，MINUS多用于数据量比较大的数据库，运行速度快。</p>
-<p>　　1、union：取得两个结果集的并集，使用它时，会自动去掉结果集中重复行</p>
-<p>　　2、union all：也是取得两个结果集的并集，但是不会取消重复行，也不会排序。</p>
-<p>　　3、intersect：取得两个结果集的交集</p>
-<p>　　4、minus：取得两个结果集的差集。</p>
-<h3 id="5、维护数据的完整性"><a href="#5、维护数据的完整性" class="headerlink" title="5、维护数据的完整性"></a>5、维护数据的完整性</h3><p>数据的完整性用于确保数据库数据遵从一定的商业规则和逻辑规则。</p>
-<p>Oracle中，数据完整性可以使用约束，触发器，应用程序（存储过程，函数）来实现。这三个因为约束更容易维护，并且具有最好的性能，所以作为维护数据完整性的首选。</p>
-<p>不过约束还可以用:not null，unique，primary key，foreign key，check</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/数组与链表/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/数组与链表/" itemprop="url">数组与链表</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:51:52+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  789
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="内存的工作原理"><a href="#内存的工作原理" class="headerlink" title="内存的工作原理"></a>内存的工作原理</h1><h3 id="1-个人理解："><a href="#1-个人理解：" class="headerlink" title="1.个人理解："></a>1.个人理解：</h3><p>　　比如你要去逛超市，需要将东西寄存，寄存处有一个柜子，柜子有很多抽屉。每个抽屉可以放一样东西，你有两样东西，所以要了两个抽屉。这大概就是计算机内存的工作原理。计算机就像很多抽屉的集合体，每个抽屉都有地址。</p>
-<p>　　当你需要将数据存储到内存时，你请求计算机提供存储空间，计算机会给你一个存储地址。但是当你要存储多项数据时，有两种基本方式：1.使用数组 2.使用链表，但是他们并不是都适用于所有的情形，要进行适当的选择。</p>
-<h3 id="2-数组和链表"><a href="#2-数组和链表" class="headerlink" title="2.数组和链表"></a>2.数组和链表</h3><p>数组：在内存中都是相连的（紧靠在一起的）</p>
-<p>链表：链表中的严肃可存储在内存的任何地方。链表的每个元素都存储了下一个元素的地址，从而使得一系列随机的内存地址串在了一起。</p>
-<ul>
-<li><h4 id="访问元素（查询）：数组更好选择"><a href="#访问元素（查询）：数组更好选择" class="headerlink" title="访问元素（查询）：数组更好选择"></a>访问元素（查询）：数组更好选择</h4></li>
-</ul>
-<p>　　但是链表存在问题，比如当你需要读取链表的最后一个元素时，你不能直接读取，因为你根本不知道它所处的地址，所以必须先访问第一个元素，然后获取第二个元素的地址，在访问第三个，以此类推，直到访问到最后一个元素。当你需要同时读取所有元素时，链表的效率很高。但是当你需要跳跃读取某个元素，链表的效率很低。数组不一样，因为你是知道每个元素的地址的，根据数组的下标可以算出来。比如一个数组里有五个元素，起始地址为000，那么第五个元素的地址肯定是004.所以当你需要随机访问元素时，数组效率很高，可以迅速的找到数组的任何元素。在链表中，元素并非靠在一起，你无法迅速计算出第五个元素的内存地址，必须县访问第一个元素以获取第二个，依次下去。</p>
-<ul>
-<li><h4 id="插入操作（中间插入）：链表更好选择"><a href="#插入操作（中间插入）：链表更好选择" class="headerlink" title="插入操作（中间插入）：链表更好选择"></a>插入操作（中间插入）：链表更好选择</h4></li>
-</ul>
-<p>　　加入你要在中间插入一个元素，使用链表时，插入元素很简单，只需要修改前面那个元素的指针指向。但是使用数组时，则必须先将后面的元素都向后移动，如果没有足够的空间，可能还要将整个数组复制到其他地方。</p>
-<ul>
-<li><h4 id="删除操作：链表更好选择"><a href="#删除操作：链表更好选择" class="headerlink" title="删除操作：链表更好选择"></a>删除操作：链表更好选择</h4></li>
-</ul>
-<p>　　因为你只需要修改前一个元素指向的地址就行。使用数组，删除元素后，比如将后面的元素都向前移动。不同于插入，删除元素总能成功。如果内存中没有足够的空间，插入操作可能失败，但是任何情况下都能将元素删除</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">比较</th>
-<th style="text-align:center">数组</th>
-<th style="text-align:center">链表</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">读取</td>
-<td style="text-align:center">O(1)</td>
-<td style="text-align:center">O(N)</td>
-</tr>
-<tr>
-<td style="text-align:center">插入</td>
-<td style="text-align:center">O(N)</td>
-<td style="text-align:center">O(1)</td>
-</tr>
-<tr>
-<td style="text-align:center">删除</td>
-<td style="text-align:center">O(N)</td>
-<td style="text-align:center">O(1)</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/折半查找/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/折半查找/" itemprop="url">折半查找</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:48:23+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  423
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><ul>
-<li><p>线性结构：顺序查找，折半查找，分块查找</p>
-</li>
-<li><p>树形结构：二叉搜索树（二叉排序树），AVL平衡二叉树，B树，B+树</p>
-</li>
-<li><p>散列结构：散列表Hash，性能分析，冲突处理，效率指标–平均查找长度，查找成功，查找失败</p>
-</li>
-</ul>
-<h4 id="线性表顺序查找："><a href="#线性表顺序查找：" class="headerlink" title="线性表顺序查找："></a>线性表顺序查找：</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">List</span>&#123;</span></span><br><span class="line">    ElemType *elem;</span><br><span class="line">    <span class="keyword">int</span> table_len;<span class="comment">//表长</span></span><br><span class="line">&#125;SSTable;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Seq</span><span class="params">(SSTable st,ElemType key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//顺序表st种顺序查找关键字key的元素，并返回元素的表中位置</span></span><br><span class="line">    st.elem[<span class="number">0</span>]=key;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=st.table_len;st.elem[i]!=key;--i)<span class="comment">//从后往找</span></span><br><span class="line">    &#123;        <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>折半查找：二分查找，只用在有序的顺序表</p>
-</li>
-<li><p>算法思想：首先将给定值key和表中中间位置元素的关键字比较，如果相等，成功，返回元素位置</p>
-</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Binary_Search</span><span class="params">(SeqList L,ElemType key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low=<span class="number">0</span>,mid;</span><br><span class="line">    <span class="keyword">int</span> high=L.Table_len<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(low&lt;=high)</span><br><span class="line">    &#123;</span><br><span class="line">        mid=(low+high)/<span class="number">2</span>;<span class="comment">//取中间位置</span></span><br><span class="line">        <span class="keyword">if</span>(L.elem[mid==key])<span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(L.elem[mid]&gt;key)high=mid<span class="number">-1</span>;<span class="comment">//关键字比中间值小，从前半部分查找</span></span><br><span class="line">        <span class="keyword">else</span> low=mid+<span class="number">1</span>;<span class="comment">//关键字比中间值大，从后半部分查找</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;<span class="comment">//时间复杂度为O(logN)</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>分块查找：索引顺序查找，吸取顺序查找和折半查找的优点，有动态结构，适用于快速查找</p>
-</li>
-<li><p>B树：多路平衡查找树</p>
-</li>
-<li><p>Hash表：一个把查找表中的关键字映射成该关键字对应地址的函数，叫做Hash(key)=Addr。</p>
-</li>
-<li><p>散列表：根据关键字而直接进行访问的数据结构，也就是，散列表建立了关键字和存储地址之间的一种直接映射关系。</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/二叉树/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/二叉树/" itemprop="url">二叉树</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:36:24+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  959
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="二叉树的遍历："><a href="#二叉树的遍历：" class="headerlink" title="二叉树的遍历："></a>二叉树的遍历：</h2><ul>
-<li><p>前序遍历：根左右</p>
-</li>
-<li><p>中序遍历：左根右</p>
-</li>
-<li><p>后序遍历：左右根</p>
-</li>
-<li><p>层次遍历：一层一层的遍历，类似广度优先</p>
-</li>
-</ul>
-<h2 id="二叉树的存储结构"><a href="#二叉树的存储结构" class="headerlink" title="二叉树的存储结构"></a>二叉树的存储结构</h2><ul>
-<li>二叉树以二叉链表结构存储，也就是1个数据域，两个指针域（分别指向左右孩子）</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二叉树的二叉链表结构定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> ElemType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> *<span class="title">lchild</span>,*<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode,*BiTree</span><br></pre></td></tr></table></figure>
-<ul>
-<li>二叉树的建立，先按照前序遍历的方式建立二叉树，当然也可以按照中序遍历或者后序遍历的方式建立二叉树</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以前序遍历的方式建立二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBiTree</span><span class="params">(BiTree *T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ElemType ch;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;ch;</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">'#'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *T=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        *T=(BiTNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BiTNode));</span><br><span class="line">        <span class="keyword">if</span>(!*T)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">exit</span>(OVERFLOW);<span class="comment">//分配内存失败退出</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            (*T)-&gt;data=ch;<span class="comment">//生成结点</span></span><br><span class="line">            CreateBiTree(&amp;(*T)-&gt;lchild);<span class="comment">//构造左子树</span></span><br><span class="line">            CreateBiTree(&amp;(*T)-&gt;rchild);<span class="comment">//构造右子树</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归前序遍历二叉树"><a href="#递归前序遍历二叉树" class="headerlink" title="递归前序遍历二叉树"></a>递归前序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归方式前序遍历二叉树</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);<span class="comment">//输出了层数</span></span><br><span class="line">        PreOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PreOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归中序遍历二叉树"><a href="#递归中序遍历二叉树" class="headerlink" title="递归中序遍历二叉树"></a>递归中序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        InOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">        InOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归后序遍历二叉树"><a href="#递归后序遍历二叉树" class="headerlink" title="递归后序遍历二叉树"></a>递归后序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归后序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        PostOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PostOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="中序遍历非递归"><a href="#中序遍历非递归" class="headerlink" title="中序遍历非递归"></a>中序遍历非递归</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrder</span><span class="params">(BiTree T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	InitStack(S);</span><br><span class="line">	BiTree p=T;<span class="comment">//p是遍历指针</span></span><br><span class="line">	<span class="keyword">while</span>(p||!isEmpty(S))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(p)<span class="comment">//根指针进站，遍历左子树</span></span><br><span class="line">		&#123;</span><br><span class="line">			Push(S,p);</span><br><span class="line">			p=p-&gt;lchild;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			Pop(S,p);</span><br><span class="line">			visit(p);</span><br><span class="line">			p=p-&gt;rchild;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="完整代码如下："><a href="#完整代码如下：" class="headerlink" title="完整代码如下："></a>完整代码如下：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;  </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> ElemType;<span class="comment">//二叉树的二叉链表结构，也就是二叉树的存储结构，1个数据域，2个指针域（分别指向左右子结点）</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> &#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> <span class="title">lchild</span>,<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode,*BiTree;</span><br><span class="line"></span><br><span class="line"><span class="comment">//以前序遍历的方式建立二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBiTree</span><span class="params">(BiTree *T)</span> </span>&#123;</span><br><span class="line">    ElemType ch;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;ch;</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">'#'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *T=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">`       T=(BiTNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BiTNode));</span><br><span class="line">        <span class="keyword">if</span>(!T)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">exit</span>(OVERFLOW);<span class="comment">//分配内存失败退出</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">             (T)-&gt;data=ch;<span class="comment">//生成结点</span></span><br><span class="line">             CreateBiTree(&amp;(T)-&gt;lchild);<span class="comment">//构造左子树</span></span><br><span class="line">             CreateBiTree(&amp;(*T)-&gt;rchild);<span class="comment">//构造右子树</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line"><span class="comment">//将二叉树前序遍历输出</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Display</span><span class="params">(ElemType ch)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ch&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在输出的基础上，输出层数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Floor</span><span class="params">(ElemType ch,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ch&lt;&lt;<span class="string">"在第"</span>&lt;&lt;level&lt;&lt;<span class="string">"层"</span>&lt;&lt;end;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归方式前序遍历二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);<span class="comment">//输出了层数</span></span><br><span class="line">        PreOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PreOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        InOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">        InOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归后序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        PostOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PostOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">int</span> level=<span class="number">1</span>;<span class="comment">//表示层数</span></span><br><span class="line">    BiTree T=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"请以前序遍历的方式输入二叉树："</span>;<span class="comment">//类似输入AB#D##C##</span></span><br><span class="line">    CreateBiTree(&amp;T);<span class="comment">//建立二叉树，没有树，无法遍历</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归前序遍历输出："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    PostOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;end;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归中序遍历输出为："</span>&lt;&lt;end;</span><br><span class="line">    InOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归后序遍历输出为："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    PostOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2482,7 +2628,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2585,7 +2731,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">46.3k</span>
+    <span title="Site words total count">48k</span>
   
 </div>
 <div class="powered-by">

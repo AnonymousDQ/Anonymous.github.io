@@ -304,6 +304,724 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画条形图/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/用matplotlib包画条形图/" itemprop="url">用matplotlib包画条形图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:17:43+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  76
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#条形图</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#产生随机数</span></span><br><span class="line">data = np.random.normal(<span class="number">0</span>, <span class="number">20</span>, <span class="number">1000</span>)</span><br><span class="line">bins = np.arange(<span class="number">-100</span>, <span class="number">100</span>, <span class="number">5</span>) <span class="comment"># fixed bin size</span></span><br><span class="line"></span><br><span class="line">plt.xlim([min(data)<span class="number">-5</span>, max(data)+<span class="number">5</span>])</span><br><span class="line">plt.hist(data, bins=bins, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.title(<span class="string">'Random Gaussian data (fixed bin size)'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'variable X (bin size = 5)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'count'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/15/用matplotlib包画条形图/条形图.png" alt="gaussian graph"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画折线图/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/用matplotlib包画折线图/" itemprop="url">用matplotlib包画折线图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:14:30+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/折线图/" itemprop="url" rel="index">
+                    <span itemprop="name">折线图</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  51
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#折线图</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成数据</span></span><br><span class="line">x=np.linspace(<span class="number">-10000</span>,<span class="number">10000</span>,<span class="number">100</span>) <span class="comment">#将-10000到10000等区间分成100份</span></span><br><span class="line">y=x2+x3+x**<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示图像</span></span><br><span class="line">plt.plot(x,y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/15/用matplotlib包画折线图/折线图.png" alt="line"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画散点图/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/用matplotlib包画散点图/" itemprop="url">用matplotlib包画散点图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:08:48+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  374
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Scatter函数是一个强大的画散点图函数：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">matplotlib.pyplot.scatter(x, y, s=<span class="keyword">None</span>, c=<span class="keyword">None</span>, marker=<span class="keyword">None</span>, cmap=<span class="keyword">None</span>, norm=<span class="keyword">None</span>, vmin=<span class="keyword">None</span>, vmax=<span class="keyword">None</span>, alpha=<span class="keyword">None</span>, linewidths=<span class="keyword">None</span>, verts=<span class="keyword">None</span>, edgecolors=<span class="keyword">None</span>, *, data=<span class="keyword">None</span>, **kwargs)</span><br><span class="line"></span><br><span class="line"><span class="comment">#x,y：表示数据的位置，也就是x,y轴</span></span><br><span class="line"><span class="comment">#s：表示图形的大小</span></span><br><span class="line"><span class="comment">#c：表示颜色或颜色序列，可能的情况如下： </span></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">  1. 单一颜色</span></span><br><span class="line"><span class="string">  2. 颜色序列</span></span><br><span class="line"><span class="string">  3. 使用cmap映射到颜色的序列数</span></span><br><span class="line"><span class="string">  4. 一个行为RGB的2-D数组</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">marker：绘出的图形的形状，具有多种风格 </span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<p><strong>一、画散点图(一)</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#散点图</span></span><br><span class="line"><span class="comment">#导入必要的模块</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#参数随机数</span></span><br><span class="line">N=<span class="number">50</span></span><br><span class="line">x=np.random.randn(N)</span><br><span class="line">y=np.random.randn(N)</span><br><span class="line"></span><br><span class="line"><span class="comment">#画散点图</span></span><br><span class="line">plt.scatter(x,y,s=<span class="number">50</span>,c=<span class="string">'r'</span>,marker=<span class="string">'o'</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line"><span class="comment">#x---&gt;x轴，y---&gt;y轴</span></span><br><span class="line"><span class="comment">#s---&gt;散点面积</span></span><br><span class="line"><span class="comment">#c---&gt;散点颜色</span></span><br><span class="line"><span class="comment">#颜色参数c：b--&gt;blue  c--&gt;cyan g--&gt;green  k--&gt;black  m--&gt;magenta  r--&gt;red </span></span><br><span class="line"><span class="comment">#w--&gt;white  y--&gt;yellow</span></span><br><span class="line"><span class="comment">#marker---&gt;散点形状</span></span><br><span class="line"><span class="comment">#marker='o'为圆点，marker='x'为×号，marker='s'显示为小正方形</span></span><br><span class="line"><span class="comment">#alpha---&gt;散点透明度</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示所画的图</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/15/用matplotlib包画散点图/散点图.png" alt="scatter"></p>
+<p><strong>二、画散点图(二）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入必要的模块 </span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"></span><br><span class="line"><span class="comment">#产生测试数据 </span></span><br><span class="line">x = np.arange(<span class="number">1</span>,<span class="number">10</span>) </span><br><span class="line">y = x </span><br><span class="line">fig = plt.figure() </span><br><span class="line">ax1 = fig.add_subplot(<span class="number">111</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置标题 </span></span><br><span class="line">ax1.set_title(<span class="string">'Scatter Plot'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置X轴标签 </span></span><br><span class="line">plt.xlabel(<span class="string">'X'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置Y轴标签 </span></span><br><span class="line">plt.ylabel(<span class="string">'Y'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#画散点图 </span></span><br><span class="line">ax1.scatter(x,y,c = <span class="string">'r'</span>,marker = <span class="string">'o'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置图标 </span></span><br><span class="line">plt.legend(<span class="string">'x1'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#显示所画的图 </span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/15/用matplotlib包画散点图/散点图1.png" alt="scatter"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画图/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/用matplotlib包画图/" itemprop="url">用matplotlib包画图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:06:50+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  308
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>​    最近深度学习发展非常迅猛，大有一统江湖的趋势。经过一段时间学习，发现自己对这种神奇的玄学非常感兴趣，希望能够进一步的研究。而这种研究性学科单纯地看论文比较难以明白，所以希望能够跟进大牛们写的代码深入学习。我发现很多大牛给的源码是基于python写的，于是就打算学习python。 </p>
+<p><strong>一、Spyder的用法</strong></p>
+<ul>
+<li>Spyder是一个简单的集成开发环境，它模拟MATLAB的‘工作空间’的功能，可以很方便的观察和修改数组的值。</li>
+<li>推荐您使用IPython Console，因为它比标准的Python Console的功能更多，并且建议您将它设置为默认控制台。</li>
+<li>命名空间（在任何给定时间内在console中定义的对象集合）在IPython中可以使用%reset命令清除。输入<strong>%reset</strong>然后按下<strong>enter键</strong>，用y确认。</li>
+<li>首先要进行工具栏设置，调出QT窗体来显示图形。</li>
+<li>第一步：选择工具栏的<strong>Tools–&gt;Preferences</strong></li>
+</ul>
+<p><img src="/2018/12/15/用matplotlib包画图/设置1.png" alt="setting1"></p>
+<ul>
+<li>第二步：点击IPython console选项</li>
+</ul>
+<p><img src="/2018/12/15/用matplotlib包画图/设置2.png" alt="setting2"></p>
+<ul>
+<li>第三步：选择Graphics选项，在Backend选择Qt5，然后保存重启就行</li>
+</ul>
+<p><img src="/2018/12/15/用matplotlib包画图/设置3.png" alt="setting3"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/TensorFlow入门demo/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1509,790 +2227,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的流/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/JAVA中的流/" itemprop="url">JAVA中的流</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:03:20+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.5k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、缓存流"><a href="#一、缓存流" class="headerlink" title="一、缓存流"></a>一、缓存流</h2><p>　　以介质是硬盘为例子说明，字节流和字符流的缺点：</p>
-<ul>
-<li><p>每次读写的时候，都会访问硬盘，如果读写频率比较高的时候，性能不佳。为了解决问题，采用缓存流。</p>
-</li>
-<li><p>缓存流在读取的时候，会一次性读较多的数据到缓存中，以后每一次的读取，都是在缓存中访问，直到缓存中的数据读取完毕，再到硬盘中区读取。</p>
-</li>
-<li><p>缓存流在写入数据的时候，会先把数据写入到缓存区，直到缓存区达到一定的量，才把这些数据，一起写入到硬盘中去，按照这种方式，就不会像字节流，字符流那样每次写一个字节都访问硬盘，减少了I/O操作。</p>
-</li>
-</ul>
-<h3 id="1、使用缓存流读取数据"><a href="#1、使用缓存流读取数据" class="headerlink" title="1、使用缓存流读取数据"></a>1、使用缓存流读取数据</h3><p>BufferedReader缓存字符输入流，可以一次读取一行数据</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(FileReader fr=<span class="keyword">new</span> FileReader(f);BufferedReader br=<span class="keyword">new</span> BufferedReader(fr);)&#123;</span><br><span class="line">                <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                        String line=br.readLine();<span class="comment">//一次读一行。</span></span><br><span class="line">                        <span class="keyword">if</span>(line==<span class="keyword">null</span>)<span class="keyword">break</span>;</span><br><span class="line">                        System.out.println(line);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2、使用缓存流写入数据"><a href="#2、使用缓存流写入数据" class="headerlink" title="2、使用缓存流写入数据"></a>2、使用缓存流写入数据</h3><p>PrintWriter缓存字符输出流，可以一次写出一行数据</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(FileWriter fw=<span class="keyword">new</span> FileWriter(f);PrintWriter pw=<span class="keyword">new</span> PrintWriter(fw);)&#123;</span><br><span class="line">                &#123;</span><br><span class="line">                        pw.println(<span class="string">"hello world"</span>);</span><br><span class="line">                        pw.println(<span class="string">"hello kitty"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3、使用flush"><a href="#3、使用flush" class="headerlink" title="3、使用flush"></a>3、使用flush</h3><p>有时候，需要立即把数据写入到硬盘，而不是等缓存满了才写进去，这时候就要用flush。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> file(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="comment">//创建文件字符流</span></span><br><span class="line">        <span class="comment">//缓存流必须建立在一个存在的流的基础上</span></span><br><span class="line">        <span class="keyword">try</span>(FileWriter fr=<span class="keyword">new</span> FileWriter(f);PrintWriter pw=<span class="keyword">new</span> PrintWriter(fr);)&#123;</span><br><span class="line">            <span class="comment">//向文件LOL.exe中写入三行语句。</span></span><br><span class="line">            pw.println(<span class="string">"hello world"</span>);</span><br><span class="line">            <span class="comment">//强制把缓存中的数据写入硬盘，无论缓存是否已满</span></span><br><span class="line">            pw.flush();</span><br><span class="line">            pw.println(<span class="string">"I love play lol"</span>);</span><br><span class="line">            pw.flush();</span><br><span class="line">            pw.println(<span class="string">"I love play dota"</span>);</span><br><span class="line">            pw.flush();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="二、数据流"><a href="#二、数据流" class="headerlink" title="二、数据流"></a>二、数据流</h2><h3 id="数据输入流：DataInputStream"><a href="#数据输入流：DataInputStream" class="headerlink" title="　　数据输入流：DataInputStream"></a>　　数据输入流：DataInputStream</h3><h3 id="数据输出流：DataOutputStream"><a href="#数据输出流：DataOutputStream" class="headerlink" title="　　数据输出流：DataOutputStream"></a>　　数据输出流：DataOutputStream</h3><p>数据流的方法：writeUTF()，readUTF()可以进行数据的格式化顺序读写</p>
-<p>要用DataInputStream读取一个文件，这个文件必须由DataOutStream写出的，不然会抛出EOFException异常。也就是说这两个是成对出现的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.DataInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        write();<span class="comment">//先写入</span></span><br><span class="line">        read();<span class="comment">//在读取</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d:/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(</span><br><span class="line">                FileInputStream fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                DataInputStream dis=<span class="keyword">new</span> DataInputStream(fis);</span><br><span class="line">        )&#123;</span><br><span class="line">        <span class="comment">//然后在读取刚才写入到lol.exe文件里的东西。</span></span><br><span class="line">                <span class="keyword">boolean</span> b=dis.readBoolean();</span><br><span class="line">                <span class="keyword">int</span> i=dis.readInt();</span><br><span class="line">                String str=dis.readUTF();</span><br><span class="line">                System.out.println(<span class="string">"读取到布尔值："</span>+b);</span><br><span class="line">                System.out.println(<span class="string">"读取到整数："</span>+i);</span><br><span class="line">                System.out.println(<span class="string">"读取到字符串"</span>+str);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">()</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d:/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(</span><br><span class="line">                FileOutStream fos=<span class="keyword">new</span> FileOutputStream(f);</span><br><span class="line">                DataOutStream dos=<span class="keyword">new</span> DataOutStream(fos);</span><br><span class="line">        )&#123;</span><br><span class="line">        <span class="comment">//把布尔型，整型，字符型这三个写到lol.exe文件里去</span></span><br><span class="line">            dos.writeBoolean(<span class="keyword">true</span>);</span><br><span class="line">            dos.writeInt(<span class="number">300</span>);</span><br><span class="line">            dos.writeUTF(<span class="string">"hello world"</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="三、对象流"><a href="#三、对象流" class="headerlink" title="三、对象流"></a>三、对象流</h2><p>　　可以直接把一个对象以流的形式传输给其他的介质，比如硬盘，一个对象以流的形式进行传输，叫做序列化。</p>
-<p>该对象所对应的类，必须是实现Serializable接口</p>
-<p>首先序列化一个实体类Hero</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line"><span class="comment">//表示这个类当前的版本，如果有了变化，比如添加了新的属性，就要修改这个版本号</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID=<span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> hp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果要把Hero对象直接保存在文件上，必须让Hero类实现Serializable接口</p>
-<p>首先要创建对象输出流，也就是写入对象到流，首先创建一个文件写入流FileOutputStream对象，然后在创建一个对象写入流ObjectOutputStream对象，把文件写入流传到对象写入流中。写入操作，利用ObjectOutputStream的writeObject()方法进行写入。同样读取操作，还是要先创建文件读取流FileInputStream对象，然后在创建一个对象读取流ObjectInputStream对象，把文件读取流对象传到对象读取流中。然后执行对象读取流的readObject()方法进行读取。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建一个Hero对象</span></span><br><span class="line">        <span class="comment">//然后把Hero对象直接保存在文件上，必须Hero类实现Serializable接口</span></span><br><span class="line">        Hero h=<span class="keyword">new</span> Hero();</span><br><span class="line">        h.name=<span class="string">"Teemo"</span>;</span><br><span class="line">        h.hp=<span class="number">90.0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//准备一个文件用于保存新创建的Hero对象</span></span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d:/Teemo.lol"</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span>(</span><br><span class="line">                <span class="comment">//创建对象输出流(也就是写入)</span></span><br><span class="line">                FileOutputStream fos=<span class="keyword">new</span> FileOutputStream(f);</span><br><span class="line">                ObjectOutputStream oos=<span class="keyword">new</span> ObjectOutputStream(fos);</span><br><span class="line">                <span class="comment">//创建对象输入流（也就是读取）</span></span><br><span class="line">                FileInputStream fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                ObjectInputStream ois=<span class="keyword">new</span> ObjectInputStream(fis);</span><br><span class="line">        )&#123;</span><br><span class="line">                oos.writeObject(h);</span><br><span class="line">                Hero h2=(Hero)ois.readObject();</span><br><span class="line">                System.out.println(h2.name);</span><br><span class="line">                System.out.println(h2.hp);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="四、控制台的输入输出"><a href="#四、控制台的输入输出" class="headerlink" title="四、控制台的输入输出"></a>四、控制台的输入输出</h2><ul>
-<li><p>控制台输出数据：System.out</p>
-</li>
-<li><p>控制台输入数据：System.in</p>
-</li>
-</ul>
-<p>利用System.in进行控制台写入。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line">publc <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//控制台输入</span></span><br><span class="line">        <span class="keyword">try</span>(InputStream is=System.in;)&#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> i=is.read();</span><br><span class="line">                System.out.println(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>利用Scanner进行逐行读取</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> class <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="comment">//使用Scanner进行逐行读取。</span></span><br><span class="line">        Scanner s=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">            String strLine=s.nextLine();</span><br><span class="line">            System.out.pirntln(strLine);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的集合类/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/JAVA中的集合类/" itemprop="url">JAVA中的集合类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:58:09+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.3k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、ArrayList"><a href="#一、ArrayList" class="headerlink" title="一、ArrayList"></a>一、ArrayList</h2><p>　　解决了数组的局限性，最常见的容器类，ArrayList容器的容量capacity会随着对象的增加，自动增长。不会出现数组边界的问题。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> charactor.Hero;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"rawtypes"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//容器类ArrayList，用于存放对象</span></span><br><span class="line">        ArrayList heros = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        heros.add( <span class="keyword">new</span> Hero(<span class="string">"盖伦"</span>));</span><br><span class="line">        System.out.println(heros.size());</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//容器的容量"capacity"会随着对象的增加，自动增长</span></span><br><span class="line">        <span class="comment">//只需要不断往容器里增加英雄即可，不用担心会出现数组的边界问题。</span></span><br><span class="line">        heros.add( <span class="keyword">new</span> Hero(<span class="string">"提莫"</span>));</span><br><span class="line">        System.out.println(heros.size());</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="二、ArrayList常用方法"><a href="#二、ArrayList常用方法" class="headerlink" title="二、ArrayList常用方法"></a>二、ArrayList常用方法</h2><p>首先创建一个重写了toString的Hero类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> charactor;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> hp;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> damage;</span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Hero</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 增加一个初始化name的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Hero</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 重写toString方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1、add增加"><a href="#1、add增加" class="headerlink" title="1、add增加"></a>1、add增加</h3><ul>
-<li>1、直接add对象 hero.add(new Hero(“demo”)); </li>
-<li>2、指定位置增加对象hero.add(3,”demo”)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> charactor.Hero;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList heros = <span class="keyword">new</span> ArrayList();</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把5个对象加入到ArrayList中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            heros.add(<span class="keyword">new</span> Hero(<span class="string">"hero "</span> + i));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(heros);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 在指定位置增加对象</span></span><br><span class="line">        Hero specialHero = <span class="keyword">new</span> Hero(<span class="string">"special hero"</span>);</span><br><span class="line">        heros.add(<span class="number">3</span>, specialHero);</span><br><span class="line"> </span><br><span class="line">        System.out.println(heros.toString());</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2、contains-：判断是否存在"><a href="#2、contains-：判断是否存在" class="headerlink" title="2、contains()：判断是否存在"></a>2、contains()：判断是否存在</h3><h3 id="3、get-获取指定位置的对象"><a href="#3、get-获取指定位置的对象" class="headerlink" title="3、get():获取指定位置的对象"></a>3、get():获取指定位置的对象</h3><h3 id="4、indexOf-获取对象所处的位置"><a href="#4、indexOf-获取对象所处的位置" class="headerlink" title="4、indexOf():获取对象所处的位置"></a>4、indexOf():获取对象所处的位置</h3><h3 id="5、remove-删除"><a href="#5、remove-删除" class="headerlink" title="5、remove():删除"></a>5、remove():删除</h3><h3 id="6、set-替换"><a href="#6、set-替换" class="headerlink" title="6、set():替换"></a>6、set():替换</h3><h3 id="7、size-获取大小"><a href="#7、size-获取大小" class="headerlink" title="7、size():获取大小"></a>7、size():获取大小</h3><h3 id="8、toArray-转换为数组"><a href="#8、toArray-转换为数组" class="headerlink" title="8、toArray():转换为数组"></a>8、toArray():转换为数组</h3><h2 id="三、ArrayList和List"><a href="#三、ArrayList和List" class="headerlink" title="三、ArrayList和List"></a>三、ArrayList和List</h2><p>ArrayList实现了接口List，常见的写法会把引用声明为接口List类型</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> charactor.Hero;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//ArrayList实现了接口List</span></span><br><span class="line">         </span><br><span class="line">        <span class="comment">//常见的写法会把引用声明为接口List类型</span></span><br><span class="line">        <span class="comment">//注意：是java.util.List,而不是java.awt.List</span></span><br><span class="line">        <span class="comment">//接口引用指向子类对象（多态）</span></span><br><span class="line">         </span><br><span class="line">        List heros = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        heros.add( <span class="keyword">new</span> Hero(<span class="string">"盖伦"</span>));</span><br><span class="line">        System.out.println(heros.size());</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="四、ArrayList遍历的方法"><a href="#四、ArrayList遍历的方法" class="headerlink" title="四、ArrayList遍历的方法"></a>四、ArrayList遍历的方法</h2><h3 id="1、使用for循环，通过获取ArrayList的size-来一一遍历"><a href="#1、使用for循环，通过获取ArrayList的size-来一一遍历" class="headerlink" title="1、使用for循环，通过获取ArrayList的size()来一一遍历"></a>1、使用for循环，通过获取ArrayList的size()来一一遍历</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> charactor.Hero;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Hero&gt; heros = <span class="keyword">new</span> ArrayList&lt;Hero&gt;();</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 放5个Hero进入容器</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            heros.add(<span class="keyword">new</span> Hero(<span class="string">"hero name "</span> + i));</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 第一种遍历 for循环</span></span><br><span class="line">        System.out.println(<span class="string">"--------for 循环-------"</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; heros.size(); i++) &#123;</span><br><span class="line">            Hero h = heros.get(i);</span><br><span class="line">            System.out.println(h);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2、使用迭代器Iterator进行遍历，迭代器每次都是从一个空的位置开始，通过hasNext-来判断，当返回false时表示后面没有数据了结束遍历，获取通过next-方法获取。"><a href="#2、使用迭代器Iterator进行遍历，迭代器每次都是从一个空的位置开始，通过hasNext-来判断，当返回false时表示后面没有数据了结束遍历，获取通过next-方法获取。" class="headerlink" title="2、使用迭代器Iterator进行遍历，迭代器每次都是从一个空的位置开始，通过hasNext()来判断，当返回false时表示后面没有数据了结束遍历，获取通过next()方法获取。"></a>2、使用迭代器Iterator进行遍历，迭代器每次都是从一个空的位置开始，通过hasNext()来判断，当返回false时表示后面没有数据了结束遍历，获取通过next()方法获取。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> charactor.Hero;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Hero&gt; heros = <span class="keyword">new</span> ArrayList&lt;Hero&gt;();</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//放5个Hero进入容器</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            heros.add(<span class="keyword">new</span> Hero(<span class="string">"hero name "</span> +i));</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//第二种遍历，使用迭代器</span></span><br><span class="line">        System.out.println(<span class="string">"--------使用while的iterator-------"</span>);</span><br><span class="line">        Iterator&lt;Hero&gt; it= heros.iterator();</span><br><span class="line">        <span class="comment">//从最开始的位置判断"下一个"位置是否有数据</span></span><br><span class="line">        <span class="comment">//如果有就通过next取出来，并且把指针向下移动</span></span><br><span class="line">        <span class="comment">//直达"下一个"位置没有数据</span></span><br><span class="line">        <span class="keyword">while</span>(it.hasNext())&#123;</span><br><span class="line">            Hero h = it.next();</span><br><span class="line">            System.out.println(h);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//迭代器的for写法</span></span><br><span class="line">        System.out.println(<span class="string">"--------使用for的iterator-------"</span>);</span><br><span class="line">        <span class="keyword">for</span> (Iterator&lt;Hero&gt; iterator = heros.iterator(); iterator.hasNext();) &#123;</span><br><span class="line">            Hero hero = (Hero) iterator.next();</span><br><span class="line">            System.out.println(hero);</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3、常用的for循环遍历"><a href="#3、常用的for循环遍历" class="headerlink" title="3、常用的for循环遍历."></a>3、常用的for循环遍历.</h3><p>不能进行ArrayList初始化，也不知道到底多少个元素在ArrayList，就是所有遍历出来</p>
-<h2 id="五、ArrayList和LinkedList的区别"><a href="#五、ArrayList和LinkedList的区别" class="headerlink" title="五、ArrayList和LinkedList的区别"></a>五、ArrayList和LinkedList的区别</h2><ul>
-<li><p>ArrayList:顺序结构，插入，删除数据很慢（O(N)），查找快(O(1))，就类似于数组，跟链表的关系一样。</p>
-</li>
-<li><p>LinkedList：链表结构，插入，删除数据快（O(1)），查找慢(O(N))。</p>
-</li>
-</ul>
-<h2 id="六、ArrayList和HashSet区别"><a href="#六、ArrayList和HashSet区别" class="headerlink" title="六、ArrayList和HashSet区别"></a>六、ArrayList和HashSet区别</h2><h3 id="最大区别在于："><a href="#最大区别在于：" class="headerlink" title="最大区别在于："></a>最大区别在于：</h3><h4 id="1、是否有顺序："><a href="#1、是否有顺序：" class="headerlink" title="1、是否有顺序："></a>1、是否有顺序：</h4><ul>
-<li><p>ArrayList：有顺序</p>
-</li>
-<li><p>HashSet：无顺序(集合的无序性)，它的具体顺序既不是按照hashcode的顺序，也不是按照插入顺序，根据在JVM的不用版本中，看到的顺序也是不同的，HashSet的顺序本身不稳定的。</p>
-</li>
-</ul>
-<h4 id="2、是否重复"><a href="#2、是否重复" class="headerlink" title="2、是否重复"></a>2、是否重复</h4><ul>
-<li><p>List中的数据可以重复</p>
-</li>
-<li><p>Set中的数据不能重复</p>
-</li>
-</ul>
-<p>重复判断的标准是：首先看hashcode是否相同，不同，则肯定是不同数据</p>
-<p>如果相同，在比较equals，如果equals相同，则是相同数据，否则是不同数据。</p>
-<h2 id="七、HashSet，LinkedHashSet，TreeSet比较"><a href="#七、HashSet，LinkedHashSet，TreeSet比较" class="headerlink" title="七、HashSet，LinkedHashSet，TreeSet比较"></a>七、HashSet，LinkedHashSet，TreeSet比较</h2><ul>
-<li><p>HashSet：无顺序</p>
-</li>
-<li><p>LinkedHashSet：按照插入顺序</p>
-</li>
-<li><p>TreeSet：从小到大顺序</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedHashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        HashSet&lt;Integer&gt; hashSet=<span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="comment">//HashSet中的数据不是按照插入顺序存放</span></span><br><span class="line">        hashSet.add(<span class="number">22</span>);</span><br><span class="line">        hashSet.add(<span class="number">33</span>);</span><br><span class="line">        hashSet.add(<span class="number">55</span>);</span><br><span class="line">        System.out.println(hashSet);</span><br><span class="line">        </span><br><span class="line">        LinkedHashSet&lt;Integer&gt; linkedHashSet=<span class="keyword">new</span> LinkedHashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="comment">//LinkedHashSet中的数据按照插入顺序存放</span></span><br><span class="line">        linkedHashSet.add(<span class="number">22</span>);</span><br><span class="line">        linkedHashSet.add(<span class="number">56</span>);</span><br><span class="line">        linkedHashSet.add(<span class="number">28</span>);</span><br><span class="line">        System.out.println(linkedHashSet);<span class="comment">//22,56,28</span></span><br><span class="line">        </span><br><span class="line">        TreeSet&lt;Integer&gt; treeSet=<span class="keyword">new</span> TreeSet&lt;Integer&gt;();</span><br><span class="line">        <span class="comment">//TreeSet中的数据是进行了排序的从小到大</span></span><br><span class="line">        treeSet.add(<span class="number">22</span>);</span><br><span class="line">        treeSet.add(<span class="number">56</span>);</span><br><span class="line">        treeSet.add(<span class="number">28</span>);</span><br><span class="line">        System.out.println(treeSet);<span class="comment">//22,28,56</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的抽象类与接口/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/JAVA中的抽象类与接口/" itemprop="url">JAVA中的抽象类与接口</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:54:51+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  495
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、类中声明一个方法，这个方法没有实现体，是一个空方法，这样的方法叫抽象方法，使用abstract修饰符号"><a href="#一、类中声明一个方法，这个方法没有实现体，是一个空方法，这样的方法叫抽象方法，使用abstract修饰符号" class="headerlink" title="一、类中声明一个方法，这个方法没有实现体，是一个空方法，这样的方法叫抽象方法，使用abstract修饰符号"></a>一、类中声明一个方法，这个方法没有实现体，是一个空方法，这样的方法叫抽象方法，使用abstract修饰符号</h2><h2 id="当一个类有抽象方法时候，必须声明为抽象类"><a href="#当一个类有抽象方法时候，必须声明为抽象类" class="headerlink" title="当一个类有抽象方法时候，必须声明为抽象类"></a>当一个类有抽象方法时候，必须声明为抽象类</h2><h3 id="1-声明一个父类-父类类声明一个抽象方法，则父类必须声明为抽象类abstract修饰"><a href="#1-声明一个父类-父类类声明一个抽象方法，则父类必须声明为抽象类abstract修饰" class="headerlink" title="1.声明一个父类(父类类声明一个抽象方法，则父类必须声明为抽象类abstract修饰)"></a>1.声明一个父类(父类类声明一个抽象方法，则父类必须声明为抽象类abstract修饰)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> property;</span><br><span class="line"><span class="comment">//为Hero增加一个抽象方法，必须把Hero声明为abstract。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">float</span> hp;</span><br><span class="line">    <span class="keyword">float</span> armor;</span><br><span class="line">    <span class="keyword">int</span> moveSpeed;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//抽象方法attack</span></span><br><span class="line">    <span class="comment">//Hero的子类会被要求实现attack方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-子类一"><a href="#2-子类一" class="headerlink" title="2.子类一"></a>2.子类一</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> property;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ADHero</span> <span class="keyword">extends</span> <span class="title">Hero</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">physicAttack</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"进行物理攻击"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span></span>&#123;<span class="comment">//继承父类的同事，必须实现父类里的抽象类</span></span><br><span class="line">        physicAttack();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-子类二"><a href="#3-子类二" class="headerlink" title="3.子类二"></a>3.子类二</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> property;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">APHero</span> <span class="keyword">extends</span> <span class="title">Hero</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">magicAttack</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"进行魔法攻击"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span></span>&#123;<span class="comment">//继承父类的同事，必须实现父类里的抽象类</span></span><br><span class="line">        magicAttack();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="二、类可以在不提供抽象方法的前提下，直接声明为抽象类。但是一旦被声明为抽象类，就不能狗直接实例化。"><a href="#二、类可以在不提供抽象方法的前提下，直接声明为抽象类。但是一旦被声明为抽象类，就不能狗直接实例化。" class="headerlink" title="二、类可以在不提供抽象方法的前提下，直接声明为抽象类。但是一旦被声明为抽象类，就不能狗直接实例化。"></a>二、类可以在不提供抽象方法的前提下，直接声明为抽象类。但是一旦被声明为抽象类，就不能狗直接实例化。</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span> <span class="keyword">extends</span> <span class="title">Object</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">float</span> hp;</span><br><span class="line">    <span class="keyword">float</span> armor;</span><br><span class="line">    <span class="keyword">int</span> moveSpeed;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"><span class="comment">//虽然没有抽象方法，但是被声明了抽象类，不能进行实例化操作。</span></span><br><span class="line">        Hero h=<span class="keyword">new</span> Hero();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="三、抽象类和接口的区别"><a href="#三、抽象类和接口的区别" class="headerlink" title="三、抽象类和接口的区别"></a>三、抽象类和接口的区别</h2><p>子类只能继承一个抽象类，也印证了java只能单继承</p>
-<p>子类可以继承多个接口</p>
-<p>抽象类可以定义为public,protected,package,private，有静态属性，非静态属性，final和非final属性</p>
-<p>接口中的属性只能是public，静态，final的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> property;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AD</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> moveSpeed=<span class="number">100</span>;</span><br><span class="line">    <span class="keyword">float</span> hp;<span class="comment">//hp没有显式声明为public static final,但是它默认就是这个</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">magicAttack</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">moveSpeed</span><span class="params">()</span></span>;<span class="comment">//方法没有显式声明为public，接口中默认方法为public</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的HashMap与Hashtable/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/JAVA中的HashMap与Hashtable/" itemprop="url">JAVA中的HashMap与Hashtable</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:51:11+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  136
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="HashMap和Hashtable"><a href="#HashMap和Hashtable" class="headerlink" title="HashMap和Hashtable"></a>HashMap和Hashtable</h2><p>　　<strong>都实现了Map接口，都是以key-value形式保存数据。</strong></p>
-<ul>
-<li><p>HashMap可以存放null</p>
-</li>
-<li><p>Hashtable不能存放null</p>
-</li>
-<li><p>HashMap不是线程安全类</p>
-</li>
-<li><p>Hashtable是线程安全类</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Hashtable;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span></span>&#123;</span><br><span class="line">    <span class="comment">//HashMap和Hashtable都实现了Map接口，key-value方式存数据</span></span><br><span class="line">    HashMap&lt;string,string&gt; hashMap=<span class="keyword">new</span> HashMap&lt;string,string&gt;();</span><br><span class="line">    <span class="comment">//HashMap可以用null作key，作value</span></span><br><span class="line">    hashMap.put(<span class="keyword">null</span>,<span class="string">"123"</span>);</span><br><span class="line">    hashMap.put(<span class="string">"123"</span>,<span class="keyword">null</span>);</span><br><span class="line">    Hashtable&lt;string,string&gt; hashtable=<span class="keyword">new</span> Hashtable&lt;string,string&gt;();</span><br><span class="line">    <span class="comment">//Hashtable不能用null作key，不能用null作value</span></span><br><span class="line">    hashtable.put(<span class="keyword">null</span>,<span class="string">"123"</span>);<span class="comment">//报错</span></span><br><span class="line">    hashtable.put(<span class="string">"123"</span>,<span class="keyword">null</span>);<span class="comment">//报错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2345,7 +2279,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2448,7 +2382,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">46.3k</span>
+    <span title="Site words total count">48k</span>
   
 </div>
 <div class="powered-by">

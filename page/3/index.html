@@ -304,6 +304,790 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的流/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/JAVA中的流/" itemprop="url">JAVA中的流</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:03:20+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、缓存流"><a href="#一、缓存流" class="headerlink" title="一、缓存流"></a>一、缓存流</h2><p>　　以介质是硬盘为例子说明，字节流和字符流的缺点：</p>
+<ul>
+<li><p>每次读写的时候，都会访问硬盘，如果读写频率比较高的时候，性能不佳。为了解决问题，采用缓存流。</p>
+</li>
+<li><p>缓存流在读取的时候，会一次性读较多的数据到缓存中，以后每一次的读取，都是在缓存中访问，直到缓存中的数据读取完毕，再到硬盘中区读取。</p>
+</li>
+<li><p>缓存流在写入数据的时候，会先把数据写入到缓存区，直到缓存区达到一定的量，才把这些数据，一起写入到硬盘中去，按照这种方式，就不会像字节流，字符流那样每次写一个字节都访问硬盘，减少了I/O操作。</p>
+</li>
+</ul>
+<h3 id="1、使用缓存流读取数据"><a href="#1、使用缓存流读取数据" class="headerlink" title="1、使用缓存流读取数据"></a>1、使用缓存流读取数据</h3><p>BufferedReader缓存字符输入流，可以一次读取一行数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(FileReader fr=<span class="keyword">new</span> FileReader(f);BufferedReader br=<span class="keyword">new</span> BufferedReader(fr);)&#123;</span><br><span class="line">                <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                        String line=br.readLine();<span class="comment">//一次读一行。</span></span><br><span class="line">                        <span class="keyword">if</span>(line==<span class="keyword">null</span>)<span class="keyword">break</span>;</span><br><span class="line">                        System.out.println(line);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、使用缓存流写入数据"><a href="#2、使用缓存流写入数据" class="headerlink" title="2、使用缓存流写入数据"></a>2、使用缓存流写入数据</h3><p>PrintWriter缓存字符输出流，可以一次写出一行数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(FileWriter fw=<span class="keyword">new</span> FileWriter(f);PrintWriter pw=<span class="keyword">new</span> PrintWriter(fw);)&#123;</span><br><span class="line">                &#123;</span><br><span class="line">                        pw.println(<span class="string">"hello world"</span>);</span><br><span class="line">                        pw.println(<span class="string">"hello kitty"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、使用flush"><a href="#3、使用flush" class="headerlink" title="3、使用flush"></a>3、使用flush</h3><p>有时候，需要立即把数据写入到硬盘，而不是等缓存满了才写进去，这时候就要用flush。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> file(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="comment">//创建文件字符流</span></span><br><span class="line">        <span class="comment">//缓存流必须建立在一个存在的流的基础上</span></span><br><span class="line">        <span class="keyword">try</span>(FileWriter fr=<span class="keyword">new</span> FileWriter(f);PrintWriter pw=<span class="keyword">new</span> PrintWriter(fr);)&#123;</span><br><span class="line">            <span class="comment">//向文件LOL.exe中写入三行语句。</span></span><br><span class="line">            pw.println(<span class="string">"hello world"</span>);</span><br><span class="line">            <span class="comment">//强制把缓存中的数据写入硬盘，无论缓存是否已满</span></span><br><span class="line">            pw.flush();</span><br><span class="line">            pw.println(<span class="string">"I love play lol"</span>);</span><br><span class="line">            pw.flush();</span><br><span class="line">            pw.println(<span class="string">"I love play dota"</span>);</span><br><span class="line">            pw.flush();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二、数据流"><a href="#二、数据流" class="headerlink" title="二、数据流"></a>二、数据流</h2><h3 id="数据输入流：DataInputStream"><a href="#数据输入流：DataInputStream" class="headerlink" title="　　数据输入流：DataInputStream"></a>　　数据输入流：DataInputStream</h3><h3 id="数据输出流：DataOutputStream"><a href="#数据输出流：DataOutputStream" class="headerlink" title="　　数据输出流：DataOutputStream"></a>　　数据输出流：DataOutputStream</h3><p>数据流的方法：writeUTF()，readUTF()可以进行数据的格式化顺序读写</p>
+<p>要用DataInputStream读取一个文件，这个文件必须由DataOutStream写出的，不然会抛出EOFException异常。也就是说这两个是成对出现的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.DataInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        write();<span class="comment">//先写入</span></span><br><span class="line">        read();<span class="comment">//在读取</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d:/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(</span><br><span class="line">                FileInputStream fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                DataInputStream dis=<span class="keyword">new</span> DataInputStream(fis);</span><br><span class="line">        )&#123;</span><br><span class="line">        <span class="comment">//然后在读取刚才写入到lol.exe文件里的东西。</span></span><br><span class="line">                <span class="keyword">boolean</span> b=dis.readBoolean();</span><br><span class="line">                <span class="keyword">int</span> i=dis.readInt();</span><br><span class="line">                String str=dis.readUTF();</span><br><span class="line">                System.out.println(<span class="string">"读取到布尔值："</span>+b);</span><br><span class="line">                System.out.println(<span class="string">"读取到整数："</span>+i);</span><br><span class="line">                System.out.println(<span class="string">"读取到字符串"</span>+str);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">()</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d:/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(</span><br><span class="line">                FileOutStream fos=<span class="keyword">new</span> FileOutputStream(f);</span><br><span class="line">                DataOutStream dos=<span class="keyword">new</span> DataOutStream(fos);</span><br><span class="line">        )&#123;</span><br><span class="line">        <span class="comment">//把布尔型，整型，字符型这三个写到lol.exe文件里去</span></span><br><span class="line">            dos.writeBoolean(<span class="keyword">true</span>);</span><br><span class="line">            dos.writeInt(<span class="number">300</span>);</span><br><span class="line">            dos.writeUTF(<span class="string">"hello world"</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三、对象流"><a href="#三、对象流" class="headerlink" title="三、对象流"></a>三、对象流</h2><p>　　可以直接把一个对象以流的形式传输给其他的介质，比如硬盘，一个对象以流的形式进行传输，叫做序列化。</p>
+<p>该对象所对应的类，必须是实现Serializable接口</p>
+<p>首先序列化一个实体类Hero</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line"><span class="comment">//表示这个类当前的版本，如果有了变化，比如添加了新的属性，就要修改这个版本号</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID=<span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> hp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果要把Hero对象直接保存在文件上，必须让Hero类实现Serializable接口</p>
+<p>首先要创建对象输出流，也就是写入对象到流，首先创建一个文件写入流FileOutputStream对象，然后在创建一个对象写入流ObjectOutputStream对象，把文件写入流传到对象写入流中。写入操作，利用ObjectOutputStream的writeObject()方法进行写入。同样读取操作，还是要先创建文件读取流FileInputStream对象，然后在创建一个对象读取流ObjectInputStream对象，把文件读取流对象传到对象读取流中。然后执行对象读取流的readObject()方法进行读取。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建一个Hero对象</span></span><br><span class="line">        <span class="comment">//然后把Hero对象直接保存在文件上，必须Hero类实现Serializable接口</span></span><br><span class="line">        Hero h=<span class="keyword">new</span> Hero();</span><br><span class="line">        h.name=<span class="string">"Teemo"</span>;</span><br><span class="line">        h.hp=<span class="number">90.0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//准备一个文件用于保存新创建的Hero对象</span></span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d:/Teemo.lol"</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span>(</span><br><span class="line">                <span class="comment">//创建对象输出流(也就是写入)</span></span><br><span class="line">                FileOutputStream fos=<span class="keyword">new</span> FileOutputStream(f);</span><br><span class="line">                ObjectOutputStream oos=<span class="keyword">new</span> ObjectOutputStream(fos);</span><br><span class="line">                <span class="comment">//创建对象输入流（也就是读取）</span></span><br><span class="line">                FileInputStream fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                ObjectInputStream ois=<span class="keyword">new</span> ObjectInputStream(fis);</span><br><span class="line">        )&#123;</span><br><span class="line">                oos.writeObject(h);</span><br><span class="line">                Hero h2=(Hero)ois.readObject();</span><br><span class="line">                System.out.println(h2.name);</span><br><span class="line">                System.out.println(h2.hp);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四、控制台的输入输出"><a href="#四、控制台的输入输出" class="headerlink" title="四、控制台的输入输出"></a>四、控制台的输入输出</h2><ul>
+<li><p>控制台输出数据：System.out</p>
+</li>
+<li><p>控制台输入数据：System.in</p>
+</li>
+</ul>
+<p>利用System.in进行控制台写入。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line">publc <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//控制台输入</span></span><br><span class="line">        <span class="keyword">try</span>(InputStream is=System.in;)&#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> i=is.read();</span><br><span class="line">                System.out.println(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用Scanner进行逐行读取</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> class <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="comment">//使用Scanner进行逐行读取。</span></span><br><span class="line">        Scanner s=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">            String strLine=s.nextLine();</span><br><span class="line">            System.out.pirntln(strLine);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的集合类/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/JAVA中的集合类/" itemprop="url">JAVA中的集合类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:58:09+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、ArrayList"><a href="#一、ArrayList" class="headerlink" title="一、ArrayList"></a>一、ArrayList</h2><p>　　解决了数组的局限性，最常见的容器类，ArrayList容器的容量capacity会随着对象的增加，自动增长。不会出现数组边界的问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> charactor.Hero;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"rawtypes"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//容器类ArrayList，用于存放对象</span></span><br><span class="line">        ArrayList heros = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        heros.add( <span class="keyword">new</span> Hero(<span class="string">"盖伦"</span>));</span><br><span class="line">        System.out.println(heros.size());</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//容器的容量"capacity"会随着对象的增加，自动增长</span></span><br><span class="line">        <span class="comment">//只需要不断往容器里增加英雄即可，不用担心会出现数组的边界问题。</span></span><br><span class="line">        heros.add( <span class="keyword">new</span> Hero(<span class="string">"提莫"</span>));</span><br><span class="line">        System.out.println(heros.size());</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二、ArrayList常用方法"><a href="#二、ArrayList常用方法" class="headerlink" title="二、ArrayList常用方法"></a>二、ArrayList常用方法</h2><p>首先创建一个重写了toString的Hero类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> charactor;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> hp;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> damage;</span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Hero</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 增加一个初始化name的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Hero</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 重写toString方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1、add增加"><a href="#1、add增加" class="headerlink" title="1、add增加"></a>1、add增加</h3><ul>
+<li>1、直接add对象 hero.add(new Hero(“demo”)); </li>
+<li>2、指定位置增加对象hero.add(3,”demo”)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> charactor.Hero;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList heros = <span class="keyword">new</span> ArrayList();</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把5个对象加入到ArrayList中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            heros.add(<span class="keyword">new</span> Hero(<span class="string">"hero "</span> + i));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(heros);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 在指定位置增加对象</span></span><br><span class="line">        Hero specialHero = <span class="keyword">new</span> Hero(<span class="string">"special hero"</span>);</span><br><span class="line">        heros.add(<span class="number">3</span>, specialHero);</span><br><span class="line"> </span><br><span class="line">        System.out.println(heros.toString());</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、contains-：判断是否存在"><a href="#2、contains-：判断是否存在" class="headerlink" title="2、contains()：判断是否存在"></a>2、contains()：判断是否存在</h3><h3 id="3、get-获取指定位置的对象"><a href="#3、get-获取指定位置的对象" class="headerlink" title="3、get():获取指定位置的对象"></a>3、get():获取指定位置的对象</h3><h3 id="4、indexOf-获取对象所处的位置"><a href="#4、indexOf-获取对象所处的位置" class="headerlink" title="4、indexOf():获取对象所处的位置"></a>4、indexOf():获取对象所处的位置</h3><h3 id="5、remove-删除"><a href="#5、remove-删除" class="headerlink" title="5、remove():删除"></a>5、remove():删除</h3><h3 id="6、set-替换"><a href="#6、set-替换" class="headerlink" title="6、set():替换"></a>6、set():替换</h3><h3 id="7、size-获取大小"><a href="#7、size-获取大小" class="headerlink" title="7、size():获取大小"></a>7、size():获取大小</h3><h3 id="8、toArray-转换为数组"><a href="#8、toArray-转换为数组" class="headerlink" title="8、toArray():转换为数组"></a>8、toArray():转换为数组</h3><h2 id="三、ArrayList和List"><a href="#三、ArrayList和List" class="headerlink" title="三、ArrayList和List"></a>三、ArrayList和List</h2><p>ArrayList实现了接口List，常见的写法会把引用声明为接口List类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> charactor.Hero;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//ArrayList实现了接口List</span></span><br><span class="line">         </span><br><span class="line">        <span class="comment">//常见的写法会把引用声明为接口List类型</span></span><br><span class="line">        <span class="comment">//注意：是java.util.List,而不是java.awt.List</span></span><br><span class="line">        <span class="comment">//接口引用指向子类对象（多态）</span></span><br><span class="line">         </span><br><span class="line">        List heros = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        heros.add( <span class="keyword">new</span> Hero(<span class="string">"盖伦"</span>));</span><br><span class="line">        System.out.println(heros.size());</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四、ArrayList遍历的方法"><a href="#四、ArrayList遍历的方法" class="headerlink" title="四、ArrayList遍历的方法"></a>四、ArrayList遍历的方法</h2><h3 id="1、使用for循环，通过获取ArrayList的size-来一一遍历"><a href="#1、使用for循环，通过获取ArrayList的size-来一一遍历" class="headerlink" title="1、使用for循环，通过获取ArrayList的size()来一一遍历"></a>1、使用for循环，通过获取ArrayList的size()来一一遍历</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> charactor.Hero;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Hero&gt; heros = <span class="keyword">new</span> ArrayList&lt;Hero&gt;();</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 放5个Hero进入容器</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            heros.add(<span class="keyword">new</span> Hero(<span class="string">"hero name "</span> + i));</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 第一种遍历 for循环</span></span><br><span class="line">        System.out.println(<span class="string">"--------for 循环-------"</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; heros.size(); i++) &#123;</span><br><span class="line">            Hero h = heros.get(i);</span><br><span class="line">            System.out.println(h);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、使用迭代器Iterator进行遍历，迭代器每次都是从一个空的位置开始，通过hasNext-来判断，当返回false时表示后面没有数据了结束遍历，获取通过next-方法获取。"><a href="#2、使用迭代器Iterator进行遍历，迭代器每次都是从一个空的位置开始，通过hasNext-来判断，当返回false时表示后面没有数据了结束遍历，获取通过next-方法获取。" class="headerlink" title="2、使用迭代器Iterator进行遍历，迭代器每次都是从一个空的位置开始，通过hasNext()来判断，当返回false时表示后面没有数据了结束遍历，获取通过next()方法获取。"></a>2、使用迭代器Iterator进行遍历，迭代器每次都是从一个空的位置开始，通过hasNext()来判断，当返回false时表示后面没有数据了结束遍历，获取通过next()方法获取。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> charactor.Hero;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Hero&gt; heros = <span class="keyword">new</span> ArrayList&lt;Hero&gt;();</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//放5个Hero进入容器</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            heros.add(<span class="keyword">new</span> Hero(<span class="string">"hero name "</span> +i));</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//第二种遍历，使用迭代器</span></span><br><span class="line">        System.out.println(<span class="string">"--------使用while的iterator-------"</span>);</span><br><span class="line">        Iterator&lt;Hero&gt; it= heros.iterator();</span><br><span class="line">        <span class="comment">//从最开始的位置判断"下一个"位置是否有数据</span></span><br><span class="line">        <span class="comment">//如果有就通过next取出来，并且把指针向下移动</span></span><br><span class="line">        <span class="comment">//直达"下一个"位置没有数据</span></span><br><span class="line">        <span class="keyword">while</span>(it.hasNext())&#123;</span><br><span class="line">            Hero h = it.next();</span><br><span class="line">            System.out.println(h);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//迭代器的for写法</span></span><br><span class="line">        System.out.println(<span class="string">"--------使用for的iterator-------"</span>);</span><br><span class="line">        <span class="keyword">for</span> (Iterator&lt;Hero&gt; iterator = heros.iterator(); iterator.hasNext();) &#123;</span><br><span class="line">            Hero hero = (Hero) iterator.next();</span><br><span class="line">            System.out.println(hero);</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、常用的for循环遍历"><a href="#3、常用的for循环遍历" class="headerlink" title="3、常用的for循环遍历."></a>3、常用的for循环遍历.</h3><p>不能进行ArrayList初始化，也不知道到底多少个元素在ArrayList，就是所有遍历出来</p>
+<h2 id="五、ArrayList和LinkedList的区别"><a href="#五、ArrayList和LinkedList的区别" class="headerlink" title="五、ArrayList和LinkedList的区别"></a>五、ArrayList和LinkedList的区别</h2><ul>
+<li><p>ArrayList:顺序结构，插入，删除数据很慢（O(N)），查找快(O(1))，就类似于数组，跟链表的关系一样。</p>
+</li>
+<li><p>LinkedList：链表结构，插入，删除数据快（O(1)），查找慢(O(N))。</p>
+</li>
+</ul>
+<h2 id="六、ArrayList和HashSet区别"><a href="#六、ArrayList和HashSet区别" class="headerlink" title="六、ArrayList和HashSet区别"></a>六、ArrayList和HashSet区别</h2><h3 id="最大区别在于："><a href="#最大区别在于：" class="headerlink" title="最大区别在于："></a>最大区别在于：</h3><h4 id="1、是否有顺序："><a href="#1、是否有顺序：" class="headerlink" title="1、是否有顺序："></a>1、是否有顺序：</h4><ul>
+<li><p>ArrayList：有顺序</p>
+</li>
+<li><p>HashSet：无顺序(集合的无序性)，它的具体顺序既不是按照hashcode的顺序，也不是按照插入顺序，根据在JVM的不用版本中，看到的顺序也是不同的，HashSet的顺序本身不稳定的。</p>
+</li>
+</ul>
+<h4 id="2、是否重复"><a href="#2、是否重复" class="headerlink" title="2、是否重复"></a>2、是否重复</h4><ul>
+<li><p>List中的数据可以重复</p>
+</li>
+<li><p>Set中的数据不能重复</p>
+</li>
+</ul>
+<p>重复判断的标准是：首先看hashcode是否相同，不同，则肯定是不同数据</p>
+<p>如果相同，在比较equals，如果equals相同，则是相同数据，否则是不同数据。</p>
+<h2 id="七、HashSet，LinkedHashSet，TreeSet比较"><a href="#七、HashSet，LinkedHashSet，TreeSet比较" class="headerlink" title="七、HashSet，LinkedHashSet，TreeSet比较"></a>七、HashSet，LinkedHashSet，TreeSet比较</h2><ul>
+<li><p>HashSet：无顺序</p>
+</li>
+<li><p>LinkedHashSet：按照插入顺序</p>
+</li>
+<li><p>TreeSet：从小到大顺序</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedHashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        HashSet&lt;Integer&gt; hashSet=<span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="comment">//HashSet中的数据不是按照插入顺序存放</span></span><br><span class="line">        hashSet.add(<span class="number">22</span>);</span><br><span class="line">        hashSet.add(<span class="number">33</span>);</span><br><span class="line">        hashSet.add(<span class="number">55</span>);</span><br><span class="line">        System.out.println(hashSet);</span><br><span class="line">        </span><br><span class="line">        LinkedHashSet&lt;Integer&gt; linkedHashSet=<span class="keyword">new</span> LinkedHashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="comment">//LinkedHashSet中的数据按照插入顺序存放</span></span><br><span class="line">        linkedHashSet.add(<span class="number">22</span>);</span><br><span class="line">        linkedHashSet.add(<span class="number">56</span>);</span><br><span class="line">        linkedHashSet.add(<span class="number">28</span>);</span><br><span class="line">        System.out.println(linkedHashSet);<span class="comment">//22,56,28</span></span><br><span class="line">        </span><br><span class="line">        TreeSet&lt;Integer&gt; treeSet=<span class="keyword">new</span> TreeSet&lt;Integer&gt;();</span><br><span class="line">        <span class="comment">//TreeSet中的数据是进行了排序的从小到大</span></span><br><span class="line">        treeSet.add(<span class="number">22</span>);</span><br><span class="line">        treeSet.add(<span class="number">56</span>);</span><br><span class="line">        treeSet.add(<span class="number">28</span>);</span><br><span class="line">        System.out.println(treeSet);<span class="comment">//22,28,56</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的抽象类与接口/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/JAVA中的抽象类与接口/" itemprop="url">JAVA中的抽象类与接口</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:54:51+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  495
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、类中声明一个方法，这个方法没有实现体，是一个空方法，这样的方法叫抽象方法，使用abstract修饰符号"><a href="#一、类中声明一个方法，这个方法没有实现体，是一个空方法，这样的方法叫抽象方法，使用abstract修饰符号" class="headerlink" title="一、类中声明一个方法，这个方法没有实现体，是一个空方法，这样的方法叫抽象方法，使用abstract修饰符号"></a>一、类中声明一个方法，这个方法没有实现体，是一个空方法，这样的方法叫抽象方法，使用abstract修饰符号</h2><h2 id="当一个类有抽象方法时候，必须声明为抽象类"><a href="#当一个类有抽象方法时候，必须声明为抽象类" class="headerlink" title="当一个类有抽象方法时候，必须声明为抽象类"></a>当一个类有抽象方法时候，必须声明为抽象类</h2><h3 id="1-声明一个父类-父类类声明一个抽象方法，则父类必须声明为抽象类abstract修饰"><a href="#1-声明一个父类-父类类声明一个抽象方法，则父类必须声明为抽象类abstract修饰" class="headerlink" title="1.声明一个父类(父类类声明一个抽象方法，则父类必须声明为抽象类abstract修饰)"></a>1.声明一个父类(父类类声明一个抽象方法，则父类必须声明为抽象类abstract修饰)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> property;</span><br><span class="line"><span class="comment">//为Hero增加一个抽象方法，必须把Hero声明为abstract。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">float</span> hp;</span><br><span class="line">    <span class="keyword">float</span> armor;</span><br><span class="line">    <span class="keyword">int</span> moveSpeed;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//抽象方法attack</span></span><br><span class="line">    <span class="comment">//Hero的子类会被要求实现attack方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-子类一"><a href="#2-子类一" class="headerlink" title="2.子类一"></a>2.子类一</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> property;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ADHero</span> <span class="keyword">extends</span> <span class="title">Hero</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">physicAttack</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"进行物理攻击"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span></span>&#123;<span class="comment">//继承父类的同事，必须实现父类里的抽象类</span></span><br><span class="line">        physicAttack();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-子类二"><a href="#3-子类二" class="headerlink" title="3.子类二"></a>3.子类二</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> property;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">APHero</span> <span class="keyword">extends</span> <span class="title">Hero</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">magicAttack</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"进行魔法攻击"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span></span>&#123;<span class="comment">//继承父类的同事，必须实现父类里的抽象类</span></span><br><span class="line">        magicAttack();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二、类可以在不提供抽象方法的前提下，直接声明为抽象类。但是一旦被声明为抽象类，就不能狗直接实例化。"><a href="#二、类可以在不提供抽象方法的前提下，直接声明为抽象类。但是一旦被声明为抽象类，就不能狗直接实例化。" class="headerlink" title="二、类可以在不提供抽象方法的前提下，直接声明为抽象类。但是一旦被声明为抽象类，就不能狗直接实例化。"></a>二、类可以在不提供抽象方法的前提下，直接声明为抽象类。但是一旦被声明为抽象类，就不能狗直接实例化。</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span> <span class="keyword">extends</span> <span class="title">Object</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">float</span> hp;</span><br><span class="line">    <span class="keyword">float</span> armor;</span><br><span class="line">    <span class="keyword">int</span> moveSpeed;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"><span class="comment">//虽然没有抽象方法，但是被声明了抽象类，不能进行实例化操作。</span></span><br><span class="line">        Hero h=<span class="keyword">new</span> Hero();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三、抽象类和接口的区别"><a href="#三、抽象类和接口的区别" class="headerlink" title="三、抽象类和接口的区别"></a>三、抽象类和接口的区别</h2><p>子类只能继承一个抽象类，也印证了java只能单继承</p>
+<p>子类可以继承多个接口</p>
+<p>抽象类可以定义为public,protected,package,private，有静态属性，非静态属性，final和非final属性</p>
+<p>接口中的属性只能是public，静态，final的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> property;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AD</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> moveSpeed=<span class="number">100</span>;</span><br><span class="line">    <span class="keyword">float</span> hp;<span class="comment">//hp没有显式声明为public static final,但是它默认就是这个</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">magicAttack</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">moveSpeed</span><span class="params">()</span></span>;<span class="comment">//方法没有显式声明为public，接口中默认方法为public</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的HashMap与Hashtable/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/JAVA中的HashMap与Hashtable/" itemprop="url">JAVA中的HashMap与Hashtable</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:51:11+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  136
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="HashMap和Hashtable"><a href="#HashMap和Hashtable" class="headerlink" title="HashMap和Hashtable"></a>HashMap和Hashtable</h2><p>　　<strong>都实现了Map接口，都是以key-value形式保存数据。</strong></p>
+<ul>
+<li><p>HashMap可以存放null</p>
+</li>
+<li><p>Hashtable不能存放null</p>
+</li>
+<li><p>HashMap不是线程安全类</p>
+</li>
+<li><p>Hashtable是线程安全类</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Hashtable;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span></span>&#123;</span><br><span class="line">    <span class="comment">//HashMap和Hashtable都实现了Map接口，key-value方式存数据</span></span><br><span class="line">    HashMap&lt;string,string&gt; hashMap=<span class="keyword">new</span> HashMap&lt;string,string&gt;();</span><br><span class="line">    <span class="comment">//HashMap可以用null作key，作value</span></span><br><span class="line">    hashMap.put(<span class="keyword">null</span>,<span class="string">"123"</span>);</span><br><span class="line">    hashMap.put(<span class="string">"123"</span>,<span class="keyword">null</span>);</span><br><span class="line">    Hashtable&lt;string,string&gt; hashtable=<span class="keyword">new</span> Hashtable&lt;string,string&gt;();</span><br><span class="line">    <span class="comment">//Hashtable不能用null作key，不能用null作value</span></span><br><span class="line">    hashtable.put(<span class="keyword">null</span>,<span class="string">"123"</span>);<span class="comment">//报错</span></span><br><span class="line">    hashtable.put(<span class="string">"123"</span>,<span class="keyword">null</span>);<span class="comment">//报错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的深拷贝与浅拷贝/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1888,954 +2672,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/计算机网络-二/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/计算机网络-二/" itemprop="url">计算机网络(二)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:12:02+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>通信子网：对于OSI参考模型的下三层，包括物理层，数据链路层，网络层。</p>
-<ul>
-<li><p>集线器（Hub）：物理层</p>
-</li>
-<li><p>交换机（Switch）：数据链路层</p>
-</li>
-<li><p>路由器（Route）：网络层</p>
-</li>
-<li><p>资源子网：对网络用户提供可共享资源的硬件，软件和信息资源。</p>
-</li>
-<li><p>中继器和桥连接器（网桥）：用在局域网的物理层和数据链路层的联网设备。</p>
-</li>
-</ul>
-<h3 id="1、计算机网络的分层结构："><a href="#1、计算机网络的分层结构：" class="headerlink" title="1、计算机网络的分层结构："></a>1、计算机网络的分层结构：</h3><p>每一层都有自己传送的数据单位，名称，大小，含义不同。</p>
-<p>计算机网络的各个层次中，每一个报文都是由两部分组成，一个是数据部分，也就是SDU,一个控制信息部分，PCI，他们共同组成PDU.</p>
-<ul>
-<li><p>SDU:服务数据单元</p>
-</li>
-<li><p>PCI：协议控制信息</p>
-</li>
-<li><p>PDU：协议数据单元</p>
-</li>
-</ul>
-<h3 id="2、协议：规则的集合"><a href="#2、协议：规则的集合" class="headerlink" title="2、协议：规则的集合"></a>2、协议：规则的集合</h3><p>为了在网络中有条不紊的交换数据，必须遵循事先约定好的规则，Network protocol协议是控制两个或者多个对等的实体进行通信的规则集合。不对等的实体之间是没有协议的，比如TCP/IP协议栈</p>
-<p>节点A的传输层和节点B的传输层之间存在协议。但是节点A的传输层和节点B的网络层不存在协议。</p>
-<ul>
-<li><p>协议：语法+语义+同步</p>
-</li>
-<li><p>语法规定传输数据格式，语义规定要完成的功能，同步规定执行各种操作的条件和时序。</p>
-</li>
-<li><p>完整的协议：具有线路管理(建立连接，释放连接)，差错控制，数据转换，功能。</p>
-</li>
-</ul>
-<h3 id="3、接口"><a href="#3、接口" class="headerlink" title="3、接口"></a>3、接口</h3><ul>
-<li><p>同一节点内相邻两层间交换信息的连接点。每一层只能为紧邻的层次之间定义接口，不能跨层定义接口</p>
-</li>
-<li><p>同一节点相邻两层的实体通过服务访问点(Service Access Point，SAP)进行交换。而局域网接入到广域网是通过路由器的互连设备实现。</p>
-</li>
-</ul>
-<h3 id="4、服务"><a href="#4、服务" class="headerlink" title="4、服务"></a>4、服务</h3><p>也就是下层为紧相邻的上层提供的功能调用。</p>
-<p>上层使用下层所提供的的服务，必须通过与下层交换一些命令。</p>
-<p>这些命令在OSI中成为服务原语。</p>
-<ul>
-<li><p>请求Request：由服务用户发往服务提供者，请求完成某个工作</p>
-</li>
-<li><p>指示Indication：由服务提供者发往服务使用者，指示用户做某个工作</p>
-</li>
-<li><p>响应Response：由服务用户发送服务提供者，作为对指示的响应</p>
-</li>
-<li><p>正式Conformation：由服务提供者发往服务用户，作为对请求的证实</p>
-</li>
-</ul>
-<h3 id="5、计算机网络提供的服务分类"><a href="#5、计算机网络提供的服务分类" class="headerlink" title="5、计算机网络提供的服务分类"></a>5、计算机网络提供的服务分类</h3><p>面向连接服务和无连接服务</p>
-<ul>
-<li>面向连接服务：通信前双方必须建立连接，分配相应的资源（缓冲区），为了保证通信能正常运行。</li>
-</ul>
-<p>传输结束后释放连接和所占用的资源。</p>
-<p>面向连接服务的过程：建立连接，数据传输，释放连接，三个阶段，TCP就是面向连接服务的协议。</p>
-<ul>
-<li>无连接服务：通信前双方不需要先建立，需要发送数据的时候就直接发送，把每个带有目的地址的包传送到</li>
-</ul>
-<p>线路上，由系统选定线路进行传输，一种不可靠的服务。IP，UDP一种无连接的服务协议。</p>
-<h3 id="6、可靠服务和不可靠服务"><a href="#6、可靠服务和不可靠服务" class="headerlink" title="6、可靠服务和不可靠服务"></a>6、可靠服务和不可靠服务</h3><ul>
-<li><p>可靠服务：网络具有纠错，检错，应答机制，能够保证数据的正确，可靠地传送目的地</p>
-</li>
-<li><p>不可靠服务：网络只是尽量正确，可靠地传送，但是不能保证数据正确，可靠地到达目的地。</p>
-</li>
-</ul>
-<h3 id="7、有应答服务和无应答服务"><a href="#7、有应答服务和无应答服务" class="headerlink" title="7、有应答服务和无应答服务"></a>7、有应答服务和无应答服务</h3><ul>
-<li><p>有应答服务：接收方在收到数据后向发送方给出相应的应答，这个应答是传输系统内部自动实现。并不是用户实现。例如文件传输服务FTP,是一种有应答服务。</p>
-</li>
-<li><p>无应答服务：接收方收到数据后不自动的给出应答，如果要应答，则由高层实现。比如WWW服务，客户端收到服务器发送的页面文件后不给出应答。</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/计算机网络-一/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/计算机网络-一/" itemprop="url">计算机网络(一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:06:25+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1、计算机网络"><a href="#1、计算机网络" class="headerlink" title="1、计算机网络"></a>1、计算机网络</h3><p>一些互连得，自治的计算机系统的集合。也就是说能够以相互共享资源的方式来互联起来的自治的计算机系统的集合。</p>
-<ul>
-<li><p>计算机网络的目的：资源共享</p>
-</li>
-<li><p>组成部分：分布在不同地理位置的多台独立的自治计算机</p>
-</li>
-<li><p>遵循的规则：网络协议</p>
-</li>
-</ul>
-<h3 id="2、计算机网络的组成"><a href="#2、计算机网络的组成" class="headerlink" title="2、计算机网络的组成"></a>2、计算机网络的组成</h3><ul>
-<li><p>组成部分：硬件，软件，协议</p>
-</li>
-<li><p>硬件：主机(端系统)，通信链路（双绞线，光纤），交换设备（交换机，路由器），通信处理机（网卡）</p>
-</li>
-<li><p>软件：各种实现资源共享的软件，比如网络操作系统，邮件收发程序，FTP,聊天程序等。软件多属于应用层</p>
-</li>
-<li><p>协议：计算机网络的核心，如同交通规则一样。协议规定了网络传输数据的规范。</p>
-</li>
-</ul>
-<h3 id="3、计算机网络的功能"><a href="#3、计算机网络的功能" class="headerlink" title="3、计算机网络的功能"></a>3、计算机网络的功能</h3><ul>
-<li><p>数据通信：比如，文件传输，电子邮件等，离开了网络无法实现</p>
-</li>
-<li><p>资源共享：软件共享，数据共享，硬件共享等。计算机网络中的资源互通是否分工协作，大大的提高资源利用率</p>
-</li>
-<li><p>分布式处理：计算机网络中的某个计算机系统负荷过重，可以将它处理的某个复杂任务分配给网络中的其他计算机系统，也就是利用了空闲计算机资源来提高整个系统的资源利用率</p>
-</li>
-<li><p>提高可靠性：计算机网络中的各台计算机可以通过网络互为替代机</p>
-</li>
-<li><p>负载均衡：将工作任何均衡的分配给计算机网络中的各台计算机</p>
-</li>
-</ul>
-<h3 id="4、计算机网络的分类"><a href="#4、计算机网络的分类" class="headerlink" title="4、计算机网络的分类"></a>4、计算机网络的分类</h3><h4 id="4-1、按照分布范围："><a href="#4-1、按照分布范围：" class="headerlink" title="4.1、按照分布范围："></a>4.1、按照分布范围：</h4><ul>
-<li>广域网WAN：提供长距离通信，运送主机发送的数据，覆盖范围常是几十到几千公里的区域。</li>
-</ul>
-<p>广域网是Internet的核心部分。连接广域网的各个节点交换机的链路一般都是高速链路，而且还有较大的通信容量。</p>
-<ul>
-<li><p>城域网MAN：城域网覆盖范围是几个街区或者整个城市。城域网大多采用以太网技术</p>
-</li>
-<li><p>局域网LAN：局域网一般用于微机或者工作站，通过高速线路相连，覆盖范围小。一般是几十米到几千米的区域。</p>
-</li>
-<li><p>局域网在计算机配置的数量上没有太多的限制，少的可以两台，多的可以达到几百台。传统上，局域网使用广播技术，广域网则采用交换技术</p>
-</li>
-<li><p>个人区域网PAN：个人区域网也及时在个人工作的地方，就是WLAN,WIFI吧。</p>
-</li>
-</ul>
-<h4 id="4-2、按照传播技术："><a href="#4-2、按照传播技术：" class="headerlink" title="4.2、按照传播技术："></a>4.2、按照传播技术：</h4><ul>
-<li><p>广播式网络：所有联网计算机都共享一个公共通信信道</p>
-</li>
-<li><p>点对点网络PPP：每条物理线路连接一对计算机。如果同性能的两台主机之间没有直接连接的线路，那么</p>
-</li>
-</ul>
-<p>他们之间的分组传输就要通过中间节点的接收，存储和转发，直到目的节点，基本广域网都是采用点对点网络</p>
-<h4 id="4-3、按照拓扑结构："><a href="#4-3、按照拓扑结构：" class="headerlink" title="4.3、按照拓扑结构："></a>4.3、按照拓扑结构：</h4><ul>
-<li><p>网络拓扑结构：通过网络中节点与通信线路之间的几何关系，表示的网络结构。通常是通信子网的拓扑结构</p>
-</li>
-<li><p>拓扑结构中的节点：路由器，交换机</p>
-</li>
-<li><p>通信线路：网线</p>
-</li>
-<li><p>几何关系：环形，总线型，星型，网状型</p>
-</li>
-<li><p>环形，星型，总线型常用语局域网。网状型用于广域网</p>
-</li>
-</ul>
-<h4 id="4-4、按照使用者分类："><a href="#4-4、按照使用者分类：" class="headerlink" title="4.4、按照使用者分类："></a>4.4、按照使用者分类：</h4><ul>
-<li><p>公用网：Public Network，电信公司出资建造的大型网络</p>
-</li>
-<li><p>专用网：Private Network,某个部门为本单位的特殊业务的需要建造的网络，比如铁路，军队，电力等。</p>
-</li>
-</ul>
-<h4 id="4-5、按照交换技术分类："><a href="#4-5、按照交换技术分类：" class="headerlink" title="4.5、按照交换技术分类："></a>4.5、按照交换技术分类：</h4><ul>
-<li><p>交换技术：主机之间，通信设备之间，主机和通信设备之间，交换信息的时候采用的数据格式和交换装置的方式</p>
-</li>
-<li><p>电路交换：典型的电路交换是传统的电话网线。数据直接传送，延迟小，线路利用率低，不能充分利用线路容量。</p>
-</li>
-<li><p>报文交换：将用户数据加上源地址，目的地址，校验码等信息，然后封装成报文。整个报文传送到相邻节点，全部存储下来后，在转发个下一个节点。</p>
-</li>
-<li><p>优点：充分利用线路容量，实现了不同链路之间不同数据率的转换。可以实现格式转换，可以实现一对多，多对一的访问，可以实现差错控制。</p>
-</li>
-<li><p>缺点：增加了资源开销，辅助信息导致处理时间和资源存储开销，增加了缓冲延迟。额外的控制机制保证多个报文的顺序不会乱序。而且缓冲区难以管理，因为报文的大小不确定，接收方在接收报文之前不能预知报文的大小。</p>
-</li>
-<li><p>分组交换网络（包交换网络）：将数据分成较短的固定长度的数据块，在每个数据块上加上目的地址，源地址等辅助信息，组成分组（包），然后用存储-转发方式传输</p>
-</li>
-<li><p>分组交换网络：缓冲便于管理，包的平均延迟更小，网络中占用的平均缓冲区更小。而且容易标准化，更容易应用。</p>
-</li>
-<li><p>现在的主流网络基本都是分组交换网络，也就是包交换。</p>
-</li>
-</ul>
-<h4 id="4-6、按照传输介质分类："><a href="#4-6、按照传输介质分类：" class="headerlink" title="4.6、按照传输介质分类：　"></a>4.6、按照传输介质分类：　</h4><ul>
-<li><p>传输介质可以分为有线和无线</p>
-</li>
-<li><p>因此分为有线网络和无线网络</p>
-</li>
-<li><p>有线网络：双绞线网络，同轴电缆网络</p>
-</li>
-<li><p>无线网络：蓝牙，微波，无线电等</p>
-</li>
-</ul>
-<h4 id="4-7、计算机网络标准化："><a href="#4-7、计算机网络标准化：" class="headerlink" title="4.7、计算机网络标准化："></a>4.7、计算机网络标准化：</h4><p>RFC（Request For Comments）：并非每个RFC都是因特网的标准</p>
-<h4 id="4-8、计算机网络的性能指标："><a href="#4-8、计算机网络的性能指标：" class="headerlink" title="4.8、计算机网络的性能指标："></a>4.8、计算机网络的性能指标：</h4><ul>
-<li>带宽（BandWidth）：表示通信线路允许通过的信号频带范围，单位是Hz</li>
-</ul>
-<p>计算机网络中的带宽表示：通信线路所能传送数据的能力，是数字信道所传送的最高数据率，单位是b/s,比特每秒</p>
-<ul>
-<li><p>时延（Delay）：数据（报文，分组）从网络的一端传送到另一端所需要的总时间。</p>
-</li>
-<li><p>时延：发送时延，传播时延，处理时延，排队时延</p>
-</li>
-<li><p>发送时延=分组长度/信道宽度</p>
-</li>
-<li><p>传播时延=信道长度/电磁波在信道上的速度</p>
-</li>
-<li><p>处理时延：数据在交换节点为存储转化而进行的一些必要的处理事件，比如分析分组的首部，从分组中提取数据部分，进行差错校验，查找适当的路由等操作时间。</p>
-</li>
-<li><p>排队时延：分组在进入路由器后要现在输入队列中等待处理。在路由器确定了准发端口后，还要在输出队列中排队等待转发，产生了排队时延。</p>
-</li>
-<li><p>总时延=发送时延+传播时延+处理时延+排队时延</p>
-</li>
-<li><p>一般来说，排队时延和处理时延都可以忽略不计。对于高速链路，提高的仅是数据发送速度而不是比特在链路上的传播速度。提高数据的发送速度只是为了减少数据的发送时延。</p>
-</li>
-<li><p>时延带宽积=传播时延*信道宽度</p>
-</li>
-<li><p>往返时延RTT（Round-Trip Time）：从发送端发送数据开始，到发送端收到了来自接收端的确认总共经历的时延</p>
-</li>
-<li><p>吞吐量（ThroughPut）：表示单位时间内通过某个网络（比如信道或者接口）的数据量，吞吐量受网络或者网络的额定速度限制。</p>
-</li>
-<li><p>速率Speed：网络中的速率指的是计算机网络中的主机在数字信道上传送数据的速率。也叫比特率，单位是b/s,bit/s,bps。Kb/s(K=1000),Mb/s(M=10^6),Gb/s(G=10^9)，计算机网络中，通常把这些数据率叫做带宽。</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/SQL应用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/SQL应用/" itemprop="url">SQL应用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:03:35+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  845
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、工作总结："><a href="#一、工作总结：" class="headerlink" title="一、工作总结：　"></a><strong>一、工作总结：</strong>　</h2><p>　　今天工作中遇到了这样一个需求，具体是根据某张表的某一列值得不同，进行不同关联操作。起初自己的想法是采用UNION操作，把两种情况连接起来，但是会出现一个问题，当进行动态传值SQL拼接的时候，只能给最后面加，而不能给两种情况的结果集都动态拼接，导致查询结果和预期不一样。　　</p>
-<p>自己的SQL语句如下，自己使用UNION进行结果集连接。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> C.TUUSERNA,C.TUCLASID,C.TUUSERID,C.TUEMAIL,C.TUPHONE,C.TUACEMAIL,C.TUACMOBILE,C.TUCOMP,C.TUACTIVE,</span><br><span class="line">                                C.TUENNAME,B.UJPAPARV <span class="keyword">AS</span> TUUSERNA,A.UJPAPARV <span class="keyword">AS</span> OFFCCODE,D.TBDTL2 <span class="keyword">FROM</span></span><br><span class="line">                                <span class="keyword">FROM</span> WEBNFLIB.URUSERPF C</span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF B <span class="keyword">ON</span> B.TUUSERID=C.TUUSERID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF A <span class="keyword">ON</span> A.TUUSERID=C.TUUSERID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> CDFLIB.CDTABDPF D <span class="keyword">ON</span> D.TBCODE=A.UJPAPARV </span><br><span class="line">                                <span class="keyword">WHERE</span> B.UJPAPARN = <span class="string">'FWD_FRTP'</span> <span class="keyword">AND</span> A.UJPAPARN = <span class="string">'FWD_OFFC'</span> <span class="keyword">AND</span> C.TUACTIVE=<span class="number">1</span> <span class="keyword">AND</span> C.TUCLASID <span class="keyword">IN</span>(<span class="string">'A'</span>,<span class="string">'B'</span>) <span class="keyword">AND</span> D.TBTYPE=<span class="string">'OFFC'</span></span><br><span class="line">                                <span class="keyword">UNION</span></span><br><span class="line">                              <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> C.TUUSERNA,C.TUCLASID,C.TUUSERID,C.TUEMAIL,C.TUPHONE,C.TUACEMAIL,C.TUACMOBILE,C.TUCOMP,C.TUACTIVE,</span><br><span class="line">                                C.TUENNAME,B.UJPAPARV <span class="keyword">AS</span> TUUSERNA,A.UJPAPARV <span class="keyword">AS</span> OFFCCODE,D.TBDTL2 <span class="keyword">FROM</span></span><br><span class="line">                                <span class="keyword">FROM</span> WEBNFLIB.URUSERPF C</span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF B <span class="keyword">ON</span> B.TUUSERID=C.TUFUSRID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF A <span class="keyword">ON</span> A.TUUSERID=C.TUFUSRID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> CDFLIB.CDTABDPF D <span class="keyword">ON</span> D.TBCODE=A.UJPAPARV </span><br><span class="line">                                <span class="keyword">WHERE</span> B.UJPAPARN = <span class="string">'FWD_FRTP'</span> <span class="keyword">AND</span> A.UJPAPARN = <span class="string">'FWD_OFFC'</span> <span class="keyword">AND</span> C.TUACTIVE=<span class="number">1</span> <span class="keyword">AND</span> C.TUCLASID <span class="keyword">IN</span>(<span class="string">'A'</span>,<span class="string">'B'</span>) <span class="keyword">AND</span> D.TBTYPE=<span class="string">'OFFC'</span></span><br></pre></td></tr></table></figure>
-<p>底层方法进行动态传值，进行SQL拼接：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public bool GetOffcInfo(IBaseDataAccess baseReadOnlyDataAccess, DataSet ds,ParmArray parmArray)</span><br><span class="line">        &#123;</span><br><span class="line">            //TBDTL2=中文名，TBDTL1=英文名，TBCODE=代码</span><br><span class="line">            string sql = @&quot; SELECT DISTINCT C.TUUSERNA,C.TUCLASID,C.TUUSERID,C.TUEMAIL,C.TUPHONE,C.TUACEMAIL,C.TUACMOBILE,C.TUCOMP,C.TUACTIVE,</span><br><span class="line">                                C.TUENNAME,B.UJPAPARV AS TUUSERNA,A.UJPAPARV AS OFFCCODE,D.TBDTL2 FROM</span><br><span class="line">                                FROM WEBNFLIB.URUSERPF C</span><br><span class="line">                                INNER JOIN WEBNFLIB.URUSOBNOPF B ON B.TUUSERID=C.TUUSERID </span><br><span class="line">                                INNER JOIN WEBNFLIB.URUSOBNOPF A ON A.TUUSERID=C.TUUSERID </span><br><span class="line">                                INNER JOIN CDFLIB.CDTABDPF D ON D.TBCODE=A.UJPAPARV </span><br><span class="line">                                WHERE B.UJPAPARN = &apos;FWD_FRTP&apos; AND A.UJPAPARN = &apos;FWD_OFFC&apos; AND C.TUACTIVE=1 AND C.TUCLASID IN(&apos;A&apos;,&apos;B&apos;) AND D.TBTYPE=&apos;OFFC&apos;</span><br><span class="line">                                UNION</span><br><span class="line">                              SELECT DISTINCT C.TUUSERNA,C.TUCLASID,C.TUUSERID,C.TUEMAIL,C.TUPHONE,C.TUACEMAIL,C.TUACMOBILE,C.TUCOMP,C.TUACTIVE,</span><br><span class="line">                                C.TUENNAME,B.UJPAPARV AS TUUSERNA,A.UJPAPARV AS OFFCCODE,D.TBDTL2 FROM</span><br><span class="line">                                FROM WEBNFLIB.URUSERPF C</span><br><span class="line">                                INNER JOIN WEBNFLIB.URUSOBNOPF B ON B.TUUSERID=C.TUFUSRID </span><br><span class="line">                                INNER JOIN WEBNFLIB.URUSOBNOPF A ON A.TUUSERID=C.TUFUSRID </span><br><span class="line">                                INNER JOIN CDFLIB.CDTABDPF D ON D.TBCODE=A.UJPAPARV </span><br><span class="line">                                WHERE B.UJPAPARN = &apos;FWD_FRTP&apos; AND A.UJPAPARN = &apos;FWD_OFFC&apos; AND C.TUACTIVE=1 AND C.TUCLASID IN(&apos;A&apos;,&apos;B&apos;) AND D.TBTYPE=&apos;OFFC&apos; &quot;;</span><br><span class="line">            ParmArray keyArray = new ParmArray();</span><br><span class="line">            if (parmArray.parmNameList.Contains(&quot;TBDTL2&quot;))</span><br><span class="line">            &#123;</span><br><span class="line">                string strTBDTL2 = parmArray.GetParmValue(&quot;TBDTL2&quot;).ToString().Trim();</span><br><span class="line">                keyArray.Add(&quot;TBDTL2&quot;,  &quot;%&quot;+strTBDTL2+&quot;%&quot;);</span><br><span class="line">                sql += &quot; AND D.TBDTL2 LIKE ? &quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (parmArray.parmNameList.Contains(&quot;OFFCCODE&quot;))</span><br><span class="line">            &#123;</span><br><span class="line">                keyArray.Add(&quot;OFFCCODE&quot;, parmArray.GetParmValue(&quot;OFFCCODE&quot;).ToString().Trim()+&quot;%&quot;);</span><br><span class="line">                sql += &quot; AND A.UJPAPARV LIKE ? &quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (parmArray.parmNameList.Contains(&quot;TUUSERNA&quot;))</span><br><span class="line">            &#123;</span><br><span class="line">                keyArray.Add(&quot;TUUSERNA&quot;,parmArray.GetParmValue(&quot;TUUSERNA&quot;).ToString().Trim());</span><br><span class="line">                sql += &quot; AND C.TUUSERNA = ? &quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            return baseReadOnlyDataAccess.FillDataSetByCondition(sql, ds, keyArray);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<p>这样sql，除了大量重复，臃肿，而且，传值只能加载最后面。不可行。</p>
-<p>　　改进方法：采用oracle的case  when方法进行操作。</p>
-<h3 id="Case…-When的用法："><a href="#Case…-When的用法：" class="headerlink" title="Case….When的用法："></a>Case….When的用法：</h3><p><strong>CASE 列名</strong></p>
-<p><strong>WHEN 条件1 THEN 选项1</strong></p>
-<p><strong>WHEN 条件2 THEN 选项2</strong></p>
-<p><strong>ELSE 默认值 END</strong></p>
-<p>SQL语句如下：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> C.TUUSERNA,C.TUCLASID,C.TUUSERID,C.TUEMAIL,C.TUPHONE,C.TUACEMAIL,C.TUACMOBILE,C.TUCOMP,C.TUACTIVE,</span><br><span class="line">                                C.TUENNAME,B.UJPAPARV <span class="keyword">AS</span> TUUSERNA,A.UJPAPARV <span class="keyword">AS</span> OFFCCODE,D.TBDTL2 <span class="keyword">FROM</span></span><br><span class="line">                                (<span class="keyword">SELECT</span> (<span class="keyword">CASE</span> <span class="keyword">WHEN</span> A.TUFUSRID&gt;<span class="number">0</span> <span class="keyword">THEN</span> A.TUFUSRID <span class="keyword">ELSE</span> A.TUUSERID <span class="keyword">END</span>) <span class="keyword">AS</span> CUSERID,A.* <span class="keyword">FROM</span> WEBNFLIB.URUSERPF A) C</span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF B <span class="keyword">ON</span> B.TUUSERID=C.CUSERID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> WEBNFLIB.URUSOBNOPF A <span class="keyword">ON</span> A.TUUSERID=C.CUSERID </span><br><span class="line">                                <span class="keyword">INNER</span> <span class="keyword">JOIN</span> CDFLIB.CDTABDPF D <span class="keyword">ON</span> D.TBCODE=A.UJPAPARV </span><br><span class="line">                                <span class="keyword">WHERE</span> B.UJPAPARN = <span class="string">'FWD_FRTP'</span> <span class="keyword">AND</span> A.UJPAPARN = <span class="string">'FWD_OFFC'</span> <span class="keyword">AND</span> C.TUACTIVE=<span class="number">1</span> <span class="keyword">AND</span> C.TUCLASID <span class="keyword">IN</span>(<span class="string">'A'</span>,<span class="string">'B'</span>) <span class="keyword">AND</span> D.TBTYPE=<span class="string">'OFFC'</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据库范式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/数据库范式/" itemprop="url">数据库范式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T20:55:44+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  627
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="范式-Normal-Form-NF"><a href="#范式-Normal-Form-NF" class="headerlink" title="范式(Normal Form,NF)"></a>范式(Normal Form,NF)</h1><p>设计关系型数据库时，需要遵从不同的规范要求，设计出合理的关系型数据库。越高的范式数据库冗余越小。</p>
-<ul>
-<li><p>范式的优点：消除重复数据，减少数据冗余，让数据库内的数据更好的组织，让磁盘空间得到更有效的利用。</p>
-</li>
-<li><p>范式的缺点：范式使得查询变得相当复杂，在查询的时候需要更多的连接，一些复合索引的列由于范式化的需要被分割到不同的表中，导致索引策略不佳。</p>
-</li>
-</ul>
-<p>第一范式(1NF)：每一个属性不可再分。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">范式</th>
-<th style="text-align:center">特征</th>
-<th style="text-align:center">详解</th>
-<th style="text-align:center">举例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">第一范式1NF</td>
-<td style="text-align:center">每一个属性不可再分</td>
-<td style="text-align:center">1NF,对域添加的一个规范要求，所有的域都应该是原子性的也就是数据表的每一列都是不可分割的原子数据项，而不能是集合，数组等。也就是某个属性有多个值，必须将它拆分为不同的属性。不满足1NF的不是关系数据库。满足1NF的表必须要有主键，每个属性不可再分。</td>
-<td style="text-align:center">比如说员工表，有员工号，姓名，电话号码组成。但是一个人可能有座机号码和移动号码。需要将它拆分为两个属性，也就是员工表(员工号，姓名，座机号码，移动号码)</td>
-</tr>
-<tr>
-<td style="text-align:center">第二范式2NF</td>
-<td style="text-align:center">符合1NF,并且非主属性完全依赖于码</td>
-<td style="text-align:center">在1NF的基础上，每一个非主属性必须完全依赖于码，消除非主属性的对主键的部分函数依赖也即是实体的属性完全依赖于主关键字。完全依赖是不能存在只依赖主关键字的一部分。</td>
-<td style="text-align:center">选课关系(学号，课程号，成绩，学分)，码为组合关键字(课程号，学号)但是非主属性学分只依赖课程号，对关键字(学号，课程号)只是部份依赖。不是完全依赖。所以要拆分为两个关系模式：学生表(学号，课程号，分数)课程表(课程号，学分)，新的关系通过学生表中的外键课程号联系，需要时通过两个表的连接获取数据</td>
-</tr>
-<tr>
-<td style="text-align:center">第三范式3NF</td>
-<td style="text-align:center">符合1NF,且每个非主属性既不部分依赖码，也不传递依赖码也就是在2NF的基础上消除传递依赖</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2888,7 +2724,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2991,7 +2827,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">46.3k</span>
+    <span title="Site words total count">48k</span>
   
 </div>
 <div class="powered-by">
