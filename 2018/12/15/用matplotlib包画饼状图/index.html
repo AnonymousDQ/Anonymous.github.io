@@ -88,12 +88,12 @@
 <meta property="og:site_name" content="drqblog">
 <meta property="og:description" content="123456789101112131415161718192021#饼状图#author：victor#导入模块import matplotlib.pyplot as plt#设置labels标签参数，x是对应的数据列表，autopct显示每一个区域占的比例#explode突出显示某一块，shadow阴影labels=[&apos;A&apos;,&apos;B&apos;,&apos;C&apos;,&apos;D&apos;]fracs=[15,30,45,10]expl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJou3oYyXcLrZ83SS1owS4nPia7HsVjeNibbZRBCFFfgKVz0MtP6GwyW4xfgia2ib3jhZfmBGSncP77F4A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:updated_time" content="2018-12-15T03:21:24.661Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/15/用matplotlib包画饼状图/饼状图.png">
+<meta property="og:updated_time" content="2018-12-15T04:06:13.186Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用matplotlib包画饼状图">
 <meta name="twitter:description" content="123456789101112131415161718192021#饼状图#author：victor#导入模块import matplotlib.pyplot as plt#设置labels标签参数，x是对应的数据列表，autopct显示每一个区域占的比例#explode突出显示某一块，shadow阴影labels=[&apos;A&apos;,&apos;B&apos;,&apos;C&apos;,&apos;D&apos;]fracs=[15,30,45,10]expl">
-<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJou3oYyXcLrZ83SS1owS4nPia7HsVjeNibbZRBCFFfgKVz0MtP6GwyW4xfgia2ib3jhZfmBGSncP77F4A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/15/用matplotlib包画饼状图/饼状图.png">
 
 
 
@@ -430,7 +430,7 @@
 
       
         <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#饼状图</span></span><br><span class="line"><span class="comment">#author：victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置labels标签参数，x是对应的数据列表，autopct显示每一个区域占的比例</span></span><br><span class="line"><span class="comment">#explode突出显示某一块，shadow阴影</span></span><br><span class="line">labels=[<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>]</span><br><span class="line">fracs=[<span class="number">15</span>,<span class="number">30</span>,<span class="number">45</span>,<span class="number">10</span>]</span><br><span class="line">explode=[<span class="number">0</span>,<span class="number">0.1</span>,<span class="number">0.05</span>,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置x,y轴比例1:1，从而得到一个正的圆</span></span><br><span class="line">plt.axes(aspect=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#labels标签参数，x是对应的数据列表，autopct显示每一个区域占的比例，</span></span><br><span class="line"><span class="comment">#explode突出显示某一块，shadow阴影</span></span><br><span class="line">plt.pie(x=fracs,labels=labels,autopct=<span class="string">"%.0f%%"</span>,explode=explode,shadow=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJou3oYyXcLrZ83SS1owS4nPia7HsVjeNibbZRBCFFfgKVz0MtP6GwyW4xfgia2ib3jhZfmBGSncP77F4A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><img src="/2018/12/15/用matplotlib包画饼状图/饼状图.png" alt="pie graph"></p>
 
       
     </div>
