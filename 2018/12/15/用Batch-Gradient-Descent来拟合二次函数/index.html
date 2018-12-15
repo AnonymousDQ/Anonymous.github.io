@@ -81,17 +81,19 @@
 
 
 
-<meta name="description" content="1、同步交互：发送一个请求，需要等待返回，然后才能够发送下一个请求，有个等待过程 2、异步交互：发送一个请求，不需要等待返回，随时可以再发送下一个请求，也就是不需要等待  区别：一个需要等待，一个不需要等待，再部分情况下，我们的项目开发中都会优先选择不需要等待的异步交互方式。 同步：用来确保资源一次只能被一个县城使用的过程。同步对于单线程程序没有任何好处。  使用同步比非同步的性能差三到四倍 线程">
+<meta name="description" content="用Batch Gradient Descent来拟合二次函数123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263#批量梯度下降算法#author:victor#import moduleimport tensorflo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="同步与异步">
-<meta property="og:url" content="http://yoursite.com/2018/12/15/同步与异步/index.html">
+<meta property="og:title" content="用Batch Gradient Descent来拟合二次函数">
+<meta property="og:url" content="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/index.html">
 <meta property="og:site_name" content="drqblog">
-<meta property="og:description" content="1、同步交互：发送一个请求，需要等待返回，然后才能够发送下一个请求，有个等待过程 2、异步交互：发送一个请求，不需要等待返回，随时可以再发送下一个请求，也就是不需要等待  区别：一个需要等待，一个不需要等待，再部分情况下，我们的项目开发中都会优先选择不需要等待的异步交互方式。 同步：用来确保资源一次只能被一个县城使用的过程。同步对于单线程程序没有任何好处。  使用同步比非同步的性能差三到四倍 线程">
+<meta property="og:description" content="用Batch Gradient Descent来拟合二次函数123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263#批量梯度下降算法#author:victor#import moduleimport tensorflo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-15T02:50:59.235Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/1.gif">
+<meta property="og:updated_time" content="2018-12-15T05:43:00.394Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="同步与异步">
-<meta name="twitter:description" content="1、同步交互：发送一个请求，需要等待返回，然后才能够发送下一个请求，有个等待过程 2、异步交互：发送一个请求，不需要等待返回，随时可以再发送下一个请求，也就是不需要等待  区别：一个需要等待，一个不需要等待，再部分情况下，我们的项目开发中都会优先选择不需要等待的异步交互方式。 同步：用来确保资源一次只能被一个县城使用的过程。同步对于单线程程序没有任何好处。  使用同步比非同步的性能差三到四倍 线程">
+<meta name="twitter:title" content="用Batch Gradient Descent来拟合二次函数">
+<meta name="twitter:description" content="用Batch Gradient Descent来拟合二次函数123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263#批量梯度下降算法#author:victor#import moduleimport tensorflo">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/1.gif">
 
 
 
@@ -121,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/15/同步与异步/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/">
 
 
 
 
 
-  <title>同步与异步 | drqblog</title>
+  <title>用Batch Gradient Descent来拟合二次函数 | drqblog</title>
   
 
 
@@ -307,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/同步与异步/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -324,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">同步与异步</h1>
+          <h1 class="post-title" itemprop="name headline">用Batch Gradient Descent来拟合二次函数</h1>
         
 
         <div class="post-meta">
@@ -336,7 +338,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T10:50:05+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T13:35:45+08:00">
                 2018-12-15
               </time>
             
@@ -359,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
                   </a>
                 </span>
 
@@ -390,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  980
+                  484
                 </span>
               
 
@@ -406,7 +408,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  2
                 </span>
               
             </div>
@@ -427,46 +429,8 @@
       
 
       
-        <p><strong>1、同步交互</strong>：发送一个请求，需要等待返回，然后才能够发送下一个请求，有个等待过程</p>
-<p><strong>2、异步交互</strong>：发送一个请求，不需要等待返回，随时可以再发送下一个请求，也就是不需要等待</p>
-<ul>
-<li>区别：一个需要等待，一个不需要等待，再部分情况下，我们的项目开发中都会优先选择不需要等待的异步交互方式。</li>
-<li>同步：用来确保资源一次只能被一个县城使用的过程。同步对于单线程程序没有任何好处。</li>
-</ul>
-<p>使用同步比非同步的性能差三到四倍</p>
-<p>线程都是独立的，而且异步执行，也就是说每个线程都包含了运行时所需要的数据或者方法</p>
-<p>而不需要外部的资源或者方法，也不必关心其他线程的状态或者行为。</p>
-<p>但是经常有些同时运行的线程需要共享数据，此时就需要考虑其他线程的状态和行为。</p>
-<p>否则就不能保证程序的运行结果的正确性</p>
-<p>需要做的是允许一个线程彻底完成他的任务后，在允许执行下一个线程执行。必须保证一个共享的</p>
-<p>资源一次只能被一个线程使用，实现的目的过程叫做同步。</p>
-<ul>
-<li>比如广播就是一个异步的例子。发起者不关心接受者的状态，不需要等待接受者的返回信息</li>
-<li>比如电话就是一个同步的例子，发起者需要等待接收者，接通电话后，通信才能开始，需要等待接收者的返回信息。</li>
-</ul>
-<p><strong>同步和异步的区别：</strong></p>
-<p>在进行网络编程的时候，我们会看到同步，异步，阻塞，非阻塞4种调用方式以及他们的组合</p>
-<p>其中同步方式，异步方式主要是由客户端client控制的</p>
-<p><strong>同步sync：</strong></p>
-<p>就是发起一个功能调用的时候，在没有得到结果之前，该调用就不返回或者继续执行后续操作</p>
-<p>Java中所有方法都是同步调用，因为必须要等待结果后才能继续执行</p>
-<p>我们说的同步，异步的时候，一般而言是指那些需要其他端写作或者需要一定时间完成的任务</p>
-<p>简单而言：同步就是必须一件一件事做，等前一件做完了后才能做下一件事</p>
-<p>B/S模式的表单提交：客户端提交请求–》等待服务器处理–》处理完毕返回</p>
-<p>在这个过程中客户端（浏览器）不能做其他事情</p>
-<p><strong>异步（Async）</strong></p>
-<p>异步与同步相反，当一个异步过程调用发出后，调用者在没有得到结果之前，就可以继续执行后续操作</p>
-<p>当这个调用完成后，一般通过状态，通知和回调来通知调用者。</p>
-<p>对于异步调用，调用的返回并不受调用者控制</p>
-<p>对于通知调用者的三种方式：</p>
-<ul>
-<li>状态：监听被调用者的状态（轮询），调用者需要每隔一定时间检查一次，效率会很低</li>
-<li>通知：当被调用者执行完成后，发出通知告知调用者，不需要消耗太多性能</li>
-<li>回调：与通知类似，当被调用者执行完成后，会调用调用者提供的回调函数</li>
-</ul>
-<p>B/S模式的ajax的请求，具体过程：客户端发出ajax请求–》服务端处理–》处理完毕执行客户端回调</p>
-<p>在客户端（浏览器）发出请求后，仍然可以做其他的事情</p>
-<p>同步与异步的区别：请求发出后，是否需要等待结果，才能继续执行其他操作。</p>
+        <h2 id="用Batch-Gradient-Descent来拟合二次函数"><a href="#用Batch-Gradient-Descent来拟合二次函数" class="headerlink" title="用Batch Gradient Descent来拟合二次函数"></a>用Batch Gradient Descent来拟合二次函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#批量梯度下降算法</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果可视化模块</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment">#定义一个添加神经层的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_layer</span><span class="params">(inputs,in_size,out_size,activation_function=None)</span>:</span></span><br><span class="line">    Weights=tf.Variable(tf.random_normal([in_size,out_size]))</span><br><span class="line">    biases=tf.Variable(tf.zeros([<span class="number">1</span>,out_size])+<span class="number">0.1</span>)<span class="comment">#因为biases（偏差）推荐值不能为0，所以加上一个0.1</span></span><br><span class="line">    <span class="comment">#Wx_plus_b=tf.matmul(inputs,Weights)+biases#inputs+Weights+biases</span></span><br><span class="line">    Wx_plus_b=tf.add(tf.matmul(inputs,Weights),biases)</span><br><span class="line">    <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        outputs=Wx_plus_b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        outputs=activation_function(Wx_plus_b)</span><br><span class="line">    <span class="keyword">return</span> outputs</span><br><span class="line"></span><br><span class="line">x_data=np.linspace(<span class="number">-1</span>,<span class="number">1</span>,<span class="number">300</span>)[:,np.newaxis]<span class="comment">#（-1,1）区间的生成300个数等差数列，np.newaxis定义格式为300个行</span></span><br><span class="line"><span class="comment">#define a noise，定义一个噪声，来让它不是正规的二次函数。</span></span><br><span class="line">noise=np.random.normal(<span class="number">0</span>,<span class="number">0.05</span>,x_data.shape)<span class="comment">#定义跟x_data数据一样的格式</span></span><br><span class="line"><span class="comment">#真实值</span></span><br><span class="line">y_data=np.square(x_data)<span class="number">-0.5</span>+noise<span class="comment">#这个是拟合函数y=x^2+nosie</span></span><br><span class="line"><span class="comment">#placeholder用来参数</span></span><br><span class="line">xs=tf.placeholder(tf.float32,[<span class="keyword">None</span>,<span class="number">1</span>])</span><br><span class="line">ys=tf.placeholder(tf.float32,[<span class="keyword">None</span>,<span class="number">1</span>])</span><br><span class="line"><span class="comment">#隐藏层随便有多少个神经元，越少，越差，先定义一个</span></span><br><span class="line">l1=add_layer(xs,<span class="number">1</span>,<span class="number">10</span>,activation_function=tf.nn.relu)</span><br><span class="line"><span class="comment">#预测值</span></span><br><span class="line">prediction=add_layer(l1,<span class="number">10</span>,<span class="number">1</span>,activation_function=<span class="keyword">None</span>)</span><br><span class="line"><span class="comment">#误差</span></span><br><span class="line">loss=tf.reduce_mean(tf.reduce_sum(tf.square(ys-prediction),</span><br><span class="line">                   reduction_indices=[<span class="number">1</span>]))</span><br><span class="line">train_step=tf.train.GradientDescentOptimizer(<span class="number">0.1</span>).minimize(loss)<span class="comment">#GradientDescentOptimizer给定一个learning rate,通常是小于1</span></span><br><span class="line"><span class="comment">#must step,初始化变量</span></span><br><span class="line">init=tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    <span class="comment">#显示图形</span></span><br><span class="line">    fig=plt.figure()</span><br><span class="line">    ax=fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">    ax.scatter(x_data,y_data)</span><br><span class="line">    plt.ion()<span class="comment">#就是让图片show了后不用暂停</span></span><br><span class="line">    plt.show()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):<span class="comment">#执行1000次</span></span><br><span class="line">        sess.run(train_step,feed_dict=&#123;xs:x_data,ys:y_data&#125;)<span class="comment">#只用通过placeholder的，都要用feed_dict传参数</span></span><br><span class="line">        <span class="keyword">if</span> i%<span class="number">50</span>:                  </span><br><span class="line">            <span class="comment">#to see the step improvement控制台看，每一步的误差减少</span></span><br><span class="line">            <span class="comment">#print(sess.run(loss,feed_dict=&#123;xs:x_data,ys:y_data&#125;))            </span></span><br><span class="line">            <span class="keyword">try</span>:  </span><br><span class="line">                <span class="comment">#预测值</span></span><br><span class="line">                prediction_value=sess.run(prediction,feed_dict=&#123;xs:x_data&#125;)</span><br><span class="line">                lines=ax.plot(x_data,prediction_value,<span class="string">'r-'</span>,lw=<span class="number">5</span>)             </span><br><span class="line">                <span class="comment">#每次抹除线，先暂停0.1秒</span></span><br><span class="line">                plt.pause(<span class="number">0.1</span>)</span><br><span class="line">                ax.lines.remove(lines[<span class="number">0</span>])  <span class="comment">#在图片中，去除掉第一个线段</span></span><br><span class="line">            <span class="keyword">except</span> Exception:</span><br><span class="line">                <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/1.gif" alt="batch gradient descent"></p>
 
       
     </div>
@@ -506,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/15/单例模式/" rel="next" title="单例模式">
-                <i class="fa fa-chevron-left"></i> 单例模式
+              <a href="/2018/12/15/Activation-Function/" rel="next" title="Activation Function">
+                <i class="fa fa-chevron-left"></i> Activation Function
               </a>
             
           </div>
@@ -515,10 +479,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/15/异步与多线程/" rel="prev" title="异步与多线程">
-                异步与多线程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -570,8 +530,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -662,6 +631,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用Batch-Gradient-Descent来拟合二次函数"><span class="nav-number">1.</span> <span class="nav-text">用Batch Gradient Descent来拟合二次函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行效果"><span class="nav-number">2.</span> <span class="nav-text">运行效果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
