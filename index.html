@@ -304,6 +304,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/单例模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/单例模式/" itemprop="url">单例模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T10:39:05+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>单例模式要求一个类只能有一个实例，并且提供了一个全局的访问点。</p>
+<p>比如说，中国主席的职位是Singleton，法律规定主席选举，任何时间只能有一个主席。</p>
+<h3 id="1、逻辑模型图："><a href="#1、逻辑模型图：" class="headerlink" title="1、逻辑模型图："></a>1、逻辑模型图：</h3><p><img src="https://images2018.cnblogs.com/blog/811614/201803/811614-20180315144708730-499694311.png" alt="img"></p>
+<h3 id="2、物理模型图："><a href="#2、物理模型图：" class="headerlink" title="2、物理模型图："></a>2、物理模型图：</h3><p><img src="https://images2018.cnblogs.com/blog/811614/201803/811614-20180315145332295-339822939.png" alt="img"></p>
+<h3 id="3、具体实现："><a href="#3、具体实现：" class="headerlink" title="3、具体实现："></a>3、具体实现：</h3><h4 id="3-1、懒汉式单例："><a href="#3-1、懒汉式单例：" class="headerlink" title="3.1、懒汉式单例："></a>3.1、懒汉式单例：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//懒汉式单例</span><br><span class="line">public sealed class Singleton//类设置属性为密封，不能被继承。</span><br><span class="line">&#123;</span><br><span class="line">    static Singleton instance=null;</span><br><span class="line">    Singleton()</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleton Instance</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            if(instance==null)</span><br><span class="line">            &#123;</span><br><span class="line">                instance=new Singleton();</span><br><span class="line">            &#125;</span><br><span class="line">            return instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//这种实现方式，不是线程安全的，因为多线程的时候，可能会得到Singleton类的多个实例。</span><br><span class="line">//假如有两个线程都去判断if(instance==null)并且得到结果为true，这时两个线程</span><br><span class="line">//都会创建类Singleton的实例，违背了单例模式只能有一个类对象的实例的原则。</span><br></pre></td></tr></table></figure>
+<h4 id="3-2、线程安全的单例"><a href="#3-2、线程安全的单例" class="headerlink" title="3.2、线程安全的单例"></a>3.2、线程安全的单例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public sealed class Singleton</span><br><span class="line">&#123;</span><br><span class="line">    static Singleton instance=null;</span><br><span class="line">    static readonly object padlock=new object();//进程辅助对象</span><br><span class="line">    </span><br><span class="line">    Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleton Instance</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            lock(padlock)</span><br><span class="line">            &#123;</span><br><span class="line">                if(instance==null)</span><br><span class="line">                &#123;</span><br><span class="line">                    instance=new Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">                return instance;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//对于线程来说是安全的，首先创建了一个进程的辅助对象，线程进入时先对padlock加锁</span><br><span class="line">//然后在检测对象是否被创建，这样可以确保只有一个实例被创建，而且加入了锁，导致程序只有</span><br><span class="line">//一个线程可以进去，对象实例有最先进入的那个线程创建，后面进来的线程进入时if(instance==null)为false</span><br><span class="line">//不会再去创建对象实例，这种方式增加了额外的开销，损失了性能。</span><br></pre></td></tr></table></figure>
+<h4 id="3-3、双重锁定"><a href="#3-3、双重锁定" class="headerlink" title="3.3、双重锁定"></a>3.3、双重锁定</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public sealed class Singleton</span><br><span class="line">&#123;</span><br><span class="line">    static Singleton instance=null;</span><br><span class="line">    static readonly object padlock=new object();</span><br><span class="line">    </span><br><span class="line">    Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleton Instance</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            if(instance==null)</span><br><span class="line">            &#123;</span><br><span class="line">                lock(padlock)</span><br><span class="line">                &#123;</span><br><span class="line">                    if(instance==null)</span><br><span class="line">                    &#123;</span><br><span class="line">                        instance=new Singleton();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//对于多线程是安全的，而且并不是线程每次都加锁，只有判断对象实例没有被创建的时候才会加锁</span><br><span class="line">//加锁还再进行对象是否被创建的判断。解决了线程并发的问题，但是实际上需要这样实现，大多数我们会</span><br><span class="line">//使用静态初始化，但是静态初始化有自己的缺点，无法实现延迟初始化</span><br></pre></td></tr></table></figure>
+<h4 id="3-4、静态初始化"><a href="#3-4、静态初始化" class="headerlink" title="3.4、静态初始化"></a>3.4、静态初始化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public sealed class Singleton</span><br><span class="line">&#123;</span><br><span class="line">    static readonly Singleton instance=new Singleton();</span><br><span class="line">    //静态初始化的无参构造方法</span><br><span class="line">    static Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleton Instance</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            return instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//类标记为sealed不能继承，因为继承可能会增加实例。</span><br><span class="line">//变量标记为readonly，表示只能在静态初始化时候或者在构造方法中分配变量。</span><br></pre></td></tr></table></figure>
+<h4 id="3-5、延迟初始化"><a href="#3-5、延迟初始化" class="headerlink" title="3.5、延迟初始化"></a>3.5、延迟初始化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//如果类，结构，代理，枚举是外置，那么修饰符只有public和internal，默认是internal</span><br><span class="line">//如果是内置的，修饰符默认是private</span><br><span class="line">//举例： class A&#123;&#125;//类A是internal，internal表示同一个程序集中所有代码都可以访问类型或者成员</span><br><span class="line">//其他程序集不可以访问。</span><br><span class="line">//举例：class A</span><br><span class="line">//            &#123;</span><br><span class="line">//                class B&#123;&#125;//类B是private</span><br><span class="line">//            &#125;</span><br><span class="line">public sealed class Singleton</span><br><span class="line">&#123;</span><br><span class="line">    Singleton()//类的构造函数默认为private</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleton Instance</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            return Lazy.instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    class Lazy//lazy默认是internal</span><br><span class="line">    &#123;</span><br><span class="line">        static Lazy()</span><br><span class="line">        &#123;</span><br><span class="line">        </span><br><span class="line">        &#125;</span><br><span class="line">        internal static readonly Singleton instance=new Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">//初始化的时候有一个Lazy类的一个静态成员来完成，这样实现了延迟初始化。</span><br></pre></td></tr></table></figure>
+<h3 id="4、实现总结："><a href="#4、实现总结：" class="headerlink" title="4、实现总结："></a>4、实现总结：</h3><p>Singleton单例模式构造方法可以设置为protected，允许子类继承。</p>
+<p>单例模式不要支持实例化，可能导致多个对象实例，也不要支持Icloneable接口，导致多个对象的实例，单例模式只考虑了对象创建的管理，没有考虑对象销毁的管理，支持垃圾回收的平台的对象的开销来讲，没必要对其销毁进行特殊的管理。</p>
+<p>理解：Singleton模式核心：如何控制用户使用new对一个类的构造方法任意调用。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的流-续/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2303,242 +2487,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据链路层/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/数据链路层/" itemprop="url">数据链路层</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:28:59+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1、数据链路层设备"><a href="#1、数据链路层设备" class="headerlink" title="1、数据链路层设备"></a>1、数据链路层设备</h3><h4 id="1-1、网桥"><a href="#1-1、网桥" class="headerlink" title="1.1、网桥"></a>1.1、网桥</h4><p>两个，或者多个以太网通过网桥连接起来后，就成为了一个覆盖范围更大的以太网，从而原来的没个以太网就可以叫做一个网段。</p>
-<p>网桥工作在数据链路层的MAC子层，可以使得以太网各网段成为隔离开的碰撞域或（冲突域）</p>
-<p>如果把网桥换曾工作在物理层的转发器，就没有了这种过滤通信量的功能。网桥处理的数据对象是帧（Frame），所以工作在数据链路层。中继器，集线器Hub处理的数据对象是信号，工作在物理层。</p>
-<h4 id="1-2、交换机"><a href="#1-2、交换机" class="headerlink" title="1.2、交换机"></a>1.2、交换机</h4><h5 id="1-2-1、局域网交换机"><a href="#1-2-1、局域网交换机" class="headerlink" title="1.2.1、局域网交换机"></a>1.2.1、局域网交换机</h5><p>网桥主要是限制在任意时刻通常只能执行一个帧的转发操作。局域网交换机也叫以太网交换机，本质上说，就是一个多端口的网桥，工作在数据链路层。交换机可以经济的将网络分成小的冲突域，为每个工作栈提供更高的带宽。</p>
-<p>以太网交换机对工作栈是透明的，管理开销低廉，简化了网络节点的增加，移动和网络变化的操作。</p>
-<p>利用交换机还可以方便的实现虚拟局域网（Virtual LAN，VLAN），VLAN不仅可以隔离冲突域，还可以隔离广播域</p>
-<h5 id="1-2-2、以太网交换机的工作原理"><a href="#1-2-2、以太网交换机的工作原理" class="headerlink" title="1.2.2、以太网交换机的工作原理"></a>1.2.2、以太网交换机的工作原理</h5><p>检测从交换机端口来的数据帧和目的地的MAC地址，然后和系统内部的动态查找表进行比较，</p>
-<p>如果数据帧的MAC地址没有在查找表中，就把这个数据帧的MAC地址加入到查找表，然后将数据帧发送给相应的目的端口。</p>
-<p>以太网交换机：每个端口都是直接与单个主机相连，网桥的端口往往是连接到以太网的一个网段。</p>
-<p>交换机的工作方式是全双工方式。</p>
-<p>以太网交换机由于使用了专用的交换结构芯片，交换速率高。以太网交换机独占传输媒体的带宽。</p>
-<p>比如普通的10Mb/s的共享式以太网，如果有N个用户，每个用于占用的平均带宽只有总带宽的N分之一不到。</p>
-<p>但是使用了交换机，虽然每个端口到主机的带宽还是10Mb/s，但是由于一个用户在通信，因此对于拥有N对端口</p>
-<p>的交换机总量为N*10Mb/s。</p>
-<h5 id="1-2-3、交换机的两种交换模式"><a href="#1-2-3、交换机的两种交换模式" class="headerlink" title="1.2.3、交换机的两种交换模式"></a>1.2.3、交换机的两种交换模式</h5><ul>
-<li><p>直通式交换机：只检查帧的目的地址，这种方式速度快，但是缺乏智能和安全性。无法进行不同速率的端口交换。</p>
-</li>
-<li><p>存储转发式交换机：先接收到帧缓存到高速缓存器中，然后检查数据是否正确，确认无误后，通过查找表转换成输出端口将帧发送出去。如果检查数据帧有错，就可以丢弃掉。存储转发交换机：可靠性高，还可以支持不同速度端口的转换，但是延迟比较大。</p>
-</li>
-</ul>
-<h5 id="注：冲突域（碰撞域）和广播域的区别："><a href="#注：冲突域（碰撞域）和广播域的区别：" class="headerlink" title="注：冲突域（碰撞域）和广播域的区别："></a>注：冲突域（碰撞域）和广播域的区别：</h5><h5 id="当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。"><a href="#当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。" class="headerlink" title="当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。"></a>当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。</h5><h5 id="一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域"><a href="#一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域" class="headerlink" title="一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域"></a>一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域</h5><h5 id="一个局域网就是一个广播域。"><a href="#一个局域网就是一个广播域。" class="headerlink" title="一个局域网就是一个广播域。"></a>一个局域网就是一个广播域。</h5><table>
-<thead>
-<tr>
-<th style="text-align:center">设备名称</th>
-<th style="text-align:center">工作层</th>
-<th style="text-align:center">能够隔离冲突域</th>
-<th style="text-align:center">能否隔离广播域</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">集线器Hub</td>
-<td style="text-align:center">物理层</td>
-<td style="text-align:center">不能</td>
-<td style="text-align:center">不能</td>
-</tr>
-<tr>
-<td style="text-align:center">中继器</td>
-<td style="text-align:center">物理层</td>
-<td style="text-align:center">不能</td>
-<td style="text-align:center">不能</td>
-</tr>
-<tr>
-<td style="text-align:center">交换机</td>
-<td style="text-align:center">数据链路层</td>
-<td style="text-align:center">能</td>
-<td style="text-align:center">不能</td>
-</tr>
-<tr>
-<td style="text-align:center">网桥</td>
-<td style="text-align:center">数据链路层</td>
-<td style="text-align:center">能</td>
-<td style="text-align:center">不能</td>
-</tr>
-<tr>
-<td style="text-align:center">路由器</td>
-<td style="text-align:center">网络层</td>
-<td style="text-align:center">能</td>
-<td style="text-align:center">能</td>
-</tr>
-</tbody>
-</table>
-<p>总结：中继器，集线器Hub，工作在同一个冲突域（也就是同一个网段）只是对信号放大而已，也就是说能隔离冲突域的只要工作在物理层之上就可以。因为局域网通过路由器连接到广域网，而一个广播域就是一个局域网，所以说路由器可以隔离广播域</p>
-<p>而交换机叫做以太网交换机，是在局域网当中的，不能隔离广播域。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2591,7 +2539,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2602,7 +2550,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2694,7 +2642,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">39.1k</span>
+    <span title="Site words total count">40.2k</span>
   
 </div>
 <div class="powered-by">

@@ -304,6 +304,242 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据链路层/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/数据链路层/" itemprop="url">数据链路层</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:28:59+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1、数据链路层设备"><a href="#1、数据链路层设备" class="headerlink" title="1、数据链路层设备"></a>1、数据链路层设备</h3><h4 id="1-1、网桥"><a href="#1-1、网桥" class="headerlink" title="1.1、网桥"></a>1.1、网桥</h4><p>两个，或者多个以太网通过网桥连接起来后，就成为了一个覆盖范围更大的以太网，从而原来的没个以太网就可以叫做一个网段。</p>
+<p>网桥工作在数据链路层的MAC子层，可以使得以太网各网段成为隔离开的碰撞域或（冲突域）</p>
+<p>如果把网桥换曾工作在物理层的转发器，就没有了这种过滤通信量的功能。网桥处理的数据对象是帧（Frame），所以工作在数据链路层。中继器，集线器Hub处理的数据对象是信号，工作在物理层。</p>
+<h4 id="1-2、交换机"><a href="#1-2、交换机" class="headerlink" title="1.2、交换机"></a>1.2、交换机</h4><h5 id="1-2-1、局域网交换机"><a href="#1-2-1、局域网交换机" class="headerlink" title="1.2.1、局域网交换机"></a>1.2.1、局域网交换机</h5><p>网桥主要是限制在任意时刻通常只能执行一个帧的转发操作。局域网交换机也叫以太网交换机，本质上说，就是一个多端口的网桥，工作在数据链路层。交换机可以经济的将网络分成小的冲突域，为每个工作栈提供更高的带宽。</p>
+<p>以太网交换机对工作栈是透明的，管理开销低廉，简化了网络节点的增加，移动和网络变化的操作。</p>
+<p>利用交换机还可以方便的实现虚拟局域网（Virtual LAN，VLAN），VLAN不仅可以隔离冲突域，还可以隔离广播域</p>
+<h5 id="1-2-2、以太网交换机的工作原理"><a href="#1-2-2、以太网交换机的工作原理" class="headerlink" title="1.2.2、以太网交换机的工作原理"></a>1.2.2、以太网交换机的工作原理</h5><p>检测从交换机端口来的数据帧和目的地的MAC地址，然后和系统内部的动态查找表进行比较，</p>
+<p>如果数据帧的MAC地址没有在查找表中，就把这个数据帧的MAC地址加入到查找表，然后将数据帧发送给相应的目的端口。</p>
+<p>以太网交换机：每个端口都是直接与单个主机相连，网桥的端口往往是连接到以太网的一个网段。</p>
+<p>交换机的工作方式是全双工方式。</p>
+<p>以太网交换机由于使用了专用的交换结构芯片，交换速率高。以太网交换机独占传输媒体的带宽。</p>
+<p>比如普通的10Mb/s的共享式以太网，如果有N个用户，每个用于占用的平均带宽只有总带宽的N分之一不到。</p>
+<p>但是使用了交换机，虽然每个端口到主机的带宽还是10Mb/s，但是由于一个用户在通信，因此对于拥有N对端口</p>
+<p>的交换机总量为N*10Mb/s。</p>
+<h5 id="1-2-3、交换机的两种交换模式"><a href="#1-2-3、交换机的两种交换模式" class="headerlink" title="1.2.3、交换机的两种交换模式"></a>1.2.3、交换机的两种交换模式</h5><ul>
+<li><p>直通式交换机：只检查帧的目的地址，这种方式速度快，但是缺乏智能和安全性。无法进行不同速率的端口交换。</p>
+</li>
+<li><p>存储转发式交换机：先接收到帧缓存到高速缓存器中，然后检查数据是否正确，确认无误后，通过查找表转换成输出端口将帧发送出去。如果检查数据帧有错，就可以丢弃掉。存储转发交换机：可靠性高，还可以支持不同速度端口的转换，但是延迟比较大。</p>
+</li>
+</ul>
+<h5 id="注：冲突域（碰撞域）和广播域的区别："><a href="#注：冲突域（碰撞域）和广播域的区别：" class="headerlink" title="注：冲突域（碰撞域）和广播域的区别："></a>注：冲突域（碰撞域）和广播域的区别：</h5><h5 id="当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。"><a href="#当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。" class="headerlink" title="当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。"></a>当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。</h5><h5 id="一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域"><a href="#一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域" class="headerlink" title="一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域"></a>一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域</h5><h5 id="一个局域网就是一个广播域。"><a href="#一个局域网就是一个广播域。" class="headerlink" title="一个局域网就是一个广播域。"></a>一个局域网就是一个广播域。</h5><table>
+<thead>
+<tr>
+<th style="text-align:center">设备名称</th>
+<th style="text-align:center">工作层</th>
+<th style="text-align:center">能够隔离冲突域</th>
+<th style="text-align:center">能否隔离广播域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">集线器Hub</td>
+<td style="text-align:center">物理层</td>
+<td style="text-align:center">不能</td>
+<td style="text-align:center">不能</td>
+</tr>
+<tr>
+<td style="text-align:center">中继器</td>
+<td style="text-align:center">物理层</td>
+<td style="text-align:center">不能</td>
+<td style="text-align:center">不能</td>
+</tr>
+<tr>
+<td style="text-align:center">交换机</td>
+<td style="text-align:center">数据链路层</td>
+<td style="text-align:center">能</td>
+<td style="text-align:center">不能</td>
+</tr>
+<tr>
+<td style="text-align:center">网桥</td>
+<td style="text-align:center">数据链路层</td>
+<td style="text-align:center">能</td>
+<td style="text-align:center">不能</td>
+</tr>
+<tr>
+<td style="text-align:center">路由器</td>
+<td style="text-align:center">网络层</td>
+<td style="text-align:center">能</td>
+<td style="text-align:center">能</td>
+</tr>
+</tbody>
+</table>
+<p>总结：中继器，集线器Hub，工作在同一个冲突域（也就是同一个网段）只是对信号放大而已，也就是说能隔离冲突域的只要工作在物理层之上就可以。因为局域网通过路由器连接到广域网，而一个广播域就是一个局域网，所以说路由器可以隔离广播域</p>
+<p>而交换机叫做以太网交换机，是在局域网当中的，不能隔离广播域。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/计算机网络-三/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2550,216 +2786,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Oracle数据库之存储过程与游标/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/Oracle数据库之存储过程与游标/" itemprop="url">Oracle数据库之存储过程与游标</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:57:45+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.2k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、存储过程"><a href="#一、存储过程" class="headerlink" title="一、存储过程"></a>一、存储过程</h1><p>　　一组为了完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给出参数，来执行它。</p>
-<p>在大型数据库中，存储过程和触发器具有重要的作用。无论是存储过程还是触发器，都是SQL语句和流程控制语句的集合。</p>
-<p>存储过程的优点：</p>
-<h4 id="1、存储过程只在创造时进行编译，以后每次执行存储过程都不需要重新编译，一般的SQL语句执行一次就要编译一次，所以使用存储过程可以提高数据库执行速度。"><a href="#1、存储过程只在创造时进行编译，以后每次执行存储过程都不需要重新编译，一般的SQL语句执行一次就要编译一次，所以使用存储过程可以提高数据库执行速度。" class="headerlink" title="　　1、存储过程只在创造时进行编译，以后每次执行存储过程都不需要重新编译，一般的SQL语句执行一次就要编译一次，所以使用存储过程可以提高数据库执行速度。"></a>　　1、存储过程只在创造时进行编译，以后每次执行存储过程都不需要重新编译，一般的SQL语句执行一次就要编译一次，所以使用存储过程可以提高数据库执行速度。</h4><h4 id="2、当对数据库进行复杂操作时（比如对多个表进行CRUD时），可以将复杂的CRUD操作用存储过程封装起来与数据库提供的事务处理结合在一块使用。"><a href="#2、当对数据库进行复杂操作时（比如对多个表进行CRUD时），可以将复杂的CRUD操作用存储过程封装起来与数据库提供的事务处理结合在一块使用。" class="headerlink" title="　　2、当对数据库进行复杂操作时（比如对多个表进行CRUD时），可以将复杂的CRUD操作用存储过程封装起来与数据库提供的事务处理结合在一块使用。"></a>　　2、当对数据库进行复杂操作时（比如对多个表进行CRUD时），可以将复杂的CRUD操作用存储过程封装起来与数据库提供的事务处理结合在一块使用。</h4><h4 id="3、存储过程可以重复使用，可以减少数据库开发人员的工作量。"><a href="#3、存储过程可以重复使用，可以减少数据库开发人员的工作量。" class="headerlink" title="　　3、存储过程可以重复使用，可以减少数据库开发人员的工作量。"></a>　　3、存储过程可以重复使用，可以减少数据库开发人员的工作量。</h4><h4 id="4、存储过程安全性搞，可以设定只有某个用户才具有对指定存储过程的使用权。"><a href="#4、存储过程安全性搞，可以设定只有某个用户才具有对指定存储过程的使用权。" class="headerlink" title="　　4、存储过程安全性搞，可以设定只有某个用户才具有对指定存储过程的使用权。"></a>　　4、存储过程安全性搞，可以设定只有某个用户才具有对指定存储过程的使用权。</h4><p>Oracle的存储过程分为两种：系统存储过程和自定义存储过程。</p>
-<p>系统存储过程：Oracle预先提供的一组完成特功能的存储过程，安装完Oracle 就有。</p>
-<p>自定义存储过程：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Create</span> [<span class="keyword">Or</span> <span class="keyword">Replace</span>] <span class="keyword">Procedure</span> 过程名[参数[<span class="keyword">in</span>/<span class="keyword">out</span>/<span class="keyword">in</span> <span class="keyword">out</span>]]</span><br><span class="line"></span><br><span class="line"><span class="keyword">AS</span>/<span class="keyword">IS</span></span><br><span class="line"></span><br><span class="line">说明部分</span><br><span class="line"></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"></span><br><span class="line">可执行部分</span><br><span class="line"></span><br><span class="line">[<span class="keyword">EXCEPTION</span> 错误处理部分]</span><br><span class="line"></span><br><span class="line"><span class="keyword">END</span> [过程名];</span><br></pre></td></tr></table></figure>
-<p>注：可选的replace：表示如果存储过程已经存在，则用新的存储过程覆盖掉原来的，常用语存储过程的重建。</p>
-<p>参数部分：用于定义多个参数（如果没有参数，可以不写），参数有三种形式：IN,OUT,INT OUT。一般没有指定参数形式的话，默认为IN。</p>
-<p>关键字AS也可以写成IS，后面跟存储过程的说明部分，也可以在这块定义存储过程的局部变量。</p>
-<ul>
-<li>删除存储过程： DROP PROCEDURE 存储过程名；</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建一个统计产品表总数的存储过程CREATE OR REPLACE PROCEDURE product_countAS PRODUCT_SUM NUMBER(10);BEGIN</span></span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">INTO</span> PRODUCT_SUM <span class="keyword">FROM</span> product_table;</span><br><span class="line">    DBMS_OUTPUT.PUT_LINE('产品数量是：'||PRODUCT_SUM);<span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>无参的存储过程：</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建一个打印HelloWorld的无参存储过程</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">procedure</span> printHelloWorldas <span class="comment">--说明部分begin</span></span><br><span class="line">    dbms_output.put_line(<span class="string">'Hello World'</span>);</span><br><span class="line"><span class="keyword">end</span> </span><br><span class="line"> printHelloWorld;<span class="comment">--无参数存储过程的调用</span></span><br><span class="line">方法1、exec printHelloWorld();</span><br><span class="line">方法2、<span class="keyword">begin</span> printHelloWorld();</span><br><span class="line">     <span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
-<h1 id="二、游标（Cursor）"><a href="#二、游标（Cursor）" class="headerlink" title="二、游标（Cursor）"></a>二、游标（Cursor）</h1><p>游标：一种PL/SQL控制结构，对SQL语句的处理进行显示控制，便于对表的行数据逐条进行处理。，游标只存留在内存中。一般使用方法是：声明游标—&gt;打开游标—&gt;取出结果—&gt;关闭游标。</p>
-<p>一般使用for循环来操作游标</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--利用for循环创建操作游标DELCARE --声明游标</span></span><br><span class="line">    CURSOR testCursor IS <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> product_table <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">1</span>;</span><br><span class="line">    productInfo product_table%ROWTYPE;<span class="comment">--ROWTYPE类型：表示一行的数据</span></span><br><span class="line">    count NUMBER;<span class="keyword">BEGIN</span>    <span class="comment">--开始操作游标</span></span><br><span class="line">    <span class="keyword">FOR</span> productInfo <span class="keyword">IN</span> testCursor</span><br><span class="line">    <span class="keyword">LOOP</span>    </span><br><span class="line">        <span class="keyword">count</span>:=testCursor%ROWCOUT;<span class="comment">--ROWCOUNT 对游标所操作的行数进行记录</span></span><br><span class="line">        DBMS_OUTPUT.put_line(count||'产品编号：'||productInfo.id);</span><br><span class="line">        DBMS_OUTPUT.put_line(count||'产品名称：'||productInfo.name);    </span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">LOOP</span>;<span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
-<p>游标的作用：</p>
-<h4 id="1、指定结果集中特定行的位置"><a href="#1、指定结果集中特定行的位置" class="headerlink" title="1、指定结果集中特定行的位置"></a>1、指定结果集中特定行的位置</h4><h4 id="2、根据当前的结果接位置检索一行或者连续的几行"><a href="#2、根据当前的结果接位置检索一行或者连续的几行" class="headerlink" title="2、根据当前的结果接位置检索一行或者连续的几行"></a>2、根据当前的结果接位置检索一行或者连续的几行</h4><h4 id="3、在结果集的当前位置修改行中的数据"><a href="#3、在结果集的当前位置修改行中的数据" class="headerlink" title="3、在结果集的当前位置修改行中的数据"></a>3、在结果集的当前位置修改行中的数据</h4><h4 id="4、对其他用户所做的数据更改定义不同的敏感级别"><a href="#4、对其他用户所做的数据更改定义不同的敏感级别" class="headerlink" title="4、对其他用户所做的数据更改定义不同的敏感级别"></a>4、对其他用户所做的数据更改定义不同的敏感级别</h4><h4 id="5、根据编程的方式访问数据库"><a href="#5、根据编程的方式访问数据库" class="headerlink" title="5、根据编程的方式访问数据库"></a>5、根据编程的方式访问数据库</h4><p>因为游标的效率比较差，如果游标操作的数据超过一万行，那么就要改写。</p>
-<ul>
-<li><p>显式游标：用户显式的声明的游标，也就是指定的结果集，当查询返回结果超过一行，就需要一个显式游标。</p>
-</li>
-<li><p>隐式游标：所有的CRUD记录为隐式游标，系统帮我们定义。</p>
-<ul>
-<li>%Found：用于校验游标是否成功。</li>
-<li>%NotFound：最后一条记录是否提取，到了游标的尾部，没有记录了就返回true</li>
-<li>%ISOpen：游标是否打开，打开为true</li>
-<li>%RowCount：游标当前提取的行数。</li>
-</ul>
-</li>
-</ul>
-<h1 id="三、创建函数"><a href="#三、创建函数" class="headerlink" title="三、创建函数"></a>三、创建函数</h1><p>语法：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">create</span> [<span class="keyword">or</span> <span class="keyword">replace</span>] <span class="keyword">function</span> 函数名(参数列表[<span class="keyword">in</span>/<span class="keyword">out</span>/<span class="keyword">in</span> <span class="keyword">out</span>])</span><br><span class="line">　　<span class="comment">--参数列表的类型：in：输入的参数，out：返回的参数，in out:即是输入参数也是返回参数</span></span><br><span class="line">　　<span class="keyword">return</span> datatype<span class="comment">--返回值类型</span></span><br><span class="line">　　<span class="keyword">as</span>/<span class="keyword">is</span></span><br><span class="line">　　说明部分</span><br><span class="line">　　<span class="keyword">begin</span></span><br><span class="line"> 　　<span class="comment">--执行的SQL</span></span><br><span class="line">　　<span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建一个计算产品平均价格的函数</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">function</span> avg_function_product(product_sum_price <span class="keyword">in</span> <span class="built_in">number</span>(<span class="number">10</span>,<span class="number">2</span>),product_count <span class="keyword">in</span> <span class="keyword">out</span> <span class="built_in">number</span>(<span class="number">10</span>,<span class="number">2</span>)) <span class="keyword">return</span> <span class="built_in">number</span>(<span class="number">10</span>,<span class="number">2</span>)<span class="keyword">as</span></span><br><span class="line">    product_price <span class="built_in">number</span>(<span class="number">10</span>,<span class="number">2</span>);<span class="keyword">begin</span></span><br><span class="line">    product_price:=product_sum_weight/product_count;    </span><br><span class="line">    return product_price;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建一个比较大小的自定义函数</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">function</span> testCompare(args1 <span class="keyword">in</span> <span class="built_in">number</span>,args2 <span class="keyword">in</span> <span class="built_in">number</span>)<span class="keyword">return</span> numberasbegin</span><br><span class="line">    <span class="keyword">if</span> args1&gt;args2 <span class="keyword">then</span> <span class="keyword">return</span> args1;</span><br><span class="line">    else return args2;</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"><span class="keyword">end</span> testCompare;<span class="comment">--测试调用</span></span><br><span class="line"><span class="keyword">select</span> testCompare(<span class="number">12</span>,<span class="number">57</span>) <span class="keyword">from</span> product_table;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2812,7 +2838,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2823,7 +2849,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2915,7 +2941,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">39.1k</span>
+    <span title="Site words total count">40.2k</span>
   
 </div>
 <div class="powered-by">
