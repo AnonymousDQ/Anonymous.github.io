@@ -304,6 +304,416 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/单例模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/单例模式/" itemprop="url">单例模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T10:39:05+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>单例模式要求一个类只能有一个实例，并且提供了一个全局的访问点。</p>
+<p>比如说，中国主席的职位是Singleton，法律规定主席选举，任何时间只能有一个主席。</p>
+<h3 id="1、逻辑模型图："><a href="#1、逻辑模型图：" class="headerlink" title="1、逻辑模型图："></a>1、逻辑模型图：</h3><p><img src="https://images2018.cnblogs.com/blog/811614/201803/811614-20180315144708730-499694311.png" alt="img"></p>
+<h3 id="2、物理模型图："><a href="#2、物理模型图：" class="headerlink" title="2、物理模型图："></a>2、物理模型图：</h3><p><img src="https://images2018.cnblogs.com/blog/811614/201803/811614-20180315145332295-339822939.png" alt="img"></p>
+<h3 id="3、具体实现："><a href="#3、具体实现：" class="headerlink" title="3、具体实现："></a>3、具体实现：</h3><h4 id="3-1、懒汉式单例："><a href="#3-1、懒汉式单例：" class="headerlink" title="3.1、懒汉式单例："></a>3.1、懒汉式单例：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//懒汉式单例</span><br><span class="line">public sealed class Singleton//类设置属性为密封，不能被继承。</span><br><span class="line">&#123;</span><br><span class="line">    static Singleton instance=null;</span><br><span class="line">    Singleton()</span><br><span class="line">    &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleton Instance</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            if(instance==null)</span><br><span class="line">            &#123;</span><br><span class="line">                instance=new Singleton();</span><br><span class="line">            &#125;</span><br><span class="line">            return instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//这种实现方式，不是线程安全的，因为多线程的时候，可能会得到Singleton类的多个实例。</span><br><span class="line">//假如有两个线程都去判断if(instance==null)并且得到结果为true，这时两个线程</span><br><span class="line">//都会创建类Singleton的实例，违背了单例模式只能有一个类对象的实例的原则。</span><br></pre></td></tr></table></figure>
+<h4 id="3-2、线程安全的单例"><a href="#3-2、线程安全的单例" class="headerlink" title="3.2、线程安全的单例"></a>3.2、线程安全的单例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public sealed class Singleton</span><br><span class="line">&#123;</span><br><span class="line">    static Singleton instance=null;</span><br><span class="line">    static readonly object padlock=new object();//进程辅助对象</span><br><span class="line">    </span><br><span class="line">    Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleton Instance</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            lock(padlock)</span><br><span class="line">            &#123;</span><br><span class="line">                if(instance==null)</span><br><span class="line">                &#123;</span><br><span class="line">                    instance=new Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">                return instance;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//对于线程来说是安全的，首先创建了一个进程的辅助对象，线程进入时先对padlock加锁</span><br><span class="line">//然后在检测对象是否被创建，这样可以确保只有一个实例被创建，而且加入了锁，导致程序只有</span><br><span class="line">//一个线程可以进去，对象实例有最先进入的那个线程创建，后面进来的线程进入时if(instance==null)为false</span><br><span class="line">//不会再去创建对象实例，这种方式增加了额外的开销，损失了性能。</span><br></pre></td></tr></table></figure>
+<h4 id="3-3、双重锁定"><a href="#3-3、双重锁定" class="headerlink" title="3.3、双重锁定"></a>3.3、双重锁定</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public sealed class Singleton</span><br><span class="line">&#123;</span><br><span class="line">    static Singleton instance=null;</span><br><span class="line">    static readonly object padlock=new object();</span><br><span class="line">    </span><br><span class="line">    Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleton Instance</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            if(instance==null)</span><br><span class="line">            &#123;</span><br><span class="line">                lock(padlock)</span><br><span class="line">                &#123;</span><br><span class="line">                    if(instance==null)</span><br><span class="line">                    &#123;</span><br><span class="line">                        instance=new Singleton();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//对于多线程是安全的，而且并不是线程每次都加锁，只有判断对象实例没有被创建的时候才会加锁</span><br><span class="line">//加锁还再进行对象是否被创建的判断。解决了线程并发的问题，但是实际上需要这样实现，大多数我们会</span><br><span class="line">//使用静态初始化，但是静态初始化有自己的缺点，无法实现延迟初始化</span><br></pre></td></tr></table></figure>
+<h4 id="3-4、静态初始化"><a href="#3-4、静态初始化" class="headerlink" title="3.4、静态初始化"></a>3.4、静态初始化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public sealed class Singleton</span><br><span class="line">&#123;</span><br><span class="line">    static readonly Singleton instance=new Singleton();</span><br><span class="line">    //静态初始化的无参构造方法</span><br><span class="line">    static Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleton Instance</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            return instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//类标记为sealed不能继承，因为继承可能会增加实例。</span><br><span class="line">//变量标记为readonly，表示只能在静态初始化时候或者在构造方法中分配变量。</span><br></pre></td></tr></table></figure>
+<h4 id="3-5、延迟初始化"><a href="#3-5、延迟初始化" class="headerlink" title="3.5、延迟初始化"></a>3.5、延迟初始化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//如果类，结构，代理，枚举是外置，那么修饰符只有public和internal，默认是internal</span><br><span class="line">//如果是内置的，修饰符默认是private</span><br><span class="line">//举例： class A&#123;&#125;//类A是internal，internal表示同一个程序集中所有代码都可以访问类型或者成员</span><br><span class="line">//其他程序集不可以访问。</span><br><span class="line">//举例：class A</span><br><span class="line">//            &#123;</span><br><span class="line">//                class B&#123;&#125;//类B是private</span><br><span class="line">//            &#125;</span><br><span class="line">public sealed class Singleton</span><br><span class="line">&#123;</span><br><span class="line">    Singleton()//类的构造函数默认为private</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleton Instance</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            return Lazy.instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    class Lazy//lazy默认是internal</span><br><span class="line">    &#123;</span><br><span class="line">        static Lazy()</span><br><span class="line">        &#123;</span><br><span class="line">        </span><br><span class="line">        &#125;</span><br><span class="line">        internal static readonly Singleton instance=new Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">//初始化的时候有一个Lazy类的一个静态成员来完成，这样实现了延迟初始化。</span><br></pre></td></tr></table></figure>
+<h3 id="4、实现总结："><a href="#4、实现总结：" class="headerlink" title="4、实现总结："></a>4、实现总结：</h3><p>Singleton单例模式构造方法可以设置为protected，允许子类继承。</p>
+<p>单例模式不要支持实例化，可能导致多个对象实例，也不要支持Icloneable接口，导致多个对象的实例，单例模式只考虑了对象创建的管理，没有考虑对象销毁的管理，支持垃圾回收的平台的对象的开销来讲，没必要对其销毁进行特殊的管理。</p>
+<p>理解：Singleton模式核心：如何控制用户使用new对一个类的构造方法任意调用。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的流-续/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/JAVA中的流-续/" itemprop="url">JAVA中的流(续)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:07:45+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、流（Stream）"><a href="#一、流（Stream）" class="headerlink" title="一、流（Stream）"></a>一、流（Stream）</h1><h4 id="所谓流-Stream-，就是一系列的数据。"><a href="#所谓流-Stream-，就是一系列的数据。" class="headerlink" title="所谓流(Stream)，就是一系列的数据。"></a>所谓流(Stream)，就是一系列的数据。</h4><h4 id="当不同的介质之间有数据交互的时候，java就会使用流来实现。"><a href="#当不同的介质之间有数据交互的时候，java就会使用流来实现。" class="headerlink" title="当不同的介质之间有数据交互的时候，java就会使用流来实现。"></a>当不同的介质之间有数据交互的时候，java就会使用流来实现。</h4><h4 id="数据源可以使文件，还可以是数据库，网络，甚至是其他的程序"><a href="#数据源可以使文件，还可以是数据库，网络，甚至是其他的程序" class="headerlink" title="数据源可以使文件，还可以是数据库，网络，甚至是其他的程序"></a>数据源可以使文件，还可以是数据库，网络，甚至是其他的程序</h4><h4 id="不如读取文件的数据到程序中，站在程序的角度来看，就叫做输入流"><a href="#不如读取文件的数据到程序中，站在程序的角度来看，就叫做输入流" class="headerlink" title="不如读取文件的数据到程序中，站在程序的角度来看，就叫做输入流"></a>不如读取文件的数据到程序中，站在程序的角度来看，就叫做输入流</h4><ul>
+<li><p>字节输入流：InputStream</p>
+</li>
+<li><p>字符输入流：Reader　　　　</p>
+</li>
+<li>缓存字符输入流：BufferedReader　　</li>
+<li><p>数据输入流  ：DataInputStream               </p>
+</li>
+<li><p>字节输出流：OutputStream　　　　　　　　</p>
+</li>
+<li>字符输出流：Writer　　　　</li>
+<li>缓存字符输出流：PrintWriter　　　　</li>
+<li>数据输出流：DataOutputStream　</li>
+</ul>
+<p><img src="https://images2018.cnblogs.com/blog/811614/201802/811614-20180227120014277-347291744.png" alt="img"></p>
+<h3 id="1、文件输入流"><a href="#1、文件输入流" class="headerlink" title="1、文件输入流"></a>1、文件输入流</h3><p>可以用来把数据从硬盘的文件，读取到JVM(内存)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">                File f=<span class="keyword">new</span> File(<span class="string">"d:/lol.txt"</span>);</span><br><span class="line">                <span class="comment">//创建基于文件的输入流</span></span><br><span class="line">                FileInputStream fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                <span class="comment">//通过这个输入流，就可以把数据从硬盘，读取到java的虚拟机中，也就是读取到内存中</span></span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、字节流"><a href="#2、字节流" class="headerlink" title="2、字节流"></a>2、字节流</h3><ul>
+<li><p>InputStream：字节输入流</p>
+</li>
+<li><p>用以字节的形式读取和写入数据</p>
+</li>
+<li><p>InputStream是字节输入流，同时也是抽象类，只提供方法声明，不提供方法的具体实现。</p>
+</li>
+<li><p>FileInputStream是InputStream的子类，可以进行直接使用</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">                File f=<span class="keyword">new</span> File(<span class="string">"d:/lol.txt"</span>);</span><br><span class="line">                <span class="comment">//创建基于文件的输入流</span></span><br><span class="line">                FileInputStream fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                <span class="comment">//通过这个输入流，就可以把数据从硬盘，读取到java的虚拟机中，也就是读取到内存中</span></span><br><span class="line">                <span class="comment">//创建字节数组，其长度就是文件的长度</span></span><br><span class="line">                <span class="keyword">byte</span>[] all=<span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>)f.length()];</span><br><span class="line">                <span class="comment">//以字节流的形式读取文件所有内容</span></span><br><span class="line">                fis.read(all);</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">byte</span> b:all)&#123;</span><br><span class="line">                    System.out.println(b);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//每次使用完流，都应该进行关闭</span></span><br><span class="line">                fis.close()</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>OutputStream：字节输出流，同事也是抽象类，只提供方法声明，不提供方法的具体实现。</p>
+</li>
+<li><p>FileOutputStream是OutputStream子类，可以进行直接使用</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">                File f=<span class="keyword">new</span> File(<span class="string">"d:/lol.txt"</span>);</span><br><span class="line">                <span class="keyword">byte</span> data[]=&#123;<span class="number">88</span>,<span class="number">89</span>&#125;;</span><br><span class="line">                <span class="comment">//创建基于文件的输出流</span></span><br><span class="line">                FileOutputStream fos=<span class="keyword">new</span> FileOutputStream(f);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//把数据写入到输出流上</span></span><br><span class="line">                fos.write(data);</span><br><span class="line">                <span class="comment">//每次使用完流，都应该进行关闭</span></span><br><span class="line">                fos.close()</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注：所有的流，不论是输入流还是输出流，使用完毕之后，都应该关闭，如果不关闭，会产生对资源占用的浪费，当量比较大时，会影响业务的正常开展。</p>
+<p>3.流的关闭方式</p>
+<h4 id="在finally中关闭："><a href="#在finally中关闭：" class="headerlink" title="在finally中关闭："></a>在finally中关闭：</h4><ul>
+<li><p>首先把流的引用声明在try的外面，如果声明在try里面，其作用与无法抵达finally</p>
+</li>
+<li><p>在finally关闭之前，要先判断该引用是否为空</p>
+</li>
+<li><p>关闭的时候，要再一次的进行try。。catch处理</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        FileInputStream fis=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">                fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                <span class="keyword">byte</span>[] all=<span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>)f.length()];</span><br><span class="line">                fis.read(all);</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">byte</span> b:all)&#123;</span><br><span class="line">                    System.out.println(b);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="comment">//在finally里关闭流</span></span><br><span class="line">                <span class="keyword">if</span>(<span class="keyword">null</span>!=fis)</span><br><span class="line">                    <span class="keyword">try</span>&#123;</span><br><span class="line">                        fis.close();</span><br><span class="line">                    &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                         e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="使用try-方式"><a href="#使用try-方式" class="headerlink" title="使用try()方式"></a>使用try()方式</h4><ul>
+<li><p>把流定义在try（）里，try，catch或者finally结束的时候，会自动关闭</p>
+</li>
+<li><p>这种编写代码的方式叫做try-with-resources，这是JDK7开始支持的技术</p>
+</li>
+<li><p>所有的流，都实现了一个接口叫做AutoCloseable，任何类实现了这个接口，都可以在try()中进行实例化，并且在try，catch，finally结束的时候自动关闭，回收相关资源。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="comment">//把流定义在try()里，try，catch或者finally结束的时候，会自动关闭</span></span><br><span class="line">        <span class="keyword">try</span>(FileInputStream fis=<span class="keyword">new</span> FileInputStream(f))&#123;</span><br><span class="line">            <span class="keyword">byte</span>[] all=<span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>)f.length()];</span><br><span class="line">            fis.read(all);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">byte</span> b:all)&#123;</span><br><span class="line">                System.out.println(b);</span><br><span class="line">            &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的流/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2076,607 +2486,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据链路层/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/数据链路层/" itemprop="url">数据链路层</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:28:59+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1、数据链路层设备"><a href="#1、数据链路层设备" class="headerlink" title="1、数据链路层设备"></a>1、数据链路层设备</h3><h4 id="1-1、网桥"><a href="#1-1、网桥" class="headerlink" title="1.1、网桥"></a>1.1、网桥</h4><p>两个，或者多个以太网通过网桥连接起来后，就成为了一个覆盖范围更大的以太网，从而原来的没个以太网就可以叫做一个网段。</p>
-<p>网桥工作在数据链路层的MAC子层，可以使得以太网各网段成为隔离开的碰撞域或（冲突域）</p>
-<p>如果把网桥换曾工作在物理层的转发器，就没有了这种过滤通信量的功能。网桥处理的数据对象是帧（Frame），所以工作在数据链路层。中继器，集线器Hub处理的数据对象是信号，工作在物理层。</p>
-<h4 id="1-2、交换机"><a href="#1-2、交换机" class="headerlink" title="1.2、交换机"></a>1.2、交换机</h4><h5 id="1-2-1、局域网交换机"><a href="#1-2-1、局域网交换机" class="headerlink" title="1.2.1、局域网交换机"></a>1.2.1、局域网交换机</h5><p>网桥主要是限制在任意时刻通常只能执行一个帧的转发操作。局域网交换机也叫以太网交换机，本质上说，就是一个多端口的网桥，工作在数据链路层。交换机可以经济的将网络分成小的冲突域，为每个工作栈提供更高的带宽。</p>
-<p>以太网交换机对工作栈是透明的，管理开销低廉，简化了网络节点的增加，移动和网络变化的操作。</p>
-<p>利用交换机还可以方便的实现虚拟局域网（Virtual LAN，VLAN），VLAN不仅可以隔离冲突域，还可以隔离广播域</p>
-<h5 id="1-2-2、以太网交换机的工作原理"><a href="#1-2-2、以太网交换机的工作原理" class="headerlink" title="1.2.2、以太网交换机的工作原理"></a>1.2.2、以太网交换机的工作原理</h5><p>检测从交换机端口来的数据帧和目的地的MAC地址，然后和系统内部的动态查找表进行比较，</p>
-<p>如果数据帧的MAC地址没有在查找表中，就把这个数据帧的MAC地址加入到查找表，然后将数据帧发送给相应的目的端口。</p>
-<p>以太网交换机：每个端口都是直接与单个主机相连，网桥的端口往往是连接到以太网的一个网段。</p>
-<p>交换机的工作方式是全双工方式。</p>
-<p>以太网交换机由于使用了专用的交换结构芯片，交换速率高。以太网交换机独占传输媒体的带宽。</p>
-<p>比如普通的10Mb/s的共享式以太网，如果有N个用户，每个用于占用的平均带宽只有总带宽的N分之一不到。</p>
-<p>但是使用了交换机，虽然每个端口到主机的带宽还是10Mb/s，但是由于一个用户在通信，因此对于拥有N对端口</p>
-<p>的交换机总量为N*10Mb/s。</p>
-<h5 id="1-2-3、交换机的两种交换模式"><a href="#1-2-3、交换机的两种交换模式" class="headerlink" title="1.2.3、交换机的两种交换模式"></a>1.2.3、交换机的两种交换模式</h5><ul>
-<li><p>直通式交换机：只检查帧的目的地址，这种方式速度快，但是缺乏智能和安全性。无法进行不同速率的端口交换。</p>
-</li>
-<li><p>存储转发式交换机：先接收到帧缓存到高速缓存器中，然后检查数据是否正确，确认无误后，通过查找表转换成输出端口将帧发送出去。如果检查数据帧有错，就可以丢弃掉。存储转发交换机：可靠性高，还可以支持不同速度端口的转换，但是延迟比较大。</p>
-</li>
-</ul>
-<h5 id="注：冲突域（碰撞域）和广播域的区别："><a href="#注：冲突域（碰撞域）和广播域的区别：" class="headerlink" title="注：冲突域（碰撞域）和广播域的区别："></a>注：冲突域（碰撞域）和广播域的区别：</h5><h5 id="当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。"><a href="#当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。" class="headerlink" title="当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。"></a>当一块网卡发送信息的时候只要可能和另外一块网卡冲突，则这些可能冲突的网卡构成冲突域。</h5><h5 id="一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域"><a href="#一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域" class="headerlink" title="一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域"></a>一块网卡发出一个广播，能收到这个广播的所有网卡的集合叫做广播域。一般来说一个网段就是一个冲突域</h5><h5 id="一个局域网就是一个广播域。"><a href="#一个局域网就是一个广播域。" class="headerlink" title="一个局域网就是一个广播域。"></a>一个局域网就是一个广播域。</h5><table>
-<thead>
-<tr>
-<th style="text-align:center">设备名称</th>
-<th style="text-align:center">工作层</th>
-<th style="text-align:center">能够隔离冲突域</th>
-<th style="text-align:center">能否隔离广播域</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">集线器Hub</td>
-<td style="text-align:center">物理层</td>
-<td style="text-align:center">不能</td>
-<td style="text-align:center">不能</td>
-</tr>
-<tr>
-<td style="text-align:center">中继器</td>
-<td style="text-align:center">物理层</td>
-<td style="text-align:center">不能</td>
-<td style="text-align:center">不能</td>
-</tr>
-<tr>
-<td style="text-align:center">交换机</td>
-<td style="text-align:center">数据链路层</td>
-<td style="text-align:center">能</td>
-<td style="text-align:center">不能</td>
-</tr>
-<tr>
-<td style="text-align:center">网桥</td>
-<td style="text-align:center">数据链路层</td>
-<td style="text-align:center">能</td>
-<td style="text-align:center">不能</td>
-</tr>
-<tr>
-<td style="text-align:center">路由器</td>
-<td style="text-align:center">网络层</td>
-<td style="text-align:center">能</td>
-<td style="text-align:center">能</td>
-</tr>
-</tbody>
-</table>
-<p>总结：中继器，集线器Hub，工作在同一个冲突域（也就是同一个网段）只是对信号放大而已，也就是说能隔离冲突域的只要工作在物理层之上就可以。因为局域网通过路由器连接到广域网，而一个广播域就是一个局域网，所以说路由器可以隔离广播域</p>
-<p>而交换机叫做以太网交换机，是在局域网当中的，不能隔离广播域。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/计算机网络-三/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/计算机网络-三/" itemprop="url">计算机网络(三)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:15:32+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  10
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1、物理层Physical-Layer："><a href="#1、物理层Physical-Layer：" class="headerlink" title="1、物理层Physical Layer："></a>1、物理层Physical Layer：</h3><ul>
-<li><p>物理层单位是比特，bit，任务是透明的传输比特流</p>
-</li>
-<li><p>功能：物理媒体上为数据端设备透明的传输原始比特流</p>
-</li>
-<li><p>物理层主要定义数据终端设备DTE，数据通信设备DCE，他们的逻辑连接方法。所有的物理层协议就走物理层接口标准</p>
-</li>
-<li><p>物理层研究内容：规定接口的一些参数，机械的形状和尺寸，交换电路的数量和排列等。比如笔记本上的网线接口，就是物理层规定的内容。</p>
-</li>
-<li><p>物理层还规定通信链路上的传输信号的意义和电气特征，比如物理层规定信号A代表数字0，那么当节点要传输数字0的时候就会发送信号A</p>
-</li>
-<li><p>物理层的一些物理媒体：双绞线，光缆，无线通道。</p>
-</li>
-</ul>
-<h3 id="2、数据链路层（Data-Link-Layer）"><a href="#2、数据链路层（Data-Link-Layer）" class="headerlink" title="2、数据链路层（Data Link Layer）"></a>2、数据链路层（Data Link Layer）</h3><ul>
-<li><p>数据链路层的传输单位是帧（Frame）</p>
-</li>
-<li><p>任务就是：把网络层传下来的IP数据报，组装成帧</p>
-</li>
-<li><p>数据链路层的功能：成帧，差错控制，流量控制，传输控制</p>
-</li>
-<li><p>典型的数据链路层协议：SDLC,HDLC,PPP,STP,帧中继</p>
-</li>
-</ul>
-<h3 id="3、网络层（Network-Layer）"><a href="#3、网络层（Network-Layer）" class="headerlink" title="3、网络层（Network Layer）"></a>3、网络层（Network Layer）</h3><ul>
-<li><p>网络层的传输单位：数据报（package）</p>
-</li>
-<li><p>重点：通信子网的运行控制</p>
-</li>
-<li><p>主要任务：把网络层的协议数据单元（分组）从源端传送到目的端。为分组交换网上的不同主机提供通信服务。</p>
-</li>
-<li><p>关键问题：对分组进行路由选择，实现流量控制，拥塞控制，差错控制，网际互联，节点A到节点B传输一个分组，有很多条可以选择路由。而网络层的作用就是根据网络的情况，利用相应的路由算法计算出一条合适的路径，让这个分组顺利的到达。 </p>
-</li>
-<li><p>流量控制：和数据链路层的流浪控制一样，都是协调A的发送速度和B的接收速度</p>
-</li>
-<li><p>差错控制：通信的两个节点之间约定特定的检错规则，比如奇偶校验码，接收方根据这个规则检查接受的分组是否出现了差错，如果出现了差错，可以纠错就纠错，不能则丢弃。确保向上层提交的数据是无误的。</p>
-</li>
-<li><p>拥塞控制：所有节点都处于来不来及接受分组，而要丢弃大量分组的情况的话，网络就处于拥塞状态。</p>
-</li>
-<li><p>拥塞状态使得网络中两个节点无法正常通信，玩过曾采用一定的措施，缓解这种拥塞，就是拥塞控制。 </p>
-</li>
-<li><p>因特网是一个很大的互联网，由大量的异构网络通过路由器相互连接起来。</p>
-</li>
-<li><p>因特网主要的网络层协议是无连接的网络协议IP，和许多路由选择协议，因此网络层也叫网际层，或者叫IP层</p>
-</li>
-<li><p>网络层协议：IP，IPX，ICMP，ARP，IGMP，RARP，OSPF</p>
-</li>
-</ul>
-<h3 id="4、传输层（Transport-Layer）"><a href="#4、传输层（Transport-Layer）" class="headerlink" title="4、传输层（Transport Layer）"></a>4、传输层（Transport Layer）</h3><p>也叫运输层，传输单位是报文段（TCP），用户数据段（UDP）</p>
-<ul>
-<li><p>主要任务：负责主机中两个进程之间的通信</p>
-</li>
-<li><p>功能：为端到端连接提供可靠地传输服务，为端到端提供流量的控制，差错控制，服务质量，数据传输管理等。</p>
-</li>
-<li><p>数据链路层提供的是点对点PPP的通信，传输层提供的是端到端的通信。</p>
-</li>
-<li><p>使用传输层的服务，高层用户可以直接进行端到端的数据传输，从而忽略通信子网的存在。</p>
-</li>
-<li><p>通过传输层的屏蔽，高层用户看不到子网的交替变化，由于要给主机可以同时运行多个进程。因此传输层具有复用和分用功能。</p>
-</li>
-<li><p>复用：就是多个应用层的进程可以同时使用下面传输层的服务，多路复用</p>
-</li>
-<li><p>分用：就是传输层把收到的信息分别交付给上面应用层的相应进程。</p>
-</li>
-<li><p>传输层的协议：TCP/UDP</p>
-</li>
-</ul>
-<h3 id="5、会话层（Session-Layer）"><a href="#5、会话层（Session-Layer）" class="headerlink" title="5、会话层（Session Layer）"></a>5、会话层（Session Layer）</h3><ul>
-<li><p>会话层允许不同主机上各种进程之间的会话。会话层利用传输层提供的端对端的服务，向表示层提供他的增值服务。</p>
-</li>
-<li><p>这种服务主要是向表示层实体或者用户进程提供建立并在连接上有序的传输数据，这就是会话。也叫建立同步(SYN)</p>
-</li>
-<li><p>会话层负责管理主机间的会话进程：建立，管理，终止进程间的会话。</p>
-</li>
-<li><p>会话层使用校验点可以让通信会话在通信失效的时候从校验点继续恢复通信，实现数据同步。</p>
-</li>
-</ul>
-<h3 id="6、表示层（Presentation-Layer）"><a href="#6、表示层（Presentation-Layer）" class="headerlink" title="6、表示层（Presentation Layer）"></a>6、表示层（Presentation Layer）</h3><ul>
-<li><p>主要用于处理两个通信系统中交换信息的表达方式。不同机器采用的编码和表示方式不同，使用的数据结构也不同。</p>
-</li>
-<li><p>为了让不同的表示方法的数据和信息之间能相互交换，表示层采用抽象的数据压缩，加密和解密，是表示层可以提供数据表示变换功能。</p>
-</li>
-</ul>
-<h3 id="7、应用层（Application-Layer）"><a href="#7、应用层（Application-Layer）" class="headerlink" title="7、应用层（Application Layer）"></a>7、应用层（Application Layer）</h3><ul>
-<li><p>应用层是OSI参考模型的最高层，是用户和网络的界面。</p>
-</li>
-<li><p>应用层为特定类型的网络应用提供访问OSI的环境手段。所以用户的实际应用多种多样，就要求应用不同的应用协议来解决不同类型的应用请求。所以应用层也是最复杂的一层，使用的协议也是最多的。</p>
-</li>
-<li><p>典型的协议:FTP,SMTP(电子邮件协议)，HTTP(万维网协议)</p>
-</li>
-</ul>
-<h2 id="二、TCP-IP模型"><a href="#二、TCP-IP模型" class="headerlink" title="二、TCP/IP模型"></a>二、TCP/IP模型</h2><ul>
-<li><p>网络接口层：对应OSI参考模型中的物理层和数据链路层</p>
-</li>
-<li><p>网际层</p>
-</li>
-<li><p>传输层</p>
-</li>
-<li><p>应用层：对应OSI参考模型中的会话层，表示层和应用层</p>
-</li>
-</ul>
-<h3 id="1、网络接口层：功能类似OSI的物理层和数据链路层"><a href="#1、网络接口层：功能类似OSI的物理层和数据链路层" class="headerlink" title="1、网络接口层：功能类似OSI的物理层和数据链路层"></a>1、网络接口层：功能类似OSI的物理层和数据链路层</h3><ul>
-<li><p>表示与物理网络的接口，主机必须使用某种协议与网络连接，以便于在上面传递IP分组。</p>
-</li>
-<li><p>具体的物理网络可以是各种类型的局域网：以太网，令牌环网，令牌总线网等</p>
-</li>
-<li><p>还可以是：电话网，SDH，X.25，帧中继，ATM等公共数据网络。</p>
-</li>
-<li><p>网络接口层的责任是：从主机后者节点接收IP分组，把他们发送到指定的物理网络上。</p>
-</li>
-</ul>
-<h3 id="2、网际层（主机-主机）：是TCP-IP体系的关键"><a href="#2、网际层（主机-主机）：是TCP-IP体系的关键" class="headerlink" title="2、网际层（主机-主机）：是TCP/IP体系的关键"></a>2、网际层（主机-主机）：是TCP/IP体系的关键</h3><p>和OSI网络层的功能非常相似，网际层是将分组发往任何网络，并为它独立的选择合适的路由</p>
-<p>但是它不能保证各个分组有序的到达，各个分组的有序交付是由高层负责。</p>
-<ul>
-<li><p>网际层定义的标准分组格式和协议，也就是IP协议</p>
-</li>
-<li><p>当前采用的IP协议是IPv4，下一个版本是IPv6</p>
-</li>
-</ul>
-<h3 id="3、传输层（应用-应用，进程-进程）"><a href="#3、传输层（应用-应用，进程-进程）" class="headerlink" title="3、传输层（应用-应用，进程-进程）"></a>3、传输层（应用-应用，进程-进程）</h3><p>功能和OSI的传输层类似，是让发送端和目的端主机上的对等实体可以进行会话。</p>
-<p>传输层的主要协议：</p>
-<ul>
-<li><p>传输控制协议（Transmission Control Protocol，TCP）:面向连接的，数据传输的单位是报文段，能够提供可靠的交付。</p>
-</li>
-<li><p>用户数据报协议（User Datagram Protocol，UDP）：无连接的，数据传输单位是用户数据报，不能保证提供可靠的交付，只能尽最大努力交付。</p>
-</li>
-</ul>
-<h3 id="4、应用层（用户-用户）：包含所有的高层协议"><a href="#4、应用层（用户-用户）：包含所有的高层协议" class="headerlink" title="4、应用层（用户-用户）：包含所有的高层协议"></a>4、应用层（用户-用户）：包含所有的高层协议</h3><p>虚拟终端协议（Telnet），文件传输协议（FTP），域名解析服务（DNS）,电子邮件协议（SMTP）,超文本传输协议（HTTP）</p>
-<h2 id="三、OSI参考模型和TCP-IP模型的比较"><a href="#三、OSI参考模型和TCP-IP模型的比较" class="headerlink" title="三、OSI参考模型和TCP/IP模型的比较"></a>三、OSI参考模型和TCP/IP模型的比较</h2><ul>
-<li><p>OSI 参考模型：精确定义3个概念：服务，协议，接口和面向对象的程序设计思想吻合，TCP/IP模型并没有加以区分</p>
-</li>
-<li><p>OSI参考模型产生在协议发明之前，没有偏向于任何特定的协议，通用性良好。但是设计者在协议方面没有太多经验，不知道把哪些功能放到哪一层更好TCP/IP模型正好相反，首先出现的是协议，模型实际上是对已有的协议的描述。因此不会出现协议不能匹配模型的情况，但是模型不适合于其他任何非TCP/IP协议栈</p>
-</li>
-<li><p>TCP/IP模型在设计的时候就考虑到多种异构网的互联问题将网际协议IP作为一个单独的重要层次。</p>
-</li>
-<li><p>OSI参考模型在网络层支持无连接和面向连接的通信，但是在传输层仅有面向连接的通信。TCP/IP模型任务可靠性是端到端的问题，因此在网际层仅有一种无连接的通信模式，IP，但是在传输层支持无连接和面向连接的两种模式，TCP,UDP</p>
-</li>
-</ul>
-<h2 id="四、通信协议栈进行通信的节点数据传输过程"><a href="#四、通信协议栈进行通信的节点数据传输过程" class="headerlink" title="四、通信协议栈进行通信的节点数据传输过程"></a>四、通信协议栈进行通信的节点数据传输过程</h2><ul>
-<li><p>每个协议栈的最顶端都是一个面向用于的接口，下面各层是为通信服务的协议。</p>
-</li>
-<li><p>用户要传输一个数据报的时候，通常是给用户能够理解的自然语言，然后通过应用层，自然语言会转化为用于通信的通信数据，通信数据到达传输层，作为传输层的数据部分也就是传输层的SDU，在加上运输层的控制信息，也就是运输层的PCI，然后组成运输层的PDU,然后交到网络层。</p>
-</li>
-<li><p>运输层的PDU下放到网络层后，就成为了网络层的SDU，然后加上网络层的PCI，又组成了网络层的PDU.</p>
-</li>
-<li><p>下放到数据链路层，就这样层层下方，层层包裹，最后形成的数据报通过通信线路传输，到达接收方节点协议栈。</p>
-</li>
-<li><p>接收方然后逆向的一层一层的把包裹拆开，然后把收到的数据提交给用户。</p>
-</li>
-</ul>
-<h2 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h2><ul>
-<li><p>在OSI模型中，网络层支持，无连接和面向连接的通信。传输层只支持面向连接的通信。</p>
-<ul>
-<li><p>TCP/IP模型：网络只有无连接的通信，也就是IP。传输层支持无连接和面向连接，TCP,UDP</p>
-</li>
-<li><p>流量控制：限制发送方发出数据流量让它发送速率不能超过接收方速率的一种技术</p>
-</li>
-<li><p>流量控制功能可以在数据链路层以及以上各层使用。</p>
-</li>
-<li><p>目前提供的流量控制功能主要是：数据链路层，网络层，传输层</p>
-</li>
-</ul>
-</li>
-<li><p>集线器是一个多端口的中继器，工作在物理层。以太网交换机是一个多端口的网桥，工作在数据链路层</p>
-</li>
-<li><p>协议是水平的，服务是垂直的，协议是控制两个对等实体的通信规则，服务是下层建立接口向上层提供服务。</p>
-</li>
-</ul>
-<h5 id="计算机网络和分布式计算机系统的区别？"><a href="#计算机网络和分布式计算机系统的区别？" class="headerlink" title="计算机网络和分布式计算机系统的区别？"></a>计算机网络和分布式计算机系统的区别？</h5><ul>
-<li><p>分布式系统：整个系统中的各个计算机对用户都是透明的，用户铜鼓哦输入命令就可以运行程序。但是用户并不知道是哪一台在为他运行程序。</p>
-</li>
-<li><p>计算机网络：用户必须在想要运行程序的计算机上进行登录，然后按照计算机的地址，将程序通过计算机网络传送给计算机上去运行。最后，根据用户的命令将结果传送到指定的计算机。</p>
-</li>
-</ul>
-<h5 id="主要的区别还是软件不同。"><a href="#主要的区别还是软件不同。" class="headerlink" title="主要的区别还是软件不同。"></a>主要的区别还是软件不同。</h5><ul>
-<li><p>Internet使用的IP协议是无连接的，也就是传输的时候是不可靠的</p>
-</li>
-<li><p>端到端通信和点到点通信的区别</p>
-<ul>
-<li><p>本质上：物理层，数据链路层和网络层组成的通信子网为网络环境中的主机提供点到点服务</p>
-</li>
-<li><p>传输层为网络层的主机提供端到端的通信</p>
-</li>
-</ul>
-</li>
-<li><p>端：用户程序的端口，端口号标识了应用层不同的进程</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2724,7 +2538,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2827,7 +2641,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">48k</span>
+    <span title="Site words total count">48.8k</span>
   
 </div>
 <div class="powered-by">
