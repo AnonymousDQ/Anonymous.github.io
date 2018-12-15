@@ -88,13 +88,13 @@
 <meta property="og:site_name" content="drqblog">
 <meta property="og:description" content="Windows10环境下的安装python+tensorflow 使用Anoconda简单安装CPU版tensorflow的方法，此方法能够一键安装常用机器学习所需的科学计算包，免去了手动配置python环境变量的过程。安装环境：  Windows10 64位 Python 3.5.2 Anocoda3 4.2.0 tensorflow 0.1.21、tensorflow谷歌发布的开源框架，设计到">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJovgZzuRcHtAr2ayByn49XHpfdXxshjBc9XQkrXkWSIoLxkbZzjV4G5HmZ8kt3y1cviaL6E6qTpItg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJovgZzuRcHtAr2ayByn49XHkmDNAF5zZk3JRHwIFoJ8J2zp3EEeAfqoGmJOWEKccchzpvXP9Y1kSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:updated_time" content="2018-12-15T02:57:59.781Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/15/Windows10环境下的安装Python-TensorFlow/anoconda.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/12/15/Windows10环境下的安装Python-TensorFlow/tensorflow.jpg">
+<meta property="og:updated_time" content="2018-12-15T04:20:08.652Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows10环境下的安装Python+TensorFlow">
 <meta name="twitter:description" content="Windows10环境下的安装python+tensorflow 使用Anoconda简单安装CPU版tensorflow的方法，此方法能够一键安装常用机器学习所需的科学计算包，免去了手动配置python环境变量的过程。安装环境：  Windows10 64位 Python 3.5.2 Anocoda3 4.2.0 tensorflow 0.1.21、tensorflow谷歌发布的开源框架，设计到">
-<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJovgZzuRcHtAr2ayByn49XHpfdXxshjBc9XQkrXkWSIoLxkbZzjV4G5HmZ8kt3y1cviaL6E6qTpItg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/15/Windows10环境下的安装Python-TensorFlow/anoconda.jpg">
 
 
 
@@ -439,7 +439,8 @@
 <li>tensorflow 0.1.2<br><strong>1、tensorflow</strong><br>谷歌发布的开源框架，设计到自然语言处理NLP<br>机器翻译，图像描述，图像分类等一些列技术<br>tensorflow为我们封装了大量机器学习，神经网络的函数，帮助我们搞笑的解决问题<br><strong>2、Anoconda</strong><br>Anoconda可以看做是Python的一个集成安装环境。<br>安装它就默认安装了python，IPython，集成开发环境Spyder和众多的包和模块<br>非常方便。而且Anaconda会为我们安装<strong>pip</strong>（强大的包管理程序）<br>我们可以在Windows的命令行中使用pip直接安装我们需要的包<br><strong>3、下载Anaconda</strong><br>官网的最新版Anaconda-4.4.0继承了python-3.6<br>但是tensorflow仍然不能支持3.6，因为我们安装集成python-3.5的Anaconda3-4.2.0<br>Anaconda下载地址：<a href="https://mirrors.tsinghua.edu.cn/anaconda/archive/" target="_blank" rel="noopener">Anaconda</a></li>
 </ul>
 <p>安装过后可以再命令行，输入conda list来查看Anaconda为我们集成的环境。<br>ps:快捷点Win+R,然后输入cmd，然后输入conda list来查看Anaconda为我们集成的环境。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJovgZzuRcHtAr2ayByn49XHpfdXxshjBc9XQkrXkWSIoLxkbZzjV4G5HmZ8kt3y1cviaL6E6qTpItg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img">环境里包含：<br>numpy(一个python的科学计算包，高效存储和处理大型矩阵)<br>pandas(包含了大量库和一些标准的数据模型，提供高效的操作大型数据集所需要的工具)<br>pip(简单好用的包管理工具)</p>
+<p><img src="/2018/12/15/Windows10环境下的安装Python-TensorFlow/anoconda.jpg" alt="anaconda list"></p>
+<p>环境里包含：<br>numpy(一个python的科学计算包，高效存储和处理大型矩阵)<br>pandas(包含了大量库和一些标准的数据模型，提供高效的操作大型数据集所需要的工具)<br>pip(简单好用的包管理工具)</p>
 <p><strong>4、安装TensorFlow</strong></p>
 <ul>
 <li>使用pip自动安装TensorFlow</li>
@@ -459,7 +460,7 @@
 </ul>
 <p>​        输入python进入python环境</p>
 <p>​        输入import tensorflow,若没有红字报错，表示环境配置成功</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJovgZzuRcHtAr2ayByn49XHkmDNAF5zZk3JRHwIFoJ8J2zp3EEeAfqoGmJOWEKccchzpvXP9Y1kSg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><img src="/2018/12/15/Windows10环境下的安装Python-TensorFlow/tensorflow.jpg" alt="tensorflow"></p>
 
       
     </div>
