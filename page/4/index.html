@@ -304,6 +304,230 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Node-JS入门/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/Node-JS入门/" itemprop="url">Node.JS入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T11:05:58+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  885
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="NPM使用介绍"><a href="#NPM使用介绍" class="headerlink" title="NPM使用介绍"></a>NPM使用介绍</h2><p>NPM是随同NodeJS一起安装的包管理工具，能解决NodeJS代码部署上的很多问题。</p>
+<ul>
+<li>允许用户从NPM服务器下载别人编写的第三方包到本地使用</li>
+<li>允许用户从NPM服务器下载并安装别人编写好的命令程序到本地使用</li>
+<li>允许用户将自己编写的包或者命令行程序上传到NPM服务器供别人使用</li>
+</ul>
+<h4 id="npm升级命令"><a href="#npm升级命令" class="headerlink" title="npm升级命令"></a>npm升级命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install npm -g</span><br><span class="line"><span class="meta">#</span>#使用淘宝镜像的命令</span><br><span class="line">cnpm install npm -g</span><br></pre></td></tr></table></figure>
+<h4 id="npm命令安装模块"><a href="#npm命令安装模块" class="headerlink" title="npm命令安装模块"></a>npm命令安装模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;Module Name&gt;</span><br><span class="line"><span class="meta">#</span>安装常用的web框架模块express：</span><br><span class="line">npm install express</span><br><span class="line"><span class="meta">#</span>安装好后，express包放在工程目录下的node_modules目录中，因为在</span><br><span class="line"><span class="meta">#</span>代码中需要通过require('express')方式调用就好。无需指定包路径</span><br><span class="line">var express=require('express');</span><br></pre></td></tr></table></figure>
+<h4 id="使用package-json"><a href="#使用package-json" class="headerlink" title="使用package.json"></a>使用package.json</h4><p>package.json位于模块目录下，用于定义包的属性。</p>
+<h4 id="package-json属性说明"><a href="#package-json属性说明" class="headerlink" title="package.json属性说明"></a>package.json属性说明</h4><ul>
+<li>name:包名</li>
+<li>versin：包的版本号</li>
+<li>description：包的描述</li>
+<li>homepage：包的官网url</li>
+<li>author：包的作者姓名</li>
+<li>contributors：包的其他贡献者姓名</li>
+<li>dependencies：依赖包列表。如果依赖包没有安装，npm会自动将依赖包安装在node_module目录下</li>
+<li>repository：包代码存放的地方的类型，可以是git，svn，git可在GitHub上</li>
+<li>main：main字段制定了程序的主入口文件，require(‘module_name’)就会加载这个文件，这个字段的默认值是模块根目录下面的index.js</li>
+<li>keywords：关键字</li>
+</ul>
+<h4 id="卸载模块"><a href="#卸载模块" class="headerlink" title="卸载模块"></a>卸载模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>卸载Node.js的web框架模块</span><br><span class="line">npm uninstall express</span><br><span class="line"><span class="meta">#</span>卸载后查看目录下的包是否存在</span><br><span class="line">npm ls</span><br></pre></td></tr></table></figure>
+<h4 id="更新模块"><a href="#更新模块" class="headerlink" title="更新模块"></a>更新模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>使用命令更新模块</span><br><span class="line">npm update express</span><br></pre></td></tr></table></figure>
+<h4 id="搜索模块"><a href="#搜索模块" class="headerlink" title="搜索模块"></a>搜索模块</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>搜索模块</span><br><span class="line">npm search express</span><br></pre></td></tr></table></figure>
+<h4 id="使用淘宝NPM镜像"><a href="#使用淘宝NPM镜像" class="headerlink" title="使用淘宝NPM镜像"></a>使用淘宝NPM镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>国内直接使用npm的官方镜像非常慢，推荐使用淘宝NPM镜像</span><br><span class="line"><span class="meta">#</span>淘宝NPM镜像是一个完整的npmjs.org镜像。</span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line"><span class="meta">#</span>使用cnpm命令安装模块</span><br><span class="line">cnpm install &lt;module_name&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="Node-js-REPL交互式解释器"><a href="#Node-js-REPL交互式解释器" class="headerlink" title="Node.js REPL交互式解释器"></a>Node.js REPL交互式解释器</h4><p>Node.js REPL(Read Eval Print Loop:交互式解释器)：表示一个电脑的环境，类似Window系统的终端或者Linux shell，我们可以在终端中输入命令，并接受系统的响应</p>
+<p>Node自带的交互式解释器可执行的任务：</p>
+<ul>
+<li>读取：读取用于输入，解析输入了JS数据结构并存储在内存中</li>
+<li>执行：执行输入的数据结构</li>
+<li>打印：输出结果</li>
+<li>循环：循环操作以上步骤直到用户两次按下ctrl-c退出</li>
+</ul>
+<h4 id="输入node命令启动Node终端"><a href="#输入node命令启动Node终端" class="headerlink" title="输入node命令启动Node终端"></a>输入node命令启动Node终端</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>表达式运算</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/12/Node-JS入门/C:/Users\DELL\AppData\Roaming\Typora\typora-user-images\1544580173914.png" alt="1544580173914"></p>
+</li>
+</ul>
+<h5 id="使用Ctrl-c两次，退出REPL终端"><a href="#使用Ctrl-c两次，退出REPL终端" class="headerlink" title="使用Ctrl+c两次，退出REPL终端"></a>使用Ctrl+c两次，退出REPL终端</h5><h4 id="Node-js回调函数"><a href="#Node-js回调函数" class="headerlink" title="Node.js回调函数"></a>Node.js回调函数</h4><p>Node.js异步编程的体现就是回调</p>
+<p>异步编程依赖于回调实现。但是不能说使用了回调后程序就异步化</p>
+<p>回调函数在完成任务后就会被调用，Node使用了大量的回调函数，Node所有的API都支持回调函数。</p>
+<p>比如：我们可以一边读取文件，一边执行其他命令，文件读取完成后，将文件内容作为回调函数的参数返回，这样在执行代码就没有阻塞或者等待文件I/O操作。提高了Node.js性能，处理大量的并发请求。</p>
+<ul>
+<li><p>阻塞代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">var</span> data=fs.readFileSync(<span class="string">'input.txt'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(data.toString());</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"程序结束"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非阻塞代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line">fs.readFile(<span class="string">'input.txt'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">console</span>.error(err);</span><br><span class="line">    <span class="built_in">console</span>.log(data.toString());</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'程序结束'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Spring-Boot入门/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1352,7 +1576,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1363,7 +1587,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1455,7 +1679,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">42.3k</span>
+    <span title="Site words total count">42.9k</span>
   
 </div>
 <div class="powered-by">
