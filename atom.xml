@@ -276,7 +276,7 @@
     <link href="http://yoursite.com/2018/12/15/%E7%94%A8matplotlib%E5%8C%85%E7%94%BB%E6%8A%98%E7%BA%BF%E5%9B%BE/"/>
     <id>http://yoursite.com/2018/12/15/用matplotlib包画折线图/</id>
     <published>2018-12-15T03:14:30.000Z</published>
-    <updated>2018-12-15T04:11:46.226Z</updated>
+    <updated>2018-12-15T06:27:18.104Z</updated>
     
     <content type="html"><![CDATA[<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#折线图</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成数据</span></span><br><span class="line">x=np.linspace(<span class="number">-10000</span>,<span class="number">10000</span>,<span class="number">100</span>) <span class="comment">#将-10000到10000等区间分成100份</span></span><br><span class="line">y=x2+x3+x**<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示图像</span></span><br><span class="line">plt.plot(x,y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure><p><img src="/2018/12/15/用matplotlib包画折线图/折线图.png" alt="line"></p>]]></content>
     
@@ -289,7 +289,7 @@
     
     </summary>
     
-      <category term="折线图" scheme="http://yoursite.com/categories/%E6%8A%98%E7%BA%BF%E5%9B%BE/"/>
+      <category term="TensorFlow" scheme="http://yoursite.com/categories/TensorFlow/"/>
     
     
   </entry>
