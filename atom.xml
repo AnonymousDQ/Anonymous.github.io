@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-15T02:41:37.117Z</updated>
+  <updated>2018-12-15T02:52:51.072Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>异步与多线程</title>
+    <link href="http://yoursite.com/2018/12/15/%E5%BC%82%E6%AD%A5%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    <id>http://yoursite.com/2018/12/15/异步与多线程/</id>
+    <published>2018-12-15T02:51:30.000Z</published>
+    <updated>2018-12-15T02:52:51.072Z</updated>
+    
+    <content type="html"><![CDATA[<p>其实异步是目的，多线程是实现这个目的方法。</p><ul><li>异步：A发起一个操作后，可以继续自顾自的处理它自己的事儿，不用干等着这个耗时操作返回</li><li>随着拥有多线程CPU,多核的普及，多线程和异步操作等并发程序设计方法也受到更多</li></ul><p><strong>1、多线程和异步操作的异同</strong></p><ul><li>多线程和异步操作两者都可以达到避免调用线程阻塞的目的，从而提高软件的可响应性。</li><li>甚至有些时候我们认为多线程和异步操作是等同的。但是多线程和异步操作还是有一些区别</li></ul><p><strong>2、异步操作的本质：</strong></p><ul><li>所有的程序最终都会由计算机硬件来执行。所以为了更好的理解异步操作的本质，网卡，声卡，显卡都是有DMA功能的DMA就是<strong>直接内存访问</strong>的意思（Driect Memory Access）</li><li>也就是说，拥有DMA功能的硬件在和内存进行数据交换的时候可以不消耗CPU资源</li><li>只要CPU在发起数据传输时发送一个指令，硬件就开始自己和内存交换数据在传输完成后硬件会触发一个中断来通知操作完成这些无需消耗CPU时间的I/O操作正是异步操作的硬件基础。</li><li>所以即使在DOS这样的单进程（无线程概念）系统中也同样可以发起异步的DMA操作</li></ul><p><strong>3、线程的本质</strong></p><ul><li>线程不是一个计算机硬件的功能，而是操作系统提供的一种逻辑功能</li><li>线程本质上是<strong>进程中一段并发运行的代码</strong>，所以线程需要操作系统投入CPU资源来运行和调度</li></ul><p><strong>4、异步操作的特点</strong></p><ul><li>因为异步操作 不需要额外的线程负担，并且使用<strong>回调的方式</strong>进行处理在设计良好的情况下，处理函数可以不必使用共享变量，即使无法完全不用，最起码也可以减少共享变量的数量。减少了死锁的可能。</li><li>当然异步操作也并非完美无瑕。编写异步操作的复杂程度较高，程序主要使用回调方式进行处理与普通人的思维方式有些初入，而且难以调试。</li></ul><p><strong>5、多线程的优缺点</strong></p><ul><li>线程中的护理程序依然是顺序执行，符合普通人的思维习惯。所以编程简单但是多线程的缺点也明显</li><li>线程的滥用会给系统带来上下文切换的额外负担并且线程间的共享变量可能造成死锁的出现。</li><li>当需要执行I/O操作的时候，使用异步操作比使用线程+同步I/O操作更合还是I/O操作不仅包括了直接的文件，网络的读写，还包括数据库操作，WebService，HttpRequest等跨进程的调用</li><li>线程的适用范围是需要长时间CPU运算的场合比如耗时较长图形处理和算法执行，但是往往由于线程编程的简单和符合习惯，所以很多朋友往往适用线程来执行耗时较长的IO操作，这样在之后又少数几个并发操作的时候还行，需要处理大量的并发操作就不合适了，因为要不停的上下文切换</li></ul><p><strong>6、异步调用</strong></p><ul><li>异步调用并不是要减少线程的开销，目的是让调用方法的主线程不需要同步等待这个函数</li><li>调用上，从而可以让主线程继续执行他下面的代码，同时系统会从ThreadPool线程池中取一个线程来执行，帮助我们将我们要写/读的数据发送到网卡，由于不需要我们等待，我们等于同时做了两件事情</li></ul><p><strong>7、线程池的实现方法</strong></p><ul><li>线程池的实现方法与线程不一样的，初始化时候，在线程池的线程为0，当进程需要一个线程的时候，创建一个线程由此线程执行用户的方法，这个线程执行完后并不立即销毁，而是挂起等待，如果有其他方法需要</li><li>执行，则唤醒进行处理 ，只有当它等待到40秒还没有任务执行的时候才唤醒自己，并销毁自己</li><li>当然如果线程池中的线程不够处理任务的时候，会再次创建一个新的线程来执行。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;其实异步是目的，多线程是实现这个目的方法。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;异步：A发起一个操作后，可以继续自顾自的处理它自己的事儿，不用干等着这个耗时操作返回&lt;/li&gt;
+&lt;li&gt;随着拥有多线程CPU,多核的普及，多线程和异步操作等并发程序设计方法也受到更多&lt;/li&gt;
+&lt;/ul&gt;
+      
+    
+    </summary>
+    
+      <category term="JAVA" scheme="http://yoursite.com/categories/JAVA/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>同步与异步</title>
+    <link href="http://yoursite.com/2018/12/15/%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5/"/>
+    <id>http://yoursite.com/2018/12/15/同步与异步/</id>
+    <published>2018-12-15T02:50:05.000Z</published>
+    <updated>2018-12-15T02:50:59.235Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>1、同步交互</strong>：发送一个请求，需要等待返回，然后才能够发送下一个请求，有个等待过程</p><p><strong>2、异步交互</strong>：发送一个请求，不需要等待返回，随时可以再发送下一个请求，也就是不需要等待</p><ul><li>区别：一个需要等待，一个不需要等待，再部分情况下，我们的项目开发中都会优先选择不需要等待的异步交互方式。</li><li>同步：用来确保资源一次只能被一个县城使用的过程。同步对于单线程程序没有任何好处。</li></ul><p>使用同步比非同步的性能差三到四倍</p><p>线程都是独立的，而且异步执行，也就是说每个线程都包含了运行时所需要的数据或者方法</p><p>而不需要外部的资源或者方法，也不必关心其他线程的状态或者行为。</p><p>但是经常有些同时运行的线程需要共享数据，此时就需要考虑其他线程的状态和行为。</p><p>否则就不能保证程序的运行结果的正确性</p><p>需要做的是允许一个线程彻底完成他的任务后，在允许执行下一个线程执行。必须保证一个共享的</p><p>资源一次只能被一个线程使用，实现的目的过程叫做同步。</p><ul><li>比如广播就是一个异步的例子。发起者不关心接受者的状态，不需要等待接受者的返回信息</li><li>比如电话就是一个同步的例子，发起者需要等待接收者，接通电话后，通信才能开始，需要等待接收者的返回信息。</li></ul><p><strong>同步和异步的区别：</strong></p><p>在进行网络编程的时候，我们会看到同步，异步，阻塞，非阻塞4种调用方式以及他们的组合</p><p>其中同步方式，异步方式主要是由客户端client控制的</p><p><strong>同步sync：</strong></p><p>就是发起一个功能调用的时候，在没有得到结果之前，该调用就不返回或者继续执行后续操作</p><p>Java中所有方法都是同步调用，因为必须要等待结果后才能继续执行</p><p>我们说的同步，异步的时候，一般而言是指那些需要其他端写作或者需要一定时间完成的任务</p><p>简单而言：同步就是必须一件一件事做，等前一件做完了后才能做下一件事</p><p>B/S模式的表单提交：客户端提交请求–》等待服务器处理–》处理完毕返回</p><p>在这个过程中客户端（浏览器）不能做其他事情</p><p><strong>异步（Async）</strong></p><p>异步与同步相反，当一个异步过程调用发出后，调用者在没有得到结果之前，就可以继续执行后续操作</p><p>当这个调用完成后，一般通过状态，通知和回调来通知调用者。</p><p>对于异步调用，调用的返回并不受调用者控制</p><p>对于通知调用者的三种方式：</p><ul><li>状态：监听被调用者的状态（轮询），调用者需要每隔一定时间检查一次，效率会很低</li><li>通知：当被调用者执行完成后，发出通知告知调用者，不需要消耗太多性能</li><li>回调：与通知类似，当被调用者执行完成后，会调用调用者提供的回调函数</li></ul><p>B/S模式的ajax的请求，具体过程：客户端发出ajax请求–》服务端处理–》处理完毕执行客户端回调</p><p>在客户端（浏览器）发出请求后，仍然可以做其他的事情</p><p>同步与异步的区别：请求发出后，是否需要等待结果，才能继续执行其他操作。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;1、同步交互&lt;/strong&gt;：发送一个请求，需要等待返回，然后才能够发送下一个请求，有个等待过程&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2、异步交互&lt;/strong&gt;：发送一个请求，不需要等待返回，随时可以再发送下一个请求，也就是不需要等待&lt;/p&gt;
+&lt;ul&gt;
+&lt;l
+      
+    
+    </summary>
+    
+      <category term="JAVA" scheme="http://yoursite.com/categories/JAVA/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>单例模式</title>
@@ -438,54 +491,6 @@
     </summary>
     
       <category term="哲学" scheme="http://yoursite.com/categories/%E5%93%B2%E5%AD%A6/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>OGG的组件解析</title>
-    <link href="http://yoursite.com/2018/12/12/OGG%E7%9A%84%E7%BB%84%E4%BB%B6%E8%A7%A3%E6%9E%90/"/>
-    <id>http://yoursite.com/2018/12/12/OGG的组件解析/</id>
-    <published>2018-12-12T09:19:16.000Z</published>
-    <updated>2018-12-12T09:26:02.746Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/2018/12/12/OGG的组件解析/F:/blog\source\_posts\OGG的组件解析\ce01e554bd1d3a1935e08c1835696e0b.jpg" alt="mylove"></p><h3 id="一、OGG的各个组件解析（Oracle-GoldenGate）"><a href="#一、OGG的各个组件解析（Oracle-GoldenGate）" class="headerlink" title="一、OGG的各个组件解析（Oracle GoldenGate）"></a>一、OGG的各个组件解析（Oracle GoldenGate）</h3><h4 id="1、Manager："><a href="#1、Manager：" class="headerlink" title="1、Manager："></a>1、Manager：</h4><p>Manager进程是GoldenGate中进程的控制进程，用于管理Extract，Data Pump，Replicat等进程</p><p>在Extract，Data Pump，Replicat进程启动之前，Manager进程必须先要在</p><p>源端和目标端启动，在整个Golden Gate运行期间，它必须保持运行状态</p><ul><li><p>监控与启动Golden Gate的其他进程</p></li><li><p>管理trail文件及Reporting</p></li><li><p>在windows系统上，Manager进程是作为一个服务来启动的，在Unix系统下是一个进程</p></li></ul><h4 id="2、Extract"><a href="#2、Extract" class="headerlink" title="2、Extract"></a>2、Extract</h4><p>Extract进程运行在数据库源端上，他是Golden Gate的捕获机制，可以配置</p><p>Extract进程来做如下工作：</p><ul><li><p>初始数据装载：对于初始数据装载，Extract进程直接从源对象中提取数据</p></li><li><p>同步变换捕获：保持源数据与其他数据集的同步，初始数据同事完成后</p></li><li><p>Extract进程捕获源数据的变换，比如DML变换(增删改)，DDL变化(drop,create,alter)</p></li></ul><h4 id="3、Replicat"><a href="#3、Replicat" class="headerlink" title="3、Replicat"></a>3、Replicat</h4><p>Replicat进程是运行在目标端系统的一个进程，负责读取Extract进程提取到的数据（变更的事务或者DDL变化）</p><p>然后应用到目标数据库</p><p>配置Replicat进程完成如下工作：</p><ul><li>初始化数据装载：对于初始化数据转载，Replicat进程应用数据到目标对象或者路由</li></ul><p>它们一个高速的Bulk-load工具上</p><ul><li>数据同步，将Extract进程捕获到的提交了的事务应用到目标数据库中</li></ul><h4 id="4、Collector"><a href="#4、Collector" class="headerlink" title="4、Collector"></a>4、Collector</h4><p>Collector是一个运行在目标端的一个后台进程</p><p>接收从TCP/IP网路传输过来的数据变化，并写道Trail文件里</p><ul><li>动态Collector：由管理进程自动启动的collector叫做动态collector，用户不能</li></ul><p>与动态collector交互</p><ul><li>静态Collector：可以配置成手工运行Collector，这个就是静态的</li></ul><h4 id="5、Trails"><a href="#5、Trails" class="headerlink" title="5、Trails"></a>5、Trails</h4><p>为了持续的提取与复制数据库变化，Golden Gate将捕获到的数据变化临时存放在磁盘上</p><p>的一系列文件中，这些文件叫做Trail 文件</p><p>这些文件可以在source DB上也可以在Target DB上，也可以在中间系统上，这依赖</p><p>于选择哪种配置情况</p><ul><li><p>在数据库源端上叫做Local Trail或者Extract Trail</p></li><li><p>在目标端的叫做Remote Trail</p></li></ul><h4 id="6、Data-Pumps"><a href="#6、Data-Pumps" class="headerlink" title="6、Data Pumps"></a>6、Data Pumps</h4><p>Data Pump是一个配置在源端的复制的Extract机制</p><p>Data Pump是一个可选组件，如果不配置Data Pump,那么由Extract主进程</p><p>将数据发送到目标端的Remote Trail中</p><p>如果配置了Data Pump，会由Data Pump将Extract主进程写好的本地Trail文件通过网络发送到</p><p>目标端的Remote Trail文件中</p><p>使用Data Pump的好处：</p><ul><li><p>如果目标端或者网络失败，源端的Extract进程不会意外终止</p></li><li><p>需要在不同的阶段实现数据的过滤或者转换</p></li><li><p>多个源数据复制到数据中心</p></li><li><p>数据需要复制到多个目标数据库</p></li></ul><h4 id="7、ADG的解释"><a href="#7、ADG的解释" class="headerlink" title="7、ADG的解释"></a>7、ADG的解释</h4><p>所谓的ADG，就是在备份库，应用redo log的同时，避免资源的浪费</p><p>OGG侧重于数据备份，ADG侧重于高可用</p><p>OGG可以异构，也就是不仅可以用在Oracle，ADG只有oracle可以用</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;img src=&quot;/2018/12/12/OGG的组件解析/F:/blog\source\_posts\OGG的组件解析\ce01e554bd1d3a1935e08c1835696e0b.jpg&quot; alt=&quot;mylove&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;一、OGG的各个组件解
-      
-    
-    </summary>
-    
-      <category term="数据库" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Oracle数据库优化</title>
-    <link href="http://yoursite.com/2018/12/12/Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96/"/>
-    <id>http://yoursite.com/2018/12/12/Oracle数据库优化/</id>
-    <published>2018-12-12T09:01:43.000Z</published>
-    <updated>2018-12-12T09:02:31.938Z</updated>
-    
-    <content type="html"><![CDATA[<p>除了给table建立索引之外，保持良好的SQL语句编写。</p><h3 id="1、通过变量的方式来设置参数"><a href="#1、通过变量的方式来设置参数" class="headerlink" title="1、通过变量的方式来设置参数"></a>1、通过变量的方式来设置参数</h3><p>　　比如动态查询的时候，尽量这样写</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好：string strSql=" <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> PEOPLE P <span class="keyword">WHERE</span> P.ID=? <span class="string">";</span></span><br><span class="line"><span class="string">坏：string strSql="</span> <span class="keyword">SELECT</span> * FROMM PEOPLE P <span class="keyword">WHERE</span> P.ID= <span class="string">"+ID;</span></span><br></pre></td></tr></table></figure><p>数据库的SQL解析和执行会保存在缓存中，SQL只要有变化，就要重新解析。而”where p.id=”+id的方式在id值发生改变得时候需要重新解析SQL，浪费时间。</p><h3 id="2、尽量不要使用select"><a href="#2、尽量不要使用select" class="headerlink" title="2、尽量不要使用select *"></a>2、尽量不要使用select *</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好：string strSql=" <span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">from</span> people <span class="string">";</span></span><br><span class="line"><span class="string">坏：string strSql="</span> slect I <span class="keyword">from</span> people<span class="string">";</span></span><br></pre></td></tr></table></figure><p>select * 会增加SQL解析的时间，而且把不需要的数据也查询了出来，数据传输很浪费时间。</p><h3 id="3、谨慎使用模糊查询"><a href="#3、谨慎使用模糊查询" class="headerlink" title="3、谨慎使用模糊查询"></a>3、谨慎使用模糊查询</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好：string strSql=" <span class="keyword">select</span> * <span class="keyword">from</span> people p <span class="keyword">where</span> p.id <span class="keyword">like</span> <span class="string">'parm%'</span> <span class="string">";</span></span><br><span class="line"><span class="string">坏：string strSql="</span> <span class="keyword">select</span> * <span class="keyword">from</span> people p <span class="keyword">where</span> p.id <span class="keyword">like</span> <span class="string">'%parm%'</span> <span class="string">";</span></span><br></pre></td></tr></table></figure><p>当模糊匹配以%开头，这一列的索引将彻底失效，导致全表扫描，如果不以%开头，则这一列的索引还是有效的。</p><h3 id="4、优先使用UNION-ALL-避免使用UNION"><a href="#4、优先使用UNION-ALL-避免使用UNION" class="headerlink" title="4、优先使用UNION ALL,避免使用UNION"></a>4、优先使用UNION ALL,避免使用UNION</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好：string strSql=" <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> people <span class="keyword">union</span> all <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> teacher <span class="string">";</span></span><br><span class="line"><span class="string">坏：string strSql="</span> <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> people <span class="keyword">union</span> <span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">from</span> teacher <span class="string">";</span></span><br></pre></td></tr></table></figure><p>因为UNION会将各查询的子集记录进行比较，比起来UNION ALL，速度会慢很多。</p><h3 id="5、在where语句或者order-by语句中，避免对索引字段进行计算操作。"><a href="#5、在where语句或者order-by语句中，避免对索引字段进行计算操作。" class="headerlink" title="5、在where语句或者order by语句中，避免对索引字段进行计算操作。"></a>5、在where语句或者order by语句中，避免对索引字段进行计算操作。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好：string strSql=" <span class="keyword">select</span> <span class="keyword">name</span> ,age <span class="keyword">from</span> people <span class="keyword">where</span> <span class="built_in">date</span>=? <span class="string">";</span></span><br><span class="line"><span class="string">坏：string strSql="</span> <span class="keyword">select</span> <span class="keyword">name</span>,age <span class="keyword">from</span> people wehre trunc(<span class="built_in">date</span>)=? <span class="string">";</span></span><br></pre></td></tr></table></figure><h3 id="6、永远为每张表设置一个ID"><a href="#6、永远为每张表设置一个ID" class="headerlink" title="6、永远为每张表设置一个ID"></a>6、永远为每张表设置一个ID</h3><p>数据库的每一张表都应该设置一个ID作为主键，而且是int型，推荐使用UNSIGNED,并且设置上自动增加的AUTO_INCREMENT的标志。</p><p>即使你的people表有一个主键叫做name的字段，你也别让它成为主键，使用varchar类型作为主键会使得性能下降。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;除了给table建立索引之外，保持良好的SQL语句编写。&lt;/p&gt;
-&lt;h3 id=&quot;1、通过变量的方式来设置参数&quot;&gt;&lt;a href=&quot;#1、通过变量的方式来设置参数&quot; class=&quot;headerlink&quot; title=&quot;1、通过变量的方式来设置参数&quot;&gt;&lt;/a&gt;1、通过变量的方
-      
-    
-    </summary>
-    
-      <category term="数据库" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
   </entry>

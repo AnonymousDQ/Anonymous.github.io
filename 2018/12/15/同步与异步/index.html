@@ -81,13 +81,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="drqblog">
-<meta property="og:url" content="http://yoursite.com/categories/设计模式/index.html">
+<meta name="description" content="1、同步交互：发送一个请求，需要等待返回，然后才能够发送下一个请求，有个等待过程 2、异步交互：发送一个请求，不需要等待返回，随时可以再发送下一个请求，也就是不需要等待  区别：一个需要等待，一个不需要等待，再部分情况下，我们的项目开发中都会优先选择不需要等待的异步交互方式。 同步：用来确保资源一次只能被一个县城使用的过程。同步对于单线程程序没有任何好处。  使用同步比非同步的性能差三到四倍 线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="同步与异步">
+<meta property="og:url" content="http://yoursite.com/2018/12/15/同步与异步/index.html">
 <meta property="og:site_name" content="drqblog">
+<meta property="og:description" content="1、同步交互：发送一个请求，需要等待返回，然后才能够发送下一个请求，有个等待过程 2、异步交互：发送一个请求，不需要等待返回，随时可以再发送下一个请求，也就是不需要等待  区别：一个需要等待，一个不需要等待，再部分情况下，我们的项目开发中都会优先选择不需要等待的异步交互方式。 同步：用来确保资源一次只能被一个县城使用的过程。同步对于单线程程序没有任何好处。  使用同步比非同步的性能差三到四倍 线程">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-15T02:50:59.235Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="drqblog">
+<meta name="twitter:title" content="同步与异步">
+<meta name="twitter:description" content="1、同步交互：发送一个请求，需要等待返回，然后才能够发送下一个请求，有个等待过程 2、异步交互：发送一个请求，不需要等待返回，随时可以再发送下一个请求，也就是不需要等待  区别：一个需要等待，一个不需要等待，再部分情况下，我们的项目开发中都会优先选择不需要等待的异步交互方式。 同步：用来确保资源一次只能被一个县城使用的过程。同步对于单线程程序没有任何好处。  使用同步比非同步的性能差三到四倍 线程">
 
 
 
@@ -117,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/设计模式/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/15/同步与异步/">
 
 
 
 
 
-  <title>分类: 设计模式 | drqblog</title>
+  <title>同步与异步 | drqblog</title>
   
 
 
@@ -142,7 +146,7 @@
     
   
 
-  <div class="container sidebar-position-right ">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 	<a href="https://github.com/AnonymousDQ">
 	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub">
@@ -289,53 +293,252 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>设计模式<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/同步与异步/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/12/15/单例模式/" itemprop="url">
-              
-                <span itemprop="name">单例模式</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">同步与异步</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-15T10:39:05+08:00" content="2018-12-15">
-          12-15
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T10:50:05+08:00">
+                2018-12-15
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  980
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>1、同步交互</strong>：发送一个请求，需要等待返回，然后才能够发送下一个请求，有个等待过程</p>
+<p><strong>2、异步交互</strong>：发送一个请求，不需要等待返回，随时可以再发送下一个请求，也就是不需要等待</p>
+<ul>
+<li>区别：一个需要等待，一个不需要等待，再部分情况下，我们的项目开发中都会优先选择不需要等待的异步交互方式。</li>
+<li>同步：用来确保资源一次只能被一个县城使用的过程。同步对于单线程程序没有任何好处。</li>
+</ul>
+<p>使用同步比非同步的性能差三到四倍</p>
+<p>线程都是独立的，而且异步执行，也就是说每个线程都包含了运行时所需要的数据或者方法</p>
+<p>而不需要外部的资源或者方法，也不必关心其他线程的状态或者行为。</p>
+<p>但是经常有些同时运行的线程需要共享数据，此时就需要考虑其他线程的状态和行为。</p>
+<p>否则就不能保证程序的运行结果的正确性</p>
+<p>需要做的是允许一个线程彻底完成他的任务后，在允许执行下一个线程执行。必须保证一个共享的</p>
+<p>资源一次只能被一个线程使用，实现的目的过程叫做同步。</p>
+<ul>
+<li>比如广播就是一个异步的例子。发起者不关心接受者的状态，不需要等待接受者的返回信息</li>
+<li>比如电话就是一个同步的例子，发起者需要等待接收者，接通电话后，通信才能开始，需要等待接收者的返回信息。</li>
+</ul>
+<p><strong>同步和异步的区别：</strong></p>
+<p>在进行网络编程的时候，我们会看到同步，异步，阻塞，非阻塞4种调用方式以及他们的组合</p>
+<p>其中同步方式，异步方式主要是由客户端client控制的</p>
+<p><strong>同步sync：</strong></p>
+<p>就是发起一个功能调用的时候，在没有得到结果之前，该调用就不返回或者继续执行后续操作</p>
+<p>Java中所有方法都是同步调用，因为必须要等待结果后才能继续执行</p>
+<p>我们说的同步，异步的时候，一般而言是指那些需要其他端写作或者需要一定时间完成的任务</p>
+<p>简单而言：同步就是必须一件一件事做，等前一件做完了后才能做下一件事</p>
+<p>B/S模式的表单提交：客户端提交请求–》等待服务器处理–》处理完毕返回</p>
+<p>在这个过程中客户端（浏览器）不能做其他事情</p>
+<p><strong>异步（Async）</strong></p>
+<p>异步与同步相反，当一个异步过程调用发出后，调用者在没有得到结果之前，就可以继续执行后续操作</p>
+<p>当这个调用完成后，一般通过状态，通知和回调来通知调用者。</p>
+<p>对于异步调用，调用的返回并不受调用者控制</p>
+<p>对于通知调用者的三种方式：</p>
+<ul>
+<li>状态：监听被调用者的状态（轮询），调用者需要每隔一定时间检查一次，效率会很低</li>
+<li>通知：当被调用者执行完成后，发出通知告知调用者，不需要消耗太多性能</li>
+<li>回调：与通知类似，当被调用者执行完成后，会调用调用者提供的回调函数</li>
+</ul>
+<p>B/S模式的ajax的请求，具体过程：客户端发出ajax请求–》服务端处理–》处理完毕执行客户端回调</p>
+<p>在客户端（浏览器）发出请求后，仍然可以做其他的事情</p>
+<p>同步与异步的区别：请求发出后，是否需要等待结果，才能继续执行其他操作。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/单例模式/" rel="next" title="单例模式">
+                <i class="fa fa-chevron-left"></i> 单例模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/异步与多线程/" rel="prev" title="异步与多线程">
+                异步与多线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -343,6 +546,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -609,6 +816,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
