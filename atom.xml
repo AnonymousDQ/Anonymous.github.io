@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-16T04:51:59.347Z</updated>
+  <updated>2018-12-16T04:58:52.983Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LSTM(Long-Short Term Memory)长短期记忆网络</title>
+    <link href="http://yoursite.com/2018/12/16/LSTM-Long-Short-Term-Memory-%E9%95%BF%E7%9F%AD%E6%9C%9F%E8%AE%B0%E5%BF%86%E7%BD%91%E7%BB%9C/"/>
+    <id>http://yoursite.com/2018/12/16/LSTM-Long-Short-Term-Memory-长短期记忆网络/</id>
+    <published>2018-12-16T04:57:42.000Z</published>
+    <updated>2018-12-16T04:58:52.983Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LSTM-Long-Short-Term-Memory-长短期记忆网络"><a href="#LSTM-Long-Short-Term-Memory-长短期记忆网络" class="headerlink" title="LSTM(Long-Short Term Memory)长短期记忆网络"></a>LSTM(Long-Short Term Memory)长短期记忆网络</h2><p><strong>一、LSTM结构</strong></p><p>​        <strong>LSTM(Long-Short Term Memory)，长短期记忆网络</strong>是RNN的一种变形结构。RNN因为梯度消失的原因只有短期记忆，LSTM网络通过精妙的Cell门控制将短期记忆与长期记忆结合起来，并在一定程度上解决了梯度消失的问题。</p><p>所有RNN都具有一种重复神经网络模块的链式形式。在标准的RNN中，重复的模块只有一个非常简单的结构，比如一个tanh层。</p><ul><li><strong>标准的RNN：</strong></li></ul><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzuKaicpf0NcJlc3o2MuJLmou6lHUukuXNZ1hSwtZgy85iat5zBwXoribfQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><ul><li><p><strong>LSTM的结构：</strong></p><p>LSTM同样的结构，但是重复的模块拥有一个不同的结构，不同于单一层，这里是由四个，以一种非常特殊的方式进行交互</p></li></ul><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz4iau12ibDOmPcfibkw3ibguhfpI0O3pK80R8QdTicHWrs5L2ia6eA6loDgfQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><ul><li><strong>LSTM解析图标：</strong></li></ul><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbfbQ5RcgAVqDG2PTIePC5V8Jt510kIvD81gulmSe08zb5D4WiacamDw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><ul><li>橙黄色矩形：学习得到的神经网络层</li><li>粉色圆形：代表一些运算，比如加法，乘法</li><li>黑色单箭头：向量的传输</li><li>两个箭头合并：表示向量的连接</li><li>一个箭头分开：表示向量的复制</li></ul><p><strong>二、LSTM的核心思想</strong></p><ul><li>LSTM的关键就是细胞Cell状态，水平线在图上方贯穿运行。</li><li>Cell细胞状态像传送带一样，直接在整个链上运行，只有一些少量的线性交互，信息在上线流传保持不变很容易。</li></ul><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzibU8dqKfcb80AJhcTe2kpEbA3oFkvoqNK2Yczuqbckd99AnHOPbhNMQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><ul><li><p>LSTM有通过精心设计的称作为“门”的结构来去除或者增加信息到细胞状态的能力。门是一种让信息选择通过的方法。包含一个sigmoid神经网络层和一个按位的乘法操作</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzcmmIT6flW2INcSCbGSaxt2aIARSwDYOkFicOv5LzIMMt6jgP7OEqV2A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p></li></ul><p>sigmoid层输出0~1之间的数值，描述每个部分有多少量可以通过。0代表不允许</p><p>任何量通过，1代表允许任意量通过。LSTM拥有三个门，来保护和控制细胞状态。</p><p><strong>三、LSTM的推理</strong></p><ul><li><strong>LSTM中的第一步是决定我们会从细胞状态中丢弃什么信息</strong>。第一步的决定四通过一个叫做<strong>忘记门层</strong>完成。忘记门层会读ht-1和xt，输出一个0~1之间的数值给每个在细胞状态Ct-1中的数字，1表示完全保留，0表示完全舍弃<img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzF7sg4qWOzv480f9vJrSNffHR9UGjxEiag23UZZQI42ZCWPbHyREYNPw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></li><li><strong>下一步是确定什么样的新信息被存放在细胞状态**</strong>中**，这里包含两个部分：</li></ul><p>​       sigmoid层叫做输入门层，决定将要更新的值</p><p>​       tanh层创建一个新的候选值向量Ct，会被假如到状态中。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzzLhSKFCeib4VXiab2kIXIyiaEvVKkdq67M7eicxibjXBdgghia67MjcyeVTw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><ul><li><strong>更新旧细胞状态，把Ct-1更新为Ct</strong>。就是把旧状态与ft相乘，丢弃掉确定需要丢弃的信息，然后加上it*Ct，变成新的候选值。</li></ul><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzlpl41y2DKdCFPtRE4sl5ZX0Fq6RQRHdJ3lEAXCNoDxJjHoNiceIHZbw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p><strong>最后一步，确定需要输出什么值</strong>。这个输出将会基于我们的细胞状态，但是也是一个过滤后的版本。首先是，运行一个sigmoid层来确定细胞状态的哪个部分将被输出。然后，把细胞状态通过tanh进行处理，得到一个-1~1之间的值，将它和sigmoid门的输出相乘。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz0w811ujoicJszFKicnp3bxIwbm9p1mhEBuicWYRouLIDZGRqvfswmw6Kg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p><strong>四、LSTM的变体</strong></p><ul><li><p><strong>让门层也接受细胞状态的输入</strong></p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzLDfZCqTAp0pcKgRB5l1RBASld7Mc6rKthmdsWfnHZTxcTiaMXx93eGg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p></li><li><p><strong>使用coupled忘记和输入门</strong></p><p>区别于标准LSTM的分开确定忘记什么和需要添加什么新的信息，变体的LSTM是两者一同做出决定。</p></li></ul><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzl2HXYUQWFDa4WTZ5mCaLtV5bibpUzibgsm10RKFeBh1bq9K40jXTjgqA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><ul><li><strong>Gated Recurrent Unit(GRU)变体</strong>，是将忘记门和输入门合成了一个单一的更新门。还混合了细胞状态和隐藏状态的，也是非常流行的变体</li></ul><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz2mpfWXDSDAgLRauNTLkPDd0E89OlvzbXShtcELbJibrN7CgKFKJo6Yw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;LSTM-Long-Short-Term-Memory-长短期记忆网络&quot;&gt;&lt;a href=&quot;#LSTM-Long-Short-Term-Memory-长短期记忆网络&quot; class=&quot;headerlink&quot; title=&quot;LSTM(Long-Short Term M
+      
+    
+    </summary>
+    
+      <category term="TensorFlow" scheme="http://yoursite.com/categories/TensorFlow/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>RNN(Recurrent Neural Network)循环神经网络</title>
@@ -449,30 +472,6 @@
       
       
         &lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span clas
-      
-    
-    </summary>
-    
-      <category term="TensorFlow" scheme="http://yoursite.com/categories/TensorFlow/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Windows10环境下的安装Python+TensorFlow</title>
-    <link href="http://yoursite.com/2018/12/15/Windows10%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%AE%89%E8%A3%85Python-TensorFlow/"/>
-    <id>http://yoursite.com/2018/12/15/Windows10环境下的安装Python-TensorFlow/</id>
-    <published>2018-12-15T02:55:16.000Z</published>
-    <updated>2018-12-15T06:33:44.919Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>Windows10环境下的安装python+tensorflow</strong></p><p>使用Anoconda简单安装CPU版tensorflow的方法，此方法能够一键安装常用<br>机器学习所需的科学计算包，免去了手动配置python环境变量的过程。<br>安装环境：</p><ul><li>Windows10 64位</li><li>Python 3.5.2</li><li>Anocoda3 4.2.0</li><li>tensorflow 0.1.2<br><strong>1、tensorflow</strong><br>谷歌发布的开源框架，涉及到自然语言处理NLP<br>机器翻译，图像描述，图像分类等一些列技术<br>tensorflow为我们封装了大量机器学习，神经网络的函数，帮助我们高效的解决问题<br><strong>2、Anoconda</strong><br>Anoconda可以看做是Python的一个集成安装环境。<br>安装它就默认安装了python，IPython，集成开发环境Spyder和众多的包和模块<br>非常方便。而且Anaconda会为我们安装<strong>pip</strong>（强大的包管理程序）<br>我们可以在Windows的命令行中使用pip直接安装我们需要的包<br><strong>3、下载Anaconda</strong><br>官网的最新版Anaconda-4.4.0继承了python-3.6<br>但是tensorflow仍然不能支持3.6，因为我们安装集成python-3.5的Anaconda3-4.2.0<br>Anaconda下载地址：<a href="https://mirrors.tsinghua.edu.cn/anaconda/archive/" target="_blank" rel="noopener">Anaconda</a></li></ul><p>安装过后可以再命令行，输入conda list来查看Anaconda为我们集成的环境。<br>ps:快捷点Win+R,然后输入cmd，然后输入conda list来查看Anaconda为我们集成的环境。</p><p><img src="/2018/12/15/Windows10环境下的安装Python-TensorFlow/anoconda.jpg" alt="anaconda list"></p><p>环境里包含：<br>numpy(一个python的科学计算包，高效存储和处理大型矩阵)<br>pandas(包含了大量库和一些标准的数据模型，提供高效的操作大型数据集所需要的工具)<br>pip(简单好用的包管理工具)</p><p><strong>4、安装TensorFlow</strong></p><ul><li>使用pip自动安装TensorFlow</li></ul><p>​        pip install tensorflow</p><ul><li>当遇到提示更新pip版本的时候，先进行pip更新到最新版本</li></ul><p>​        python -m pip install –upgrade pip</p><ul><li>安装的时候尽量使用管理员身份来打开命令行窗口（ps:Win10系统点击左下角Win图标右键，选择管理员身份就行）</li><li>安装TensorFlow</li></ul><p>​        pip install tensorflow</p><ul><li>测试是否安装成功</li></ul><p>​        输入python进入python环境</p><p>​        输入import tensorflow,若没有红字报错，表示环境配置成功</p><p><img src="/2018/12/15/Windows10环境下的安装Python-TensorFlow/tensorflow.jpg" alt="tensorflow"></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;strong&gt;Windows10环境下的安装python+tensorflow&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;使用Anoconda简单安装CPU版tensorflow的方法，此方法能够一键安装常用&lt;br&gt;机器学习所需的科学计算包，免去了手动配置python环境变量的过程
       
     
     </summary>
