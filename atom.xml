@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-15T12:54:59.216Z</updated>
+  <updated>2018-12-16T04:51:59.347Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RNN(Recurrent Neural Network)循环神经网络</title>
+    <link href="http://yoursite.com/2018/12/16/RNN-Recurrent-Neural-Network-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    <id>http://yoursite.com/2018/12/16/RNN-Recurrent-Neural-Network-循环神经网络/</id>
+    <published>2018-12-16T04:50:26.000Z</published>
+    <updated>2018-12-16T04:51:59.347Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="RNN-Recurrent-Neural-Network-循环神经网络"><a href="#RNN-Recurrent-Neural-Network-循环神经网络" class="headerlink" title="RNN(Recurrent Neural Network)循环神经网络"></a>RNN(Recurrent Neural Network)循环神经网络</h2><p><strong>RNN(Recurrent Neural Network)是一类用于处理序列数据的神经网络</strong>。序列数据：时间序列数据，也就是在不同时间点上收集到的数据，这类数据反映了某一事物、现象等随着时间变化的状态或者程度。也不一定是时间序列，也可以是文本序列。总之：后面的数据跟前面的数据是有关系，可以将RNN看做全连接网络</p><p><strong>一、RNN的结构</strong></p><p>​        普通神经网络包含input layer，hidden layer，output layer，通过Activation Function来控制输出。layer与layer通过weights连接。</p><ul><li><strong>RNN的标准结构</strong>：</li></ul><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz2ARrr4xTL3gSbQbhia3UvglxuY7FYwibzS6W7mjibbcfTfibdGZmITkK1Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><ul><li><strong>普通神经网络结构</strong>：</li></ul><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJrkjx6u84WjxLvC7yJLxrSeypZvBiaCCJkz1RaFYTmXiciczD6EFwURtpLkVhXs15icGwPWEwJib5smp9Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><ul><li><p><strong>两者区别</strong>：</p><p>基础的神经网络只在层与层之间建立了权Weights连接，RNN在层之间的神经元之间也建立了权连接</p></li><li><p><strong>实际中，RNN标准结构并不能解决所有问题：</strong></p></li></ul><ol><li><strong>输入为一串文字，输出为分类类别，那么输出就不需要一个序列，只要单个输出：</strong></li></ol><p>   <img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbxE36EJWlxvFOEiafZKx7zBIpU90D5kFwAOxU8c5QG6U50tv5BqHbUA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><ol start="2"><li><strong>有时候需要单个输入但是输出为序列的情况的RNN结构：</strong></li></ol><p>   <img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzoxpv5hQGSbWm8dne0gaqqINicdcpnDjY4mibacJPVPOibFuoJpIWw1N2w/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><ol start="3"><li><p><strong>有时候输入时序列，但是不随着序列变化：</strong></p><p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbHGayQHWEvX3AuDVcwQia6LX9S4GaQCkw4oJ5n4goYZnqKdjVCVM9cg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p></li><li><p><strong>实际中，大部分问题序列都是不等长的。</strong>比如：自然语言处理中，源语言和目标语言的句子往往长度是不同的。就需要Encoder-Decoder模型，也叫Seq2Seq模型。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz9EuMk7iclkYo0zkvuGiaK8Q8nqTchcicbgNPqBHAaeOLRwrRnX2D5CQaA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p>Encoder-Decoder模型结构原理：先编码后解码。左侧的RNN用来编码得到c，然后再用右侧的RNN把c解码。</p></li></ol><p><strong>二、标准RNN的流程</strong></p><p>标准的RNN采用的是前向传播过程：</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhGInmNumyib3KbPLKzAicGLcLxur0yT0HPJWMuBR8so7YuNdiaBrf3icfA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p>图中的：x为输入input，h为hidden layer单元，o为输出output，L为loss损失函数，y为training set训练集，右上角小标号代表t时刻状态。W，U，V代表权值Weights。</p><ul><li><strong>前向传播算法公式：</strong><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzYMAoaGDy7OeibFhz5LEOam7JpB1z30zmLibNHZdARfWC7icIHLpGmaic9w/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></li></ul><p>​       φ为激活函数，一般选择是tanh函数，b为biases偏置</p><ul><li><p><strong>t时刻的输出o：</strong><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz8NQkCgAdAwqy4VKra14dnBEw9eISgp5LeAyEBiaBcULTzGUgicn9x9UQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p></li><li><p><strong>预测输出为：</strong></p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzWXQHNYU2AzVzz3bArpHyF7Zn0keYJYOicicjjxBBBlD3DpwZLDMjHXug/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p></li></ul><p>​      其中δ为激活函数，RNN常用语分类，这里一般用softmax函数</p><p><strong>三、RNN的训练方法(Back Propagation Through Time,BPTT)</strong></p><p>BPTT用来RNN训练。它的本质是BP算法，只是加上了时间。因为RNN处理时间序列数据，要基于时间反向传播。</p><p><strong>核心思想</strong>：BPTT和BP算法相同，都沿着需要优化参数的负梯度方向不断寻找更优的点直到收敛。也就是梯度下降法。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhGInmNumyib3KbPLKzAicGLcLxur0yT0HPJWMuBR8so7YuNdiaBrf3icfA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p>需要寻找最优的有三个参数：U，V，W。</p><p>U,W两个参数的寻找最优的过程需要用到历史数据。而，V只关注当前h（hidden layer）的数据。</p><ul><li><p><strong>求V的偏导数**</strong>：**</p><p>也即是L(Loss)对V求偏导，V到L还经过o(output)，里面有激活函数。所以是复合函数求导过程。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzcsUM3dRbxkYPz27JpLWhRmydyNnkibkegYUxLYbBOSicr39a7qaOl4SA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p>因为RNN的L(Loss)的损失是随着时间累加的，所以叠加后的结果如上图。</p></li><li><p><strong>求W的偏导数：</strong></p><p>W偏导求解需要用到历史数据，假设我们只有三个时刻，假设第三个时刻L对W的偏导数为：</p><p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzdnIDWhxhAnPo8W1VFT2ianmJdFZU4fvhj2jia4GhUkLoP0y9k5bexHSg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p></li><li><p><strong>求U的偏导数：</strong></p><p>U偏导求解需要用到历史数据，假设我们只有三个时刻，假设第三个时刻L对U的偏导数为：</p><p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzAgib52SUbfeibySwjyqP6hrzhibUajefazLb56uJAXb1a5EnlXibMrxxdQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p></li><li><p><strong>上面只是对某个时刻的W和U求的偏导数</strong>，但是RNN的L(Loss)损失是随着时间累加的，要追溯到历史数据，那么整个损失函数L对W，U的偏导数十分复杂的。通过找规律发现：</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhlmxorq4HrDum3NAJL7jByQmSzHQqib7ScZum0d1ABiaPL7eSHzDIz5A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p></li><li><p><strong>根据RNN图得知，Activation Function激活函数</strong>是嵌套在对h(hidden)的偏导里面的，把中间累乘部分替换为tanh或者sigmoid写法为：</p><p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzib0d7RbiaIXw5hQEV7No50ibaezBCenG7MoMZkpnl5t5elnoiceejJDR0A/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p></li><li><p>上面的累乘会导致激活函数的累乘，会导致“<strong>梯度消失</strong>”和”<strong>梯度爆炸</strong>“现象。</p><p><strong>1、sigmoid函数（logistics函数）和导数：</strong></p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzLsCsLwO114f2ibjtxzBU6JFsN2D4WlWHafHeeycP6IdX6v0vZpDzGTA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p><strong>结论</strong>：使用sigmoid函数作为激活函数，肯定是累乘的时候结果越来越小，随着时间推移小数的累乘导致梯度小到接近于0，这就是“梯度消失”。梯度消失会导致，那一层的参数再也不会更新，那么那一层隐藏层就变成了单纯的映射层，就毫无意义了。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzUtkwBlHzgE4UVqJRpH6xic4nnPqMAJScpAYibZicWTEvoIk9DH5Lloqvg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p><strong>总结</strong>：sigmoid函数(logisitic函数)不是0中心对称</p><p><strong>2、tanh函数和导数：</strong></p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzAgAAcl0BPC4THTIsMnTPVIfZVhdz9feTsHZFXZ7H1QUDV3eq8zYibfQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p><strong>总结</strong>：tanh函数是中心对称，会导致神经网络的收敛性更好，是tanh函数相对于sigmoid函数来说梯度较大，收敛速度更快且引起梯度消失更慢</p></li><li><p>解决梯度消失的方法：</p><p><strong>1、选取其他激活函数</strong></p><p>一般选用ReLU作为激活函数</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzKgAhFEfBZ2U5Ean6crG1VSCboPnO69JnkHqm4ia7Un4eX2uic1gibQ7UA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p><strong>ReLU的导数：</strong></p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzic1NovT9A91arI5ovvoVj2icL1UJsJNYySfCfTiatkCqJJ7zic8zIiapMzg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p><strong>总结</strong>：ReLU函数的左导数为0，右导数为1，避免了“梯度消失”，然而右导数为1，会导致“梯度爆炸”，但是可以设定合适的阈值可以解决“梯度爆炸”问题。还有一点就是，左导数恒为0，有可能导致把神经元学死，同样设置合适的步长（training_step）可以避免问题发生。</p><p><strong>2、改变传播结构</strong></p><p>改变传播结构，也就是引入<strong>LSTM(Long-Short Term Memory)，长短期记忆网络</strong>。是一种时间递归神经网络。适合处理和预测时间序列中间隔和延迟相对较长的重要时间。LSTM区别于RNN的地方，就是在算法中加了一个判断信息有用与否的处理器Cell。</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;RNN-Recurrent-Neural-Network-循环神经网络&quot;&gt;&lt;a href=&quot;#RNN-Recurrent-Neural-Network-循环神经网络&quot; class=&quot;headerlink&quot; title=&quot;RNN(Recurrent Neural N
+      
+    
+    </summary>
+    
+      <category term="TensorFlow" scheme="http://yoursite.com/categories/TensorFlow/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>利用CNN识别图片</title>
@@ -455,33 +478,6 @@
     </summary>
     
       <category term="TensorFlow" scheme="http://yoursite.com/categories/TensorFlow/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>异步与多线程</title>
-    <link href="http://yoursite.com/2018/12/15/%E5%BC%82%E6%AD%A5%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    <id>http://yoursite.com/2018/12/15/异步与多线程/</id>
-    <published>2018-12-15T02:51:30.000Z</published>
-    <updated>2018-12-15T02:52:51.072Z</updated>
-    
-    <content type="html"><![CDATA[<p>其实异步是目的，多线程是实现这个目的方法。</p><ul><li>异步：A发起一个操作后，可以继续自顾自的处理它自己的事儿，不用干等着这个耗时操作返回</li><li>随着拥有多线程CPU,多核的普及，多线程和异步操作等并发程序设计方法也受到更多</li></ul><p><strong>1、多线程和异步操作的异同</strong></p><ul><li>多线程和异步操作两者都可以达到避免调用线程阻塞的目的，从而提高软件的可响应性。</li><li>甚至有些时候我们认为多线程和异步操作是等同的。但是多线程和异步操作还是有一些区别</li></ul><p><strong>2、异步操作的本质：</strong></p><ul><li>所有的程序最终都会由计算机硬件来执行。所以为了更好的理解异步操作的本质，网卡，声卡，显卡都是有DMA功能的DMA就是<strong>直接内存访问</strong>的意思（Driect Memory Access）</li><li>也就是说，拥有DMA功能的硬件在和内存进行数据交换的时候可以不消耗CPU资源</li><li>只要CPU在发起数据传输时发送一个指令，硬件就开始自己和内存交换数据在传输完成后硬件会触发一个中断来通知操作完成这些无需消耗CPU时间的I/O操作正是异步操作的硬件基础。</li><li>所以即使在DOS这样的单进程（无线程概念）系统中也同样可以发起异步的DMA操作</li></ul><p><strong>3、线程的本质</strong></p><ul><li>线程不是一个计算机硬件的功能，而是操作系统提供的一种逻辑功能</li><li>线程本质上是<strong>进程中一段并发运行的代码</strong>，所以线程需要操作系统投入CPU资源来运行和调度</li></ul><p><strong>4、异步操作的特点</strong></p><ul><li>因为异步操作 不需要额外的线程负担，并且使用<strong>回调的方式</strong>进行处理在设计良好的情况下，处理函数可以不必使用共享变量，即使无法完全不用，最起码也可以减少共享变量的数量。减少了死锁的可能。</li><li>当然异步操作也并非完美无瑕。编写异步操作的复杂程度较高，程序主要使用回调方式进行处理与普通人的思维方式有些初入，而且难以调试。</li></ul><p><strong>5、多线程的优缺点</strong></p><ul><li>线程中的护理程序依然是顺序执行，符合普通人的思维习惯。所以编程简单但是多线程的缺点也明显</li><li>线程的滥用会给系统带来上下文切换的额外负担并且线程间的共享变量可能造成死锁的出现。</li><li>当需要执行I/O操作的时候，使用异步操作比使用线程+同步I/O操作更合还是I/O操作不仅包括了直接的文件，网络的读写，还包括数据库操作，WebService，HttpRequest等跨进程的调用</li><li>线程的适用范围是需要长时间CPU运算的场合比如耗时较长图形处理和算法执行，但是往往由于线程编程的简单和符合习惯，所以很多朋友往往适用线程来执行耗时较长的IO操作，这样在之后又少数几个并发操作的时候还行，需要处理大量的并发操作就不合适了，因为要不停的上下文切换</li></ul><p><strong>6、异步调用</strong></p><ul><li>异步调用并不是要减少线程的开销，目的是让调用方法的主线程不需要同步等待这个函数</li><li>调用上，从而可以让主线程继续执行他下面的代码，同时系统会从ThreadPool线程池中取一个线程来执行，帮助我们将我们要写/读的数据发送到网卡，由于不需要我们等待，我们等于同时做了两件事情</li></ul><p><strong>7、线程池的实现方法</strong></p><ul><li>线程池的实现方法与线程不一样的，初始化时候，在线程池的线程为0，当进程需要一个线程的时候，创建一个线程由此线程执行用户的方法，这个线程执行完后并不立即销毁，而是挂起等待，如果有其他方法需要</li><li>执行，则唤醒进行处理 ，只有当它等待到40秒还没有任务执行的时候才唤醒自己，并销毁自己</li><li>当然如果线程池中的线程不够处理任务的时候，会再次创建一个新的线程来执行。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;其实异步是目的，多线程是实现这个目的方法。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;异步：A发起一个操作后，可以继续自顾自的处理它自己的事儿，不用干等着这个耗时操作返回&lt;/li&gt;
-&lt;li&gt;随着拥有多线程CPU,多核的普及，多线程和异步操作等并发程序设计方法也受到更多&lt;/li&gt;
-&lt;/ul&gt;
-      
-    
-    </summary>
-    
-      <category term="JAVA" scheme="http://yoursite.com/categories/JAVA/"/>
     
     
   </entry>

@@ -304,6 +304,276 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/RNN-Recurrent-Neural-Network-循环神经网络/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/16/RNN-Recurrent-Neural-Network-循环神经网络/" itemprop="url">RNN(Recurrent Neural Network)循环神经网络</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T12:50:26+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="RNN-Recurrent-Neural-Network-循环神经网络"><a href="#RNN-Recurrent-Neural-Network-循环神经网络" class="headerlink" title="RNN(Recurrent Neural Network)循环神经网络"></a>RNN(Recurrent Neural Network)循环神经网络</h2><p><strong>RNN(Recurrent Neural Network)是一类用于处理序列数据的神经网络</strong>。序列数据：时间序列数据，也就是在不同时间点上收集到的数据，这类数据反映了某一事物、现象等随着时间变化的状态或者程度。也不一定是时间序列，也可以是文本序列。总之：后面的数据跟前面的数据是有关系，可以将RNN看做全连接网络</p>
+<p><strong>一、RNN的结构</strong></p>
+<p>​        普通神经网络包含input layer，hidden layer，output layer，通过Activation Function来控制输出。layer与layer通过weights连接。</p>
+<ul>
+<li><strong>RNN的标准结构</strong>：</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz2ARrr4xTL3gSbQbhia3UvglxuY7FYwibzS6W7mjibbcfTfibdGZmITkK1Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><strong>普通神经网络结构</strong>：</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJrkjx6u84WjxLvC7yJLxrSeypZvBiaCCJkz1RaFYTmXiciczD6EFwURtpLkVhXs15icGwPWEwJib5smp9Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><p><strong>两者区别</strong>：</p>
+<p>基础的神经网络只在层与层之间建立了权Weights连接，RNN在层之间的神经元之间也建立了权连接</p>
+</li>
+<li><p><strong>实际中，RNN标准结构并不能解决所有问题：</strong></p>
+</li>
+</ul>
+<ol>
+<li><strong>输入为一串文字，输出为分类类别，那么输出就不需要一个序列，只要单个输出：</strong></li>
+</ol>
+<p>   <img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbxE36EJWlxvFOEiafZKx7zBIpU90D5kFwAOxU8c5QG6U50tv5BqHbUA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ol start="2">
+<li><strong>有时候需要单个输入但是输出为序列的情况的RNN结构：</strong></li>
+</ol>
+<p>   <img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzoxpv5hQGSbWm8dne0gaqqINicdcpnDjY4mibacJPVPOibFuoJpIWw1N2w/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ol start="3">
+<li><p><strong>有时候输入时序列，但是不随着序列变化：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbHGayQHWEvX3AuDVcwQia6LX9S4GaQCkw4oJ5n4goYZnqKdjVCVM9cg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>实际中，大部分问题序列都是不等长的。</strong>比如：自然语言处理中，源语言和目标语言的句子往往长度是不同的。就需要Encoder-Decoder模型，也叫Seq2Seq模型。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz9EuMk7iclkYo0zkvuGiaK8Q8nqTchcicbgNPqBHAaeOLRwrRnX2D5CQaA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>Encoder-Decoder模型结构原理：先编码后解码。左侧的RNN用来编码得到c，然后再用右侧的RNN把c解码。</p>
+</li>
+</ol>
+<p><strong>二、标准RNN的流程</strong></p>
+<p>标准的RNN采用的是前向传播过程：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhGInmNumyib3KbPLKzAicGLcLxur0yT0HPJWMuBR8so7YuNdiaBrf3icfA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>图中的：x为输入input，h为hidden layer单元，o为输出output，L为loss损失函数，y为training set训练集，右上角小标号代表t时刻状态。W，U，V代表权值Weights。</p>
+<ul>
+<li><strong>前向传播算法公式：</strong><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzYMAoaGDy7OeibFhz5LEOam7JpB1z30zmLibNHZdARfWC7icIHLpGmaic9w/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></li>
+</ul>
+<p>​       φ为激活函数，一般选择是tanh函数，b为biases偏置</p>
+<ul>
+<li><p><strong>t时刻的输出o：</strong><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz8NQkCgAdAwqy4VKra14dnBEw9eISgp5LeAyEBiaBcULTzGUgicn9x9UQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>预测输出为：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzWXQHNYU2AzVzz3bArpHyF7Zn0keYJYOicicjjxBBBlD3DpwZLDMjHXug/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+</ul>
+<p>​      其中δ为激活函数，RNN常用语分类，这里一般用softmax函数</p>
+<p><strong>三、RNN的训练方法(Back Propagation Through Time,BPTT)</strong></p>
+<p>BPTT用来RNN训练。它的本质是BP算法，只是加上了时间。因为RNN处理时间序列数据，要基于时间反向传播。</p>
+<p><strong>核心思想</strong>：BPTT和BP算法相同，都沿着需要优化参数的负梯度方向不断寻找更优的点直到收敛。也就是梯度下降法。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhGInmNumyib3KbPLKzAicGLcLxur0yT0HPJWMuBR8so7YuNdiaBrf3icfA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>需要寻找最优的有三个参数：U，V，W。</p>
+<p>U,W两个参数的寻找最优的过程需要用到历史数据。而，V只关注当前h（hidden layer）的数据。</p>
+<ul>
+<li><p><strong>求V的偏导数**</strong>：**</p>
+<p>也即是L(Loss)对V求偏导，V到L还经过o(output)，里面有激活函数。所以是复合函数求导过程。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzcsUM3dRbxkYPz27JpLWhRmydyNnkibkegYUxLYbBOSicr39a7qaOl4SA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>因为RNN的L(Loss)的损失是随着时间累加的，所以叠加后的结果如上图。</p>
+</li>
+<li><p><strong>求W的偏导数：</strong></p>
+<p>W偏导求解需要用到历史数据，假设我们只有三个时刻，假设第三个时刻L对W的偏导数为：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzdnIDWhxhAnPo8W1VFT2ianmJdFZU4fvhj2jia4GhUkLoP0y9k5bexHSg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>求U的偏导数：</strong></p>
+<p>U偏导求解需要用到历史数据，假设我们只有三个时刻，假设第三个时刻L对U的偏导数为：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzAgib52SUbfeibySwjyqP6hrzhibUajefazLb56uJAXb1a5EnlXibMrxxdQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>上面只是对某个时刻的W和U求的偏导数</strong>，但是RNN的L(Loss)损失是随着时间累加的，要追溯到历史数据，那么整个损失函数L对W，U的偏导数十分复杂的。通过找规律发现：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhlmxorq4HrDum3NAJL7jByQmSzHQqib7ScZum0d1ABiaPL7eSHzDIz5A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>根据RNN图得知，Activation Function激活函数</strong>是嵌套在对h(hidden)的偏导里面的，把中间累乘部分替换为tanh或者sigmoid写法为：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzib0d7RbiaIXw5hQEV7No50ibaezBCenG7MoMZkpnl5t5elnoiceejJDR0A/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p>上面的累乘会导致激活函数的累乘，会导致“<strong>梯度消失</strong>”和”<strong>梯度爆炸</strong>“现象。</p>
+<p><strong>1、sigmoid函数（logistics函数）和导数：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzLsCsLwO114f2ibjtxzBU6JFsN2D4WlWHafHeeycP6IdX6v0vZpDzGTA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>结论</strong>：使用sigmoid函数作为激活函数，肯定是累乘的时候结果越来越小，随着时间推移小数的累乘导致梯度小到接近于0，这就是“梯度消失”。梯度消失会导致，那一层的参数再也不会更新，那么那一层隐藏层就变成了单纯的映射层，就毫无意义了。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzUtkwBlHzgE4UVqJRpH6xic4nnPqMAJScpAYibZicWTEvoIk9DH5Lloqvg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>总结</strong>：sigmoid函数(logisitic函数)不是0中心对称</p>
+<p><strong>2、tanh函数和导数：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzAgAAcl0BPC4THTIsMnTPVIfZVhdz9feTsHZFXZ7H1QUDV3eq8zYibfQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>总结</strong>：tanh函数是中心对称，会导致神经网络的收敛性更好，是tanh函数相对于sigmoid函数来说梯度较大，收敛速度更快且引起梯度消失更慢</p>
+</li>
+<li><p>解决梯度消失的方法：</p>
+<p><strong>1、选取其他激活函数</strong></p>
+<p>一般选用ReLU作为激活函数</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzKgAhFEfBZ2U5Ean6crG1VSCboPnO69JnkHqm4ia7Un4eX2uic1gibQ7UA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>ReLU的导数：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzic1NovT9A91arI5ovvoVj2icL1UJsJNYySfCfTiatkCqJJ7zic8zIiapMzg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>总结</strong>：ReLU函数的左导数为0，右导数为1，避免了“梯度消失”，然而右导数为1，会导致“梯度爆炸”，但是可以设定合适的阈值可以解决“梯度爆炸”问题。还有一点就是，左导数恒为0，有可能导致把神经元学死，同样设置合适的步长（training_step）可以避免问题发生。</p>
+<p><strong>2、改变传播结构</strong></p>
+<p>改变传播结构，也就是引入<strong>LSTM(Long-Short Term Memory)，长短期记忆网络</strong>。是一种时间递归神经网络。适合处理和预测时间序列中间隔和延迟相对较长的重要时间。LSTM区别于RNN的地方，就是在算法中加了一个判断信息有用与否的处理器Cell。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/利用CNN识别图片/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1949,190 +2219,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/利用TensorFlow模拟线性回归-Linear-Regression/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/利用TensorFlow模拟线性回归-Linear-Regression/" itemprop="url">利用TensorFlow模拟线性回归(Linear Regression)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:38:06+08:00">
-                2018-12-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
-                    <span itemprop="name">TensorFlow</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  859
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>线性回归(Linear Regression）</strong></p>
-<ul>
-<li>线性回归是利用数理统计中回归分析，来确定两种或两种以上变量间相互依赖的定量关系的一种统计分析方法，运用十分广泛。其表达形式为<strong>y = w’x+e</strong>，e为误差服从均值为0的正态分布</li>
-<li>回归分析中，只包括一个自变量和一个因变量，且二者的关系可用一条直线近似表示，这种回归分析称为一元线性回归分析。如果回归分析中包括两个或两个以上的自变量，且因变量和自变量之间是线性关系，则称为多元线性回归分析。</li>
-<li><strong>梯度下降</strong>是用于找到函数最小值的一阶迭代优化算法。为了使用梯度下降找到函数的局部最小值，需要采用与当前点处函数的梯度（或近似梯度）的负值成比例的步长。相反，如果采用与梯度的正值成比例的步长，则接近该函数的局部最大值 ; 然后将该过程称为梯度上升。</li>
-</ul>
-<p><strong>废话不多说，直接上代码，展示运行效果</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Linear Regression线性回归</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="keyword">from</span> future <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#generate number</span></span><br><span class="line">rng = numpy.random</span><br><span class="line"></span><br><span class="line"><span class="comment"># Parameters</span></span><br><span class="line">learning_rate = <span class="number">0.01</span></span><br><span class="line">training_epochs = <span class="number">1000</span></span><br><span class="line">display_step = <span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Training Data</span></span><br><span class="line"><span class="comment">#numpy.asarray和array都可以讲结构数据转化为ndarray</span></span><br><span class="line"><span class="comment">#区别：当数据源是ndarray时，array仍然会copy出一个副本，占用新的内存，#但是asarray不会</span></span><br><span class="line">train_X = numpy.asarray([<span class="number">3.3</span>,<span class="number">4.4</span>,<span class="number">5.5</span>,<span class="number">6.71</span>,<span class="number">6.93</span>,<span class="number">4.168</span>,<span class="number">9.779</span>,<span class="number">6.182</span>,<span class="number">7.59</span>,<span class="number">2.167</span>,</span><br><span class="line">                         <span class="number">7.042</span>,<span class="number">10.791</span>,<span class="number">5.313</span>,<span class="number">7.997</span>,<span class="number">5.654</span>,<span class="number">9.27</span>,<span class="number">3.1</span>])</span><br><span class="line">train_Y = numpy.asarray([<span class="number">1.7</span>,<span class="number">2.76</span>,<span class="number">2.09</span>,<span class="number">3.19</span>,<span class="number">1.694</span>,<span class="number">1.573</span>,<span class="number">3.366</span>,<span class="number">2.596</span>,<span class="number">2.53</span>,<span class="number">1.221</span>,</span><br><span class="line">                         <span class="number">2.827</span>,<span class="number">3.465</span>,<span class="number">1.65</span>,<span class="number">2.904</span>,<span class="number">2.42</span>,<span class="number">2.94</span>,<span class="number">1.3</span>])</span><br><span class="line"></span><br><span class="line">n_samples = train_X.shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># tf Graph Input</span></span><br><span class="line">X = tf.placeholder(<span class="string">"float"</span>)</span><br><span class="line">Y = tf.placeholder(<span class="string">"float"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set model weights</span></span><br><span class="line">W = tf.Variable(rng.randn(), name=<span class="string">"weight"</span>)</span><br><span class="line">b = tf.Variable(rng.randn(), name=<span class="string">"bias"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Construct a linear model</span></span><br><span class="line">pred = tf.add(tf.multiply(X, W), b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mean squared error</span></span><br><span class="line">cost = tf.reduce_sum(tf.pow(pred-Y, <span class="number">2</span>))/(<span class="number">2</span>*n_samples)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Gradient descent</span></span><br><span class="line"><span class="comment">#  Note, minimize() knows to modify W and b because Variable objects are #trainable=True by default</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#优化器，采用梯度下降方法来训练学习</span></span><br><span class="line">optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize the variables (i.e. assign their default value)</span></span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start training</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># Run the initializer</span></span><br><span class="line">    sess.run(init)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Fit all training data</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(training_epochs):</span><br><span class="line">        <span class="keyword">for</span> (x, y) <span class="keyword">in</span> zip(train_X, train_Y):</span><br><span class="line">            sess.run(optimizer, feed_dict=&#123;X: x, Y: y&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Display logs per epoch step(控制台显示每次步骤)</span></span><br><span class="line">        <span class="keyword">if</span> (epoch+<span class="number">1</span>) % display_step == <span class="number">0</span>:</span><br><span class="line">            c = sess.run(cost, feed_dict=&#123;X: train_X, Y:train_Y&#125;)</span><br><span class="line">            print(<span class="string">"Epoch:"</span>, <span class="string">'%04d'</span> % (epoch+<span class="number">1</span>), <span class="string">"cost="</span>, <span class="string">"&#123;:.9f&#125;"</span>.format(c), \</span><br><span class="line">                <span class="string">"W="</span>, sess.run(W), <span class="string">"b="</span>, sess.run(b))</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Optimization Finished!"</span>)</span><br><span class="line">    training_cost = sess.run(cost, feed_dict=&#123;X: train_X, Y: train_Y&#125;)</span><br><span class="line">    print(<span class="string">"Training cost="</span>, training_cost, <span class="string">"W="</span>, sess.run(W), <span class="string">"b="</span>, sess.run(b), <span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Graphic display(图像展示）the original data on the graph</span></span><br><span class="line">    plt.plot(train_X, train_Y, <span class="string">'ro'</span>, label=<span class="string">'Original data'</span>)</span><br><span class="line">    plt.plot(train_X, sess.run(W) * train_X + sess.run(b), label=<span class="string">'Fitted line'</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Testing example, as requested (Issue #2)</span></span><br><span class="line">    test_X = numpy.asarray([<span class="number">6.83</span>, <span class="number">4.668</span>, <span class="number">8.9</span>, <span class="number">7.91</span>, <span class="number">5.7</span>, <span class="number">8.7</span>, <span class="number">3.1</span>, <span class="number">2.1</span>])</span><br><span class="line">    test_Y = numpy.asarray([<span class="number">1.84</span>, <span class="number">2.273</span>, <span class="number">3.2</span>, <span class="number">2.831</span>, <span class="number">2.92</span>, <span class="number">3.24</span>, <span class="number">1.35</span>, <span class="number">1.03</span>])</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Testing... (Mean square loss Comparison)"</span>)</span><br><span class="line"></span><br><span class="line">    testing_cost = sess.run(</span><br><span class="line">        tf.reduce_sum(tf.pow(pred - Y, <span class="number">2</span>)) / (<span class="number">2</span> * test_X.shape[<span class="number">0</span>]),</span><br><span class="line">        feed_dict=&#123;X: test_X, Y: test_Y&#125;)  <span class="comment"># same function as cost above</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Testing cost="</span>, testing_cost)</span><br><span class="line">    print(<span class="string">"Absolute mean square loss difference:"</span>, abs(</span><br><span class="line">        training_cost - testing_cost))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">#display the Test data on the graph</span></span><br><span class="line">    plt.plot(test_X, test_Y, <span class="string">'bo'</span>, label=<span class="string">'Testing data'</span>)</span><br><span class="line">    plt.plot(train_X, sess.run(W) * train_X + sess.run(b), label=<span class="string">'Fitted line'</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-<p><strong>控制台的每一次梯度下降后的误差值：</strong></p>
-<p><img src="/2018/12/15/利用TensorFlow模拟线性回归-Linear-Regression/线性回归控制台步骤.png" alt="Linear Regression"></p>
-<p><strong>线性回归后的结果图展示：</strong></p>
-<p><img src="/2018/12/15/利用TensorFlow模拟线性回归-Linear-Regression/线性回归图像.png" alt="Linear Regression"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2185,7 +2271,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2288,7 +2374,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">50.5k</span>
+    <span title="Site words total count">51.9k</span>
   
 </div>
 <div class="powered-by">

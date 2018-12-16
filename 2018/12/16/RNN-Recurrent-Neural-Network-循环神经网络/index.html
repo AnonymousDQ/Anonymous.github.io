@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="drqblog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="RNN(Recurrent Neural Network)循环神经网络RNN(Recurrent Neural Network)是一类用于处理序列数据的神经网络。序列数据：时间序列数据，也就是在不同时间点上收集到的数据，这类数据反映了某一事物、现象等随着时间变化的状态或者程度。也不一定是时间序列，也可以是文本序列。总之：后面的数据跟前面的数据是有关系，可以将RNN看做全连接网络 一、RNN的结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RNN(Recurrent Neural Network)循环神经网络">
+<meta property="og:url" content="http://yoursite.com/2018/12/16/RNN-Recurrent-Neural-Network-循环神经网络/index.html">
+<meta property="og:site_name" content="drqblog">
+<meta property="og:description" content="RNN(Recurrent Neural Network)循环神经网络RNN(Recurrent Neural Network)是一类用于处理序列数据的神经网络。序列数据：时间序列数据，也就是在不同时间点上收集到的数据，这类数据反映了某一事物、现象等随着时间变化的状态或者程度。也不一定是时间序列，也可以是文本序列。总之：后面的数据跟前面的数据是有关系，可以将RNN看做全连接网络 一、RNN的结构">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz2ARrr4xTL3gSbQbhia3UvglxuY7FYwibzS6W7mjibbcfTfibdGZmITkK1Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJrkjx6u84WjxLvC7yJLxrSeypZvBiaCCJkz1RaFYTmXiciczD6EFwURtpLkVhXs15icGwPWEwJib5smp9Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbxE36EJWlxvFOEiafZKx7zBIpU90D5kFwAOxU8c5QG6U50tv5BqHbUA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzoxpv5hQGSbWm8dne0gaqqINicdcpnDjY4mibacJPVPOibFuoJpIWw1N2w/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbHGayQHWEvX3AuDVcwQia6LX9S4GaQCkw4oJ5n4goYZnqKdjVCVM9cg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz9EuMk7iclkYo0zkvuGiaK8Q8nqTchcicbgNPqBHAaeOLRwrRnX2D5CQaA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhGInmNumyib3KbPLKzAicGLcLxur0yT0HPJWMuBR8so7YuNdiaBrf3icfA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzYMAoaGDy7OeibFhz5LEOam7JpB1z30zmLibNHZdARfWC7icIHLpGmaic9w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz8NQkCgAdAwqy4VKra14dnBEw9eISgp5LeAyEBiaBcULTzGUgicn9x9UQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzWXQHNYU2AzVzz3bArpHyF7Zn0keYJYOicicjjxBBBlD3DpwZLDMjHXug/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhGInmNumyib3KbPLKzAicGLcLxur0yT0HPJWMuBR8so7YuNdiaBrf3icfA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzcsUM3dRbxkYPz27JpLWhRmydyNnkibkegYUxLYbBOSicr39a7qaOl4SA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzdnIDWhxhAnPo8W1VFT2ianmJdFZU4fvhj2jia4GhUkLoP0y9k5bexHSg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzAgib52SUbfeibySwjyqP6hrzhibUajefazLb56uJAXb1a5EnlXibMrxxdQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhlmxorq4HrDum3NAJL7jByQmSzHQqib7ScZum0d1ABiaPL7eSHzDIz5A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzib0d7RbiaIXw5hQEV7No50ibaezBCenG7MoMZkpnl5t5elnoiceejJDR0A/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzLsCsLwO114f2ibjtxzBU6JFsN2D4WlWHafHeeycP6IdX6v0vZpDzGTA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzUtkwBlHzgE4UVqJRpH6xic4nnPqMAJScpAYibZicWTEvoIk9DH5Lloqvg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzAgAAcl0BPC4THTIsMnTPVIfZVhdz9feTsHZFXZ7H1QUDV3eq8zYibfQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzKgAhFEfBZ2U5Ean6crG1VSCboPnO69JnkHqm4ia7Un4eX2uic1gibQ7UA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzic1NovT9A91arI5ovvoVj2icL1UJsJNYySfCfTiatkCqJJ7zic8zIiapMzg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:updated_time" content="2018-12-16T04:51:59.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RNN(Recurrent Neural Network)循环神经网络">
+<meta name="twitter:description" content="RNN(Recurrent Neural Network)循环神经网络RNN(Recurrent Neural Network)是一类用于处理序列数据的神经网络。序列数据：时间序列数据，也就是在不同时间点上收集到的数据，这类数据反映了某一事物、现象等随着时间变化的状态或者程度。也不一定是时间序列，也可以是文本序列。总之：后面的数据跟前面的数据是有关系，可以将RNN看做全连接网络 一、RNN的结构">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz2ARrr4xTL3gSbQbhia3UvglxuY7FYwibzS6W7mjibbcfTfibdGZmITkK1Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/16/RNN-Recurrent-Neural-Network-循环神经网络/">
+
+
+
+
+
+  <title>RNN(Recurrent Neural Network)循环神经网络 | drqblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/AnonymousDQ">
+	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub">
+	</a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">drqblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/RNN-Recurrent-Neural-Network-循环神经网络/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RNN(Recurrent Neural Network)循环神经网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T12:50:26+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="RNN-Recurrent-Neural-Network-循环神经网络"><a href="#RNN-Recurrent-Neural-Network-循环神经网络" class="headerlink" title="RNN(Recurrent Neural Network)循环神经网络"></a>RNN(Recurrent Neural Network)循环神经网络</h2><p><strong>RNN(Recurrent Neural Network)是一类用于处理序列数据的神经网络</strong>。序列数据：时间序列数据，也就是在不同时间点上收集到的数据，这类数据反映了某一事物、现象等随着时间变化的状态或者程度。也不一定是时间序列，也可以是文本序列。总之：后面的数据跟前面的数据是有关系，可以将RNN看做全连接网络</p>
+<p><strong>一、RNN的结构</strong></p>
+<p>​        普通神经网络包含input layer，hidden layer，output layer，通过Activation Function来控制输出。layer与layer通过weights连接。</p>
+<ul>
+<li><strong>RNN的标准结构</strong>：</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz2ARrr4xTL3gSbQbhia3UvglxuY7FYwibzS6W7mjibbcfTfibdGZmITkK1Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><strong>普通神经网络结构</strong>：</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJrkjx6u84WjxLvC7yJLxrSeypZvBiaCCJkz1RaFYTmXiciczD6EFwURtpLkVhXs15icGwPWEwJib5smp9Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><p><strong>两者区别</strong>：</p>
+<p>基础的神经网络只在层与层之间建立了权Weights连接，RNN在层之间的神经元之间也建立了权连接</p>
+</li>
+<li><p><strong>实际中，RNN标准结构并不能解决所有问题：</strong></p>
+</li>
+</ul>
+<ol>
+<li><strong>输入为一串文字，输出为分类类别，那么输出就不需要一个序列，只要单个输出：</strong></li>
+</ol>
+<p>   <img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbxE36EJWlxvFOEiafZKx7zBIpU90D5kFwAOxU8c5QG6U50tv5BqHbUA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ol start="2">
+<li><strong>有时候需要单个输入但是输出为序列的情况的RNN结构：</strong></li>
+</ol>
+<p>   <img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzoxpv5hQGSbWm8dne0gaqqINicdcpnDjY4mibacJPVPOibFuoJpIWw1N2w/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ol start="3">
+<li><p><strong>有时候输入时序列，但是不随着序列变化：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbHGayQHWEvX3AuDVcwQia6LX9S4GaQCkw4oJ5n4goYZnqKdjVCVM9cg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>实际中，大部分问题序列都是不等长的。</strong>比如：自然语言处理中，源语言和目标语言的句子往往长度是不同的。就需要Encoder-Decoder模型，也叫Seq2Seq模型。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz9EuMk7iclkYo0zkvuGiaK8Q8nqTchcicbgNPqBHAaeOLRwrRnX2D5CQaA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>Encoder-Decoder模型结构原理：先编码后解码。左侧的RNN用来编码得到c，然后再用右侧的RNN把c解码。</p>
+</li>
+</ol>
+<p><strong>二、标准RNN的流程</strong></p>
+<p>标准的RNN采用的是前向传播过程：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhGInmNumyib3KbPLKzAicGLcLxur0yT0HPJWMuBR8so7YuNdiaBrf3icfA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>图中的：x为输入input，h为hidden layer单元，o为输出output，L为loss损失函数，y为training set训练集，右上角小标号代表t时刻状态。W，U，V代表权值Weights。</p>
+<ul>
+<li><strong>前向传播算法公式：</strong><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzYMAoaGDy7OeibFhz5LEOam7JpB1z30zmLibNHZdARfWC7icIHLpGmaic9w/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></li>
+</ul>
+<p>​       φ为激活函数，一般选择是tanh函数，b为biases偏置</p>
+<ul>
+<li><p><strong>t时刻的输出o：</strong><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz8NQkCgAdAwqy4VKra14dnBEw9eISgp5LeAyEBiaBcULTzGUgicn9x9UQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>预测输出为：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzWXQHNYU2AzVzz3bArpHyF7Zn0keYJYOicicjjxBBBlD3DpwZLDMjHXug/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+</ul>
+<p>​      其中δ为激活函数，RNN常用语分类，这里一般用softmax函数</p>
+<p><strong>三、RNN的训练方法(Back Propagation Through Time,BPTT)</strong></p>
+<p>BPTT用来RNN训练。它的本质是BP算法，只是加上了时间。因为RNN处理时间序列数据，要基于时间反向传播。</p>
+<p><strong>核心思想</strong>：BPTT和BP算法相同，都沿着需要优化参数的负梯度方向不断寻找更优的点直到收敛。也就是梯度下降法。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhGInmNumyib3KbPLKzAicGLcLxur0yT0HPJWMuBR8so7YuNdiaBrf3icfA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>需要寻找最优的有三个参数：U，V，W。</p>
+<p>U,W两个参数的寻找最优的过程需要用到历史数据。而，V只关注当前h（hidden layer）的数据。</p>
+<ul>
+<li><p><strong>求V的偏导数**</strong>：**</p>
+<p>也即是L(Loss)对V求偏导，V到L还经过o(output)，里面有激活函数。所以是复合函数求导过程。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzcsUM3dRbxkYPz27JpLWhRmydyNnkibkegYUxLYbBOSicr39a7qaOl4SA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>因为RNN的L(Loss)的损失是随着时间累加的，所以叠加后的结果如上图。</p>
+</li>
+<li><p><strong>求W的偏导数：</strong></p>
+<p>W偏导求解需要用到历史数据，假设我们只有三个时刻，假设第三个时刻L对W的偏导数为：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzdnIDWhxhAnPo8W1VFT2ianmJdFZU4fvhj2jia4GhUkLoP0y9k5bexHSg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>求U的偏导数：</strong></p>
+<p>U偏导求解需要用到历史数据，假设我们只有三个时刻，假设第三个时刻L对U的偏导数为：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzAgib52SUbfeibySwjyqP6hrzhibUajefazLb56uJAXb1a5EnlXibMrxxdQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>上面只是对某个时刻的W和U求的偏导数</strong>，但是RNN的L(Loss)损失是随着时间累加的，要追溯到历史数据，那么整个损失函数L对W，U的偏导数十分复杂的。通过找规律发现：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhlmxorq4HrDum3NAJL7jByQmSzHQqib7ScZum0d1ABiaPL7eSHzDIz5A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>根据RNN图得知，Activation Function激活函数</strong>是嵌套在对h(hidden)的偏导里面的，把中间累乘部分替换为tanh或者sigmoid写法为：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzib0d7RbiaIXw5hQEV7No50ibaezBCenG7MoMZkpnl5t5elnoiceejJDR0A/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p>上面的累乘会导致激活函数的累乘，会导致“<strong>梯度消失</strong>”和”<strong>梯度爆炸</strong>“现象。</p>
+<p><strong>1、sigmoid函数（logistics函数）和导数：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzLsCsLwO114f2ibjtxzBU6JFsN2D4WlWHafHeeycP6IdX6v0vZpDzGTA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>结论</strong>：使用sigmoid函数作为激活函数，肯定是累乘的时候结果越来越小，随着时间推移小数的累乘导致梯度小到接近于0，这就是“梯度消失”。梯度消失会导致，那一层的参数再也不会更新，那么那一层隐藏层就变成了单纯的映射层，就毫无意义了。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzUtkwBlHzgE4UVqJRpH6xic4nnPqMAJScpAYibZicWTEvoIk9DH5Lloqvg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>总结</strong>：sigmoid函数(logisitic函数)不是0中心对称</p>
+<p><strong>2、tanh函数和导数：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzAgAAcl0BPC4THTIsMnTPVIfZVhdz9feTsHZFXZ7H1QUDV3eq8zYibfQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>总结</strong>：tanh函数是中心对称，会导致神经网络的收敛性更好，是tanh函数相对于sigmoid函数来说梯度较大，收敛速度更快且引起梯度消失更慢</p>
+</li>
+<li><p>解决梯度消失的方法：</p>
+<p><strong>1、选取其他激活函数</strong></p>
+<p>一般选用ReLU作为激活函数</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzKgAhFEfBZ2U5Ean6crG1VSCboPnO69JnkHqm4ia7Un4eX2uic1gibQ7UA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>ReLU的导数：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzic1NovT9A91arI5ovvoVj2icL1UJsJNYySfCfTiatkCqJJ7zic8zIiapMzg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>总结</strong>：ReLU函数的左导数为0，右导数为1，避免了“梯度消失”，然而右导数为1，会导致“梯度爆炸”，但是可以设定合适的阈值可以解决“梯度爆炸”问题。还有一点就是，左导数恒为0，有可能导致把神经元学死，同样设置合适的步长（training_step）可以避免问题发生。</p>
+<p><strong>2、改变传播结构</strong></p>
+<p>改变传播结构，也就是引入<strong>LSTM(Long-Short Term Memory)，长短期记忆网络</strong>。是一种时间递归神经网络。适合处理和预测时间序列中间隔和延迟相对较长的重要时间。LSTM区别于RNN的地方，就是在算法中加了一个判断信息有用与否的处理器Cell。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/利用CNN识别图片/" rel="next" title="利用CNN识别图片">
+                <i class="fa fa-chevron-left"></i> 利用CNN识别图片
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="Victor Drq">
+            
+              <p class="site-author-name" itemprop="name">Victor Drq</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AnonymousDQ" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1397743321@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/drq1/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-globe"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN-Recurrent-Neural-Network-循环神经网络"><span class="nav-number">1.</span> <span class="nav-text">RNN(Recurrent Neural Network)循环神经网络</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Victor Drq</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">51.9k</span>
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

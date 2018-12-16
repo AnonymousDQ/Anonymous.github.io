@@ -304,6 +304,248 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/OGG的组件解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/OGG的组件解析/" itemprop="url">OGG的组件解析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T17:19:16+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  810
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="/2018/12/12/OGG的组件解析/1.jpg" alt="Naruto"></p>
+<h3 id="一、OGG的各个组件解析（Oracle-GoldenGate）"><a href="#一、OGG的各个组件解析（Oracle-GoldenGate）" class="headerlink" title="一、OGG的各个组件解析（Oracle GoldenGate）"></a>一、OGG的各个组件解析（Oracle GoldenGate）</h3><h4 id="1、Manager："><a href="#1、Manager：" class="headerlink" title="1、Manager："></a>1、Manager：</h4><p>Manager进程是GoldenGate中进程的控制进程，用于管理Extract，Data Pump，Replicat等进程</p>
+<p>在Extract，Data Pump，Replicat进程启动之前，Manager进程必须先要在</p>
+<p>源端和目标端启动，在整个Golden Gate运行期间，它必须保持运行状态</p>
+<ul>
+<li><p>监控与启动Golden Gate的其他进程</p>
+</li>
+<li><p>管理trail文件及Reporting</p>
+</li>
+<li><p>在windows系统上，Manager进程是作为一个服务来启动的，在Unix系统下是一个进程</p>
+</li>
+</ul>
+<h4 id="2、Extract"><a href="#2、Extract" class="headerlink" title="2、Extract"></a>2、Extract</h4><p>Extract进程运行在数据库源端上，他是Golden Gate的捕获机制，可以配置</p>
+<p>Extract进程来做如下工作：</p>
+<ul>
+<li><p>初始数据装载：对于初始数据装载，Extract进程直接从源对象中提取数据</p>
+</li>
+<li><p>同步变换捕获：保持源数据与其他数据集的同步，初始数据同事完成后</p>
+</li>
+<li><p>Extract进程捕获源数据的变换，比如DML变换(增删改)，DDL变化(drop,create,alter)</p>
+</li>
+</ul>
+<h4 id="3、Replicat"><a href="#3、Replicat" class="headerlink" title="3、Replicat"></a>3、Replicat</h4><p>Replicat进程是运行在目标端系统的一个进程，负责读取Extract进程提取到的数据（变更的事务或者DDL变化）</p>
+<p>然后应用到目标数据库</p>
+<p>配置Replicat进程完成如下工作：</p>
+<ul>
+<li>初始化数据装载：对于初始化数据转载，Replicat进程应用数据到目标对象或者路由</li>
+</ul>
+<p>它们一个高速的Bulk-load工具上</p>
+<ul>
+<li>数据同步，将Extract进程捕获到的提交了的事务应用到目标数据库中</li>
+</ul>
+<h4 id="4、Collector"><a href="#4、Collector" class="headerlink" title="4、Collector"></a>4、Collector</h4><p>Collector是一个运行在目标端的一个后台进程</p>
+<p>接收从TCP/IP网路传输过来的数据变化，并写道Trail文件里</p>
+<ul>
+<li>动态Collector：由管理进程自动启动的collector叫做动态collector，用户不能</li>
+</ul>
+<p>与动态collector交互</p>
+<ul>
+<li>静态Collector：可以配置成手工运行Collector，这个就是静态的</li>
+</ul>
+<h4 id="5、Trails"><a href="#5、Trails" class="headerlink" title="5、Trails"></a>5、Trails</h4><p>为了持续的提取与复制数据库变化，Golden Gate将捕获到的数据变化临时存放在磁盘上</p>
+<p>的一系列文件中，这些文件叫做Trail 文件</p>
+<p>这些文件可以在source DB上也可以在Target DB上，也可以在中间系统上，这依赖</p>
+<p>于选择哪种配置情况</p>
+<ul>
+<li><p>在数据库源端上叫做Local Trail或者Extract Trail</p>
+</li>
+<li><p>在目标端的叫做Remote Trail</p>
+</li>
+</ul>
+<h4 id="6、Data-Pumps"><a href="#6、Data-Pumps" class="headerlink" title="6、Data Pumps"></a>6、Data Pumps</h4><p>Data Pump是一个配置在源端的复制的Extract机制</p>
+<p>Data Pump是一个可选组件，如果不配置Data Pump,那么由Extract主进程</p>
+<p>将数据发送到目标端的Remote Trail中</p>
+<p>如果配置了Data Pump，会由Data Pump将Extract主进程写好的本地Trail文件通过网络发送到</p>
+<p>目标端的Remote Trail文件中</p>
+<p>使用Data Pump的好处：</p>
+<ul>
+<li><p>如果目标端或者网络失败，源端的Extract进程不会意外终止</p>
+</li>
+<li><p>需要在不同的阶段实现数据的过滤或者转换</p>
+</li>
+<li><p>多个源数据复制到数据中心</p>
+</li>
+<li><p>数据需要复制到多个目标数据库</p>
+</li>
+</ul>
+<h4 id="7、ADG的解释"><a href="#7、ADG的解释" class="headerlink" title="7、ADG的解释"></a>7、ADG的解释</h4><p>所谓的ADG，就是在备份库，应用redo log的同时，避免资源的浪费</p>
+<p>OGG侧重于数据备份，ADG侧重于高可用</p>
+<p>OGG可以异构，也就是不仅可以用在Oracle，ADG只有oracle可以用</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Oracle数据库优化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2196,267 +2438,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Spring-Boot入门/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/Spring-Boot入门/" itemprop="url">Spring Boot入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T11:05:35+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.4k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、Spring-Boot入门"><a href="#一、Spring-Boot入门" class="headerlink" title="一、Spring Boot入门"></a>一、Spring Boot入门</h1><p>Spring Boot来简化Spring应用开发，约定大于配置，去繁从简，just run就能创建一个独立的，产品级别的应用</p>
-<h4 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h4><p>J2EE笨重的开发，繁多的配置，低下的开发效率，复杂的部署流程，第三方技术集成难度大</p>
-<h4 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h4><p>“Spring全家桶”时代</p>
-<p>Spring Boot–&gt;J2EE一站式解决方案</p>
-<p>Spring Cloud–&gt;分布式整体解决方案</p>
-<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><ul>
-<li>快速创建独立运行的Spring项目以及主流框架集成</li>
-<li>使用嵌入式的Servlet容器，应用无需打成WAR包</li>
-<li>starters(启动器)自动依赖与版本控制，想用web功能就导入web功能的启动器starters，想用redis就导入redis的starters，所有的企业级开发场景都有相应的starters启动器，导入就可自动依赖。</li>
-<li>大量的自动的配置，简化开发，也可修改默认值（通过spring boot的配置文件）</li>
-<li>无需配置XML，无代码生成，开箱即用（都是用一些写好的API，自动配置好XML，SpringBoot应用创建出来就能用，并不是说有一些自动生成的XML工具）</li>
-<li>准生产环境的运行时应用监控</li>
-<li>与云计算的天然集成</li>
-<li>ps(shift+tab退出无序列表)</li>
-</ul>
-<h4 id="缺点：易学难精"><a href="#缺点：易学难精" class="headerlink" title="缺点：易学难精"></a>缺点：易学难精</h4><h4 id="1、Spring-Boot简介"><a href="#1、Spring-Boot简介" class="headerlink" title="1、Spring Boot简介"></a>1、Spring Boot简介</h4><p>简化Spring应用开发的一个框架</p>
-<p>整个Spring技术栈的一个大集合</p>
-<p>J2EE开发的一站式解决方案</p>
-<h4 id="2、微服务"><a href="#2、微服务" class="headerlink" title="2、微服务"></a>2、微服务</h4><p><a href="https://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">微服务文档</a></p>
-<p>Microservices:a definition of this new architectural term</p>
-<p>微服务：架构风格</p>
-<p>the microservice architectural style  is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API.</p>
-<p>一个应用应该是一组小型服务：可以通过HTTP的方式进行互通</p>
-<h3 id="单体应用：ALL-IN-ONE所有的东西都写在一个里面"><a href="#单体应用：ALL-IN-ONE所有的东西都写在一个里面" class="headerlink" title="单体应用：ALL IN ONE所有的东西都写在一个里面"></a>单体应用：ALL IN ONE所有的东西都写在一个里面</h3><p>Traditional web application architecture</p>
-<p><img src="/2018/12/12/Spring-Boot入门/C:/Users\DELL\Desktop\单体.png" alt="单体应用"></p>
-<p>OA,CRM,ERP系统,以前都是创建一个应用然后将所有的页面，代码都放在这个应用里，然后把整个应用打包打成WAR包，然后部署到Tomcat上，应用访问数据库，提供前端访问的页面，这个应用就跑起来了，这是传统的WEB应用架构模式，传统的优点：比如开发测试简单，develop test deploy scale,开发，测试，部署，扩展也都简单。</p>
-<p>水平扩展也简单，当我们应用负载能力不行的时候，我们把相同的应用复制上十几份，放在十几个服务器里，十几个服务器都来跑我们这些应用程序，我们通过负载均衡机制，就可以来提高我们的并发能力。</p>
-<h4 id="单体应用的问题："><a href="#单体应用的问题：" class="headerlink" title="单体应用的问题："></a>单体应用的问题：</h4><p>这是一个牵一发而动全身的问题，有可能因为我们一个小小的修改，导致我们整个应用重新打包部署运行。</p>
-<p>更大的挑战是我们日益增长的软件需求，现在可能随便一个应用都有可能成为一个大的需求，大应用不可能全部ALL IN ONE写在一个里面，然后应用到底有多大，该如何维护，该如何分工合作，这是一个问题。</p>
-<h3 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h3><p><img src="/2018/12/12/Spring-Boot入门/C:/Users\DELL\Desktop\微服务.png" alt="微服务"></p>
-<h4 id="单体应用："><a href="#单体应用：" class="headerlink" title="单体应用："></a>单体应用：</h4><p>就是打破以前的传统方式，以前是将所有的功能单元放在一个应用里面。然后把整个应用部署到服务器上，如果服务器负载能力不行，把同一份应用水平复制，然后扩展到其他服务器。</p>
-<h4 id="微服务："><a href="#微服务：" class="headerlink" title="微服务："></a>微服务：</h4><p>一个微服务架构把每个功能元素放进一个独立的服务中，把每个功能元素独立出来，通过功能元素的动态组合，比如A服务器需要某个功能元素多，就多放一点，B服务器需要某个功能元素少，就少放一点</p>
-<p>并且通过跨服务器分发这些服务进行扩展，某些功能只在需要时才复制。也就是功能元素级别的复制，并不是整个应用的复制。1、节省了调用资源，把服务微化起来2、每一个服务都应该是一个可替换的，可独立升级的软件单元</p>
-<p><img src="/2018/12/12/Spring-Boot入门/C:/Users\DELL\Desktop\timg.jpg" alt="两者区别"></p>
-<p>每一个功能元素最终都是可独立替换，可独立升级的软件单元</p>
-<h4 id="SOA架构和微服务架构区别："><a href="#SOA架构和微服务架构区别：" class="headerlink" title="SOA架构和微服务架构区别："></a>SOA架构和微服务架构区别：</h4><ul>
-<li><p>SOA(Service Oriented Architecture)：面向服务的架构，一种设计方法，其中包含多个服务，服务之间通过相互依赖最终提供一系列的功能，一个服务通常以独立的形式存在于操作系统进程中，各个服务之间通过网络调用。</p>
-</li>
-<li><p>微服务架构：其实和SOA架构类似，微服务是在SOA上做的升华，微服务架构强调的一个重点是“业务需要彻底的组件化和服务化”，原有的但各业务系统会拆分成多个可以独立开发，设计，运行的小应用</p>
-<p>这些小应用之间通过服务完成交互和集成</p>
-</li>
-</ul>
-<h4 id="主要区别："><a href="#主要区别：" class="headerlink" title="主要区别："></a>主要区别：</h4><table>
-<thead>
-<tr>
-<th style="text-align:center">功能</th>
-<th style="text-align:center">SOA</th>
-<th style="text-align:center">微服务</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">组件大小</td>
-<td style="text-align:center">大块业务逻辑</td>
-<td style="text-align:center">单独任务或小块业务逻辑</td>
-</tr>
-<tr>
-<td style="text-align:center">耦合</td>
-<td style="text-align:center">通常松耦合</td>
-<td style="text-align:center">总是松耦合</td>
-</tr>
-<tr>
-<td style="text-align:center">公司架构</td>
-<td style="text-align:center">任何类型</td>
-<td style="text-align:center">小型，专注于功能交叉团队</td>
-</tr>
-<tr>
-<td style="text-align:center">管理</td>
-<td style="text-align:center">着重中央管理</td>
-<td style="text-align:center">着重分散管理</td>
-</tr>
-<tr>
-<td style="text-align:center">目标</td>
-<td style="text-align:center">确保应用能够交互操作</td>
-<td style="text-align:center">执行新功能，快速拓展开发团队</td>
-</tr>
-</tbody>
-</table>
-<h3 id="掌握内容："><a href="#掌握内容：" class="headerlink" title="掌握内容："></a>掌握内容：</h3><ul>
-<li>Spring框架</li>
-<li>熟练使用Maven进行项目构建和依赖管理</li>
-<li>熟练使用Eclipse、IDEA</li>
-</ul>
-<h3 id="环境约束："><a href="#环境约束：" class="headerlink" title="环境约束："></a>环境约束：</h3><ul>
-<li>JDK1.8</li>
-<li>Maven3.x:Maven 3.3以上版本</li>
-<li>IntelliJ IDEA</li>
-<li>Spring Boot 1.5.9.RELEASE</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2509,7 +2490,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2612,7 +2593,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">50.5k</span>
+    <span title="Site words total count">51.9k</span>
   
 </div>
 <div class="powered-by">
