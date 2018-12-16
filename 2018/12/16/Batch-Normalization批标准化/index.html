@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="drqblog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Batch Normalization批标准化123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Batch Normalization批标准化">
+<meta property="og:url" content="http://yoursite.com/2018/12/16/Batch-Normalization批标准化/index.html">
+<meta property="og:site_name" content="drqblog">
+<meta property="og:description" content="Batch Normalization批标准化123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/Batch-Normalization批标准化/5.gif">
+<meta property="og:updated_time" content="2018-12-16T08:19:11.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Batch Normalization批标准化">
+<meta name="twitter:description" content="Batch Normalization批标准化123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/16/Batch-Normalization批标准化/5.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/16/Batch-Normalization批标准化/">
+
+
+
+
+
+  <title>Batch Normalization批标准化 | drqblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/AnonymousDQ">
+	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub">
+	</a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">drqblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/Batch-Normalization批标准化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Batch Normalization批标准化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T16:04:51+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Batch-Normalization批标准化"><a href="#Batch-Normalization批标准化" class="headerlink" title="Batch Normalization批标准化"></a>Batch Normalization批标准化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#为什么要批标准化（Batch Normalization）？</span></span><br><span class="line"><span class="comment">#Why need batch normalization?</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">将分散的数据的统一标准化的方法。</span></span><br><span class="line"><span class="string">数据分布会对神经网络训练产生影响</span></span><br><span class="line"><span class="string">因为没有进行标准化，导致数据不敏感。</span></span><br><span class="line"><span class="string">是为了克服神经网络层数加深导致难以训练而诞生的一个算法。</span></span><br><span class="line"><span class="string">根据ICS理论，当训练集的样本数据和目标样本集分布不一致的时候，</span></span><br><span class="line"><span class="string">训练得到的模型无法很好的泛化</span></span><br><span class="line"><span class="string">在神经网络中，每一层的输入在经过层内操作之后必然会导致与原来对应的输入信号分布不同</span></span><br><span class="line"><span class="string">,并且前层神经网络的增加会被后面的神经网络不对的累积放大。</span></span><br><span class="line"><span class="string">这个问题的一个解决思路就是根据训练样本</span></span><br><span class="line"><span class="string">与目标样本的比例对训练样本进行一个矫正，</span></span><br><span class="line"><span class="string">而BN算法（批标准化）则可以用来规范化某些层或者所有层的输入</span></span><br><span class="line"><span class="string">从而固定每层输入信号的均值与方差</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Batch也就是把Data分成小批小批的来进行梯度下降。</span></span><br><span class="line"><span class="string">解决方法：</span></span><br><span class="line"><span class="string">显示数据X，然后经过全连接层fully connection layer，然后Batch Normalization(BN)</span></span><br><span class="line"><span class="string">添加在数据X和全连接层之间。</span></span><br><span class="line"><span class="string">然后在经过激励函数，再经过全连接层，这么下去</span></span><br><span class="line"><span class="string">BN可以加快你的机器学习，也可以很有效的训练。</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#ACTIVATION = tf.nn.relu#activation function,所有层都使用relu</span></span><br><span class="line">ACTIVATION = tf.nn.tanh<span class="comment">#activation function,所有层都使用tanh</span></span><br><span class="line">N_LAYERS = <span class="number">7</span><span class="comment">#搭建7个hidden layer</span></span><br><span class="line">N_HIDDEN_UNITS = <span class="number">30</span><span class="comment">#每个hidden layer有30个神经元</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#重复观看的功能</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fix_seed</span><span class="params">(seed=<span class="number">1</span>)</span>:</span></span><br><span class="line">    <span class="comment"># reproducible</span></span><br><span class="line">    np.random.seed(seed)</span><br><span class="line">    tf.set_random_seed(seed)</span><br><span class="line"></span><br><span class="line"><span class="comment">#打印图</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_his</span><span class="params">(inputs, inputs_norm)</span>:</span></span><br><span class="line">    <span class="comment"># plot histogram for the inputs of every layer</span></span><br><span class="line">    <span class="keyword">for</span> j, all_inputs <span class="keyword">in</span> enumerate([inputs, inputs_norm]):</span><br><span class="line">        <span class="keyword">for</span> i, input <span class="keyword">in</span> enumerate(all_inputs):</span><br><span class="line">            plt.subplot(<span class="number">2</span>, len(all_inputs), j*len(all_inputs)+(i+<span class="number">1</span>))</span><br><span class="line">            plt.cla()</span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">                the_range = (<span class="number">-7</span>, <span class="number">10</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                the_range = (<span class="number">-1</span>, <span class="number">1</span>)</span><br><span class="line">            plt.hist(input.ravel(), bins=<span class="number">15</span>, range=the_range, color=<span class="string">'#FF5733'</span>)</span><br><span class="line">            plt.yticks(())</span><br><span class="line">            <span class="keyword">if</span> j == <span class="number">1</span>:</span><br><span class="line">                plt.xticks(the_range)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                plt.xticks(())</span><br><span class="line">            ax = plt.gca()</span><br><span class="line">            ax.spines[<span class="string">'right'</span>].set_color(<span class="string">'none'</span>)</span><br><span class="line">            ax.spines[<span class="string">'top'</span>].set_color(<span class="string">'none'</span>)</span><br><span class="line">        plt.title(<span class="string">"%s normalizing"</span> % (<span class="string">"Without"</span> <span class="keyword">if</span> j == <span class="number">0</span> <span class="keyword">else</span> <span class="string">"With"</span>))</span><br><span class="line">    plt.draw()</span><br><span class="line">    plt.pause(<span class="number">0.01</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#搭建神经网络</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">built_net</span><span class="params">(xs, ys, norm)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_layer</span><span class="params">(inputs, in_size, out_size, activation_function=None, norm=False)</span>:</span></span><br><span class="line">        <span class="comment"># weights and biases (bad initialization for this case)</span></span><br><span class="line">        Weights = tf.Variable(tf.random_normal([in_size, out_size], mean=<span class="number">0.</span>, stddev=<span class="number">1.</span>))</span><br><span class="line">        biases = tf.Variable(tf.zeros([<span class="number">1</span>, out_size]) + <span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># fully connected product</span></span><br><span class="line">        Wx_plus_b = tf.matmul(inputs, Weights) + biases</span><br><span class="line"></span><br><span class="line">        <span class="comment"># normalize fully connected product</span></span><br><span class="line">        <span class="keyword">if</span> norm:</span><br><span class="line">            <span class="comment"># Batch Normalize</span></span><br><span class="line">            <span class="comment">#fc_mean：整批数据的均值</span></span><br><span class="line">            <span class="comment">#fc_var：整批数据的方差</span></span><br><span class="line">            fc_mean, fc_var = tf.nn.moments(</span><br><span class="line">                Wx_plus_b,</span><br><span class="line">                axes=[<span class="number">0</span>],   <span class="comment"># the dimension you wanna normalize, here [0] for batch</span></span><br><span class="line">                            <span class="comment"># for image, you wanna do [0, 1, 2] for [batch, height, width] but not channel</span></span><br><span class="line">                            <span class="comment">#如果你是图片的话，就在0，1，2（batch, height, width）三个维度上求均值，方差</span></span><br><span class="line">            )</span><br><span class="line">            scale = tf.Variable(tf.ones([out_size]))</span><br><span class="line">            shift = tf.Variable(tf.zeros([out_size]))</span><br><span class="line">            epsilon = <span class="number">0.001</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># apply moving average for mean and var when train on batch</span></span><br><span class="line">            ema = tf.train.ExponentialMovingAverage(decay=<span class="number">0.5</span>)</span><br><span class="line">            <span class="function"><span class="keyword">def</span> <span class="title">mean_var_with_update</span><span class="params">()</span>:</span></span><br><span class="line">                ema_apply_op = ema.apply([fc_mean, fc_var])</span><br><span class="line">                <span class="keyword">with</span> tf.control_dependencies([ema_apply_op]):</span><br><span class="line">                    <span class="keyword">return</span> tf.identity(fc_mean), tf.identity(fc_var)</span><br><span class="line">            mean, var = mean_var_with_update()</span><br><span class="line"></span><br><span class="line">            </span><br><span class="line">            Wx_plus_b = tf.nn.batch_normalization(Wx_plus_b, mean, var, shift, scale, epsilon)</span><br><span class="line">            <span class="comment">#使用了tf.nn.batch_normalization方法就是和下面注释计算的本质88一样。</span></span><br><span class="line">            <span class="comment"># similar with this two steps:</span></span><br><span class="line">            <span class="comment"># Wx_plus_b = (Wx_plus_b - fc_mean) / tf.sqrt(fc_var + 0.001)</span></span><br><span class="line">            <span class="comment"># Wx_plus_b = Wx_plus_b * scale + shift</span></span><br><span class="line">            <span class="comment">#scale是扩大的参数</span></span><br><span class="line">            <span class="comment">#shift是平移的参数</span></span><br><span class="line">            </span><br><span class="line"></span><br><span class="line">        <span class="comment"># activation，也就是上面的Weights+biases计算完后放到激活函数激活</span></span><br><span class="line">        <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            outputs = Wx_plus_b</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            outputs = activation_function(Wx_plus_b)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> outputs</span><br><span class="line"></span><br><span class="line">    fix_seed(<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#如果使用normalization，也就是加入BN层</span></span><br><span class="line">    <span class="keyword">if</span> norm:</span><br><span class="line">        <span class="comment"># BN for the first input</span></span><br><span class="line">        <span class="comment">#fc_mean：整批数据的均值</span></span><br><span class="line">        <span class="comment">#fc_var：整批数据的方差</span></span><br><span class="line">        fc_mean, fc_var = tf.nn.moments(</span><br><span class="line">            xs,</span><br><span class="line">            axes=[<span class="number">0</span>],</span><br><span class="line">        )</span><br><span class="line">        scale = tf.Variable(tf.ones([<span class="number">1</span>]))</span><br><span class="line">        shift = tf.Variable(tf.zeros([<span class="number">1</span>]))</span><br><span class="line">        epsilon = <span class="number">0.001</span></span><br><span class="line">        <span class="comment"># apply moving average for mean and var when train on batch</span></span><br><span class="line">        ema = tf.train.ExponentialMovingAverage(decay=<span class="number">0.5</span>)</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">mean_var_with_update</span><span class="params">()</span>:</span></span><br><span class="line">            ema_apply_op = ema.apply([fc_mean, fc_var])</span><br><span class="line">            <span class="keyword">with</span> tf.control_dependencies([ema_apply_op]):</span><br><span class="line">                <span class="keyword">return</span> tf.identity(fc_mean), tf.identity(fc_var)</span><br><span class="line">        mean, var = mean_var_with_update()</span><br><span class="line">        xs = tf.nn.batch_normalization(xs, mean, var, shift, scale, epsilon)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># record inputs for every layer</span></span><br><span class="line">    layers_inputs = [xs]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># build hidden layers</span></span><br><span class="line">    <span class="keyword">for</span> l_n <span class="keyword">in</span> range(N_LAYERS):</span><br><span class="line">        layer_input = layers_inputs[l_n]</span><br><span class="line">        in_size = layers_inputs[l_n].get_shape()[<span class="number">1</span>].value</span><br><span class="line"></span><br><span class="line">        output = add_layer(</span><br><span class="line">            layer_input,    <span class="comment"># input</span></span><br><span class="line">            in_size,        <span class="comment"># input size</span></span><br><span class="line">            N_HIDDEN_UNITS, <span class="comment"># output size</span></span><br><span class="line">            ACTIVATION,     <span class="comment"># activation function</span></span><br><span class="line">            norm,           <span class="comment"># normalize before activation</span></span><br><span class="line">        )</span><br><span class="line">        layers_inputs.append(output)    <span class="comment"># add output for next run</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># build output layer</span></span><br><span class="line">    prediction = add_layer(layers_inputs[<span class="number">-1</span>], <span class="number">30</span>, <span class="number">1</span>, activation_function=<span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">    cost = tf.reduce_mean(tf.reduce_sum(tf.square(ys - prediction), reduction_indices=[<span class="number">1</span>]))</span><br><span class="line">    train_op = tf.train.GradientDescentOptimizer(<span class="number">0.001</span>).minimize(cost)</span><br><span class="line">    <span class="keyword">return</span> [train_op, cost, layers_inputs]<span class="comment">#network的功能就是输出train_op, cost, layers_inputs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># make up data</span></span><br><span class="line">fix_seed(<span class="number">1</span>)</span><br><span class="line">x_data = np.linspace(<span class="number">-7</span>, <span class="number">10</span>, <span class="number">2500</span>)[:, np.newaxis]</span><br><span class="line">np.random.shuffle(x_data)</span><br><span class="line">noise = np.random.normal(<span class="number">0</span>, <span class="number">8</span>, x_data.shape)</span><br><span class="line">y_data = np.square(x_data) - <span class="number">5</span> + noise</span><br><span class="line"></span><br><span class="line"><span class="comment"># plot input data</span></span><br><span class="line">plt.scatter(x_data, y_data)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">xs = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])  <span class="comment"># [num_samples, num_features]</span></span><br><span class="line">ys = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">train_op, cost, layers_inputs = built_net(xs, ys, norm=<span class="keyword">False</span>)   <span class="comment"># without BN</span></span><br><span class="line">train_op_norm, cost_norm, layers_inputs_norm = built_net(xs, ys, norm=<span class="keyword">True</span>) <span class="comment"># with BN</span></span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line"><span class="keyword">if</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">1</span>]) &lt; <span class="number">12</span> <span class="keyword">and</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">0</span>]) &lt; <span class="number">1</span>:</span><br><span class="line">    init = tf.initialize_all_variables()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    init = tf.global_variables_initializer()</span><br><span class="line">sess.run(init)</span><br><span class="line"></span><br><span class="line"><span class="comment"># record cost</span></span><br><span class="line">cost_his = []</span><br><span class="line">cost_his_norm = []</span><br><span class="line">record_step = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">plt.ion()</span><br><span class="line">plt.figure(figsize=(<span class="number">7</span>, <span class="number">3</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">250</span>):</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">50</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># plot histogram</span></span><br><span class="line">        all_inputs, all_inputs_norm = sess.run([layers_inputs, layers_inputs_norm], feed_dict=&#123;xs: x_data, ys: y_data&#125;)</span><br><span class="line">        plot_his(all_inputs, all_inputs_norm)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># train on batch</span></span><br><span class="line">    sess.run([train_op, train_op_norm], feed_dict=&#123;xs: x_data[i*<span class="number">10</span>:i*<span class="number">10</span>+<span class="number">10</span>], ys: y_data[i*<span class="number">10</span>:i*<span class="number">10</span>+<span class="number">10</span>]&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> i % record_step == <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># record cost</span></span><br><span class="line">        cost_his.append(sess.run(cost, feed_dict=&#123;xs: x_data, ys: y_data&#125;))</span><br><span class="line">        cost_his_norm.append(sess.run(cost_norm, feed_dict=&#123;xs: x_data, ys: y_data&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">#matplotlib的默认显示模式为block模式。就是使用Plt.show()，程序会暂停，</span></span><br><span class="line"><span class="comment">#并不会继续执行下去，如果要展示动态图就要使用plt.ion()</span></span><br><span class="line"><span class="comment">#把block模式改为interactive交互模式</span></span><br><span class="line"><span class="comment">#plt.show()之前一定不要忘了加plt.ioff()，否则界面一闪而过，并不会停留</span></span><br><span class="line">plt.ioff()</span><br><span class="line">plt.figure()</span><br><span class="line"><span class="comment">#display no batch normalizatoin </span></span><br><span class="line">plt.plot(np.arange(len(cost_his))*record_step, np.array(cost_his), label=<span class="string">'no BN'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display batch normalization result</span></span><br><span class="line">plt.plot(np.arange(len(cost_his))*record_step, np.array(cost_his_norm), label=<span class="string">'BN'</span>)   </span><br><span class="line"></span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果："><a href="#运行结果：" class="headerlink" title="运行结果："></a>运行结果：</h2><p><img src="/2018/12/16/Batch-Normalization批标准化/5.gif" alt="batch normalization"></p>
+<p><strong>总结：</strong>发现批标准化后的数据更集中，而不是分散与某个极端，使得训练结果更好泛化。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/16/使用Autoencoder自编码进行Classfication/" rel="next" title="使用Autoencoder自编码进行Classfication">
+                <i class="fa fa-chevron-left"></i> 使用Autoencoder自编码进行Classfication
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/16/variable与constant的用法/" rel="prev" title="variable与constant的用法">
+                variable与constant的用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="Victor Drq">
+            
+              <p class="site-author-name" itemprop="name">Victor Drq</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AnonymousDQ" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1397743321@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/drq1/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-globe"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-Normalization批标准化"><span class="nav-number">1.</span> <span class="nav-text">Batch Normalization批标准化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行结果："><span class="nav-number">2.</span> <span class="nav-text">运行结果：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Victor Drq</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">60.3k</span>
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

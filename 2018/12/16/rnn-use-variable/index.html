@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="drqblog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="在RNN中use variable123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rnn_use_variable">
+<meta property="og:url" content="http://yoursite.com/2018/12/16/rnn-use-variable/index.html">
+<meta property="og:site_name" content="drqblog">
+<meta property="og:description" content="在RNN中use variable123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/rnn-use-variable/1.png">
+<meta property="og:updated_time" content="2018-12-16T07:48:19.157Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rnn_use_variable">
+<meta name="twitter:description" content="在RNN中use variable123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/16/rnn-use-variable/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/16/rnn-use-variable/">
+
+
+
+
+
+  <title>rnn_use_variable | drqblog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/AnonymousDQ">
+	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub">
+	</a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">drqblog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/index" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/rnn-use-variable/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">rnn_use_variable</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T15:28:21+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  499
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="在RNN中use-variable"><a href="#在RNN中use-variable" class="headerlink" title="在RNN中use variable"></a>在RNN中use variable</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment">#define class</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrainConfig</span>:</span></span><br><span class="line">    batch_size = <span class="number">20</span></span><br><span class="line">    time_steps = <span class="number">20</span></span><br><span class="line">    input_size = <span class="number">10</span></span><br><span class="line">    output_size = <span class="number">2</span></span><br><span class="line">    cell_size = <span class="number">11</span></span><br><span class="line">    learning_rate = <span class="number">0.01</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestConfig</span><span class="params">(TrainConfig)</span>:</span></span><br><span class="line">    time_steps = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define RNN class</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RNN</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#define the init method</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, config)</span>:</span></span><br><span class="line">        self._batch_size = config.batch_size</span><br><span class="line">        self._time_steps = config.time_steps</span><br><span class="line">        self._input_size = config.input_size</span><br><span class="line">        self._output_size = config.output_size</span><br><span class="line">        self._cell_size = config.cell_size</span><br><span class="line">        self._lr = config.learning_rate</span><br><span class="line">        self._built_RNN()</span><br><span class="line"></span><br><span class="line">    <span class="comment">#build the rnn network    </span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_built_RNN</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'inputs'</span>):</span><br><span class="line">            self._xs = tf.placeholder(tf.float32, [self._batch_size, self._time_steps, self._input_size], name=<span class="string">'xs'</span>)</span><br><span class="line">            self._ys = tf.placeholder(tf.float32, [self._batch_size, self._time_steps, self._output_size], name=<span class="string">'ys'</span>)</span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'RNN'</span>):</span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">'input_layer'</span>):</span><br><span class="line">                l_in_x = tf.reshape(self._xs, [<span class="number">-1</span>, self._input_size], name=<span class="string">'2_2D'</span>)  <span class="comment"># (batch*n_step, in_size)</span></span><br><span class="line">                <span class="comment"># Ws (in_size, cell_size)</span></span><br><span class="line">                Wi = self._weight_variable([self._input_size, self._cell_size])</span><br><span class="line">                print(Wi.name)</span><br><span class="line">                <span class="comment"># bs (cell_size, )</span></span><br><span class="line">                bi = self._bias_variable([self._cell_size, ])</span><br><span class="line">                <span class="comment"># l_in_y = (batch * n_steps, cell_size)</span></span><br><span class="line">                <span class="keyword">with</span> tf.name_scope(<span class="string">'Wx_plus_b'</span>):</span><br><span class="line">                    l_in_y = tf.matmul(l_in_x, Wi) + bi</span><br><span class="line">                l_in_y = tf.reshape(l_in_y, [<span class="number">-1</span>, self._time_steps, self._cell_size], name=<span class="string">'2_3D'</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">'cell'</span>):</span><br><span class="line">                cell = tf.contrib.rnn.BasicLSTMCell(self._cell_size)</span><br><span class="line">                <span class="keyword">with</span> tf.name_scope(<span class="string">'initial_state'</span>):</span><br><span class="line">                    self._cell_initial_state = cell.zero_state(self._batch_size, dtype=tf.float32)</span><br><span class="line"></span><br><span class="line">                self.cell_outputs = []</span><br><span class="line">                cell_state = self._cell_initial_state</span><br><span class="line">                <span class="keyword">for</span> t <span class="keyword">in</span> range(self._time_steps):</span><br><span class="line">                    <span class="keyword">if</span> t &gt; <span class="number">0</span>: tf.get_variable_scope().reuse_variables()</span><br><span class="line">                    cell_output, cell_state = cell(l_in_y[:, t, :], cell_state)</span><br><span class="line">                    self.cell_outputs.append(cell_output)</span><br><span class="line">                self._cell_final_state = cell_state</span><br><span class="line"></span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">'output_layer'</span>):</span><br><span class="line">                <span class="comment"># cell_outputs_reshaped (BATCH*TIME_STEP, CELL_SIZE)</span></span><br><span class="line">                cell_outputs_reshaped = tf.reshape(tf.concat(self.cell_outputs, <span class="number">1</span>), [<span class="number">-1</span>, self._cell_size])</span><br><span class="line">                Wo = self._weight_variable((self._cell_size, self._output_size))</span><br><span class="line">                bo = self._bias_variable((self._output_size,))</span><br><span class="line">                product = tf.matmul(cell_outputs_reshaped, Wo) + bo</span><br><span class="line">                <span class="comment"># _pred shape (batch*time_step, output_size)</span></span><br><span class="line">                self._pred = tf.nn.relu(product)    <span class="comment"># for displacement</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'cost'</span>):</span><br><span class="line">            _pred = tf.reshape(self._pred, [self._batch_size, self._time_steps, self._output_size])</span><br><span class="line">            mse = self.ms_error(_pred, self._ys)</span><br><span class="line">            mse_ave_across_batch = tf.reduce_mean(mse, <span class="number">0</span>)</span><br><span class="line">            mse_sum_across_time = tf.reduce_sum(mse_ave_across_batch, <span class="number">0</span>)</span><br><span class="line">            self._cost = mse_sum_across_time</span><br><span class="line">            self._cost_ave_time = self._cost / self._time_steps</span><br><span class="line"></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'trian'</span>):</span><br><span class="line">            self._lr = tf.convert_to_tensor(self._lr)</span><br><span class="line">            self.train_op = tf.train.AdamOptimizer(self._lr).minimize(self._cost)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ms_error</span><span class="params">(y_target, y_pre)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tf.square(tf.subtract(y_target, y_pre))</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_weight_variable</span><span class="params">(shape, name=<span class="string">'weights'</span>)</span>:</span></span><br><span class="line">        initializer = tf.random_normal_initializer(mean=<span class="number">0.</span>, stddev=<span class="number">0.5</span>, )</span><br><span class="line">        <span class="keyword">return</span> tf.get_variable(shape=shape, initializer=initializer, name=name)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_bias_variable</span><span class="params">(shape, name=<span class="string">'biases'</span>)</span>:</span></span><br><span class="line">        initializer = tf.constant_initializer(<span class="number">0.1</span>)</span><br><span class="line">        <span class="keyword">return</span> tf.get_variable(name=name, shape=shape, initializer=initializer)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    train_config = TrainConfig()</span><br><span class="line">    test_config = TestConfig()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># the wrong method to reuse parameters in train rnn</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'train_rnn'</span>):</span><br><span class="line">        train_rnn1 = RNN(train_config)</span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'test_rnn'</span>):</span><br><span class="line">        test_rnn1 = RNN(test_config)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># the right method to reuse parameters in train rnn</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'rnn'</span>) <span class="keyword">as</span> scope:</span><br><span class="line">        sess = tf.Session()</span><br><span class="line">        train_rnn2 = RNN(train_config)</span><br><span class="line">        scope.reuse_variables()</span><br><span class="line">        test_rnn2 = RNN(test_config)</span><br><span class="line">        <span class="comment"># tf.initialize_all_variables() no long valid from</span></span><br><span class="line">        <span class="comment"># 2017-03-02 if using tensorflow &gt;= 0.12</span></span><br><span class="line">        <span class="keyword">if</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">1</span>]) &lt; <span class="number">12</span> <span class="keyword">and</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">0</span>]) &lt; <span class="number">1</span>:</span><br><span class="line">            init = tf.initialize_all_variables()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            init = tf.global_variables_initializer()</span><br><span class="line">        sess.run(init)</span><br></pre></td></tr></table></figure>
+<h2 id="使用variable-scope的效果："><a href="#使用variable-scope的效果：" class="headerlink" title="使用variable_scope的效果："></a>使用variable_scope的效果：</h2><p><img src="/2018/12/16/rnn-use-variable/1.png" alt="rnn"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/16/name-scope的用法/" rel="next" title="name_scope的用法">
+                <i class="fa fa-chevron-left"></i> name_scope的用法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/16/Autoencoder自编码/" rel="prev" title="Autoencoder自编码">
+                Autoencoder自编码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="Victor Drq">
+            
+              <p class="site-author-name" itemprop="name">Victor Drq</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AnonymousDQ" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1397743321@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/drq1/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-globe"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在RNN中use-variable"><span class="nav-number">1.</span> <span class="nav-text">在RNN中use variable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用variable-scope的效果："><span class="nav-number">2.</span> <span class="nav-text">使用variable_scope的效果：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Victor Drq</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">60.3k</span>
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

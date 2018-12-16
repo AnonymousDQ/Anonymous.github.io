@@ -304,7 +304,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合sinx/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/variable-scope的用法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -323,7 +323,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/用Batch-Gradient-Descent来拟合sinx/" itemprop="url">用Batch Gradient Descent来拟合sinx</a></h1>
+                <a class="post-title-link" href="/2018/12/16/variable-scope的用法/" itemprop="url">variable_scope的用法</a></h1>
         
 
         <div class="post-meta">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T13:48:05+08:00">
-                2018-12-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T15:27:40+08:00">
+                2018-12-16
               </time>
             
 
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  282
+                  353
                 </span>
               
 
@@ -428,8 +428,8 @@
       
         
           
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="comment">#define a add_layer function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_layer</span><span class="params">(inputs, in_size, out_size, activation_function=None)</span>:</span></span><br><span class="line">    <span class="comment"># add one more layer and return the output of this layer</span></span><br><span class="line">    Weights = tf.Variable(tf.random_normal([in_size, out_size]))</span><br><span class="line">    biases = tf.Variable(tf.zeros([<span class="number">1</span>, out_size]))</span><br><span class="line">    Wx_plus_b = tf.matmul(inputs, Weights) + biases</span><br><span class="line">    <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        outputs = Wx_plus_b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        outputs = activation_function(Wx_plus_b)</span><br><span class="line">    <span class="keyword">return</span> outputs</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Make up some real data</span></span><br><span class="line">x_data = np.linspace(-np.pi,np.pi,<span class="number">300</span>)[:, np.newaxis]</span><br><span class="line">noise = np.random.normal(<span class="number">0</span>, <span class="number">0.05</span>, x_data.shape)</span><br><span class="line">y_data = np.sin(x_data) + noise</span><br><span class="line"> </span><br><span class="line"><span class="comment"># define placeholder for inputs to network</span></span><br><span class="line">xs = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line">ys = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line"><span class="comment"># add hidden layer</span></span><br><span class="line">l1 = add_layer(xs, <span class="number">1</span>, <span class="number">10</span>, activation_function=tf.nn.relu)</span><br><span class="line"><span class="comment"># add output layer</span></span><br><span class="line">prediction = add_layer(l1, <span class="number">10</span>, <span class="number">1</span>, activation_function=tf.nn.tanh)</span><br><span class="line"> </span><br><span class="line">loss = tf.reduce_mean(tf.square(ys - prediction))</span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.05</span>).minimize(loss)</span><br><span class="line"> </span><br><span class="line">init = tf.initialize_all_variables()</span><br><span class="line">sess = tf.Session()</span><br><span class="line">sess.run(init)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># plot the real data</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">ax.scatter(x_data, y_data)</span><br><span class="line"><span class="comment"># Interactive mode on</span></span><br><span class="line">plt.ion()</span><br><span class="line">plt.show()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5000</span>):</span><br><span class="line">    <span class="comment"># training</span></span><br><span class="line">    sess.run(train_step, feed_dict=&#123;xs: x_data, ys: y_data&#125;)</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">50</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># to visualize the result and remove the previous line </span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment">#ax.lines.remove(lines[0])             </span></span><br><span class="line">            <span class="comment">#每次抹除线，先暂停0.1秒</span></span><br><span class="line">             plt.pause(<span class="number">0.1</span>)</span><br><span class="line">             ax.lines.remove(lines[<span class="number">0</span>])  <span class="comment">#在图片中，去除掉第一个线段</span></span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        prediction_value = sess.run(prediction, feed_dict=&#123;xs: x_data&#125;)</span><br><span class="line">        <span class="comment"># plot the prediction</span></span><br><span class="line">        lines = ax.plot(x_data, prediction_value, <span class="string">'r-'</span>, lw=<span class="number">5</span>)</span><br><span class="line">        plt.pause(<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="/2018/12/15/用Batch-Gradient-Descent来拟合sinx/1.gif" alt="batch gradient descent sinx"></p>
+            <h2 id="variable-scope的用法"><a href="#variable-scope的用法" class="headerlink" title="variable_scope的用法"></a>variable_scope的用法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.reset_default_graph()</span><br><span class="line"></span><br><span class="line">tf.set_random_seed(<span class="number">1</span>)<span class="comment">#reproducible</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(<span class="string">'a_variable_scope'</span>) <span class="keyword">as</span> scope:</span><br><span class="line">    <span class="comment">#常量初始化</span></span><br><span class="line">    initializer=tf.constant_initializer(value=<span class="number">3</span>)</span><br><span class="line">    var3=tf.get_variable(name=<span class="string">'var3'</span>,shape=[<span class="number">1</span>],dtype=tf.float32,initializer=initializer)</span><br><span class="line">    var4=tf.Variable(name=<span class="string">'var4'</span>,initial_value=[<span class="number">4</span>],dtype=tf.float32)</span><br><span class="line">    var4_reuse=tf.Variable(name=<span class="string">'var4'</span>,initial_value=[<span class="number">4</span>],dtype=tf.float32)</span><br><span class="line">    <span class="comment">#想要重复利用必须这么写：</span></span><br><span class="line">    scope.reuse_variables()<span class="comment">#如果不加这一句会报错，报Variable a_variable_scope/var3 already exists, disallowed. Did you mean to set reuse=True or reuse=tf.AUTO_REUSE in VarScope</span></span><br><span class="line">    var3_reuse=tf.get_variable(name=<span class="string">'var3'</span>)</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.initialize_all_variables())</span><br><span class="line">    print(var3.name)<span class="comment">#a_variable_scope/var3:0,variable_scope加上</span></span><br><span class="line">    print(sess.run(var4))</span><br><span class="line">    </span><br><span class="line">    print(var4.name)<span class="comment">#a_variable_scope/var4:0，variable_scope加上</span></span><br><span class="line">    print(sess.run(var4))</span><br><span class="line">    </span><br><span class="line">    print(var4_reuse.name)<span class="comment">#a_variable_scope/var4_1:0,variable_scope加上,重复利用的时候，并不是打印出var4:0,而是创建了一个新的var4_1</span></span><br><span class="line">    print(sess.run(var4_reuse))</span><br><span class="line">    </span><br><span class="line">    print(var3_reuse.name)<span class="comment">#a_variable_scope/var3:0，可以看到和var3一样了，为什么要重复利用呢？</span></span><br><span class="line">    <span class="comment">#因为同一个variable可能需要在不同的地方使用，</span></span><br><span class="line">    <span class="comment">#通常在RNN循环神经网络中，有一个重复循环的机制。通常在RNN中用到reuse_variable，通常Train RNN和Test RNN的神经网络结构不一样，但是其中的参数可能一样的，所以就会用到reuse variable...</span></span><br><span class="line">    print(sess.run(var3_reuse))</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">比如RNN结构</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrainConfig</span>:</span></span><br><span class="line">    batch_size=<span class="number">20</span></span><br><span class="line">    time_steps=<span class="number">20</span></span><br><span class="line">    input_size=<span class="number">10</span></span><br><span class="line">    output_size=<span class="number">2</span></span><br><span class="line">    cell_size=<span class="number">11</span></span><br><span class="line">    learning_rate=<span class="number">0.01</span></span><br><span class="line"> <span class="comment">#但是RNN的test，有可能的time_steps改成1，但是不会用Train里的time_steps</span></span><br><span class="line"><span class="comment">#所以就会用到reuse variable的time_steps   </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestConfig</span><span class="params">(TrainConfig)</span>:</span></span><br><span class="line">    time_steps=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用variable-scope的效果："><a href="#使用variable-scope的效果：" class="headerlink" title="使用variable_scope的效果："></a>使用variable_scope的效果：</h2><p><img src="/2018/12/16/variable-scope的用法/1.png" alt="variable_scope"></p>
 
           
         
@@ -478,7 +478,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/用RNN来预测学习Sinx曲线/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -497,7 +497,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/" itemprop="url">用Batch Gradient Descent来拟合二次函数</a></h1>
+                <a class="post-title-link" href="/2018/12/16/用RNN来预测学习Sinx曲线/" itemprop="url">用RNN来预测学习Sinx曲线</a></h1>
         
 
         <div class="post-meta">
@@ -509,8 +509,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T13:35:45+08:00">
-                2018-12-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T13:29:19+08:00">
+                2018-12-16
               </time>
             
 
@@ -563,7 +563,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  484
+                  995
                 </span>
               
 
@@ -579,7 +579,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  5
                 </span>
               
             </div>
@@ -602,8 +602,17 @@
       
         
           
-            <h2 id="用Batch-Gradient-Descent来拟合二次函数"><a href="#用Batch-Gradient-Descent来拟合二次函数" class="headerlink" title="用Batch Gradient Descent来拟合二次函数"></a>用Batch Gradient Descent来拟合二次函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#批量梯度下降算法</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果可视化模块</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment">#定义一个添加神经层的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_layer</span><span class="params">(inputs,in_size,out_size,activation_function=None)</span>:</span></span><br><span class="line">    Weights=tf.Variable(tf.random_normal([in_size,out_size]))</span><br><span class="line">    biases=tf.Variable(tf.zeros([<span class="number">1</span>,out_size])+<span class="number">0.1</span>)<span class="comment">#因为biases（偏差）推荐值不能为0，所以加上一个0.1</span></span><br><span class="line">    <span class="comment">#Wx_plus_b=tf.matmul(inputs,Weights)+biases#inputs+Weights+biases</span></span><br><span class="line">    Wx_plus_b=tf.add(tf.matmul(inputs,Weights),biases)</span><br><span class="line">    <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        outputs=Wx_plus_b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        outputs=activation_function(Wx_plus_b)</span><br><span class="line">    <span class="keyword">return</span> outputs</span><br><span class="line"></span><br><span class="line">x_data=np.linspace(<span class="number">-1</span>,<span class="number">1</span>,<span class="number">300</span>)[:,np.newaxis]<span class="comment">#（-1,1）区间的生成300个数等差数列，np.newaxis定义格式为300个行</span></span><br><span class="line"><span class="comment">#define a noise，定义一个噪声，来让它不是正规的二次函数。</span></span><br><span class="line">noise=np.random.normal(<span class="number">0</span>,<span class="number">0.05</span>,x_data.shape)<span class="comment">#定义跟x_data数据一样的格式</span></span><br><span class="line"><span class="comment">#真实值</span></span><br><span class="line">y_data=np.square(x_data)<span class="number">-0.5</span>+noise<span class="comment">#这个是拟合函数y=x^2+nosie</span></span><br><span class="line"><span class="comment">#placeholder用来参数</span></span><br><span class="line">xs=tf.placeholder(tf.float32,[<span class="keyword">None</span>,<span class="number">1</span>])</span><br><span class="line">ys=tf.placeholder(tf.float32,[<span class="keyword">None</span>,<span class="number">1</span>])</span><br><span class="line"><span class="comment">#隐藏层随便有多少个神经元，越少，越差，先定义一个</span></span><br><span class="line">l1=add_layer(xs,<span class="number">1</span>,<span class="number">10</span>,activation_function=tf.nn.relu)</span><br><span class="line"><span class="comment">#预测值</span></span><br><span class="line">prediction=add_layer(l1,<span class="number">10</span>,<span class="number">1</span>,activation_function=<span class="keyword">None</span>)</span><br><span class="line"><span class="comment">#误差</span></span><br><span class="line">loss=tf.reduce_mean(tf.reduce_sum(tf.square(ys-prediction),</span><br><span class="line">                   reduction_indices=[<span class="number">1</span>]))</span><br><span class="line">train_step=tf.train.GradientDescentOptimizer(<span class="number">0.1</span>).minimize(loss)<span class="comment">#GradientDescentOptimizer给定一个learning rate,通常是小于1</span></span><br><span class="line"><span class="comment">#must step,初始化变量</span></span><br><span class="line">init=tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    <span class="comment">#显示图形</span></span><br><span class="line">    fig=plt.figure()</span><br><span class="line">    ax=fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">    ax.scatter(x_data,y_data)</span><br><span class="line">    plt.ion()<span class="comment">#就是让图片show了后不用暂停</span></span><br><span class="line">    plt.show()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):<span class="comment">#执行1000次</span></span><br><span class="line">        sess.run(train_step,feed_dict=&#123;xs:x_data,ys:y_data&#125;)<span class="comment">#只用通过placeholder的，都要用feed_dict传参数</span></span><br><span class="line">        <span class="keyword">if</span> i%<span class="number">50</span>:                  </span><br><span class="line">            <span class="comment">#to see the step improvement控制台看，每一步的误差减少</span></span><br><span class="line">            <span class="comment">#print(sess.run(loss,feed_dict=&#123;xs:x_data,ys:y_data&#125;))            </span></span><br><span class="line">            <span class="keyword">try</span>:  </span><br><span class="line">                <span class="comment">#预测值</span></span><br><span class="line">                prediction_value=sess.run(prediction,feed_dict=&#123;xs:x_data&#125;)</span><br><span class="line">                lines=ax.plot(x_data,prediction_value,<span class="string">'r-'</span>,lw=<span class="number">5</span>)             </span><br><span class="line">                <span class="comment">#每次抹除线，先暂停0.1秒</span></span><br><span class="line">                plt.pause(<span class="number">0.1</span>)</span><br><span class="line">                ax.lines.remove(lines[<span class="number">0</span>])  <span class="comment">#在图片中，去除掉第一个线段</span></span><br><span class="line">            <span class="keyword">except</span> Exception:</span><br><span class="line">                <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/1.gif" alt="batch gradient descent"></p>
+            <h2 id="用RNN来预测学习sinx曲线"><a href="#用RNN来预测学习sinx曲线" class="headerlink" title="用RNN来预测学习sinx曲线"></a>用RNN来预测学习sinx曲线</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#使用RNN进行回归训练，会用到自己创建对sin曲线，预测一条cos曲线，</span></span><br><span class="line"><span class="comment">#设置RNN各种参数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment">#清除图形推展并重置全局默认图形</span></span><br><span class="line">tf.reset_default_graph() </span><br><span class="line">BATCH_START = <span class="number">0</span> <span class="comment">#建立batch data时候对index</span></span><br><span class="line">TIME_STEPS = <span class="number">20</span> <span class="comment">#backpropagation through time 的 time_steps</span></span><br><span class="line">BATCH_SIZE = <span class="number">50</span></span><br><span class="line">INPUT_SIZE = <span class="number">1</span> <span class="comment">#sim 数据输入size</span></span><br><span class="line">OUTPUT_SIZE = <span class="number">1</span> <span class="comment">#cos数据输出size</span></span><br><span class="line">CELL_SIZE = <span class="number">10</span> <span class="comment">#RNN的hidden unit size</span></span><br><span class="line">LR = <span class="number">0.006</span></span><br><span class="line">state = tf.Variable(<span class="number">0.0</span>,dtype=tf.float32)</span><br><span class="line"><span class="comment">#生成数据的get_batch function:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_batch</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> BATCH_START, TIME_STEPS</span><br><span class="line">    <span class="comment"># xs shape (50batch, 20steps)</span></span><br><span class="line">    xs = np.arange(BATCH_START, BATCH_START + TIME_STEPS*BATCH_SIZE).reshape((BATCH_SIZE, TIME_STEPS)) / (<span class="number">10</span>*np.pi)</span><br><span class="line">    seq = np.sin(xs)</span><br><span class="line">    res = np.cos(xs)</span><br><span class="line">    BATCH_START += TIME_STEPS</span><br><span class="line">    <span class="comment"># returned seq, res and xs; shape(batch, step, input)</span></span><br><span class="line">    <span class="keyword">return</span> [seq[:, :, np.newaxis], res[:, :, np.newaxis], xs]</span><br><span class="line"></span><br><span class="line"><span class="comment">#定义LSTMRNN的主体结构</span></span><br><span class="line"><span class="comment">#使用一个 class 来定义这次的 LSTMRNN 会更加方便. 第一步定义 class 中的 __init__ 传入各种参数:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LSTMRNN</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, n_steps, input_size, output_size, cell_size, batch_size)</span>:</span></span><br><span class="line">        self.n_steps = n_steps</span><br><span class="line">        self.input_size = input_size</span><br><span class="line">        self.output_size = output_size</span><br><span class="line">        self.cell_size = cell_size</span><br><span class="line">        self.batch_size = batch_size</span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'inputs'</span>):</span><br><span class="line">            self.xs = tf.placeholder(tf.float32, [<span class="keyword">None</span>, n_steps, input_size], name=<span class="string">'xs'</span>)</span><br><span class="line">            self.ys = tf.placeholder(tf.float32, [<span class="keyword">None</span>, n_steps, output_size], name=<span class="string">'ys'</span>)</span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'in_hidden'</span>):</span><br><span class="line">            self.add_input_layer()</span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'LSTM_cell'</span>):</span><br><span class="line">            self.add_cell()</span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'out_hidden'</span>):</span><br><span class="line">            self.add_output_layer()</span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'cost'</span>):</span><br><span class="line">            self.compute_cost()</span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'train'</span>):</span><br><span class="line">            self.train_op = tf.train.AdamOptimizer(LR).minimize(self.cost)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#设置add_input_layer()函数，添加input_layer()</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_input_layer</span><span class="params">(self,)</span>:</span></span><br><span class="line">        l_in_x = tf.reshape(self.xs, [<span class="number">-1</span>, self.input_size], name = <span class="string">'2_2D'</span>) <span class="comment">#(batch*n_step, in_size)</span></span><br><span class="line">        <span class="comment">#Ws (in_size, cell_size)</span></span><br><span class="line">        Ws_in = self._weight_variable([self.input_size, self.cell_size])</span><br><span class="line">        <span class="comment">#bs (cell_size)</span></span><br><span class="line">        bs_in = self._bias_variable([self.cell_size,])</span><br><span class="line">        <span class="comment">#l_in_y = (batch * n_steps, cell_size)</span></span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'Wx_plus_b'</span>):</span><br><span class="line">            l_in_y = tf.matmul(l_in_x, Ws_in) +bs_in</span><br><span class="line">        <span class="comment">#reshape l_in_y ==&gt; (batch, n_steps, cell_size)</span></span><br><span class="line">        self.l_in_y = tf.reshape(l_in_y, [<span class="number">-1</span>, self.n_steps, self.cell_size], name=<span class="string">'2_3D'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#设置add_cell功能，添加cell， 注意此处的self.cell_init_state, 因为我们在 training 的时候, 这个地方要特别说明.</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_cell</span><span class="params">(self)</span>:</span></span><br><span class="line">        lstm_cell = tf.contrib.rnn.BasicLSTMCell(self.cell_size, forget_bias = <span class="number">1.0</span>, state_is_tuple = <span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'initial_state'</span>):</span><br><span class="line">            self.cell_init_state = lstm_cell.zero_state(self.batch_size, dtype= tf.float32)</span><br><span class="line">        self.cell_outputs, self.cell_final_state = tf.nn.dynamic_rnn(lstm_cell, self.l_in_y, initial_state=self.cell_init_state, time_major=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#设置add_output_layer功能， 添加output_layer:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_output_layer</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># shape= (batch * steps, cell_size)</span></span><br><span class="line">        l_out_x = tf.reshape(self.cell_outputs, [<span class="number">-1</span>, self.cell_size], name= <span class="string">'2_2D'</span>)</span><br><span class="line">        Ws_out = self._weight_variable([self.cell_size, self.output_size])</span><br><span class="line">        bs_out = self._bias_variable([self.output_size, ])</span><br><span class="line">        <span class="comment"># shape = (batch * steps, output_size)</span></span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'Wx_plus_b'</span>):</span><br><span class="line">            self.pred = tf.matmul(l_out_x, Ws_out) + bs_out</span><br><span class="line"></span><br><span class="line">    <span class="comment">#添加RNN 剩余部分</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">compute_cost</span><span class="params">(self)</span>:</span></span><br><span class="line">        losses = tf.contrib.legacy_seq2seq.sequence_loss_by_example(</span><br><span class="line">            [tf.reshape(self.pred, [<span class="number">-1</span>], name=<span class="string">'reshape_pred'</span>)],</span><br><span class="line">            [tf.reshape(self.ys, [<span class="number">-1</span>], name= <span class="string">'reshape_target'</span>)],</span><br><span class="line">            [tf.ones([self.batch_size * self.n_steps], dtype = tf.float32)],</span><br><span class="line">            average_across_timesteps = <span class="keyword">True</span>,</span><br><span class="line">            softmax_loss_function = self.ms_error,</span><br><span class="line">            name= <span class="string">'losses'</span></span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'average_cost'</span>):</span><br><span class="line">            self.cost = tf.div(</span><br><span class="line">                tf.reduce_sum(losses, name=<span class="string">'losses_sum'</span>),</span><br><span class="line">                tf.cast(self.batch_size, tf.float32),</span><br><span class="line">                name = <span class="string">'average_cost'</span>)</span><br><span class="line">            tf.summary.scalar(<span class="string">'cost'</span>, self.cost)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ms_error</span><span class="params">(labels, logits)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tf.square(tf.subtract(labels, logits))</span><br><span class="line">    <span class="comment">#没有加@staticmethod时候报错， TypeError: ms_error() got multiple values for argument 'labels'</span></span><br><span class="line">    <span class="comment">#解决办法：https://stackoverflow.com/questions/18950054/class-method-generates-typeerror-got-multiple-values-for-keyword-argument</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#define weight</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_weight_variable</span><span class="params">(self, shape, name=<span class="string">'weights'</span>)</span>:</span></span><br><span class="line">        initializer = tf.random_normal_initializer(mean=<span class="number">0.</span>, stddev=<span class="number">1.</span>, )</span><br><span class="line">        <span class="keyword">return</span> tf.get_variable(shape=shape, initializer=initializer, name=name)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#define biases</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_bias_variable</span><span class="params">(self, shape, name=<span class="string">'biases'</span>)</span>:</span></span><br><span class="line">        initializer = tf.constant_initializer(<span class="number">0.1</span>)</span><br><span class="line">        <span class="keyword">return</span> tf.get_variable(name=name, shape = shape, initializer=initializer)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#训练LSTMRNN</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    model = LSTMRNN(TIME_STEPS, INPUT_SIZE, OUTPUT_SIZE, CELL_SIZE, BATCH_SIZE)</span><br><span class="line">    sess = tf.Session()</span><br><span class="line">    merged = tf.summary.merge_all()</span><br><span class="line">    writer = tf.summary.FileWriter(<span class="string">"logs"</span>, sess.graph)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#tensorflow的版本小于12的，变量初始化方法</span></span><br><span class="line">    <span class="keyword">if</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">1</span>]) &lt; <span class="number">12</span> <span class="keyword">and</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">0</span>]) &lt; <span class="number">1</span>:</span><br><span class="line">        init = tf.initialize_all_variables()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        init = tf.global_variables_initializer()</span><br><span class="line">    sess.run(init)</span><br><span class="line">    <span class="comment"># relocate to the local dir and run this line to view it on Chrome (http://0.0.0.0:6006/):</span></span><br><span class="line">    <span class="comment"># $ tensorboard --logdir='logs'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#可视化库matplotlib的显示模式默认是block阻塞模式。</span></span><br><span class="line">    <span class="comment">#就是plt.show()之后，程序回暂停在哪儿，并不会继续执行下去。</span></span><br><span class="line">    <span class="comment">#展示动态图就需要plt.ion()函数，把matplotlib的显示模式转换为交互interactive模式</span></span><br><span class="line">    plt.ion()</span><br><span class="line">    plt.show()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">200</span>):</span><br><span class="line">        seq, res, xs = get_batch()</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            feed_dict = &#123;</span><br><span class="line">                    model.xs: seq,</span><br><span class="line">                    model.ys: res,</span><br><span class="line">                    <span class="comment"># create initial state</span></span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            feed_dict = &#123;</span><br><span class="line">                model.xs: seq,</span><br><span class="line">                model.ys: res,</span><br><span class="line">                model.cell_init_state: state    <span class="comment"># use last state as the initial state for this run</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        _, cost, state, pred = sess.run(</span><br><span class="line">            [model.train_op, model.cost, model.cell_final_state, model.pred],</span><br><span class="line">            feed_dict=feed_dict)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># plotting</span></span><br><span class="line">        plt.plot(xs[<span class="number">0</span>, :], res[<span class="number">0</span>].flatten(), <span class="string">'r'</span>, xs[<span class="number">0</span>, :], pred.flatten()[:TIME_STEPS], <span class="string">'b--'</span>)</span><br><span class="line">        plt.ylim((<span class="number">-1.2</span>, <span class="number">1.2</span>))</span><br><span class="line">        plt.draw()</span><br><span class="line">        plt.pause(<span class="number">0.3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">20</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'cost: '</span>, round(cost, <span class="number">4</span>))</span><br><span class="line">            result = sess.run(merged, feed_dict)</span><br><span class="line">            writer.add_summary(result, i)</span><br></pre></td></tr></table></figure>
+<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="/2018/12/16/用RNN来预测学习Sinx曲线/4.gif" alt="rnn predict sinx"></p>
+<p>发现刚开始RNN蓝色曲线为预测去年，并不是很重合，随着慢慢的RNN训练，到60以后，预测曲线和实际曲线基本吻合。</p>
+<h2 id="用Tensorboard查看loss和graph"><a href="#用Tensorboard查看loss和graph" class="headerlink" title="用Tensorboard查看loss和graph"></a>用Tensorboard查看loss和graph</h2><ul>
+<li><p>使用tensorboard</p>
+<p><img src="/2018/12/16/用RNN来预测学习Sinx曲线/1.gif" alt="console"></p>
+</li>
+<li><p>查看loss和graph</p>
+</li>
+</ul>
+<p><img src="/2018/12/16/用RNN来预测学习Sinx曲线/2.gif" alt="tensorboard"></p>
 
           
         
@@ -652,7 +661,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/Activation-Function/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/RNN入门demo/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -671,7 +680,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/Activation-Function/" itemprop="url">Activation Function</a></h1>
+                <a class="post-title-link" href="/2018/12/16/RNN入门demo/" itemprop="url">RNN入门demo</a></h1>
         
 
         <div class="post-meta">
@@ -683,8 +692,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T13:30:18+08:00">
-                2018-12-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T13:11:21+08:00">
+                2018-12-16
               </time>
             
 
@@ -737,7 +746,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  428
+                  715
                 </span>
               
 
@@ -753,7 +762,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             </div>
@@ -776,8 +785,19 @@
       
         
           
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#为什么需要激励函数？Why need activation function?</span></span><br><span class="line"><span class="comment">#激励函数就是为了解决不能用线性方程(Linear)解决的问题，y=w*x+b。也就是非线性方程问题(Nonlinear)</span></span><br><span class="line"><span class="comment">#y=Wx--&gt;y=AF(Wx)</span></span><br><span class="line"><span class="comment">#一些常用的AF非线性函数,比如relu，sigmoid，tanh，也就是激励函数</span></span><br><span class="line"><span class="comment">#relu为，x&gt;0,f(x)=1,x&lt;=0,f(x=0)</span></span><br><span class="line"><span class="comment">#你也可以自己创建自己的激励函数，但是函数必须保证是可微分的</span></span><br><span class="line"><span class="comment">#在卷积神经网络中，推荐使用relu激励函数</span></span><br><span class="line"><span class="comment">#在循环神经网络中(Recurrent Nerual Network)推荐适用relu or tanh</span></span><br><span class="line"><span class="comment">#sigmoid函数，也叫Logistics会出现梯度消失</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(x)</span>:</span></span><br><span class="line">    y = <span class="number">1.0</span> / (<span class="number">1.0</span> + np.exp(-x))</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">elu</span><span class="params">(x, a)</span>:</span></span><br><span class="line">    y = x.copy()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(y.shape[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">if</span> y[i] &lt; <span class="number">0</span>:</span><br><span class="line">            y[i] = a * (np.exp(y[i]) - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lrelu</span><span class="params">(x, a)</span>:</span></span><br><span class="line">    y = x.copy()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(y.shape[<span class="number">0</span>]):</span><br><span class="line">        <span class="keyword">if</span> y[i] &lt; <span class="number">0</span>:</span><br><span class="line">            y[i] = a * y[i]</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">relu</span><span class="params">(x)</span>:</span></span><br><span class="line">    y = x.copy()</span><br><span class="line">    y[y &lt; <span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softplus</span><span class="params">(x)</span>:</span></span><br><span class="line">    y = np.log(np.exp(x) + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softsign</span><span class="params">(x)</span>:</span></span><br><span class="line">    y = x / (np.abs(x) + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tanh</span><span class="params">(x)</span>:</span></span><br><span class="line">    y = (<span class="number">1.0</span> - np.exp(<span class="number">-2</span> * x)) / (<span class="number">1.0</span> + np.exp(<span class="number">-2</span> * x))</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line"></span><br><span class="line"><span class="comment">#invoke this function</span></span><br><span class="line">x = np.linspace(start=<span class="number">-10</span>, stop=<span class="number">10</span>, num=<span class="number">100</span>)</span><br><span class="line">y_sigmoid = sigmoid(x)</span><br><span class="line">y_elu = elu(x, <span class="number">0.25</span>)</span><br><span class="line">y_lrelu = lrelu(x, <span class="number">0.25</span>)</span><br><span class="line">y_relu = relu(x)</span><br><span class="line">y_softplus = softplus(x)</span><br><span class="line">y_softsign = softsign(x)</span><br><span class="line">y_tanh = tanh(x)</span><br><span class="line"></span><br><span class="line">tx = <span class="number">6</span></span><br><span class="line">ty = <span class="number">0.9</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.subplot(<span class="number">331</span>)</span><br><span class="line">plt.title(<span class="string">'sigmoid'</span>)</span><br><span class="line">plt.plot(x, y_sigmoid)</span><br><span class="line">plt.grid(<span class="keyword">True</span>)</span><br><span class="line">plt.subplot(<span class="number">332</span>)</span><br><span class="line">plt.title(<span class="string">'elu'</span>)</span><br><span class="line">plt.plot(x, y_elu)</span><br><span class="line">plt.grid(<span class="keyword">True</span>)</span><br><span class="line">plt.subplot(<span class="number">333</span>)</span><br><span class="line">plt.title(<span class="string">'lrelu'</span>)</span><br><span class="line">plt.plot(x, y_lrelu)</span><br><span class="line">plt.grid(<span class="keyword">True</span>)</span><br><span class="line">plt.subplot(<span class="number">334</span>)</span><br><span class="line">plt.title(<span class="string">'relu'</span>)</span><br><span class="line">plt.plot(x, y_relu)</span><br><span class="line">plt.grid(<span class="keyword">True</span>)</span><br><span class="line">plt.subplot(<span class="number">335</span>)</span><br><span class="line">plt.title(<span class="string">'softplus'</span>)</span><br><span class="line">plt.plot(x, y_softplus)</span><br><span class="line">plt.grid(<span class="keyword">True</span>)</span><br><span class="line">plt.subplot(<span class="number">336</span>)</span><br><span class="line">plt.title(<span class="string">'softsign'</span>)</span><br><span class="line">plt.plot(x, y_softsign)</span><br><span class="line">plt.grid(<span class="keyword">True</span>)</span><br><span class="line">plt.subplot(<span class="number">337</span>)</span><br><span class="line">plt.title(<span class="string">'tanh'</span>)</span><br><span class="line">plt.plot(x, y_tanh)</span><br><span class="line">plt.grid(<span class="keyword">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/Activation-Function/1.jpg" alt="Activatoin Function"></p>
+            <h2 id="RNN入门Demo"><a href="#RNN入门Demo" class="headerlink" title="RNN入门Demo"></a>RNN入门Demo</h2><p>​    耗费了大量时间来讲解RNN和LSTM的原理，并且这一块确实有点难以理解。实践是检验真理的唯一标准，废话不多说，直接上基于TensorFlow平台的RNN加上LSTM优化后的代码和运行效果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#什么是循环神经网络RNN</span></span><br><span class="line"><span class="comment">#What is Recurrent Neural Networks?(RNN)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line">tf.reset_default_graph() </span><br><span class="line"></span><br><span class="line"><span class="comment">#Mnist data</span></span><br><span class="line">mnist=input_data.read_data_sets(<span class="string">'MNIST_data'</span>,one_hot=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#networks parameters</span></span><br><span class="line">lr=<span class="number">0.001</span><span class="comment">#learning rate</span></span><br><span class="line">training_iters=<span class="number">1000000</span><span class="comment">#iteration也就是循环多少次</span></span><br><span class="line">batch_size=<span class="number">128</span></span><br><span class="line">display_step=<span class="number">10</span></span><br><span class="line"></span><br><span class="line">n_inputs=<span class="number">28</span><span class="comment">#MNIST data input(image shape:28*28)</span></span><br><span class="line">n_steps=<span class="number">28</span><span class="comment">#time steps,inut的28行，作为28列输出</span></span><br><span class="line">n_hidden_units=<span class="number">128</span><span class="comment">#neurons in hidden layer</span></span><br><span class="line">n_classes=<span class="number">10</span><span class="comment">#MNIST classes(0-9digits)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tf.Graph input</span></span><br><span class="line">x=tf.placeholder(tf.float32,[<span class="keyword">None</span>,n_steps,n_inputs])</span><br><span class="line">y=tf.placeholder(tf.float32,[<span class="keyword">None</span>,n_classes])</span><br><span class="line"></span><br><span class="line"><span class="comment">#Define weights</span></span><br><span class="line">weights=&#123;</span><br><span class="line"><span class="comment">#(28,128)</span></span><br><span class="line"><span class="string">'in'</span>:tf.Variable(tf.random_normal([n_inputs,n_hidden_units])),</span><br><span class="line"><span class="comment">#(128,10)                                 </span></span><br><span class="line"><span class="string">'out'</span>:tf.Variable(tf.random_normal([n_hidden_units,n_classes]))  </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">#Define biases</span></span><br><span class="line">biases=&#123;</span><br><span class="line"><span class="comment">#(128,) </span></span><br><span class="line"><span class="string">'in'</span>:tf.Variable(tf.constant(<span class="number">0.1</span>,shape=[n_hidden_units,])),</span><br><span class="line"><span class="comment">#(10,)                             </span></span><br><span class="line"><span class="string">'out'</span>:tf.Variable(tf.constant(<span class="number">0.1</span>,shape=[n_classes,]))        </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Define RNN</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">RNN</span><span class="params">(X,weights,biases)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#hidden layer for input to cell</span></span><br><span class="line">    <span class="comment">#X(128 batch,28 steps,28 inputs)</span></span><br><span class="line">    <span class="comment">#把X转换成(128*28,28 inputs)</span></span><br><span class="line">    X=tf.reshape(X,[<span class="number">-1</span>,n_inputs])</span><br><span class="line">    <span class="comment">#把X转换成(128batch,28 steps,128 hidden)</span></span><br><span class="line">    X_in=tf.matmul(X,weights[<span class="string">'in'</span>]+biases[<span class="string">'in'</span>])</span><br><span class="line">    <span class="comment">#把X转换成(128batch,28steps,128hidden)</span></span><br><span class="line">    X_in=tf.reshape(X_in,[<span class="number">-1</span>,n_steps,n_hidden_units])</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">#cell</span></span><br><span class="line">    <span class="comment">#使用lstm(long-short Term Memory),因为使用RNN可能会存在梯度爆炸，用LSTM优化</span></span><br><span class="line">    <span class="comment">#RNN中一般会用tanh()函数作为激活函数</span></span><br><span class="line">    <span class="comment">#在迭代后期，会逐渐收敛，导致梯度趋于0，于是，出现了“梯度下降”的问题。</span></span><br><span class="line">    lstm_cell=tf.nn.rnn_cell.BasicLSTMCell(n_hidden_units,</span><br><span class="line">                                           forget_bias=<span class="number">1.0</span>,</span><br><span class="line">                                           state_is_tuple=<span class="keyword">True</span>)<span class="comment">#state_is_tuple，生成的是不是一个元组</span></span><br><span class="line">    <span class="comment">#lstm cell is divided into two parts(c_state,m_state),主线的state是c_state,副线的state是m_state</span></span><br><span class="line">    _init_state=lstm_cell.zero_state(batch_size,dtype=tf.float32)    </span><br><span class="line">    <span class="comment">#使用dynamic_rnn比rnn更好，优点在于对尺度不同的数据的处理上，会减少计算量</span></span><br><span class="line">    <span class="comment">#time_major,上面的28 steps是它，</span></span><br><span class="line">    outputs,states=tf.nn.dynamic_rnn(lstm_cell,X_in,initial_state=_init_state,time_major=<span class="keyword">False</span>)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">#hidden layer for output as the final results</span></span><br><span class="line">    <span class="comment">#method1：</span></span><br><span class="line">    results=tf.matmul(states[<span class="number">1</span>],weights[<span class="string">'out'</span>])+biases[<span class="string">'out'</span>]</span><br><span class="line">    <span class="comment">#method2:                 </span></span><br><span class="line">    <span class="comment">#or use unpack to list[(batch,outputs)..]*steps,就是把tensor解包成list</span></span><br><span class="line">    <span class="comment">#outputs=tf.unstack(tf.transpose(outputs,[1,0,2])) #states is the last outputs</span></span><br><span class="line">    <span class="comment">#选择最后一步的outputs,也就是-1</span></span><br><span class="line">    <span class="comment">#results=tf.matmul(outputs[-1],weights['out'])+biases['out']                              </span></span><br><span class="line">    <span class="keyword">return</span> results</span><br><span class="line">    </span><br><span class="line"><span class="comment">#prediction    </span></span><br><span class="line">pred=RNN(x,weights,biases)</span><br><span class="line"><span class="comment">#cost</span></span><br><span class="line">cost=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred,labels=y))</span><br><span class="line"><span class="comment">#train_op</span></span><br><span class="line">train_op=tf.train.AdamOptimizer(lr).minimize(cost)</span><br><span class="line"></span><br><span class="line">correct_pred=tf.equal(tf.argmax(pred,<span class="number">1</span>),tf.argmax(y,<span class="number">1</span>))</span><br><span class="line">accuracy=tf.reduce_mean(tf.cast(correct_pred,tf.float32))</span><br><span class="line"></span><br><span class="line"><span class="comment">#important step</span></span><br><span class="line">init=tf.initialize_all_variables()</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    step=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> step*batch_size&lt;training_iters:</span><br><span class="line">        batch_xs,batch_ys=mnist.train.next_batch(batch_size)</span><br><span class="line">        batch_xs=batch_xs.reshape([batch_size,n_steps,n_inputs])<span class="comment">#28行，28列，在加上要一个batch_size</span></span><br><span class="line">        sess.run([train_op],feed_dict=&#123;x:batch_xs,y:batch_ys&#125;)</span><br><span class="line">        <span class="keyword">if</span> step%<span class="number">20</span>==<span class="number">0</span>:</span><br><span class="line">            print(sess.run(accuracy,</span><br><span class="line">                           feed_dict=&#123;x:batch_xs,</span><br><span class="line">                                      y:batch_ys</span><br><span class="line">                                      &#125;</span><br><span class="line">                           )</span><br><span class="line">                 )</span><br><span class="line">        step+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><ul>
+<li>由于自己是CPU版本的TensorFlow，运行起来比较慢，只能慢慢等待咯</li>
+</ul>
+<p><img src="/2018/12/16/RNN入门demo/1.gif" alt="RNN"></p>
+<ul>
+<li><p>随着训练次数的增加，精确度也渐渐上升</p>
+<p><img src="/2018/12/16/RNN入门demo/2.gif" alt="RNN"></p>
+</li>
+<li><p>设置的训练100w次，每20步输出一次结果，由于时间太久，我就不一一截图了。训练结束后，精确度99%</p>
+</li>
+</ul>
 
           
         
@@ -826,7 +846,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/利用TensorFlow模拟线性回归-Linear-Regression/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/LSTM长短期记忆网络/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -845,7 +865,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/利用TensorFlow模拟线性回归-Linear-Regression/" itemprop="url">利用TensorFlow模拟线性回归(Linear Regression)</a></h1>
+                <a class="post-title-link" href="/2018/12/16/LSTM长短期记忆网络/" itemprop="url">LSTM(Long-Short Term Memory)长短期记忆网络</a></h1>
         
 
         <div class="post-meta">
@@ -857,8 +877,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:38:06+08:00">
-                2018-12-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T12:57:42+08:00">
+                2018-12-16
               </time>
             
 
@@ -911,7 +931,244 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  859
+                  897
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="LSTM-Long-Short-Term-Memory-长短期记忆网络"><a href="#LSTM-Long-Short-Term-Memory-长短期记忆网络" class="headerlink" title="LSTM(Long-Short Term Memory)长短期记忆网络"></a>LSTM(Long-Short Term Memory)长短期记忆网络</h2><p><strong>一、LSTM结构</strong></p>
+<p>​        <strong>LSTM(Long-Short Term Memory)，长短期记忆网络</strong>是RNN的一种变形结构。RNN因为梯度消失的原因只有短期记忆，LSTM网络通过精妙的Cell门控制将短期记忆与长期记忆结合起来，并在一定程度上解决了梯度消失的问题。</p>
+<p>所有RNN都具有一种重复神经网络模块的链式形式。在标准的RNN中，重复的模块只有一个非常简单的结构，比如一个tanh层。</p>
+<ul>
+<li><strong>标准的RNN：</strong></li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzuKaicpf0NcJlc3o2MuJLmou6lHUukuXNZ1hSwtZgy85iat5zBwXoribfQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><p><strong>LSTM的结构：</strong></p>
+<p>LSTM同样的结构，但是重复的模块拥有一个不同的结构，不同于单一层，这里是由四个，以一种非常特殊的方式进行交互</p>
+</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz4iau12ibDOmPcfibkw3ibguhfpI0O3pK80R8QdTicHWrs5L2ia6eA6loDgfQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><strong>LSTM解析图标：</strong></li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbfbQ5RcgAVqDG2PTIePC5V8Jt510kIvD81gulmSe08zb5D4WiacamDw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li>橙黄色矩形：学习得到的神经网络层</li>
+<li>粉色圆形：代表一些运算，比如加法，乘法</li>
+<li>黑色单箭头：向量的传输</li>
+<li>两个箭头合并：表示向量的连接</li>
+<li>一个箭头分开：表示向量的复制</li>
+</ul>
+<p><strong>二、LSTM的核心思想</strong></p>
+<ul>
+<li>LSTM的关键就是细胞Cell状态，水平线在图上方贯穿运行。</li>
+<li>Cell细胞状态像传送带一样，直接在整个链上运行，只有一些少量的线性交互，信息在上线流传保持不变很容易。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzibU8dqKfcb80AJhcTe2kpEbA3oFkvoqNK2Yczuqbckd99AnHOPbhNMQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><p>LSTM有通过精心设计的称作为“门”的结构来去除或者增加信息到细胞状态的能力。门是一种让信息选择通过的方法。包含一个sigmoid神经网络层和一个按位的乘法操作</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzcmmIT6flW2INcSCbGSaxt2aIARSwDYOkFicOv5LzIMMt6jgP7OEqV2A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+</ul>
+<p>sigmoid层输出0~1之间的数值，描述每个部分有多少量可以通过。0代表不允许</p>
+<p>任何量通过，1代表允许任意量通过。LSTM拥有三个门，来保护和控制细胞状态。</p>
+<p><strong>三、LSTM的推理</strong></p>
+<ul>
+<li><strong>LSTM中的第一步是决定我们会从细胞状态中丢弃什么信息</strong>。第一步的决定四通过一个叫做<strong>忘记门层</strong>完成。忘记门层会读ht-1和xt，输出一个0~1之间的数值给每个在细胞状态Ct-1中的数字，1表示完全保留，0表示完全舍弃<img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzF7sg4qWOzv480f9vJrSNffHR9UGjxEiag23UZZQI42ZCWPbHyREYNPw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></li>
+<li><strong>下一步是确定什么样的新信息被存放在细胞状态**</strong>中**，这里包含两个部分：</li>
+</ul>
+<p>​       sigmoid层叫做输入门层，决定将要更新的值</p>
+<p>​       tanh层创建一个新的候选值向量Ct，会被假如到状态中。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzzLhSKFCeib4VXiab2kIXIyiaEvVKkdq67M7eicxibjXBdgghia67MjcyeVTw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><strong>更新旧细胞状态，把Ct-1更新为Ct</strong>。就是把旧状态与ft相乘，丢弃掉确定需要丢弃的信息，然后加上it*Ct，变成新的候选值。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzlpl41y2DKdCFPtRE4sl5ZX0Fq6RQRHdJ3lEAXCNoDxJjHoNiceIHZbw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>最后一步，确定需要输出什么值</strong>。这个输出将会基于我们的细胞状态，但是也是一个过滤后的版本。首先是，运行一个sigmoid层来确定细胞状态的哪个部分将被输出。然后，把细胞状态通过tanh进行处理，得到一个-1~1之间的值，将它和sigmoid门的输出相乘。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz0w811ujoicJszFKicnp3bxIwbm9p1mhEBuicWYRouLIDZGRqvfswmw6Kg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>四、LSTM的变体</strong></p>
+<ul>
+<li><p><strong>让门层也接受细胞状态的输入</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzLDfZCqTAp0pcKgRB5l1RBASld7Mc6rKthmdsWfnHZTxcTiaMXx93eGg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>使用coupled忘记和输入门</strong></p>
+<p>区别于标准LSTM的分开确定忘记什么和需要添加什么新的信息，变体的LSTM是两者一同做出决定。</p>
+</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzl2HXYUQWFDa4WTZ5mCaLtV5bibpUzibgsm10RKFeBh1bq9K40jXTjgqA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><strong>Gated Recurrent Unit(GRU)变体</strong>，是将忘记门和输入门合成了一个单一的更新门。还混合了细胞状态和隐藏状态的，也是非常流行的变体</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz2mpfWXDSDAgLRauNTLkPDd0E89OlvzbXShtcELbJibrN7CgKFKJo6Yw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/RNN-Recurrent-Neural-Network-循环神经网络/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/16/RNN-Recurrent-Neural-Network-循环神经网络/" itemprop="url">RNN(Recurrent Neural Network)循环神经网络</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T12:50:26+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
                 </span>
               
 
@@ -950,18 +1207,104 @@
       
         
           
-            <p><strong>线性回归(Linear Regression）</strong></p>
+            <h2 id="RNN-Recurrent-Neural-Network-循环神经网络"><a href="#RNN-Recurrent-Neural-Network-循环神经网络" class="headerlink" title="RNN(Recurrent Neural Network)循环神经网络"></a>RNN(Recurrent Neural Network)循环神经网络</h2><p><strong>RNN(Recurrent Neural Network)是一类用于处理序列数据的神经网络</strong>。序列数据：时间序列数据，也就是在不同时间点上收集到的数据，这类数据反映了某一事物、现象等随着时间变化的状态或者程度。也不一定是时间序列，也可以是文本序列。总之：后面的数据跟前面的数据是有关系，可以将RNN看做全连接网络</p>
+<p><strong>一、RNN的结构</strong></p>
+<p>​        普通神经网络包含input layer，hidden layer，output layer，通过Activation Function来控制输出。layer与layer通过weights连接。</p>
 <ul>
-<li>线性回归是利用数理统计中回归分析，来确定两种或两种以上变量间相互依赖的定量关系的一种统计分析方法，运用十分广泛。其表达形式为<strong>y = w’x+e</strong>，e为误差服从均值为0的正态分布</li>
-<li>回归分析中，只包括一个自变量和一个因变量，且二者的关系可用一条直线近似表示，这种回归分析称为一元线性回归分析。如果回归分析中包括两个或两个以上的自变量，且因变量和自变量之间是线性关系，则称为多元线性回归分析。</li>
-<li><strong>梯度下降</strong>是用于找到函数最小值的一阶迭代优化算法。为了使用梯度下降找到函数的局部最小值，需要采用与当前点处函数的梯度（或近似梯度）的负值成比例的步长。相反，如果采用与梯度的正值成比例的步长，则接近该函数的局部最大值 ; 然后将该过程称为梯度上升。</li>
+<li><strong>RNN的标准结构</strong>：</li>
 </ul>
-<p><strong>废话不多说，直接上代码，展示运行效果</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Linear Regression线性回归</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="keyword">from</span> future <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#generate number</span></span><br><span class="line">rng = numpy.random</span><br><span class="line"></span><br><span class="line"><span class="comment"># Parameters</span></span><br><span class="line">learning_rate = <span class="number">0.01</span></span><br><span class="line">training_epochs = <span class="number">1000</span></span><br><span class="line">display_step = <span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Training Data</span></span><br><span class="line"><span class="comment">#numpy.asarray和array都可以讲结构数据转化为ndarray</span></span><br><span class="line"><span class="comment">#区别：当数据源是ndarray时，array仍然会copy出一个副本，占用新的内存，#但是asarray不会</span></span><br><span class="line">train_X = numpy.asarray([<span class="number">3.3</span>,<span class="number">4.4</span>,<span class="number">5.5</span>,<span class="number">6.71</span>,<span class="number">6.93</span>,<span class="number">4.168</span>,<span class="number">9.779</span>,<span class="number">6.182</span>,<span class="number">7.59</span>,<span class="number">2.167</span>,</span><br><span class="line">                         <span class="number">7.042</span>,<span class="number">10.791</span>,<span class="number">5.313</span>,<span class="number">7.997</span>,<span class="number">5.654</span>,<span class="number">9.27</span>,<span class="number">3.1</span>])</span><br><span class="line">train_Y = numpy.asarray([<span class="number">1.7</span>,<span class="number">2.76</span>,<span class="number">2.09</span>,<span class="number">3.19</span>,<span class="number">1.694</span>,<span class="number">1.573</span>,<span class="number">3.366</span>,<span class="number">2.596</span>,<span class="number">2.53</span>,<span class="number">1.221</span>,</span><br><span class="line">                         <span class="number">2.827</span>,<span class="number">3.465</span>,<span class="number">1.65</span>,<span class="number">2.904</span>,<span class="number">2.42</span>,<span class="number">2.94</span>,<span class="number">1.3</span>])</span><br><span class="line"></span><br><span class="line">n_samples = train_X.shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># tf Graph Input</span></span><br><span class="line">X = tf.placeholder(<span class="string">"float"</span>)</span><br><span class="line">Y = tf.placeholder(<span class="string">"float"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set model weights</span></span><br><span class="line">W = tf.Variable(rng.randn(), name=<span class="string">"weight"</span>)</span><br><span class="line">b = tf.Variable(rng.randn(), name=<span class="string">"bias"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Construct a linear model</span></span><br><span class="line">pred = tf.add(tf.multiply(X, W), b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mean squared error</span></span><br><span class="line">cost = tf.reduce_sum(tf.pow(pred-Y, <span class="number">2</span>))/(<span class="number">2</span>*n_samples)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Gradient descent</span></span><br><span class="line"><span class="comment">#  Note, minimize() knows to modify W and b because Variable objects are #trainable=True by default</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#优化器，采用梯度下降方法来训练学习</span></span><br><span class="line">optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize the variables (i.e. assign their default value)</span></span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start training</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># Run the initializer</span></span><br><span class="line">    sess.run(init)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Fit all training data</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(training_epochs):</span><br><span class="line">        <span class="keyword">for</span> (x, y) <span class="keyword">in</span> zip(train_X, train_Y):</span><br><span class="line">            sess.run(optimizer, feed_dict=&#123;X: x, Y: y&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Display logs per epoch step(控制台显示每次步骤)</span></span><br><span class="line">        <span class="keyword">if</span> (epoch+<span class="number">1</span>) % display_step == <span class="number">0</span>:</span><br><span class="line">            c = sess.run(cost, feed_dict=&#123;X: train_X, Y:train_Y&#125;)</span><br><span class="line">            print(<span class="string">"Epoch:"</span>, <span class="string">'%04d'</span> % (epoch+<span class="number">1</span>), <span class="string">"cost="</span>, <span class="string">"&#123;:.9f&#125;"</span>.format(c), \</span><br><span class="line">                <span class="string">"W="</span>, sess.run(W), <span class="string">"b="</span>, sess.run(b))</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Optimization Finished!"</span>)</span><br><span class="line">    training_cost = sess.run(cost, feed_dict=&#123;X: train_X, Y: train_Y&#125;)</span><br><span class="line">    print(<span class="string">"Training cost="</span>, training_cost, <span class="string">"W="</span>, sess.run(W), <span class="string">"b="</span>, sess.run(b), <span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Graphic display(图像展示）the original data on the graph</span></span><br><span class="line">    plt.plot(train_X, train_Y, <span class="string">'ro'</span>, label=<span class="string">'Original data'</span>)</span><br><span class="line">    plt.plot(train_X, sess.run(W) * train_X + sess.run(b), label=<span class="string">'Fitted line'</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Testing example, as requested (Issue #2)</span></span><br><span class="line">    test_X = numpy.asarray([<span class="number">6.83</span>, <span class="number">4.668</span>, <span class="number">8.9</span>, <span class="number">7.91</span>, <span class="number">5.7</span>, <span class="number">8.7</span>, <span class="number">3.1</span>, <span class="number">2.1</span>])</span><br><span class="line">    test_Y = numpy.asarray([<span class="number">1.84</span>, <span class="number">2.273</span>, <span class="number">3.2</span>, <span class="number">2.831</span>, <span class="number">2.92</span>, <span class="number">3.24</span>, <span class="number">1.35</span>, <span class="number">1.03</span>])</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Testing... (Mean square loss Comparison)"</span>)</span><br><span class="line"></span><br><span class="line">    testing_cost = sess.run(</span><br><span class="line">        tf.reduce_sum(tf.pow(pred - Y, <span class="number">2</span>)) / (<span class="number">2</span> * test_X.shape[<span class="number">0</span>]),</span><br><span class="line">        feed_dict=&#123;X: test_X, Y: test_Y&#125;)  <span class="comment"># same function as cost above</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Testing cost="</span>, testing_cost)</span><br><span class="line">    print(<span class="string">"Absolute mean square loss difference:"</span>, abs(</span><br><span class="line">        training_cost - testing_cost))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">#display the Test data on the graph</span></span><br><span class="line">    plt.plot(test_X, test_Y, <span class="string">'bo'</span>, label=<span class="string">'Testing data'</span>)</span><br><span class="line">    plt.plot(train_X, sess.run(W) * train_X + sess.run(b), label=<span class="string">'Fitted line'</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-<p><strong>控制台的每一次梯度下降后的误差值：</strong></p>
-<p><img src="/2018/12/15/利用TensorFlow模拟线性回归-Linear-Regression/线性回归控制台步骤.png" alt="Linear Regression"></p>
-<p><strong>线性回归后的结果图展示：</strong></p>
-<p><img src="/2018/12/15/利用TensorFlow模拟线性回归-Linear-Regression/线性回归图像.png" alt="Linear Regression"></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz2ARrr4xTL3gSbQbhia3UvglxuY7FYwibzS6W7mjibbcfTfibdGZmITkK1Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><strong>普通神经网络结构</strong>：</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJrkjx6u84WjxLvC7yJLxrSeypZvBiaCCJkz1RaFYTmXiciczD6EFwURtpLkVhXs15icGwPWEwJib5smp9Q/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ul>
+<li><p><strong>两者区别</strong>：</p>
+<p>基础的神经网络只在层与层之间建立了权Weights连接，RNN在层之间的神经元之间也建立了权连接</p>
+</li>
+<li><p><strong>实际中，RNN标准结构并不能解决所有问题：</strong></p>
+</li>
+</ul>
+<ol>
+<li><strong>输入为一串文字，输出为分类类别，那么输出就不需要一个序列，只要单个输出：</strong></li>
+</ol>
+<p>   <img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbxE36EJWlxvFOEiafZKx7zBIpU90D5kFwAOxU8c5QG6U50tv5BqHbUA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ol start="2">
+<li><strong>有时候需要单个输入但是输出为序列的情况的RNN结构：</strong></li>
+</ol>
+<p>   <img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzoxpv5hQGSbWm8dne0gaqqINicdcpnDjY4mibacJPVPOibFuoJpIWw1N2w/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<ol start="3">
+<li><p><strong>有时候输入时序列，但是不随着序列变化：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzbHGayQHWEvX3AuDVcwQia6LX9S4GaQCkw4oJ5n4goYZnqKdjVCVM9cg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>实际中，大部分问题序列都是不等长的。</strong>比如：自然语言处理中，源语言和目标语言的句子往往长度是不同的。就需要Encoder-Decoder模型，也叫Seq2Seq模型。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz9EuMk7iclkYo0zkvuGiaK8Q8nqTchcicbgNPqBHAaeOLRwrRnX2D5CQaA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>Encoder-Decoder模型结构原理：先编码后解码。左侧的RNN用来编码得到c，然后再用右侧的RNN把c解码。</p>
+</li>
+</ol>
+<p><strong>二、标准RNN的流程</strong></p>
+<p>标准的RNN采用的是前向传播过程：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhGInmNumyib3KbPLKzAicGLcLxur0yT0HPJWMuBR8so7YuNdiaBrf3icfA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>图中的：x为输入input，h为hidden layer单元，o为输出output，L为loss损失函数，y为training set训练集，右上角小标号代表t时刻状态。W，U，V代表权值Weights。</p>
+<ul>
+<li><strong>前向传播算法公式：</strong><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzYMAoaGDy7OeibFhz5LEOam7JpB1z30zmLibNHZdARfWC7icIHLpGmaic9w/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></li>
+</ul>
+<p>​       φ为激活函数，一般选择是tanh函数，b为biases偏置</p>
+<ul>
+<li><p><strong>t时刻的输出o：</strong><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJz8NQkCgAdAwqy4VKra14dnBEw9eISgp5LeAyEBiaBcULTzGUgicn9x9UQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>预测输出为：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzWXQHNYU2AzVzz3bArpHyF7Zn0keYJYOicicjjxBBBlD3DpwZLDMjHXug/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+</ul>
+<p>​      其中δ为激活函数，RNN常用语分类，这里一般用softmax函数</p>
+<p><strong>三、RNN的训练方法(Back Propagation Through Time,BPTT)</strong></p>
+<p>BPTT用来RNN训练。它的本质是BP算法，只是加上了时间。因为RNN处理时间序列数据，要基于时间反向传播。</p>
+<p><strong>核心思想</strong>：BPTT和BP算法相同，都沿着需要优化参数的负梯度方向不断寻找更优的点直到收敛。也就是梯度下降法。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhGInmNumyib3KbPLKzAicGLcLxur0yT0HPJWMuBR8so7YuNdiaBrf3icfA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>需要寻找最优的有三个参数：U，V，W。</p>
+<p>U,W两个参数的寻找最优的过程需要用到历史数据。而，V只关注当前h（hidden layer）的数据。</p>
+<ul>
+<li><p><strong>求V的偏导数**</strong>：**</p>
+<p>也即是L(Loss)对V求偏导，V到L还经过o(output)，里面有激活函数。所以是复合函数求导过程。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzcsUM3dRbxkYPz27JpLWhRmydyNnkibkegYUxLYbBOSicr39a7qaOl4SA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p>因为RNN的L(Loss)的损失是随着时间累加的，所以叠加后的结果如上图。</p>
+</li>
+<li><p><strong>求W的偏导数：</strong></p>
+<p>W偏导求解需要用到历史数据，假设我们只有三个时刻，假设第三个时刻L对W的偏导数为：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzdnIDWhxhAnPo8W1VFT2ianmJdFZU4fvhj2jia4GhUkLoP0y9k5bexHSg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>求U的偏导数：</strong></p>
+<p>U偏导求解需要用到历史数据，假设我们只有三个时刻，假设第三个时刻L对U的偏导数为：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzAgib52SUbfeibySwjyqP6hrzhibUajefazLb56uJAXb1a5EnlXibMrxxdQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>上面只是对某个时刻的W和U求的偏导数</strong>，但是RNN的L(Loss)损失是随着时间累加的，要追溯到历史数据，那么整个损失函数L对W，U的偏导数十分复杂的。通过找规律发现：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzhlmxorq4HrDum3NAJL7jByQmSzHQqib7ScZum0d1ABiaPL7eSHzDIz5A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p><strong>根据RNN图得知，Activation Function激活函数</strong>是嵌套在对h(hidden)的偏导里面的，把中间累乘部分替换为tanh或者sigmoid写法为：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzib0d7RbiaIXw5hQEV7No50ibaezBCenG7MoMZkpnl5t5elnoiceejJDR0A/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+</li>
+<li><p>上面的累乘会导致激活函数的累乘，会导致“<strong>梯度消失</strong>”和”<strong>梯度爆炸</strong>“现象。</p>
+<p><strong>1、sigmoid函数（logistics函数）和导数：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzLsCsLwO114f2ibjtxzBU6JFsN2D4WlWHafHeeycP6IdX6v0vZpDzGTA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>结论</strong>：使用sigmoid函数作为激活函数，肯定是累乘的时候结果越来越小，随着时间推移小数的累乘导致梯度小到接近于0，这就是“梯度消失”。梯度消失会导致，那一层的参数再也不会更新，那么那一层隐藏层就变成了单纯的映射层，就毫无意义了。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzUtkwBlHzgE4UVqJRpH6xic4nnPqMAJScpAYibZicWTEvoIk9DH5Lloqvg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>总结</strong>：sigmoid函数(logisitic函数)不是0中心对称</p>
+<p><strong>2、tanh函数和导数：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzAgAAcl0BPC4THTIsMnTPVIfZVhdz9feTsHZFXZ7H1QUDV3eq8zYibfQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>总结</strong>：tanh函数是中心对称，会导致神经网络的收敛性更好，是tanh函数相对于sigmoid函数来说梯度较大，收敛速度更快且引起梯度消失更慢</p>
+</li>
+<li><p>解决梯度消失的方法：</p>
+<p><strong>1、选取其他激活函数</strong></p>
+<p>一般选用ReLU作为激活函数</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzKgAhFEfBZ2U5Ean6crG1VSCboPnO69JnkHqm4ia7Un4eX2uic1gibQ7UA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>ReLU的导数：</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZWiblltaIVJqHqcPibzEJzDL6xtC58zFJzic1NovT9A91arI5ovvoVj2icL1UJsJNYySfCfTiatkCqJJ7zic8zIiapMzg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<p><strong>总结</strong>：ReLU函数的左导数为0，右导数为1，避免了“梯度消失”，然而右导数为1，会导致“梯度爆炸”，但是可以设定合适的阈值可以解决“梯度爆炸”问题。还有一点就是，左导数恒为0，有可能导致把神经元学死，同样设置合适的步长（training_step）可以避免问题发生。</p>
+<p><strong>2、改变传播结构</strong></p>
+<p>改变传播结构，也就是引入<strong>LSTM(Long-Short Term Memory)，长短期记忆网络</strong>。是一种时间递归神经网络。适合处理和预测时间序列中间隔和延迟相对较长的重要时间。LSTM区别于RNN的地方，就是在算法中加了一个判断信息有用与否的处理器Cell。</p>
+</li>
+</ul>
 
           
         
@@ -1010,7 +1353,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画函数图像/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/利用CNN识别图片/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -1029,7 +1372,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/用matplotlib包画函数图像/" itemprop="url">用matplotlib包画函数图像</a></h1>
+                <a class="post-title-link" href="/2018/12/15/利用CNN识别图片/" itemprop="url">利用CNN识别图片</a></h1>
         
 
         <div class="post-meta">
@@ -1041,7 +1384,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:25:31+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T19:53:24+08:00">
                 2018-12-15
               </time>
             
@@ -1095,7 +1438,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  142
+                  676
                 </span>
               
 
@@ -1111,7 +1454,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  4
                 </span>
               
             </div>
@@ -1134,10 +1477,17 @@
       
         
           
-            <h2 id="画Sinx函数图像"><a href="#画Sinx函数图像" class="headerlink" title="画Sinx函数图像"></a>画Sinx函数图像</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#正弦函数图像</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#generate number</span></span><br><span class="line">x=np.arange(<span class="number">0</span>,<span class="number">2</span>*np.pi,<span class="number">0.00001</span>)</span><br><span class="line">y=np.sin(x)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.plot(x,y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/用matplotlib包画函数图像/sinx的图像.png" alt="sinx"></p>
-<h2 id="画cosx-x的图像"><a href="#画cosx-x的图像" class="headerlink" title="画cosx/x的图像"></a>画cosx/x的图像</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#画出cosx/x的图像</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#define function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> np.cos(x*<span class="number">30</span>)/x</span><br><span class="line"></span><br><span class="line"><span class="comment">#generate number</span></span><br><span class="line">g=np.frompyfunc(f,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">a=np.arange(<span class="number">0.1</span>,<span class="number">2</span>*np.pi,<span class="number">0.00001</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#use the function</span></span><br><span class="line">d=g(a)</span><br><span class="line"></span><br><span class="line"><span class="comment">#set maxsize</span></span><br><span class="line">d_max=np.max(d)</span><br><span class="line"><span class="comment">#set minsize</span></span><br><span class="line">d_min=np.min(d)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.figure(figsize=(<span class="number">52</span>,<span class="number">23.65</span>))</span><br><span class="line">plt.xlim((<span class="number">-0.1</span>,<span class="number">2</span>*np.pi+<span class="number">0.1</span>))</span><br><span class="line">plt.ylim((<span class="number">-5</span>,<span class="number">5</span>))</span><br><span class="line">plt.plot(a,d,<span class="string">'-'</span>,c=<span class="string">'g'</span>,lw=<span class="number">2</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/用matplotlib包画函数图像/cosx除以x的图像.png" alt="cosx/x"></p>
+            <p>具体CNN的原理以及应用请看上一篇文章。废话不多说，直接上代码，看运行效果</p>
+<h2 id="利用CNN识别image的源代码"><a href="#利用CNN识别image的源代码" class="headerlink" title="利用CNN识别image的源代码"></a>利用CNN识别image的源代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -- coding: utf-8 --</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">@author: victor</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Convolutional Neural Network Example</span></span><br><span class="line"><span class="string">Build a convolutional neural network with Tensorflow</span></span><br><span class="line"><span class="string">This example is using TensorFlow layers API</span></span><br><span class="line"><span class="string">see 'convolutional_network_raw' example for a raw TensorFlow</span></span><br><span class="line"><span class="string">implementation with variables</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#from future import division,print_function,absolute_import</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Import MNIST data</span></span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line">mnist=input_data.read_data_sets(<span class="string">"MNIST_data/"</span>,one_hot=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment">#Training parameters</span></span><br><span class="line">learning_rate=<span class="number">0.001</span></span><br><span class="line">num_steps=<span class="number">1000</span></span><br><span class="line">batch_size=<span class="number">128</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Network parameters</span></span><br><span class="line">num_input=<span class="number">784</span><span class="comment">#MNIST data input(img shape:28*28)</span></span><br><span class="line">num_classes=<span class="number">10</span><span class="comment">#MNIST total classes(0-9 digits)</span></span><br><span class="line">dropout=<span class="number">0.25</span><span class="comment">#Dropout,probability to drop a unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Create the neural network</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv_net</span><span class="params">(x_dict,n_classes,dropout,reuse,is_training)</span>:</span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">#Define a scope for reusing the variables</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'ConvNet'</span>,reuse=reuse):</span><br><span class="line">        <span class="comment">#tf Estimator input is a dict,in case of multiple inputs</span></span><br><span class="line">        x=x_dict[<span class="string">'images'</span>]</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#MNIST data input is a 1-D vector of 784 features(28*28 pixels)</span></span><br><span class="line">        <span class="comment">#Reshape to match picture format [Height x Width x Channel]</span></span><br><span class="line">        <span class="comment">#Tensor input become 4-D:[Batch Size,Height,Width,Channel]</span></span><br><span class="line">        x=tf.reshape(x,shape=[<span class="number">-1</span>,<span class="number">28</span>,<span class="number">28</span>,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">        <span class="comment">#Convolution Layer with 32 filters and a kernel size of 5</span></span><br><span class="line">        conv1=tf.layers.conv2d(x,<span class="number">32</span>,<span class="number">5</span>,activation=tf.nn.relu)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Max Pooling(down-sampling) with strides of 2 and kernel size of 2</span></span><br><span class="line">        conv1=tf.layers.max_pooling2d(conv1,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="comment">#Convolution Layer with 64 filters and a kernel size of 3</span></span><br><span class="line">        conv2=tf.layers.conv2d(conv1,<span class="number">64</span>,<span class="number">3</span>,activation=tf.nn.relu)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Max Pooling(down-sampling) with strides of 2 and kernel size of 2</span></span><br><span class="line">        conv2=tf.layers.average_pooling2d(conv2,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#Flatten the data to a 1-D vector for the fully connected layer</span></span><br><span class="line">        fc1=tf.contrib.layers.flatten(conv2)</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="comment">#Fully connected layer(in tf contrib folder for now)</span></span><br><span class="line">        fc1=tf.layers.dense(fc1,<span class="number">1024</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Apply Dropout(if is_training is False,dropout is not applied)</span></span><br><span class="line">        fc1=tf.layers.dropout(fc1,rate=dropout,training=is_training)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Output layer,class prediction</span></span><br><span class="line">        out=tf.layers.dense(fc1,n_classes)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment">#Define the model function(following Tf Estimator Template)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">model_fn</span><span class="params">(features,labels,mode)</span>:</span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">#Build the neural network</span></span><br><span class="line">    <span class="comment">#Because Dropout have different behavior at training and prediction time</span></span><br><span class="line">    <span class="comment">#we need to create 2 distinct computation graphs that still share the same weights</span></span><br><span class="line">    logits_train=conv_net(features,num_classes,dropout,reuse=<span class="keyword">False</span>,is_training=<span class="keyword">True</span>)</span><br><span class="line">    logits_test=conv_net(features,num_classes,dropout,reuse=<span class="keyword">True</span>,is_training=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment">#Predictions</span></span><br><span class="line">    pred_classes=tf.argmax(logits_test,axis=<span class="number">1</span>)</span><br><span class="line">    pred_probas=tf.nn.softmax(logits_test)</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">    <span class="comment">#If prediction mode,early return </span></span><br><span class="line">    <span class="keyword">if</span> mode==tf.estimator.ModeKeys.PREDICT:</span><br><span class="line">        <span class="keyword">return</span> tf.estimator.EstimatorSpec(mode,predictions=pred_classes)</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">    <span class="comment">#Define loss and optimizer</span></span><br><span class="line">    loss_op=tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(</span><br><span class="line">         logits=logits_train,labels=tf.cast(labels,dtype=tf.int32)))</span><br><span class="line"></span><br><span class="line">    optimizer=tf.train.AdamOptimizer(learning_rate=learning_rate)</span><br><span class="line">    train_op=optimizer.minimize(loss_op,global_step=tf.train.get_global_step())</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Evaluate the accuracy of the model</span></span><br><span class="line">    acc_op=tf.metrics.accuracy(labels=labels,predictions=pred_classes)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#TF Estimators requires to return a EstimatorSpec,that specify</span></span><br><span class="line">    <span class="comment">#the different ops for training,evaluating,...</span></span><br><span class="line">    estim_specs=tf.estimator.EstimatorSpec(</span><br><span class="line">                mode=mode,</span><br><span class="line">                predictions=pred_classes,</span><br><span class="line">                loss=loss_op,</span><br><span class="line">                train_op=train_op,</span><br><span class="line">                eval_metric_ops=&#123;<span class="string">'accuracy'</span>:acc_op&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> estim_specs </span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"><span class="comment">#Build the Estimator</span></span><br><span class="line">model=tf.estimator.Estimator(model_fn)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Define the input function for training</span></span><br><span class="line">input_fn=tf.estimator.inputs.numpy_input_fn(</span><br><span class="line">         x=&#123;<span class="string">'images'</span>:mnist.train.images&#125;,</span><br><span class="line">         y=mnist.train.labels,</span><br><span class="line">         batch_size=batch_size,</span><br><span class="line">         num_epochs=<span class="keyword">None</span>,</span><br><span class="line">         shuffle=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Train the Model</span></span><br><span class="line">model.train(input_fn,steps=num_steps)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Predict single images</span></span><br><span class="line">n_images=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Get images from test set</span></span><br><span class="line">test_images=mnist.test.images[:n_images]</span><br><span class="line"></span><br><span class="line"><span class="comment">#Prepare the input data</span></span><br><span class="line">input_fn=tf.estimator.inputs.numpy_input_fn(</span><br><span class="line">         x=&#123;<span class="string">'images'</span>:test_images&#125;,shuffle=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Use the model to predict the images class</span></span><br><span class="line">preds=list(model.predict(input_fn))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Display</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n_images):</span><br><span class="line">    plt.imshow(np.reshape(test_images[i],[<span class="number">28</span>,<span class="number">28</span>]),cmap=<span class="string">'gray'</span>)</span><br><span class="line">    plt.show()</span><br><span class="line">    print(<span class="string">'Model prediction:'</span>,preds[i])</span><br><span class="line">    plt.xlabel(<span class="string">'Model prediction:'</span>+str(preds[i]),fontsize=<span class="number">14</span>)</span><br><span class="line">    plt.pause(<span class="number">0.5</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="/2018/12/15/利用CNN识别图片/1.gif" alt="cnn识别图片"></p>
+<h2 id="查看Tensor-board上的效果"><a href="#查看Tensor-board上的效果" class="headerlink" title="查看Tensor board上的效果"></a>查看Tensor board上的效果</h2><ul>
+<li><p>Tensorboard的操作</p>
+<p><img src="/2018/12/15/利用CNN识别图片/3.gif" alt="tensorboard"></p>
+</li>
+<li><p>利用Google Chrome查看图形化差异</p>
+</li>
+</ul>
+<p><img src="/2018/12/15/利用CNN识别图片/2.gif" alt="loss"></p>
 
           
         
@@ -1186,7 +1536,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画箱型图/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/CNN的入门demo/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -1205,7 +1555,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/用matplotlib包画箱型图/" itemprop="url">用matplotlib包画箱型图</a></h1>
+                <a class="post-title-link" href="/2018/12/15/CNN的入门demo/" itemprop="url">CNN的入门demo</a></h1>
         
 
         <div class="post-meta">
@@ -1217,7 +1567,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:22:05+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T19:31:32+08:00">
                 2018-12-15
               </time>
             
@@ -1271,7 +1621,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  48
+                  1.1k
                 </span>
               
 
@@ -1287,7 +1637,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  5
                 </span>
               
             </div>
@@ -1310,8 +1660,30 @@
       
         
           
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#箱型图</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#normal distribution</span></span><br><span class="line">data=np.random.normal(loc=<span class="number">0</span>,scale=<span class="number">1</span>,size=<span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#sym点的形状，whis虚线的长度</span></span><br><span class="line">plt.boxplot(data,sym=<span class="string">'o'</span>,whis=<span class="number">1.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/用matplotlib包画箱型图/箱型图.png" alt="box"></p>
+            <h2 id="一、CNN的源代码"><a href="#一、CNN的源代码" class="headerlink" title="一、CNN的源代码"></a>一、CNN的源代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#input MNIST_data</span></span><br><span class="line"></span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">"MNIST_data/"</span>, one_hot=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">sess = tf.InteractiveSession()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#define placeholder for inputs to network</span></span><br><span class="line">x = tf.placeholder(tf.float32, shape=[<span class="keyword">None</span>, <span class="number">784</span>])<span class="comment">#28*28</span></span><br><span class="line">y_ = tf.placeholder(tf.float32, shape=[<span class="keyword">None</span>, <span class="number">10</span>])<span class="comment">#0~9共10个数字</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#define weights(神经元的权重)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">weight_variable</span><span class="params">(shape)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#tf.truncated_normal(shape,mean,stddev)</span></span><br><span class="line">    <span class="comment">#shape:表示生成张量的维度</span></span><br><span class="line">    <span class="comment">#mean:表示均值</span></span><br><span class="line">    <span class="comment">#stddev：表示标准差</span></span><br><span class="line">    <span class="comment">#这是一个截断产生正太分布的函数</span></span><br><span class="line">    <span class="comment">#tf.truncated_normal与tf.random_normal的区别是：</span></span><br><span class="line">    <span class="comment">#这两个输入参数几乎完全一致，都是正态分布产生函数</span></span><br><span class="line">    <span class="comment">#tf.truncated_normal截断的标准差是2倍的stddev</span></span><br><span class="line">    initial = tf.truncated_normal(shape, stddev=<span class="number">0.1</span>)</span><br><span class="line">    <span class="keyword">return</span> tf.Variable(initial)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#define biases(神经元的偏置常量)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bias_variable</span><span class="params">(shape)</span>:</span></span><br><span class="line">    initial = tf.constant(<span class="number">0.1</span>, shape=shape)</span><br><span class="line">    <span class="keyword">return</span> tf.Variable(initial)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#define conv（卷积层）</span></span><br><span class="line"><span class="comment">#padding有两个值，一个SAME,一个VALID</span></span><br><span class="line"><span class="comment">#padding设置为SAME：说明输入图片和输出图片大小一致</span></span><br><span class="line"><span class="comment">#padding设置为VALID：说明图片经过滤波器filter后可能会变小</span></span><br><span class="line"><span class="comment">#设置conv的滑动步长strides为1，1，1，1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define convolutional layer</span></span><br><span class="line"><span class="comment">#x:x为image的所有信息</span></span><br><span class="line"><span class="comment">#W:Weight</span></span><br><span class="line"><span class="comment">#strides的前后都为1，然后第二个，第三个，表示，x方向，y方向都为1</span></span><br><span class="line"><span class="comment">#strides=[1,x_movement,y_movement,1]</span></span><br><span class="line"><span class="comment">#must have strides[0]=strides[3]=1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv2d</span><span class="params">(x, W)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> tf.nn.conv2d(x, W, strides=[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], padding=<span class="string">"SAME"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#define pooling（池化层）</span></span><br><span class="line"><span class="comment">##pooling的方式是max pooling</span></span><br><span class="line"><span class="comment">#设置它的滑动步长strides为1，2，2，1</span></span><br><span class="line"><span class="comment">#use max_pool method</span></span><br><span class="line"><span class="comment">#ksize：也就是kernel size</span></span><br><span class="line"><span class="comment">#strides=[1,x_movement,y_movement,1]</span></span><br><span class="line"><span class="comment">#strides[1]=strides[2]=2,也就是隔2个像素移动一下</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_pool_2x2</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> tf.nn.max_pool(x, ksize=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], strides=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], padding=<span class="string">"SAME"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">##conv1 layer卷积层##</span></span><br><span class="line"><span class="comment">#W_conv1就是Weights</span></span><br><span class="line"><span class="comment">#patch 5*5,in size=1是image的厚度,out size=32</span></span><br><span class="line">W_conv1 = weight_variable([<span class="number">5</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">32</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#b_conv1就是biases，32就是卷积核的个数，按照经验取值</span></span><br><span class="line">b_conv1 = bias_variable([<span class="number">32</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#-1：是把数据扁平化，28*28就是所有像素点784，1由于这个MNIST里的图片全都是黑白的所有只有1，如果是彩色的就可以有其他的值</span></span><br><span class="line">x_image = tf.reshape(x, [<span class="number">-1</span>, <span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>])</span><br><span class="line"><span class="comment">#print(x_image,shape)#[n_samples,28,28,1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#非线性化处理</span></span><br><span class="line">h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)<span class="comment">#output size 282832之前的步长是1，1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##pooling layer池化层##</span></span><br><span class="line">h_pool1 = max_pool_2x2(h_conv1)<span class="comment">#output size 141432，pooling的步长是2，2，则就是原来基础上除以2</span></span><br><span class="line"><span class="comment">##conv1 layer##</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#conv2 layer卷积层##</span></span><br><span class="line">W_conv2 = weight_variable([<span class="number">5</span>, <span class="number">5</span>, <span class="number">32</span>, <span class="number">64</span>])<span class="comment">#patch 5*5,in size 32,out size 64</span></span><br><span class="line">b_conv2 = bias_variable([<span class="number">64</span>])</span><br><span class="line">h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)<span class="comment">#output size 141464,第二层的输入是第一层的输出，输出的pooling是14*14，步长是1，1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">##pooling layer池化层##</span></span><br><span class="line">h_pool2 = max_pool_2x2(h_conv2)<span class="comment">#output size然后步长是2，2，所以就是7764</span></span><br><span class="line"><span class="comment">##conv2 layer##</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">##func1 layer全连接层##</span></span><br><span class="line">W_fc1 = weight_variable([<span class="number">7</span> * <span class="number">7</span> * <span class="number">64</span>, <span class="number">1024</span>])</span><br><span class="line">b_fc1 = bias_variable([<span class="number">1024</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">##转换##</span></span><br><span class="line">h_pool2_flat = tf.reshape(h_pool2, [<span class="number">-1</span>, <span class="number">7</span> * <span class="number">7</span> * <span class="number">64</span>])<span class="comment">#[n_samples,7,7,64]转换为[n_samples,7764]</span></span><br><span class="line"></span><br><span class="line">h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)</span><br><span class="line"></span><br><span class="line"><span class="comment">#define keep_prob</span></span><br><span class="line">keep_prob = tf.placeholder(<span class="string">"float"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#use dropout solve overfitting(使用dropout防止过拟合)keep_prob为0~1之间数</span></span><br><span class="line">h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)<span class="comment">#考虑到有overfitting，加一个dropout处理</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##func1 layer##</span></span><br><span class="line"><span class="comment">##func2 layer全连接层##</span></span><br><span class="line"><span class="comment">#第二层的input=1024是第一层的输出1024，第二层的输出为10因为是有0~9，10个数字</span></span><br><span class="line"></span><br><span class="line">W_fc2 = weight_variable([<span class="number">1024</span>, <span class="number">10</span>])</span><br><span class="line">b_fc2 = bias_variable([<span class="number">10</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#prediction</span></span><br><span class="line">y_conv = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)</span><br><span class="line"></span><br><span class="line"><span class="comment">#use cross_entropy交叉熵</span></span><br><span class="line"><span class="comment">#the error between prediction and real data</span></span><br><span class="line"></span><br><span class="line">cross_entropy = -tf.reduce_sum(y_ * tf.log(y_conv))</span><br><span class="line"></span><br><span class="line"><span class="comment">#对于庞大的神经网络使用AdamOptimizer不适用GradientDescentOptimizer了train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)</span></span><br><span class="line">correct_prediction = tf.equal(tf.argmax(y_conv, <span class="number">1</span>), tf.argmax(y_, <span class="number">1</span>))</span><br><span class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, <span class="string">"float"</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#import step</span></span><br><span class="line">sess.run(tf.global_variables_initializer())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20000</span>):</span><br><span class="line">    batch = mnist.train.next_batch(<span class="number">50</span>)</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment">#控制它的keep_prob为1.0也就是所有元素全部保留</span></span><br><span class="line">        train_accuracy = accuracy.eval(feed_dict=&#123;</span><br><span class="line">            x: batch[<span class="number">0</span>], y: batch[<span class="number">1</span>], keep_prob: <span class="number">1.0</span>&#125;)</span><br><span class="line">        print(<span class="string">"step %d, training accuracy %g"</span> % (i, train_accuracy))</span><br><span class="line">    train_step.run(feed_dict=&#123;x: batch[<span class="number">0</span>], y: batch[<span class="number">1</span>], keep_prob: <span class="number">0.5</span>&#125;)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"test accuracy %g"</span> % accuracy.eval(feed_dict=&#123;</span><br><span class="line">    x: mnist.test.images, y_: mnist.test.labels, keep_prob: <span class="number">1.0</span>&#125;))</span><br></pre></td></tr></table></figure>
+<p><strong>二、运行效果</strong></p>
+<ul>
+<li>刚开始训练精度并不高，在90%左右</li>
+</ul>
+<p><img src="/2018/12/15/CNN的入门demo/1.png" alt="start training"></p>
+<ul>
+<li>随着慢慢的训练5000步左右的时候，精度逐渐增加到99%左右</li>
+</ul>
+<p><img src="/2018/12/15/CNN的入门demo/2.png" alt="cnn"></p>
+<ul>
+<li>等过万的时候，精确度已经很高了，接近于100%</li>
+</ul>
+<p><img src="/2018/12/15/CNN的入门demo/3.png" alt="cnn"></p>
+<ul>
+<li><p>训练到15000步，精确度已经很高，几乎100%</p>
+<p><img src="/2018/12/15/CNN的入门demo/4.png" alt="cnn"></p>
+</li>
+<li><p>训练结束后的结果</p>
+<p><img src="/2018/12/15/CNN的入门demo/5.png" alt="cnn"></p>
+<p>对比上一节的MNIST入门的Demo利用GradientDescentOptimizer直接进行训练，利用CNN训练，精确度基本上99%</p>
+<p>ps：由于设置的循环range为20000，训练次数比较大，跑起来比较耗时，我安装的是CPU版本的Tensorflow，跑了大概1个小时训练结束。</p>
+</li>
+</ul>
 
           
         
@@ -1360,7 +1732,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画饼状图/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/卷积神经网络CNN/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -1379,7 +1751,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/用matplotlib包画饼状图/" itemprop="url">用matplotlib包画饼状图</a></h1>
+                <a class="post-title-link" href="/2018/12/15/卷积神经网络CNN/" itemprop="url">卷积神经网络CNN</a></h1>
         
 
         <div class="post-meta">
@@ -1391,7 +1763,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:19:44+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T19:07:06+08:00">
                 2018-12-15
               </time>
             
@@ -1445,7 +1817,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  143
+                  761
                 </span>
               
 
@@ -1461,7 +1833,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -1484,8 +1856,51 @@
       
         
           
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#饼状图</span></span><br><span class="line"><span class="comment">#author：victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置labels标签参数，x是对应的数据列表，autopct显示每一个区域占的比例</span></span><br><span class="line"><span class="comment">#explode突出显示某一块，shadow阴影</span></span><br><span class="line">labels=[<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>]</span><br><span class="line">fracs=[<span class="number">15</span>,<span class="number">30</span>,<span class="number">45</span>,<span class="number">10</span>]</span><br><span class="line">explode=[<span class="number">0</span>,<span class="number">0.1</span>,<span class="number">0.05</span>,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置x,y轴比例1:1，从而得到一个正的圆</span></span><br><span class="line">plt.axes(aspect=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#labels标签参数，x是对应的数据列表，autopct显示每一个区域占的比例，</span></span><br><span class="line"><span class="comment">#explode突出显示某一块，shadow阴影</span></span><br><span class="line">plt.pie(x=fracs,labels=labels,autopct=<span class="string">"%.0f%%"</span>,explode=explode,shadow=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/用matplotlib包画饼状图/饼状图.png" alt="pie graph"></p>
+            <h2 id="卷积神经网络-CNN"><a href="#卷积神经网络-CNN" class="headerlink" title="卷积神经网络(CNN)"></a>卷积神经网络(CNN)</h2><p>​        <strong>卷积神经网络CNN</strong>(Current Neural Network)与普通神经网络类似，它们都有可学习的权重(Weights)和偏置常量(biases)的神经元组成。每个神经元都接受一些输入，并做一些点积计算，输出是每个分类的分数，因此，普通神经网络里的一些计算技巧在CNN中依旧适用。CNN常用于计算机图像识别。</p>
+<ul>
+<li><strong>普通神经网络：</strong></li>
+</ul>
+<p><img src="/2018/12/15/卷积神经网络CNN/1.jpg" alt="normal neural network"></p>
+<ul>
+<li><strong>卷积神经网络：</strong></li>
+</ul>
+<p><img src="/2018/12/15/卷积神经网络CNN/3.png" alt="Current Neural Network"></p>
+<p>​        <strong>卷积神经网络默认输入是图像</strong>，可以让我们把特定的性质编码编入网络结构。另外，<strong>卷积神经网络是具有三维体积的神经元</strong>。</p>
+<p>卷积神经网络利用输入是图片的特点，把神经元设计成三个维度：<strong>width,depth,height</strong>(ps:depth不是神经网络的深度，用来描述神经元的)。</p>
+<p>比如输入的图片大小是32<em>32</em>3(RGB)，那么输入神经元也具有32<em>32</em>3的维度</p>
+<ul>
+<li><p><strong>总结：</strong></p>
+<p>一个卷积神经网络由很多层组成，输入时三维的，输出也是三维的，有的层有参数，有的层不需要参数</p>
+</li>
+</ul>
+<h2 id="卷积神经网络的组成"><a href="#卷积神经网络的组成" class="headerlink" title="卷积神经网络的组成"></a>卷积神经网络的组成</h2><ul>
+<li><strong>卷积层(Convolutional layer)：</strong>CNN中每层卷积层由若干卷积单元组成，每个卷积单元的参数通过反向传播算法优化得到的。卷积运算的目的是提取输入的不同特征，第一层卷积可能只能提取一些低级的特征比如边缘、线条、角等层级，更多层的网络能从低级特征中迭代提取更复杂的特征。</li>
+<li><strong>线性整流层(Rectified Linear Units layer,ReLU layer):</strong>这一层是激励函数(Activation Function)，使用线性整流(Rectified Linear Units,ReLU)</li>
+<li><strong>池化层(Pooling layer):</strong>通常在卷积层之后会得到维度很大的特征，将特征切成几个区域，取到最大值或者平均值，得到新的，维度较小的特征。</li>
+<li><strong>全连接层(Fully-Connected layer)：</strong>把所有局部特征结合变成全局特征，用来计算最后每一类的得分。</li>
+</ul>
+<p><strong>卷积神经网络的过程：</strong></p>
+<p><img src="/2018/12/15/卷积神经网络CNN/2.jpg" alt="Current Neural Network"></p>
+<h2 id="CNN的个人理解"><a href="#CNN的个人理解" class="headerlink" title="CNN的个人理解"></a>CNN的个人理解</h2><ul>
+<li>CNN专门解决图像问题的，可以把它看做特征提取层，让在输入层上，最后用MLP做分类。</li>
+<li>CNNs相对于MLP(Multi-Layer Perceptron,多层感知器，是最简单的DNN)，多了一个先验知识，也就是数据之间存在空间相关性。就比如图像、蓝天附近的像素点是白云的概率会大于是汽车的概率。滤波器filter会扫描整张图像，在扫描的过程中，参数共享。</li>
+</ul>
+<p><img src="/2018/12/15/卷积神经网络CNN/3.jpg" alt="σ(.)"></p>
+<p><img src="/2018/12/15/卷积神经网络CNN/4.jpg" alt="σ(.)"></p>
+<p><img src="/2018/12/15/卷积神经网络CNN/5.jpg" alt="σ(.)"></p>
+<p><img src="/2018/12/15/卷积神经网络CNN/6.jpg" alt="σ(.)"></p>
+<p><img src="/2018/12/15/卷积神经网络CNN/7.jpg" alt="σ(.)"></p>
+<p>上面4附图，都是一个3<em>3的输入经过一个2</em>2的conv卷积层的过程。该卷积层conv的strides是1，padding为0</p>
+<p>注：参数strides,padding分别决定了卷积conv操作中滑动步长和图像边沿填充方式。</p>
+<ul>
+<li><strong>输出的结果为：</strong></li>
+</ul>
+<p><img src="/2018/12/15/卷积神经网络CNN/8.jpg" alt="σ(.)"></p>
+<h2 id="卷积的理解"><a href="#卷积的理解" class="headerlink" title="卷积的理解"></a>卷积的理解</h2><p>学过概率论都知道有卷积公式吧。</p>
+<ul>
+<li>卷积公式：</li>
+</ul>
+<p><img src="/2018/12/15/卷积神经网络CNN/9.png" alt="卷积"></p>
 
           
         
@@ -1534,7 +1949,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画条形图/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/MNIST数据集入门Demo/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -1553,7 +1968,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/用matplotlib包画条形图/" itemprop="url">用matplotlib包画条形图</a></h1>
+                <a class="post-title-link" href="/2018/12/15/MNIST数据集入门Demo/" itemprop="url">MNIST数据集入门Demo</a></h1>
         
 
         <div class="post-meta">
@@ -1565,7 +1980,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:17:43+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T14:09:13+08:00">
                 2018-12-15
               </time>
             
@@ -1619,7 +2034,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  76
+                  418
                 </span>
               
 
@@ -1635,7 +2050,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -1658,8 +2073,9 @@
       
         
           
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#条形图</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#产生随机数</span></span><br><span class="line">data = np.random.normal(<span class="number">0</span>, <span class="number">20</span>, <span class="number">1000</span>)</span><br><span class="line">bins = np.arange(<span class="number">-100</span>, <span class="number">100</span>, <span class="number">5</span>) <span class="comment"># fixed bin size</span></span><br><span class="line"></span><br><span class="line">plt.xlim([min(data)<span class="number">-5</span>, max(data)+<span class="number">5</span>])</span><br><span class="line">plt.hist(data, bins=bins, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.title(<span class="string">'Random Gaussian data (fixed bin size)'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'variable X (bin size = 5)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'count'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/用matplotlib包画条形图/条形图.png" alt="gaussian graph"></p>
+            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Classficiation分类学习</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#MNIST数据集入门</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># number 1 to 10 data</span></span><br><span class="line"><span class="comment">#use mnist data</span></span><br><span class="line"><span class="comment">#使用这两句，会在程序储存的位置出现文件夹MINIST_data</span></span><br><span class="line"><span class="comment">#下载MNIST数据集中的四个压缩包，并放在MINIST_data文件夹中，不要解压</span></span><br><span class="line"><span class="comment">#官网下载地址：http://yann.lecun.com/exdb/mnist/</span></span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">'MNIST_data/'</span>, one_hot=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#define add_layer function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_layer</span><span class="params">(inputs, in_size, out_size, activation_function=None,)</span>:</span></span><br><span class="line">    <span class="comment"># add one more layer and return the output of this layer</span></span><br><span class="line">    Weights = tf.Variable(tf.random_normal([in_size, out_size]))</span><br><span class="line">    biases = tf.Variable(tf.zeros([<span class="number">1</span>, out_size]) + <span class="number">0.1</span>,)</span><br><span class="line">    Wx_plus_b = tf.matmul(inputs, Weights) + biases</span><br><span class="line">    <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        outputs = Wx_plus_b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        outputs = activation_function(Wx_plus_b,)</span><br><span class="line">    <span class="keyword">return</span> outputs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#define compute_accuracy function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_accuracy</span><span class="params">(v_xs, v_ys)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> prediction</span><br><span class="line">    y_pre = sess.run(prediction, feed_dict=&#123;xs: v_xs&#125;)</span><br><span class="line">    correct_prediction = tf.equal(tf.argmax(y_pre,<span class="number">1</span>), tf.argmax(v_ys,<span class="number">1</span>))</span><br><span class="line">    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line">    result = sess.run(accuracy, feed_dict=&#123;xs: v_xs, ys: v_ys&#125;)</span><br><span class="line">    <span class="comment">#output result which is the percent，this percent too high,the prediction too accurate</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="comment"># define placeholder for inputs to network</span></span><br><span class="line">xs = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">784</span>]) <span class="comment"># 28x28,也就是有784个数据点</span></span><br><span class="line">ys = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">10</span>])<span class="comment">#有10个输出</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># add output layer</span></span><br><span class="line">prediction = add_layer(xs, <span class="number">784</span>, <span class="number">10</span>,  activation_function=tf.nn.softmax)</span><br><span class="line"></span><br><span class="line"><span class="comment"># the error between prediction and real data</span></span><br><span class="line"><span class="comment">#分类的话，用softmax配上cross_entropy(交叉熵)</span></span><br><span class="line">cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(prediction),</span><br><span class="line">                                              reduction_indices=[<span class="number">1</span>]))<span class="comment"># loss</span></span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.5</span>).minimize(cross_entropy)</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line"><span class="comment"># important step</span></span><br><span class="line"><span class="comment"># tf.initialize_all_variables() no long valid from</span></span><br><span class="line"><span class="comment"># 2017-03-02 if using tensorflow &gt;= 0.12</span></span><br><span class="line"><span class="keyword">if</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">1</span>]) &lt; <span class="number">12</span> <span class="keyword">and</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">0</span>]) &lt; <span class="number">1</span>:</span><br><span class="line">    init = tf.initialize_all_variables()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    init = tf.global_variables_initializer()</span><br><span class="line">sess.run(init)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">    batch_xs, batch_ys = mnist.train.next_batch(<span class="number">100</span>)</span><br><span class="line">    sess.run(train_step, feed_dict=&#123;xs: batch_xs, ys: batch_ys&#125;)</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">50</span> == <span class="number">0</span>:</span><br><span class="line">        print(compute_accuracy(</span><br><span class="line">            mnist.test.images, mnist.test.labels))</span><br></pre></td></tr></table></figure>
+<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="/2018/12/15/MNIST数据集入门Demo/MNIST训练结果.png" alt="MNIST data result"></p>
+<p>可以看出图片识别分类的精确度并不是很高，后续用到了CNN卷积神经网络，精确度可以达到99%</p>
 
           
         
@@ -1708,7 +2124,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画折线图/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/MNIST数据集简介/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -1727,7 +2143,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/15/用matplotlib包画折线图/" itemprop="url">用matplotlib包画折线图</a></h1>
+                <a class="post-title-link" href="/2018/12/15/MNIST数据集简介/" itemprop="url">MNIST数据集简介</a></h1>
         
 
         <div class="post-meta">
@@ -1739,7 +2155,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:14:30+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T14:02:35+08:00">
                 2018-12-15
               </time>
             
@@ -1793,7 +2209,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  51
+                  517
                 </span>
               
 
@@ -1832,188 +2248,24 @@
       
         
           
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#折线图</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成数据</span></span><br><span class="line">x=np.linspace(<span class="number">-10000</span>,<span class="number">10000</span>,<span class="number">100</span>) <span class="comment">#将-10000到10000等区间分成100份</span></span><br><span class="line">y=x2+x3+x**<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示图像</span></span><br><span class="line">plt.plot(x,y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/用matplotlib包画折线图/折线图.png" alt="line"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画散点图/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/用matplotlib包画散点图/" itemprop="url">用matplotlib包画散点图</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:08:48+08:00">
-                2018-12-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
-                    <span itemprop="name">TensorFlow</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  374
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>Scatter函数是一个强大的画散点图函数：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">matplotlib.pyplot.scatter(x, y, s=<span class="keyword">None</span>, c=<span class="keyword">None</span>, marker=<span class="keyword">None</span>, cmap=<span class="keyword">None</span>, norm=<span class="keyword">None</span>, vmin=<span class="keyword">None</span>, vmax=<span class="keyword">None</span>, alpha=<span class="keyword">None</span>, linewidths=<span class="keyword">None</span>, verts=<span class="keyword">None</span>, edgecolors=<span class="keyword">None</span>, *, data=<span class="keyword">None</span>, **kwargs)</span><br><span class="line"></span><br><span class="line"><span class="comment">#x,y：表示数据的位置，也就是x,y轴</span></span><br><span class="line"><span class="comment">#s：表示图形的大小</span></span><br><span class="line"><span class="comment">#c：表示颜色或颜色序列，可能的情况如下： </span></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">  1. 单一颜色</span></span><br><span class="line"><span class="string">  2. 颜色序列</span></span><br><span class="line"><span class="string">  3. 使用cmap映射到颜色的序列数</span></span><br><span class="line"><span class="string">  4. 一个行为RGB的2-D数组</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">marker：绘出的图形的形状，具有多种风格 </span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-<p><strong>一、画散点图(一)</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#散点图</span></span><br><span class="line"><span class="comment">#导入必要的模块</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#参数随机数</span></span><br><span class="line">N=<span class="number">50</span></span><br><span class="line">x=np.random.randn(N)</span><br><span class="line">y=np.random.randn(N)</span><br><span class="line"></span><br><span class="line"><span class="comment">#画散点图</span></span><br><span class="line">plt.scatter(x,y,s=<span class="number">50</span>,c=<span class="string">'r'</span>,marker=<span class="string">'o'</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line"><span class="comment">#x---&gt;x轴，y---&gt;y轴</span></span><br><span class="line"><span class="comment">#s---&gt;散点面积</span></span><br><span class="line"><span class="comment">#c---&gt;散点颜色</span></span><br><span class="line"><span class="comment">#颜色参数c：b--&gt;blue  c--&gt;cyan g--&gt;green  k--&gt;black  m--&gt;magenta  r--&gt;red </span></span><br><span class="line"><span class="comment">#w--&gt;white  y--&gt;yellow</span></span><br><span class="line"><span class="comment">#marker---&gt;散点形状</span></span><br><span class="line"><span class="comment">#marker='o'为圆点，marker='x'为×号，marker='s'显示为小正方形</span></span><br><span class="line"><span class="comment">#alpha---&gt;散点透明度</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示所画的图</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/用matplotlib包画散点图/散点图.png" alt="scatter"></p>
-<p><strong>二、画散点图(二）</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入必要的模块 </span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"></span><br><span class="line"><span class="comment">#产生测试数据 </span></span><br><span class="line">x = np.arange(<span class="number">1</span>,<span class="number">10</span>) </span><br><span class="line">y = x </span><br><span class="line">fig = plt.figure() </span><br><span class="line">ax1 = fig.add_subplot(<span class="number">111</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置标题 </span></span><br><span class="line">ax1.set_title(<span class="string">'Scatter Plot'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置X轴标签 </span></span><br><span class="line">plt.xlabel(<span class="string">'X'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置Y轴标签 </span></span><br><span class="line">plt.ylabel(<span class="string">'Y'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#画散点图 </span></span><br><span class="line">ax1.scatter(x,y,c = <span class="string">'r'</span>,marker = <span class="string">'o'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置图标 </span></span><br><span class="line">plt.legend(<span class="string">'x1'</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#显示所画的图 </span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/用matplotlib包画散点图/散点图1.png" alt="scatter"></p>
+            <h2 id="MNIST数据集简介"><a href="#MNIST数据集简介" class="headerlink" title="MNIST数据集简介"></a>MNIST数据集简介</h2><p>MNIST(Mixed National Institute of Standards and Technology database)是一个计算机视觉数据集，它包含70000张手写数字的灰度图片，其中每张图片包含28*28个像素点。可以用一个数字数组来表示这张图片。</p>
+<p><img src="/2018/12/15/MNIST数据集简介/MNIST-Matrix.png" alt="MNIST Matrix"></p>
+<p>每张图片都有对应的标签，也就是图片对应的数字，例如上图的标签是1</p>
+<p>数据集被分成两部分：<strong>60000行的训练数据集(mnist.train)和10000行的测试数据集(mnist.test)</strong></p>
+<p>其中：<strong>60000行的训练集拆分为55000行的训练集和5000行的验证集</strong></p>
+<p>60000行的训练数据集是一个形状为[60000,784]的张量，第一个维度数字用来表示图片索引，第二个维度的数字用来索引每张图片中的像素点。在[60000,784]的张量里的每一个元素，都表示每张图片里的某个像素的强度值，值在0，1之间。</p>
+<p><img src="/2018/12/15/MNIST数据集简介/mnist-train-xs.png" alt="mnist-train-xs"></p>
+<p>60000行的训练数据集标签是在0到9的数字，用来描述给定图片里表示的数字，叫做“one-hot vectors”。一个one-hot向量除了某一位的数字是1以外，其余各维度数字都是0，也就是数字n将表示成一个只有在第n维度(从0开始)数字为1的10维度向量。比如，标签0将表示成[1,0,0,0,0,0,0,0,0,0]，而标签0是一个[60000,10]的数字矩阵</p>
+<p><img src="/2018/12/15/MNIST数据集简介/mnist-train-ys.png" alt="mnist-train-ys"></p>
+<p>在TensorFlow里面可以用如下代码导入MNIST数据集：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line">mnist=input_data.read_data_sets(<span class="string">"MNIST_data/"</span>,one-hot=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p>引入这两句，会自动在代码文件的路径上创建一个MNIST_data文件夹。</p>
+<p>比较烦人的是使用tensorflow.examples.tutorials.mnist import input_data读取数据的时候，经常出现网络连接超时。</p>
+<p><strong>解决方法：查看input_data.py</strong></p>
+<p><img src="/2018/12/15/MNIST数据集简介/input_data.png" alt="input_data"></p>
+<p>这段代码，会先检查文件是否存在，如果不存在才进行下载，我们可以自己动手下载MNIST数据。</p>
+<p>官网下载地址：<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST data</a></p>
+<p>注：下载好数据集不要解压。</p>
 
           
         
@@ -2053,7 +2305,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2101,7 +2353,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2204,7 +2456,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">54.5k</span>
+    <span title="Site words total count">60.3k</span>
   
 </div>
 <div class="powered-by">
