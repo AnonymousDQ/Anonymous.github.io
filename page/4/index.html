@@ -304,6 +304,354 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画饼状图/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/用matplotlib包画饼状图/" itemprop="url">用matplotlib包画饼状图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:19:44+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  143
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#饼状图</span></span><br><span class="line"><span class="comment">#author：victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置labels标签参数，x是对应的数据列表，autopct显示每一个区域占的比例</span></span><br><span class="line"><span class="comment">#explode突出显示某一块，shadow阴影</span></span><br><span class="line">labels=[<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>]</span><br><span class="line">fracs=[<span class="number">15</span>,<span class="number">30</span>,<span class="number">45</span>,<span class="number">10</span>]</span><br><span class="line">explode=[<span class="number">0</span>,<span class="number">0.1</span>,<span class="number">0.05</span>,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置x,y轴比例1:1，从而得到一个正的圆</span></span><br><span class="line">plt.axes(aspect=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#labels标签参数，x是对应的数据列表，autopct显示每一个区域占的比例，</span></span><br><span class="line"><span class="comment">#explode突出显示某一块，shadow阴影</span></span><br><span class="line">plt.pie(x=fracs,labels=labels,autopct=<span class="string">"%.0f%%"</span>,explode=explode,shadow=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/15/用matplotlib包画饼状图/饼状图.png" alt="pie graph"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画条形图/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/用matplotlib包画条形图/" itemprop="url">用matplotlib包画条形图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:17:43+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  76
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#条形图</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#产生随机数</span></span><br><span class="line">data = np.random.normal(<span class="number">0</span>, <span class="number">20</span>, <span class="number">1000</span>)</span><br><span class="line">bins = np.arange(<span class="number">-100</span>, <span class="number">100</span>, <span class="number">5</span>) <span class="comment"># fixed bin size</span></span><br><span class="line"></span><br><span class="line">plt.xlim([min(data)<span class="number">-5</span>, max(data)+<span class="number">5</span>])</span><br><span class="line">plt.hist(data, bins=bins, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.title(<span class="string">'Random Gaussian data (fixed bin size)'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'variable X (bin size = 5)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'count'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/15/用matplotlib包画条形图/条形图.png" alt="gaussian graph"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画折线图/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1827,438 +2175,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的流-续/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/JAVA中的流-续/" itemprop="url">JAVA中的流(续)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:07:45+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、流（Stream）"><a href="#一、流（Stream）" class="headerlink" title="一、流（Stream）"></a>一、流（Stream）</h1><h4 id="所谓流-Stream-，就是一系列的数据。"><a href="#所谓流-Stream-，就是一系列的数据。" class="headerlink" title="所谓流(Stream)，就是一系列的数据。"></a>所谓流(Stream)，就是一系列的数据。</h4><h4 id="当不同的介质之间有数据交互的时候，java就会使用流来实现。"><a href="#当不同的介质之间有数据交互的时候，java就会使用流来实现。" class="headerlink" title="当不同的介质之间有数据交互的时候，java就会使用流来实现。"></a>当不同的介质之间有数据交互的时候，java就会使用流来实现。</h4><h4 id="数据源可以使文件，还可以是数据库，网络，甚至是其他的程序"><a href="#数据源可以使文件，还可以是数据库，网络，甚至是其他的程序" class="headerlink" title="数据源可以使文件，还可以是数据库，网络，甚至是其他的程序"></a>数据源可以使文件，还可以是数据库，网络，甚至是其他的程序</h4><h4 id="不如读取文件的数据到程序中，站在程序的角度来看，就叫做输入流"><a href="#不如读取文件的数据到程序中，站在程序的角度来看，就叫做输入流" class="headerlink" title="不如读取文件的数据到程序中，站在程序的角度来看，就叫做输入流"></a>不如读取文件的数据到程序中，站在程序的角度来看，就叫做输入流</h4><ul>
-<li><p>字节输入流：InputStream</p>
-</li>
-<li><p>字符输入流：Reader　　　　</p>
-</li>
-<li>缓存字符输入流：BufferedReader　　</li>
-<li><p>数据输入流  ：DataInputStream               </p>
-</li>
-<li><p>字节输出流：OutputStream　　　　　　　　</p>
-</li>
-<li>字符输出流：Writer　　　　</li>
-<li>缓存字符输出流：PrintWriter　　　　</li>
-<li>数据输出流：DataOutputStream　</li>
-</ul>
-<p><img src="https://images2018.cnblogs.com/blog/811614/201802/811614-20180227120014277-347291744.png" alt="img"></p>
-<h3 id="1、文件输入流"><a href="#1、文件输入流" class="headerlink" title="1、文件输入流"></a>1、文件输入流</h3><p>可以用来把数据从硬盘的文件，读取到JVM(内存)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">                File f=<span class="keyword">new</span> File(<span class="string">"d:/lol.txt"</span>);</span><br><span class="line">                <span class="comment">//创建基于文件的输入流</span></span><br><span class="line">                FileInputStream fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                <span class="comment">//通过这个输入流，就可以把数据从硬盘，读取到java的虚拟机中，也就是读取到内存中</span></span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2、字节流"><a href="#2、字节流" class="headerlink" title="2、字节流"></a>2、字节流</h3><ul>
-<li><p>InputStream：字节输入流</p>
-</li>
-<li><p>用以字节的形式读取和写入数据</p>
-</li>
-<li><p>InputStream是字节输入流，同时也是抽象类，只提供方法声明，不提供方法的具体实现。</p>
-</li>
-<li><p>FileInputStream是InputStream的子类，可以进行直接使用</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">                File f=<span class="keyword">new</span> File(<span class="string">"d:/lol.txt"</span>);</span><br><span class="line">                <span class="comment">//创建基于文件的输入流</span></span><br><span class="line">                FileInputStream fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                <span class="comment">//通过这个输入流，就可以把数据从硬盘，读取到java的虚拟机中，也就是读取到内存中</span></span><br><span class="line">                <span class="comment">//创建字节数组，其长度就是文件的长度</span></span><br><span class="line">                <span class="keyword">byte</span>[] all=<span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>)f.length()];</span><br><span class="line">                <span class="comment">//以字节流的形式读取文件所有内容</span></span><br><span class="line">                fis.read(all);</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">byte</span> b:all)&#123;</span><br><span class="line">                    System.out.println(b);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//每次使用完流，都应该进行关闭</span></span><br><span class="line">                fis.close()</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>OutputStream：字节输出流，同事也是抽象类，只提供方法声明，不提供方法的具体实现。</p>
-</li>
-<li><p>FileOutputStream是OutputStream子类，可以进行直接使用</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">                File f=<span class="keyword">new</span> File(<span class="string">"d:/lol.txt"</span>);</span><br><span class="line">                <span class="keyword">byte</span> data[]=&#123;<span class="number">88</span>,<span class="number">89</span>&#125;;</span><br><span class="line">                <span class="comment">//创建基于文件的输出流</span></span><br><span class="line">                FileOutputStream fos=<span class="keyword">new</span> FileOutputStream(f);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//把数据写入到输出流上</span></span><br><span class="line">                fos.write(data);</span><br><span class="line">                <span class="comment">//每次使用完流，都应该进行关闭</span></span><br><span class="line">                fos.close()</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注：所有的流，不论是输入流还是输出流，使用完毕之后，都应该关闭，如果不关闭，会产生对资源占用的浪费，当量比较大时，会影响业务的正常开展。</p>
-<p>3.流的关闭方式</p>
-<h4 id="在finally中关闭："><a href="#在finally中关闭：" class="headerlink" title="在finally中关闭："></a>在finally中关闭：</h4><ul>
-<li><p>首先把流的引用声明在try的外面，如果声明在try里面，其作用与无法抵达finally</p>
-</li>
-<li><p>在finally关闭之前，要先判断该引用是否为空</p>
-</li>
-<li><p>关闭的时候，要再一次的进行try。。catch处理</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        FileInputStream fis=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">                fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                <span class="keyword">byte</span>[] all=<span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>)f.length()];</span><br><span class="line">                fis.read(all);</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">byte</span> b:all)&#123;</span><br><span class="line">                    System.out.println(b);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="comment">//在finally里关闭流</span></span><br><span class="line">                <span class="keyword">if</span>(<span class="keyword">null</span>!=fis)</span><br><span class="line">                    <span class="keyword">try</span>&#123;</span><br><span class="line">                        fis.close();</span><br><span class="line">                    &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                         e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="使用try-方式"><a href="#使用try-方式" class="headerlink" title="使用try()方式"></a>使用try()方式</h4><ul>
-<li><p>把流定义在try（）里，try，catch或者finally结束的时候，会自动关闭</p>
-</li>
-<li><p>这种编写代码的方式叫做try-with-resources，这是JDK7开始支持的技术</p>
-</li>
-<li><p>所有的流，都实现了一个接口叫做AutoCloseable，任何类实现了这个接口，都可以在try()中进行实例化，并且在try，catch，finally结束的时候自动关闭，回收相关资源。</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="comment">//把流定义在try()里，try，catch或者finally结束的时候，会自动关闭</span></span><br><span class="line">        <span class="keyword">try</span>(FileInputStream fis=<span class="keyword">new</span> FileInputStream(f))&#123;</span><br><span class="line">            <span class="keyword">byte</span>[] all=<span class="keyword">new</span> <span class="keyword">byte</span>[(<span class="keyword">int</span>)f.length()];</span><br><span class="line">            fis.read(all);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">byte</span> b:all)&#123;</span><br><span class="line">                System.out.println(b);</span><br><span class="line">            &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的流/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/JAVA中的流/" itemprop="url">JAVA中的流</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:03:20+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.5k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、缓存流"><a href="#一、缓存流" class="headerlink" title="一、缓存流"></a>一、缓存流</h2><p>　　以介质是硬盘为例子说明，字节流和字符流的缺点：</p>
-<ul>
-<li><p>每次读写的时候，都会访问硬盘，如果读写频率比较高的时候，性能不佳。为了解决问题，采用缓存流。</p>
-</li>
-<li><p>缓存流在读取的时候，会一次性读较多的数据到缓存中，以后每一次的读取，都是在缓存中访问，直到缓存中的数据读取完毕，再到硬盘中区读取。</p>
-</li>
-<li><p>缓存流在写入数据的时候，会先把数据写入到缓存区，直到缓存区达到一定的量，才把这些数据，一起写入到硬盘中去，按照这种方式，就不会像字节流，字符流那样每次写一个字节都访问硬盘，减少了I/O操作。</p>
-</li>
-</ul>
-<h3 id="1、使用缓存流读取数据"><a href="#1、使用缓存流读取数据" class="headerlink" title="1、使用缓存流读取数据"></a>1、使用缓存流读取数据</h3><p>BufferedReader缓存字符输入流，可以一次读取一行数据</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(FileReader fr=<span class="keyword">new</span> FileReader(f);BufferedReader br=<span class="keyword">new</span> BufferedReader(fr);)&#123;</span><br><span class="line">                <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                        String line=br.readLine();<span class="comment">//一次读一行。</span></span><br><span class="line">                        <span class="keyword">if</span>(line==<span class="keyword">null</span>)<span class="keyword">break</span>;</span><br><span class="line">                        System.out.println(line);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2、使用缓存流写入数据"><a href="#2、使用缓存流写入数据" class="headerlink" title="2、使用缓存流写入数据"></a>2、使用缓存流写入数据</h3><p>PrintWriter缓存字符输出流，可以一次写出一行数据</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(FileWriter fw=<span class="keyword">new</span> FileWriter(f);PrintWriter pw=<span class="keyword">new</span> PrintWriter(fw);)&#123;</span><br><span class="line">                &#123;</span><br><span class="line">                        pw.println(<span class="string">"hello world"</span>);</span><br><span class="line">                        pw.println(<span class="string">"hello kitty"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3、使用flush"><a href="#3、使用flush" class="headerlink" title="3、使用flush"></a>3、使用flush</h3><p>有时候，需要立即把数据写入到硬盘，而不是等缓存满了才写进去，这时候就要用flush。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> file(<span class="string">"d/source/LOL.exe"</span>);</span><br><span class="line">        <span class="comment">//创建文件字符流</span></span><br><span class="line">        <span class="comment">//缓存流必须建立在一个存在的流的基础上</span></span><br><span class="line">        <span class="keyword">try</span>(FileWriter fr=<span class="keyword">new</span> FileWriter(f);PrintWriter pw=<span class="keyword">new</span> PrintWriter(fr);)&#123;</span><br><span class="line">            <span class="comment">//向文件LOL.exe中写入三行语句。</span></span><br><span class="line">            pw.println(<span class="string">"hello world"</span>);</span><br><span class="line">            <span class="comment">//强制把缓存中的数据写入硬盘，无论缓存是否已满</span></span><br><span class="line">            pw.flush();</span><br><span class="line">            pw.println(<span class="string">"I love play lol"</span>);</span><br><span class="line">            pw.flush();</span><br><span class="line">            pw.println(<span class="string">"I love play dota"</span>);</span><br><span class="line">            pw.flush();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="二、数据流"><a href="#二、数据流" class="headerlink" title="二、数据流"></a>二、数据流</h2><h3 id="数据输入流：DataInputStream"><a href="#数据输入流：DataInputStream" class="headerlink" title="　　数据输入流：DataInputStream"></a>　　数据输入流：DataInputStream</h3><h3 id="数据输出流：DataOutputStream"><a href="#数据输出流：DataOutputStream" class="headerlink" title="　　数据输出流：DataOutputStream"></a>　　数据输出流：DataOutputStream</h3><p>数据流的方法：writeUTF()，readUTF()可以进行数据的格式化顺序读写</p>
-<p>要用DataInputStream读取一个文件，这个文件必须由DataOutStream写出的，不然会抛出EOFException异常。也就是说这两个是成对出现的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.DataInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        write();<span class="comment">//先写入</span></span><br><span class="line">        read();<span class="comment">//在读取</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d:/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(</span><br><span class="line">                FileInputStream fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                DataInputStream dis=<span class="keyword">new</span> DataInputStream(fis);</span><br><span class="line">        )&#123;</span><br><span class="line">        <span class="comment">//然后在读取刚才写入到lol.exe文件里的东西。</span></span><br><span class="line">                <span class="keyword">boolean</span> b=dis.readBoolean();</span><br><span class="line">                <span class="keyword">int</span> i=dis.readInt();</span><br><span class="line">                String str=dis.readUTF();</span><br><span class="line">                System.out.println(<span class="string">"读取到布尔值："</span>+b);</span><br><span class="line">                System.out.println(<span class="string">"读取到整数："</span>+i);</span><br><span class="line">                System.out.println(<span class="string">"读取到字符串"</span>+str);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">()</span></span>&#123;</span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d:/source/LOL.exe"</span>);</span><br><span class="line">        <span class="keyword">try</span>(</span><br><span class="line">                FileOutStream fos=<span class="keyword">new</span> FileOutputStream(f);</span><br><span class="line">                DataOutStream dos=<span class="keyword">new</span> DataOutStream(fos);</span><br><span class="line">        )&#123;</span><br><span class="line">        <span class="comment">//把布尔型，整型，字符型这三个写到lol.exe文件里去</span></span><br><span class="line">            dos.writeBoolean(<span class="keyword">true</span>);</span><br><span class="line">            dos.writeInt(<span class="number">300</span>);</span><br><span class="line">            dos.writeUTF(<span class="string">"hello world"</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="三、对象流"><a href="#三、对象流" class="headerlink" title="三、对象流"></a>三、对象流</h2><p>　　可以直接把一个对象以流的形式传输给其他的介质，比如硬盘，一个对象以流的形式进行传输，叫做序列化。</p>
-<p>该对象所对应的类，必须是实现Serializable接口</p>
-<p>首先序列化一个实体类Hero</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line"><span class="comment">//表示这个类当前的版本，如果有了变化，比如添加了新的属性，就要修改这个版本号</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID=<span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> hp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果要把Hero对象直接保存在文件上，必须让Hero类实现Serializable接口</p>
-<p>首先要创建对象输出流，也就是写入对象到流，首先创建一个文件写入流FileOutputStream对象，然后在创建一个对象写入流ObjectOutputStream对象，把文件写入流传到对象写入流中。写入操作，利用ObjectOutputStream的writeObject()方法进行写入。同样读取操作，还是要先创建文件读取流FileInputStream对象，然后在创建一个对象读取流ObjectInputStream对象，把文件读取流对象传到对象读取流中。然后执行对象读取流的readObject()方法进行读取。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建一个Hero对象</span></span><br><span class="line">        <span class="comment">//然后把Hero对象直接保存在文件上，必须Hero类实现Serializable接口</span></span><br><span class="line">        Hero h=<span class="keyword">new</span> Hero();</span><br><span class="line">        h.name=<span class="string">"Teemo"</span>;</span><br><span class="line">        h.hp=<span class="number">90.0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//准备一个文件用于保存新创建的Hero对象</span></span><br><span class="line">        File f=<span class="keyword">new</span> File(<span class="string">"d:/Teemo.lol"</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span>(</span><br><span class="line">                <span class="comment">//创建对象输出流(也就是写入)</span></span><br><span class="line">                FileOutputStream fos=<span class="keyword">new</span> FileOutputStream(f);</span><br><span class="line">                ObjectOutputStream oos=<span class="keyword">new</span> ObjectOutputStream(fos);</span><br><span class="line">                <span class="comment">//创建对象输入流（也就是读取）</span></span><br><span class="line">                FileInputStream fis=<span class="keyword">new</span> FileInputStream(f);</span><br><span class="line">                ObjectInputStream ois=<span class="keyword">new</span> ObjectInputStream(fis);</span><br><span class="line">        )&#123;</span><br><span class="line">                oos.writeObject(h);</span><br><span class="line">                Hero h2=(Hero)ois.readObject();</span><br><span class="line">                System.out.println(h2.name);</span><br><span class="line">                System.out.println(h2.hp);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="四、控制台的输入输出"><a href="#四、控制台的输入输出" class="headerlink" title="四、控制台的输入输出"></a>四、控制台的输入输出</h2><ul>
-<li><p>控制台输出数据：System.out</p>
-</li>
-<li><p>控制台输入数据：System.in</p>
-</li>
-</ul>
-<p>利用System.in进行控制台写入。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line">publc <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//控制台输入</span></span><br><span class="line">        <span class="keyword">try</span>(InputStream is=System.in;)&#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> i=is.read();</span><br><span class="line">                System.out.println(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>利用Scanner进行逐行读取</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> stream;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStream</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> class <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="comment">//使用Scanner进行逐行读取。</span></span><br><span class="line">        Scanner s=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">            String strLine=s.nextLine();</span><br><span class="line">            System.out.pirntln(strLine);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2311,7 +2227,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2414,7 +2330,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">60.3k</span>
+    <span title="Site words total count">62k</span>
   
 </div>
 <div class="powered-by">

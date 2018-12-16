@@ -304,6 +304,355 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/Autoencoder自编码/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/16/Autoencoder自编码/" itemprop="url">Autoencoder自编码</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T15:51:25+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  804
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Autoencoder自编码"><a href="#Autoencoder自编码" class="headerlink" title="Autoencoder自编码"></a>Autoencoder自编码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#什么是自编码（Autoencoder）</span></span><br><span class="line"><span class="comment">#What is an Autoencoder</span></span><br><span class="line"><span class="comment">#神经网络的非监督学习</span></span><br><span class="line"><span class="comment">#因为有时候训练的样本数据很大，直接训练会很耗时的，所以把数据的feature压缩一下，然后再解压一下</span></span><br><span class="line"><span class="comment">#Autoencoder是一种数据的压缩算法，其中数据的压缩和解压函数</span></span><br><span class="line"><span class="comment">#数据相关的，有损的，从样本中自动学习的，压缩和解压缩的函数是通过神经网络实现的</span></span><br><span class="line"><span class="comment">#因为自编码不用到训练样本的分类标签，所以是非监督学习的</span></span><br><span class="line"><span class="comment">#比如PCA（principal Component Analysis）：主成分析方法。一种使用最广发的数据压缩算法。</span></span><br><span class="line"><span class="comment">#PCA一种常用的数据降维方法。通过线性变换将原始数据变换成为一组各维度线性无关的表示来提取数据的主要线性分量</span></span><br><span class="line"><span class="comment">#比如分类学习，也是非监督学习的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment">#import MNIST data</span></span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line">mnist=input_data.read_data_sets(<span class="string">'MNIST_data'</span>,one_hot=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Visualize decoder setting</span></span><br><span class="line"><span class="comment">#Parameters</span></span><br><span class="line">learning_rate=<span class="number">0.01</span></span><br><span class="line">training_epochs=<span class="number">20</span></span><br><span class="line">batch_size=<span class="number">256</span></span><br><span class="line">display_step=<span class="number">1</span></span><br><span class="line">examples_to_show=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Network Parameters</span></span><br><span class="line">n_input=<span class="number">784</span><span class="comment">#MNIST data input(img shape:28*28),也即是784个features</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tf.Graph input(only pictures)</span></span><br><span class="line">X=tf.placeholder(<span class="string">'float'</span>,[<span class="keyword">None</span>,n_input])</span><br><span class="line"></span><br><span class="line"><span class="comment">#hidden layer settings</span></span><br><span class="line">n_hidden_1=<span class="number">256</span><span class="comment">#first num features(2^8)，先经过一个隐藏层压缩成256个features</span></span><br><span class="line">n_hidden_2=<span class="number">128</span><span class="comment">#second num features(2^7)，在经过一个隐藏层压缩成128个features</span></span><br><span class="line"><span class="comment">#define the weights</span></span><br><span class="line">weights=&#123;</span><br><span class="line">         <span class="string">'encoder_h1'</span>:tf.Variable(tf.random_normal([n_input,n_hidden_1])),</span><br><span class="line">         <span class="string">'encoder_h2'</span>:tf.Variable(tf.random_normal([n_hidden_1,n_hidden_2])),</span><br><span class="line">          <span class="comment">#经过一个隐藏层解压缩把128个features解压成256个features</span></span><br><span class="line">         <span class="string">'decoder_h1'</span>:tf.Variable(tf.random_normal([n_hidden_2,n_hidden_1])),</span><br><span class="line">         <span class="comment">#经过一个隐藏层解压缩把256个features解压成原来784个features</span></span><br><span class="line">         <span class="string">'decoder_h2'</span>:tf.Variable(tf.random_normal([n_hidden_1,n_input])),</span><br><span class="line">         &#125;</span><br><span class="line"><span class="comment">#define the biases</span></span><br><span class="line">biases=&#123;</span><br><span class="line">        <span class="string">'encoder_b1'</span>:tf.Variable(tf.random_normal([n_hidden_1])),</span><br><span class="line">        <span class="string">'encoder_b2'</span>:tf.Variable(tf.random_normal([n_hidden_2])),</span><br><span class="line">        <span class="string">'decoder_b1'</span>:tf.Variable(tf.random_normal([n_hidden_1])),</span><br><span class="line">        <span class="string">'decoder_b2'</span>:tf.Variable(tf.random_normal([n_input])),</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#building the encoder</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encoder</span><span class="params">(x)</span>:</span></span><br><span class="line">    layer_1=tf.nn.sigmoid(tf.add(tf.matmul(x,weights[<span class="string">'encoder_h1'</span>]),</span><br><span class="line">                           biases[<span class="string">'encoder_b1'</span>] ))</span><br><span class="line">    <span class="comment">#Decoder hidden layer with sigmoid activation function</span></span><br><span class="line">    layer_2=tf.nn.sigmoid(tf.add(tf.matmul(layer_1,weights[<span class="string">'encoder_h2'</span>]),</span><br><span class="line">                          biases[<span class="string">'encoder_b2'</span>]))</span><br><span class="line">    <span class="keyword">return</span> layer_2</span><br><span class="line">    </span><br><span class="line"><span class="comment">#building the decoder</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decoder</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="comment">#Encoder hidden layer with sigmoid activation</span></span><br><span class="line">    layer_1=tf.nn.sigmoid(tf.add(tf.matmul(x,weights[<span class="string">'decoder_h1'</span>]),</span><br><span class="line">                           biases[<span class="string">'decoder_b1'</span>] ))</span><br><span class="line">    <span class="comment">#Decoder hidden layer with sigmoid activation function</span></span><br><span class="line">    layer_2=tf.nn.sigmoid(tf.add(tf.matmul(layer_1,weights[<span class="string">'decoder_h2'</span>]),</span><br><span class="line">                          biases[<span class="string">'decoder_b2'</span>]))</span><br><span class="line">    <span class="keyword">return</span> layer_2</span><br><span class="line">    </span><br><span class="line"><span class="comment">#Construct model</span></span><br><span class="line">encoder_op=encoder(X)</span><br><span class="line">decoder_op=decoder(encoder_op)    </span><br><span class="line"></span><br><span class="line"><span class="comment">#Prediction</span></span><br><span class="line">y_pred=decoder_op</span><br><span class="line"><span class="comment">#Targets(Labels) are the input data</span></span><br><span class="line">y_true=X</span><br><span class="line"></span><br><span class="line"><span class="comment">#Define loss and optimizer,minimize the squre error</span></span><br><span class="line">cost=tf.reduce_mean(tf.pow(y_true-y_pred,<span class="number">2</span>))</span><br><span class="line">optimizer=tf.train.AdamOptimizer(learning_rate).minimize(cost)    </span><br><span class="line"></span><br><span class="line"><span class="comment">#Initializing the variables</span></span><br><span class="line">init=tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line"><span class="comment">#Launch the graph</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    total_batch=int(mnist.train.num_examples/batch_size)</span><br><span class="line">    <span class="comment">#Train cycle</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(training_epochs):</span><br><span class="line">        <span class="comment">#Loop overall batches</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(total_batch):</span><br><span class="line">            batch_xs,batch_ys=mnist.train.next_batch(batch_size)<span class="comment">#max(x)=1,min(x)=0,batch_xs已经被normalize正规化过了，最大值是1</span></span><br><span class="line">            <span class="comment">#Run optimization op (backprop) and cost op (to get loss value)</span></span><br><span class="line">            _,c=sess.run([optimizer,cost],feed_dict=&#123;X:batch_xs&#125;)</span><br><span class="line">            <span class="comment">#Display logs per epoch step</span></span><br><span class="line">            <span class="keyword">if</span> epoch% display_step==<span class="number">0</span>:</span><br><span class="line">                print(<span class="string">"Epoch"</span>,<span class="string">'%04d'</span>%(epoch+<span class="number">1</span>),</span><br><span class="line">                      <span class="string">"cost="</span>,<span class="string">"&#123;:9f&#125;"</span>.format(c))</span><br><span class="line">                </span><br><span class="line">    print(<span class="string">"Optimization Finished!"</span>)</span><br><span class="line">            </span><br><span class="line">    <span class="comment">#Applying encode and decode over test set</span></span><br><span class="line">    encode_decode=sess.run(</span><br><span class="line">            y_pred,feed_dict=&#123;X:mnist.test.images[:examples_to_show]&#125;)</span><br><span class="line">    <span class="comment">#Compare original images with their reconstructions</span></span><br><span class="line">    f,a=plt.subplots(<span class="number">2</span>,<span class="number">10</span>,figsize=(<span class="number">10</span>,<span class="number">2</span>))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(examples_to_show):</span><br><span class="line">        <span class="comment">#real data</span></span><br><span class="line">        a[<span class="number">0</span>][i].imshow(np.reshape(mnist.test.images[i],(<span class="number">28</span>,<span class="number">28</span>)))</span><br><span class="line">        <span class="comment">#predict data</span></span><br><span class="line">        a[<span class="number">1</span>][i].imshow(np.reshape(encode_decode[i],(<span class="number">28</span>,<span class="number">28</span>)))</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果："><a href="#运行结果：" class="headerlink" title="运行结果："></a>运行结果：</h2><p><img src="/2018/12/16/Autoencoder自编码/2.gif" alt="autoencoder"></p>
+<p><strong>总结</strong>：发现经过压缩过后的MNIST data，在训练的时候明显速度加快了。说明在进行大量数据训练的时候，使用自编码进行encoder-decoder不失为一个好办法。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/rnn-use-variable/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/16/rnn-use-variable/" itemprop="url">rnn_use_variable</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T15:28:21+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  499
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="在RNN中use-variable"><a href="#在RNN中use-variable" class="headerlink" title="在RNN中use variable"></a>在RNN中use variable</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment">#define class</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrainConfig</span>:</span></span><br><span class="line">    batch_size = <span class="number">20</span></span><br><span class="line">    time_steps = <span class="number">20</span></span><br><span class="line">    input_size = <span class="number">10</span></span><br><span class="line">    output_size = <span class="number">2</span></span><br><span class="line">    cell_size = <span class="number">11</span></span><br><span class="line">    learning_rate = <span class="number">0.01</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestConfig</span><span class="params">(TrainConfig)</span>:</span></span><br><span class="line">    time_steps = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define RNN class</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RNN</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#define the init method</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, config)</span>:</span></span><br><span class="line">        self._batch_size = config.batch_size</span><br><span class="line">        self._time_steps = config.time_steps</span><br><span class="line">        self._input_size = config.input_size</span><br><span class="line">        self._output_size = config.output_size</span><br><span class="line">        self._cell_size = config.cell_size</span><br><span class="line">        self._lr = config.learning_rate</span><br><span class="line">        self._built_RNN()</span><br><span class="line"></span><br><span class="line">    <span class="comment">#build the rnn network    </span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_built_RNN</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'inputs'</span>):</span><br><span class="line">            self._xs = tf.placeholder(tf.float32, [self._batch_size, self._time_steps, self._input_size], name=<span class="string">'xs'</span>)</span><br><span class="line">            self._ys = tf.placeholder(tf.float32, [self._batch_size, self._time_steps, self._output_size], name=<span class="string">'ys'</span>)</span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'RNN'</span>):</span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">'input_layer'</span>):</span><br><span class="line">                l_in_x = tf.reshape(self._xs, [<span class="number">-1</span>, self._input_size], name=<span class="string">'2_2D'</span>)  <span class="comment"># (batch*n_step, in_size)</span></span><br><span class="line">                <span class="comment"># Ws (in_size, cell_size)</span></span><br><span class="line">                Wi = self._weight_variable([self._input_size, self._cell_size])</span><br><span class="line">                print(Wi.name)</span><br><span class="line">                <span class="comment"># bs (cell_size, )</span></span><br><span class="line">                bi = self._bias_variable([self._cell_size, ])</span><br><span class="line">                <span class="comment"># l_in_y = (batch * n_steps, cell_size)</span></span><br><span class="line">                <span class="keyword">with</span> tf.name_scope(<span class="string">'Wx_plus_b'</span>):</span><br><span class="line">                    l_in_y = tf.matmul(l_in_x, Wi) + bi</span><br><span class="line">                l_in_y = tf.reshape(l_in_y, [<span class="number">-1</span>, self._time_steps, self._cell_size], name=<span class="string">'2_3D'</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">'cell'</span>):</span><br><span class="line">                cell = tf.contrib.rnn.BasicLSTMCell(self._cell_size)</span><br><span class="line">                <span class="keyword">with</span> tf.name_scope(<span class="string">'initial_state'</span>):</span><br><span class="line">                    self._cell_initial_state = cell.zero_state(self._batch_size, dtype=tf.float32)</span><br><span class="line"></span><br><span class="line">                self.cell_outputs = []</span><br><span class="line">                cell_state = self._cell_initial_state</span><br><span class="line">                <span class="keyword">for</span> t <span class="keyword">in</span> range(self._time_steps):</span><br><span class="line">                    <span class="keyword">if</span> t &gt; <span class="number">0</span>: tf.get_variable_scope().reuse_variables()</span><br><span class="line">                    cell_output, cell_state = cell(l_in_y[:, t, :], cell_state)</span><br><span class="line">                    self.cell_outputs.append(cell_output)</span><br><span class="line">                self._cell_final_state = cell_state</span><br><span class="line"></span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">'output_layer'</span>):</span><br><span class="line">                <span class="comment"># cell_outputs_reshaped (BATCH*TIME_STEP, CELL_SIZE)</span></span><br><span class="line">                cell_outputs_reshaped = tf.reshape(tf.concat(self.cell_outputs, <span class="number">1</span>), [<span class="number">-1</span>, self._cell_size])</span><br><span class="line">                Wo = self._weight_variable((self._cell_size, self._output_size))</span><br><span class="line">                bo = self._bias_variable((self._output_size,))</span><br><span class="line">                product = tf.matmul(cell_outputs_reshaped, Wo) + bo</span><br><span class="line">                <span class="comment"># _pred shape (batch*time_step, output_size)</span></span><br><span class="line">                self._pred = tf.nn.relu(product)    <span class="comment"># for displacement</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'cost'</span>):</span><br><span class="line">            _pred = tf.reshape(self._pred, [self._batch_size, self._time_steps, self._output_size])</span><br><span class="line">            mse = self.ms_error(_pred, self._ys)</span><br><span class="line">            mse_ave_across_batch = tf.reduce_mean(mse, <span class="number">0</span>)</span><br><span class="line">            mse_sum_across_time = tf.reduce_sum(mse_ave_across_batch, <span class="number">0</span>)</span><br><span class="line">            self._cost = mse_sum_across_time</span><br><span class="line">            self._cost_ave_time = self._cost / self._time_steps</span><br><span class="line"></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'trian'</span>):</span><br><span class="line">            self._lr = tf.convert_to_tensor(self._lr)</span><br><span class="line">            self.train_op = tf.train.AdamOptimizer(self._lr).minimize(self._cost)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ms_error</span><span class="params">(y_target, y_pre)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tf.square(tf.subtract(y_target, y_pre))</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_weight_variable</span><span class="params">(shape, name=<span class="string">'weights'</span>)</span>:</span></span><br><span class="line">        initializer = tf.random_normal_initializer(mean=<span class="number">0.</span>, stddev=<span class="number">0.5</span>, )</span><br><span class="line">        <span class="keyword">return</span> tf.get_variable(shape=shape, initializer=initializer, name=name)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_bias_variable</span><span class="params">(shape, name=<span class="string">'biases'</span>)</span>:</span></span><br><span class="line">        initializer = tf.constant_initializer(<span class="number">0.1</span>)</span><br><span class="line">        <span class="keyword">return</span> tf.get_variable(name=name, shape=shape, initializer=initializer)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    train_config = TrainConfig()</span><br><span class="line">    test_config = TestConfig()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># the wrong method to reuse parameters in train rnn</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'train_rnn'</span>):</span><br><span class="line">        train_rnn1 = RNN(train_config)</span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'test_rnn'</span>):</span><br><span class="line">        test_rnn1 = RNN(test_config)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># the right method to reuse parameters in train rnn</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'rnn'</span>) <span class="keyword">as</span> scope:</span><br><span class="line">        sess = tf.Session()</span><br><span class="line">        train_rnn2 = RNN(train_config)</span><br><span class="line">        scope.reuse_variables()</span><br><span class="line">        test_rnn2 = RNN(test_config)</span><br><span class="line">        <span class="comment"># tf.initialize_all_variables() no long valid from</span></span><br><span class="line">        <span class="comment"># 2017-03-02 if using tensorflow &gt;= 0.12</span></span><br><span class="line">        <span class="keyword">if</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">1</span>]) &lt; <span class="number">12</span> <span class="keyword">and</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">0</span>]) &lt; <span class="number">1</span>:</span><br><span class="line">            init = tf.initialize_all_variables()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            init = tf.global_variables_initializer()</span><br><span class="line">        sess.run(init)</span><br></pre></td></tr></table></figure>
+<h2 id="使用variable-scope的效果："><a href="#使用variable-scope的效果：" class="headerlink" title="使用variable_scope的效果："></a>使用variable_scope的效果：</h2><p><img src="/2018/12/16/rnn-use-variable/1.png" alt="rnn"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/name-scope的用法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1893,398 +2242,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/卷积神经网络CNN/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/卷积神经网络CNN/" itemprop="url">卷积神经网络CNN</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T19:07:06+08:00">
-                2018-12-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
-                    <span itemprop="name">TensorFlow</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  761
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="卷积神经网络-CNN"><a href="#卷积神经网络-CNN" class="headerlink" title="卷积神经网络(CNN)"></a>卷积神经网络(CNN)</h2><p>​        <strong>卷积神经网络CNN</strong>(Current Neural Network)与普通神经网络类似，它们都有可学习的权重(Weights)和偏置常量(biases)的神经元组成。每个神经元都接受一些输入，并做一些点积计算，输出是每个分类的分数，因此，普通神经网络里的一些计算技巧在CNN中依旧适用。CNN常用于计算机图像识别。</p>
-<ul>
-<li><strong>普通神经网络：</strong></li>
-</ul>
-<p><img src="/2018/12/15/卷积神经网络CNN/1.jpg" alt="normal neural network"></p>
-<ul>
-<li><strong>卷积神经网络：</strong></li>
-</ul>
-<p><img src="/2018/12/15/卷积神经网络CNN/3.png" alt="Current Neural Network"></p>
-<p>​        <strong>卷积神经网络默认输入是图像</strong>，可以让我们把特定的性质编码编入网络结构。另外，<strong>卷积神经网络是具有三维体积的神经元</strong>。</p>
-<p>卷积神经网络利用输入是图片的特点，把神经元设计成三个维度：<strong>width,depth,height</strong>(ps:depth不是神经网络的深度，用来描述神经元的)。</p>
-<p>比如输入的图片大小是32<em>32</em>3(RGB)，那么输入神经元也具有32<em>32</em>3的维度</p>
-<ul>
-<li><p><strong>总结：</strong></p>
-<p>一个卷积神经网络由很多层组成，输入时三维的，输出也是三维的，有的层有参数，有的层不需要参数</p>
-</li>
-</ul>
-<h2 id="卷积神经网络的组成"><a href="#卷积神经网络的组成" class="headerlink" title="卷积神经网络的组成"></a>卷积神经网络的组成</h2><ul>
-<li><strong>卷积层(Convolutional layer)：</strong>CNN中每层卷积层由若干卷积单元组成，每个卷积单元的参数通过反向传播算法优化得到的。卷积运算的目的是提取输入的不同特征，第一层卷积可能只能提取一些低级的特征比如边缘、线条、角等层级，更多层的网络能从低级特征中迭代提取更复杂的特征。</li>
-<li><strong>线性整流层(Rectified Linear Units layer,ReLU layer):</strong>这一层是激励函数(Activation Function)，使用线性整流(Rectified Linear Units,ReLU)</li>
-<li><strong>池化层(Pooling layer):</strong>通常在卷积层之后会得到维度很大的特征，将特征切成几个区域，取到最大值或者平均值，得到新的，维度较小的特征。</li>
-<li><strong>全连接层(Fully-Connected layer)：</strong>把所有局部特征结合变成全局特征，用来计算最后每一类的得分。</li>
-</ul>
-<p><strong>卷积神经网络的过程：</strong></p>
-<p><img src="/2018/12/15/卷积神经网络CNN/2.jpg" alt="Current Neural Network"></p>
-<h2 id="CNN的个人理解"><a href="#CNN的个人理解" class="headerlink" title="CNN的个人理解"></a>CNN的个人理解</h2><ul>
-<li>CNN专门解决图像问题的，可以把它看做特征提取层，让在输入层上，最后用MLP做分类。</li>
-<li>CNNs相对于MLP(Multi-Layer Perceptron,多层感知器，是最简单的DNN)，多了一个先验知识，也就是数据之间存在空间相关性。就比如图像、蓝天附近的像素点是白云的概率会大于是汽车的概率。滤波器filter会扫描整张图像，在扫描的过程中，参数共享。</li>
-</ul>
-<p><img src="/2018/12/15/卷积神经网络CNN/3.jpg" alt="σ(.)"></p>
-<p><img src="/2018/12/15/卷积神经网络CNN/4.jpg" alt="σ(.)"></p>
-<p><img src="/2018/12/15/卷积神经网络CNN/5.jpg" alt="σ(.)"></p>
-<p><img src="/2018/12/15/卷积神经网络CNN/6.jpg" alt="σ(.)"></p>
-<p><img src="/2018/12/15/卷积神经网络CNN/7.jpg" alt="σ(.)"></p>
-<p>上面4附图，都是一个3<em>3的输入经过一个2</em>2的conv卷积层的过程。该卷积层conv的strides是1，padding为0</p>
-<p>注：参数strides,padding分别决定了卷积conv操作中滑动步长和图像边沿填充方式。</p>
-<ul>
-<li><strong>输出的结果为：</strong></li>
-</ul>
-<p><img src="/2018/12/15/卷积神经网络CNN/8.jpg" alt="σ(.)"></p>
-<h2 id="卷积的理解"><a href="#卷积的理解" class="headerlink" title="卷积的理解"></a>卷积的理解</h2><p>学过概率论都知道有卷积公式吧。</p>
-<ul>
-<li>卷积公式：</li>
-</ul>
-<p><img src="/2018/12/15/卷积神经网络CNN/9.png" alt="卷积"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/MNIST数据集入门Demo/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/MNIST数据集入门Demo/" itemprop="url">MNIST数据集入门Demo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T14:09:13+08:00">
-                2018-12-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
-                    <span itemprop="name">TensorFlow</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  418
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Classficiation分类学习</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#MNIST数据集入门</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment"># number 1 to 10 data</span></span><br><span class="line"><span class="comment">#use mnist data</span></span><br><span class="line"><span class="comment">#使用这两句，会在程序储存的位置出现文件夹MINIST_data</span></span><br><span class="line"><span class="comment">#下载MNIST数据集中的四个压缩包，并放在MINIST_data文件夹中，不要解压</span></span><br><span class="line"><span class="comment">#官网下载地址：http://yann.lecun.com/exdb/mnist/</span></span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line">mnist = input_data.read_data_sets(<span class="string">'MNIST_data/'</span>, one_hot=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#define add_layer function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_layer</span><span class="params">(inputs, in_size, out_size, activation_function=None,)</span>:</span></span><br><span class="line">    <span class="comment"># add one more layer and return the output of this layer</span></span><br><span class="line">    Weights = tf.Variable(tf.random_normal([in_size, out_size]))</span><br><span class="line">    biases = tf.Variable(tf.zeros([<span class="number">1</span>, out_size]) + <span class="number">0.1</span>,)</span><br><span class="line">    Wx_plus_b = tf.matmul(inputs, Weights) + biases</span><br><span class="line">    <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        outputs = Wx_plus_b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        outputs = activation_function(Wx_plus_b,)</span><br><span class="line">    <span class="keyword">return</span> outputs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#define compute_accuracy function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_accuracy</span><span class="params">(v_xs, v_ys)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> prediction</span><br><span class="line">    y_pre = sess.run(prediction, feed_dict=&#123;xs: v_xs&#125;)</span><br><span class="line">    correct_prediction = tf.equal(tf.argmax(y_pre,<span class="number">1</span>), tf.argmax(v_ys,<span class="number">1</span>))</span><br><span class="line">    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</span><br><span class="line">    result = sess.run(accuracy, feed_dict=&#123;xs: v_xs, ys: v_ys&#125;)</span><br><span class="line">    <span class="comment">#output result which is the percent，this percent too high,the prediction too accurate</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="comment"># define placeholder for inputs to network</span></span><br><span class="line">xs = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">784</span>]) <span class="comment"># 28x28,也就是有784个数据点</span></span><br><span class="line">ys = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">10</span>])<span class="comment">#有10个输出</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># add output layer</span></span><br><span class="line">prediction = add_layer(xs, <span class="number">784</span>, <span class="number">10</span>,  activation_function=tf.nn.softmax)</span><br><span class="line"></span><br><span class="line"><span class="comment"># the error between prediction and real data</span></span><br><span class="line"><span class="comment">#分类的话，用softmax配上cross_entropy(交叉熵)</span></span><br><span class="line">cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(prediction),</span><br><span class="line">                                              reduction_indices=[<span class="number">1</span>]))<span class="comment"># loss</span></span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.5</span>).minimize(cross_entropy)</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line"><span class="comment"># important step</span></span><br><span class="line"><span class="comment"># tf.initialize_all_variables() no long valid from</span></span><br><span class="line"><span class="comment"># 2017-03-02 if using tensorflow &gt;= 0.12</span></span><br><span class="line"><span class="keyword">if</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">1</span>]) &lt; <span class="number">12</span> <span class="keyword">and</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">0</span>]) &lt; <span class="number">1</span>:</span><br><span class="line">    init = tf.initialize_all_variables()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    init = tf.global_variables_initializer()</span><br><span class="line">sess.run(init)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">    batch_xs, batch_ys = mnist.train.next_batch(<span class="number">100</span>)</span><br><span class="line">    sess.run(train_step, feed_dict=&#123;xs: batch_xs, ys: batch_ys&#125;)</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">50</span> == <span class="number">0</span>:</span><br><span class="line">        print(compute_accuracy(</span><br><span class="line">            mnist.test.images, mnist.test.labels))</span><br></pre></td></tr></table></figure>
-<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="/2018/12/15/MNIST数据集入门Demo/MNIST训练结果.png" alt="MNIST data result"></p>
-<p>可以看出图片识别分类的精确度并不是很高，后续用到了CNN卷积神经网络，精确度可以达到99%</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2337,7 +2294,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2440,7 +2397,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">60.3k</span>
+    <span title="Site words total count">62k</span>
   
 </div>
 <div class="powered-by">

@@ -304,6 +304,382 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/JAVA中的服务器优化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/16/JAVA中的服务器优化/" itemprop="url">JAVA中的服务器优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T19:34:32+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  667
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Tomcat服务器"><a href="#Tomcat服务器" class="headerlink" title="Tomcat服务器"></a>Tomcat服务器</h1><p>就Tomcat服务器优化问题而言，首先Tomcat服务器是一个轻量级的web服务器，Tomcat和微软的IIS服务器一样，具有处理HTML页面的功能，但是Tomcat还是JSP和Servlet的容器。</p>
+<p>首先Tomcat服务器优化性能问题可以改善以下内容：</p>
+<p>　　1、增加JVM堆内存的大小</p>
+<p>　　2.解决内存泄漏问题</p>
+<p>　　3、线程池的设置</p>
+<p>　　4、压缩</p>
+<p>　　5、调节数据库的性能</p>
+<p>　　6、Tomcat原生库的使用</p>
+<h3 id="1、先来说说增加JVM内存的问题，当内存溢出的时候，原因是Tomcat使用比较少的内存分配了给了进程，可以通过配置Tomcat文件下的catalina-bat文件，增加JVM内存实现。"><a href="#1、先来说说增加JVM内存的问题，当内存溢出的时候，原因是Tomcat使用比较少的内存分配了给了进程，可以通过配置Tomcat文件下的catalina-bat文件，增加JVM内存实现。" class="headerlink" title="1、先来说说增加JVM内存的问题，当内存溢出的时候，原因是Tomcat使用比较少的内存分配了给了进程，可以通过配置Tomcat文件下的catalina.bat文件，增加JVM内存实现。"></a>1、先来说说增加JVM内存的问题，当内存溢出的时候，原因是Tomcat使用比较少的内存分配了给了进程，可以通过配置Tomcat文件下的catalina.bat文件，增加JVM内存实现。</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>-Xms:指定的初始化的栈内存 -Xmx：指定最大栈内存</span><br><span class="line">-server -Xms1024m    -Xmx1024m</span><br></pre></td></tr></table></figure>
+<p>进行重启服务器后，更改。</p>
+<h3 id="2、JRE内存泄漏"><a href="#2、JRE内存泄漏" class="headerlink" title="2、JRE内存泄漏"></a>2、JRE内存泄漏</h3><p>首先Tomcat的最新版本具有较好性能和可扩展性。可以解决这类错误。通常server.xml配置文件中</p>
+<p>有配置一个监听器来处理JRE内存泄漏</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Listener</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.core.JreMemoryLeakPreventionListener"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3、设置线程池"><a href="#3、设置线程池" class="headerlink" title="3、设置线程池"></a>3、设置线程池</h3><p>线程池是用来制定web请求的数量。为了获得更好的服务性能，可以通过调整配置文件里的maxThreads属性来设置。设置的数值大小应该根据请求数据的流量大小，设置的数值过于小，没有足够的线程处理请求，请求处于等待状态，只能等处理线程的释放了一个连接才处理。但是如果设置的数值太大，Tomcat启动又要消耗更多时间。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">address</span>=<span class="string">"localhost"</span> <span class="attr">maxThreads</span>=<span class="string">"200"</span></span></span><br><span class="line"><span class="tag"> <span class="attr">maxHttpHeaderSize</span>=<span class="string">"8192"</span> <span class="attr">emptySessionPath</span>=<span class="string">"true"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span></span></span><br><span class="line"><span class="tag"> <span class="attr">emptyLookups</span>=<span class="string">"false"</span>  <span class="attr">redirectPort</span>=<span class="string">"8181"</span> <span class="attr">acceptCount</span>=<span class="string">"100"</span></span></span><br><span class="line"><span class="tag"><span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">disableUploadTimeout</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4、压缩设置"><a href="#4、压缩设置" class="headerlink" title="4、压缩设置"></a>4、压缩设置</h3><p>在server.xml配置文件中设置压缩选项。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span></span></span><br><span class="line"><span class="tag"><span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag"><span class="attr">redirectPort</span>=<span class="string">"8181"</span> <span class="attr">compression</span>=<span class="string">"500"</span></span></span><br><span class="line"><span class="tag"><span class="attr">compressableMimeType</span>=<span class="string">"text/html,text/xml,text/plain/application/octest-stream"</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!--文件大小大于等于500byte才会被压缩。-Tomcat的默认设置compression是关闭的。-&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="5、数据库性能的调节"><a href="#5、数据库性能的调节" class="headerlink" title="5、数据库性能的调节"></a>5、数据库性能的调节</h3><p>由于要等待数据库执行查询的时候相应，设置数据库连接池的最大空闲数，最大连接数，最大连接等待时间。</p>
+<h3 id="6、使用Tomcat原生库"><a href="#6、使用Tomcat原生库" class="headerlink" title="6、使用Tomcat原生库"></a>6、使用Tomcat原生库</h3><p>使用Tomcat的原生库的（Apache Portable Runtime，APR）</p>
+<h3 id="7、设置浏览器缓存"><a href="#7、设置浏览器缓存" class="headerlink" title="7、设置浏览器缓存"></a>7、设置浏览器缓存</h3><p>设置浏览器缓存，可以使得webapps文件夹里的静态内容比如图片，pdf等内容，读取存取速度更快，提高了整体性能。而且HTTPS请求会比HTTP请求慢，如果为了安全性，还是要选择HTTPS</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/JAVA中的堆与栈/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/16/JAVA中的堆与栈/" itemprop="url">JAVA中的堆与栈</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T19:29:15+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="堆和栈-Heap-amp-Stack"><a href="#堆和栈-Heap-amp-Stack" class="headerlink" title="堆和栈(Heap &amp; Stack)"></a>堆和栈(Heap &amp; Stack)</h1><p>堆和栈都是JAVA中的存储结构，也就是说，都是内存中存放数据的地方。</p>
+<h3 id="1、堆Heap：（存放由new创建的对象和数组）"><a href="#1、堆Heap：（存放由new创建的对象和数组）" class="headerlink" title="1、堆Heap：（存放由new创建的对象和数组）"></a>1、堆Heap：（存放由new创建的对象和数组）</h3><p>引用类型的变量，内存分配一般在堆上或者常量池（字符串常量，基本数据类型常量），需要通过new等方式来创建。</p>
+<p>首先堆内存主要作用是存放运行时new的对象和数组，存取速度慢，可以运行时动态分配内存。</p>
+<h3 id="2、栈Stack：（基本数据类型变量，对象的引用变量）"><a href="#2、栈Stack：（基本数据类型变量，对象的引用变量）" class="headerlink" title="2、栈Stack：（基本数据类型变量，对象的引用变量）"></a>2、栈Stack：（基本数据类型变量，对象的引用变量）</h3><p><strong>基本数据类型变量（int，short，long，byte，float，double，boolean，char）以及对象的引用变量</strong>，内存分配在栈上。变量出了作用域就会自动释放。</p>
+<p>由于栈是后进先出模式的。主要用于执行程序，存取速度快，大小生存期必须确定，也就是有作用域，缺乏灵活性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> price;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(<span class="keyword">int</span> id,<span class="keyword">float</span> price,String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id=id;</span><br><span class="line">        <span class="keyword">this</span>.price=price;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a=<span class="number">0</span>;<span class="comment">//i基本数据类型变量，在栈里面存放</span></span><br><span class="line">        Apple app=<span class="keyword">new</span> Apple(<span class="number">1</span>,<span class="number">10</span>,<span class="string">"红富士"</span>)<span class="comment">//app是对象的引用变量，存放在栈里面，</span></span><br><span class="line">        <span class="comment">//Apple(1,10,"红富士")是实际的对象，存放在堆里面</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、JVM"><a href="#3、JVM" class="headerlink" title="3、JVM"></a>3、JVM</h3><p>JVM是基于堆栈的虚拟机，每个JAVA程序在一个独立的JVM实例上运行，每个JVM实例对应一个堆，同一个JAVA程序内的多线程运行在同个JVM实例上，多个线程之间通过共享堆内存来实现同步。</p>
+<h3 id="4、堆内存和栈内存的区别"><a href="#4、堆内存和栈内存的区别" class="headerlink" title="4、堆内存和栈内存的区别"></a>4、堆内存和栈内存的区别</h3><p>　　当一个方法执行的时候，每个方法都会建立自己的栈内存，在这个方法中定义的变量将会放到这个栈内存中，随着方法的结束，这个方法的栈内存也会被自动销毁，不需要进行GC（垃圾）回收。总而言之就是，所有在方法中定义的局部变量存放在栈内存中。</p>
+<p>　　当为程序创建一个对象的时候，这个对象会被保存到运行时候的数据区中，方便反复利用（因为创建对象的成本比较大），这个运行时候的数据区就是堆内存中。堆内存中的对象不会随着方法的结束而自动销毁，有可能方法结束后，这个对象还可能被另外一个引用变量所引用。只有当一个对象没有任何引用变量去引用它的时候，系统的垃圾回收GC才会启动进行销毁。</p>
+<h3 id="5、创建对象的开销成本比较大"><a href="#5、创建对象的开销成本比较大" class="headerlink" title="5、创建对象的开销成本比较大"></a>5、创建对象的开销成本比较大</h3><p>　　因为创建对象的根本路径就是构造方法，通过new关键字来调用一个类中的构造方法才能创建这个类的实例。但是对象并不是完全由构造方法来创建的，当程序调用构造方法的时候，系统会给这个对象分配内存空间，然后进行对象初始化。也就是说，系统创建对象是在构造方法执行之前就完成的，只是此时这个对象还不能被外部程序访问，只能在构造方法中通过this来引用。当构造方法执行结束后，这个对象作为构造方法的返回值被返回，然后把它赋给一个引用类型的变量，让外部程序可以访问。</p>
+<h3 id="6、JAVA比较占内存的原因"><a href="#6、JAVA比较占内存的原因" class="headerlink" title="6、JAVA比较占内存的原因"></a>6、JAVA比较占内存的原因</h3><p>数组和对象在没有引用变量指向的时候，才变成垃圾，不能被使用，但是它依然占着内存，随后在一个不确定的时候才会被垃圾回收GC器给释放掉。</p>
+<p>也可以这么理解，实际上存放在栈内存里面的引用变量，指向堆内存中的对象，这就是JAVA的指针。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/SpringBoot入门/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1786,355 +2162,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/Autoencoder自编码/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/16/Autoencoder自编码/" itemprop="url">Autoencoder自编码</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T15:51:25+08:00">
-                2018-12-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
-                    <span itemprop="name">TensorFlow</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  804
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Autoencoder自编码"><a href="#Autoencoder自编码" class="headerlink" title="Autoencoder自编码"></a>Autoencoder自编码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#什么是自编码（Autoencoder）</span></span><br><span class="line"><span class="comment">#What is an Autoencoder</span></span><br><span class="line"><span class="comment">#神经网络的非监督学习</span></span><br><span class="line"><span class="comment">#因为有时候训练的样本数据很大，直接训练会很耗时的，所以把数据的feature压缩一下，然后再解压一下</span></span><br><span class="line"><span class="comment">#Autoencoder是一种数据的压缩算法，其中数据的压缩和解压函数</span></span><br><span class="line"><span class="comment">#数据相关的，有损的，从样本中自动学习的，压缩和解压缩的函数是通过神经网络实现的</span></span><br><span class="line"><span class="comment">#因为自编码不用到训练样本的分类标签，所以是非监督学习的</span></span><br><span class="line"><span class="comment">#比如PCA（principal Component Analysis）：主成分析方法。一种使用最广发的数据压缩算法。</span></span><br><span class="line"><span class="comment">#PCA一种常用的数据降维方法。通过线性变换将原始数据变换成为一组各维度线性无关的表示来提取数据的主要线性分量</span></span><br><span class="line"><span class="comment">#比如分类学习，也是非监督学习的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment">#import MNIST data</span></span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line">mnist=input_data.read_data_sets(<span class="string">'MNIST_data'</span>,one_hot=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Visualize decoder setting</span></span><br><span class="line"><span class="comment">#Parameters</span></span><br><span class="line">learning_rate=<span class="number">0.01</span></span><br><span class="line">training_epochs=<span class="number">20</span></span><br><span class="line">batch_size=<span class="number">256</span></span><br><span class="line">display_step=<span class="number">1</span></span><br><span class="line">examples_to_show=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Network Parameters</span></span><br><span class="line">n_input=<span class="number">784</span><span class="comment">#MNIST data input(img shape:28*28),也即是784个features</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tf.Graph input(only pictures)</span></span><br><span class="line">X=tf.placeholder(<span class="string">'float'</span>,[<span class="keyword">None</span>,n_input])</span><br><span class="line"></span><br><span class="line"><span class="comment">#hidden layer settings</span></span><br><span class="line">n_hidden_1=<span class="number">256</span><span class="comment">#first num features(2^8)，先经过一个隐藏层压缩成256个features</span></span><br><span class="line">n_hidden_2=<span class="number">128</span><span class="comment">#second num features(2^7)，在经过一个隐藏层压缩成128个features</span></span><br><span class="line"><span class="comment">#define the weights</span></span><br><span class="line">weights=&#123;</span><br><span class="line">         <span class="string">'encoder_h1'</span>:tf.Variable(tf.random_normal([n_input,n_hidden_1])),</span><br><span class="line">         <span class="string">'encoder_h2'</span>:tf.Variable(tf.random_normal([n_hidden_1,n_hidden_2])),</span><br><span class="line">          <span class="comment">#经过一个隐藏层解压缩把128个features解压成256个features</span></span><br><span class="line">         <span class="string">'decoder_h1'</span>:tf.Variable(tf.random_normal([n_hidden_2,n_hidden_1])),</span><br><span class="line">         <span class="comment">#经过一个隐藏层解压缩把256个features解压成原来784个features</span></span><br><span class="line">         <span class="string">'decoder_h2'</span>:tf.Variable(tf.random_normal([n_hidden_1,n_input])),</span><br><span class="line">         &#125;</span><br><span class="line"><span class="comment">#define the biases</span></span><br><span class="line">biases=&#123;</span><br><span class="line">        <span class="string">'encoder_b1'</span>:tf.Variable(tf.random_normal([n_hidden_1])),</span><br><span class="line">        <span class="string">'encoder_b2'</span>:tf.Variable(tf.random_normal([n_hidden_2])),</span><br><span class="line">        <span class="string">'decoder_b1'</span>:tf.Variable(tf.random_normal([n_hidden_1])),</span><br><span class="line">        <span class="string">'decoder_b2'</span>:tf.Variable(tf.random_normal([n_input])),</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#building the encoder</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encoder</span><span class="params">(x)</span>:</span></span><br><span class="line">    layer_1=tf.nn.sigmoid(tf.add(tf.matmul(x,weights[<span class="string">'encoder_h1'</span>]),</span><br><span class="line">                           biases[<span class="string">'encoder_b1'</span>] ))</span><br><span class="line">    <span class="comment">#Decoder hidden layer with sigmoid activation function</span></span><br><span class="line">    layer_2=tf.nn.sigmoid(tf.add(tf.matmul(layer_1,weights[<span class="string">'encoder_h2'</span>]),</span><br><span class="line">                          biases[<span class="string">'encoder_b2'</span>]))</span><br><span class="line">    <span class="keyword">return</span> layer_2</span><br><span class="line">    </span><br><span class="line"><span class="comment">#building the decoder</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decoder</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="comment">#Encoder hidden layer with sigmoid activation</span></span><br><span class="line">    layer_1=tf.nn.sigmoid(tf.add(tf.matmul(x,weights[<span class="string">'decoder_h1'</span>]),</span><br><span class="line">                           biases[<span class="string">'decoder_b1'</span>] ))</span><br><span class="line">    <span class="comment">#Decoder hidden layer with sigmoid activation function</span></span><br><span class="line">    layer_2=tf.nn.sigmoid(tf.add(tf.matmul(layer_1,weights[<span class="string">'decoder_h2'</span>]),</span><br><span class="line">                          biases[<span class="string">'decoder_b2'</span>]))</span><br><span class="line">    <span class="keyword">return</span> layer_2</span><br><span class="line">    </span><br><span class="line"><span class="comment">#Construct model</span></span><br><span class="line">encoder_op=encoder(X)</span><br><span class="line">decoder_op=decoder(encoder_op)    </span><br><span class="line"></span><br><span class="line"><span class="comment">#Prediction</span></span><br><span class="line">y_pred=decoder_op</span><br><span class="line"><span class="comment">#Targets(Labels) are the input data</span></span><br><span class="line">y_true=X</span><br><span class="line"></span><br><span class="line"><span class="comment">#Define loss and optimizer,minimize the squre error</span></span><br><span class="line">cost=tf.reduce_mean(tf.pow(y_true-y_pred,<span class="number">2</span>))</span><br><span class="line">optimizer=tf.train.AdamOptimizer(learning_rate).minimize(cost)    </span><br><span class="line"></span><br><span class="line"><span class="comment">#Initializing the variables</span></span><br><span class="line">init=tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line"><span class="comment">#Launch the graph</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    total_batch=int(mnist.train.num_examples/batch_size)</span><br><span class="line">    <span class="comment">#Train cycle</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(training_epochs):</span><br><span class="line">        <span class="comment">#Loop overall batches</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(total_batch):</span><br><span class="line">            batch_xs,batch_ys=mnist.train.next_batch(batch_size)<span class="comment">#max(x)=1,min(x)=0,batch_xs已经被normalize正规化过了，最大值是1</span></span><br><span class="line">            <span class="comment">#Run optimization op (backprop) and cost op (to get loss value)</span></span><br><span class="line">            _,c=sess.run([optimizer,cost],feed_dict=&#123;X:batch_xs&#125;)</span><br><span class="line">            <span class="comment">#Display logs per epoch step</span></span><br><span class="line">            <span class="keyword">if</span> epoch% display_step==<span class="number">0</span>:</span><br><span class="line">                print(<span class="string">"Epoch"</span>,<span class="string">'%04d'</span>%(epoch+<span class="number">1</span>),</span><br><span class="line">                      <span class="string">"cost="</span>,<span class="string">"&#123;:9f&#125;"</span>.format(c))</span><br><span class="line">                </span><br><span class="line">    print(<span class="string">"Optimization Finished!"</span>)</span><br><span class="line">            </span><br><span class="line">    <span class="comment">#Applying encode and decode over test set</span></span><br><span class="line">    encode_decode=sess.run(</span><br><span class="line">            y_pred,feed_dict=&#123;X:mnist.test.images[:examples_to_show]&#125;)</span><br><span class="line">    <span class="comment">#Compare original images with their reconstructions</span></span><br><span class="line">    f,a=plt.subplots(<span class="number">2</span>,<span class="number">10</span>,figsize=(<span class="number">10</span>,<span class="number">2</span>))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(examples_to_show):</span><br><span class="line">        <span class="comment">#real data</span></span><br><span class="line">        a[<span class="number">0</span>][i].imshow(np.reshape(mnist.test.images[i],(<span class="number">28</span>,<span class="number">28</span>)))</span><br><span class="line">        <span class="comment">#predict data</span></span><br><span class="line">        a[<span class="number">1</span>][i].imshow(np.reshape(encode_decode[i],(<span class="number">28</span>,<span class="number">28</span>)))</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果："><a href="#运行结果：" class="headerlink" title="运行结果："></a>运行结果：</h2><p><img src="/2018/12/16/Autoencoder自编码/2.gif" alt="autoencoder"></p>
-<p><strong>总结</strong>：发现经过压缩过后的MNIST data，在训练的时候明显速度加快了。说明在进行大量数据训练的时候，使用自编码进行encoder-decoder不失为一个好办法。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/rnn-use-variable/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/16/rnn-use-variable/" itemprop="url">rnn_use_variable</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T15:28:21+08:00">
-                2018-12-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
-                    <span itemprop="name">TensorFlow</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  499
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="在RNN中use-variable"><a href="#在RNN中use-variable" class="headerlink" title="在RNN中use variable"></a>在RNN中use variable</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="comment">#define class</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrainConfig</span>:</span></span><br><span class="line">    batch_size = <span class="number">20</span></span><br><span class="line">    time_steps = <span class="number">20</span></span><br><span class="line">    input_size = <span class="number">10</span></span><br><span class="line">    output_size = <span class="number">2</span></span><br><span class="line">    cell_size = <span class="number">11</span></span><br><span class="line">    learning_rate = <span class="number">0.01</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestConfig</span><span class="params">(TrainConfig)</span>:</span></span><br><span class="line">    time_steps = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define RNN class</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RNN</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#define the init method</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, config)</span>:</span></span><br><span class="line">        self._batch_size = config.batch_size</span><br><span class="line">        self._time_steps = config.time_steps</span><br><span class="line">        self._input_size = config.input_size</span><br><span class="line">        self._output_size = config.output_size</span><br><span class="line">        self._cell_size = config.cell_size</span><br><span class="line">        self._lr = config.learning_rate</span><br><span class="line">        self._built_RNN()</span><br><span class="line"></span><br><span class="line">    <span class="comment">#build the rnn network    </span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_built_RNN</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'inputs'</span>):</span><br><span class="line">            self._xs = tf.placeholder(tf.float32, [self._batch_size, self._time_steps, self._input_size], name=<span class="string">'xs'</span>)</span><br><span class="line">            self._ys = tf.placeholder(tf.float32, [self._batch_size, self._time_steps, self._output_size], name=<span class="string">'ys'</span>)</span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'RNN'</span>):</span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">'input_layer'</span>):</span><br><span class="line">                l_in_x = tf.reshape(self._xs, [<span class="number">-1</span>, self._input_size], name=<span class="string">'2_2D'</span>)  <span class="comment"># (batch*n_step, in_size)</span></span><br><span class="line">                <span class="comment"># Ws (in_size, cell_size)</span></span><br><span class="line">                Wi = self._weight_variable([self._input_size, self._cell_size])</span><br><span class="line">                print(Wi.name)</span><br><span class="line">                <span class="comment"># bs (cell_size, )</span></span><br><span class="line">                bi = self._bias_variable([self._cell_size, ])</span><br><span class="line">                <span class="comment"># l_in_y = (batch * n_steps, cell_size)</span></span><br><span class="line">                <span class="keyword">with</span> tf.name_scope(<span class="string">'Wx_plus_b'</span>):</span><br><span class="line">                    l_in_y = tf.matmul(l_in_x, Wi) + bi</span><br><span class="line">                l_in_y = tf.reshape(l_in_y, [<span class="number">-1</span>, self._time_steps, self._cell_size], name=<span class="string">'2_3D'</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">'cell'</span>):</span><br><span class="line">                cell = tf.contrib.rnn.BasicLSTMCell(self._cell_size)</span><br><span class="line">                <span class="keyword">with</span> tf.name_scope(<span class="string">'initial_state'</span>):</span><br><span class="line">                    self._cell_initial_state = cell.zero_state(self._batch_size, dtype=tf.float32)</span><br><span class="line"></span><br><span class="line">                self.cell_outputs = []</span><br><span class="line">                cell_state = self._cell_initial_state</span><br><span class="line">                <span class="keyword">for</span> t <span class="keyword">in</span> range(self._time_steps):</span><br><span class="line">                    <span class="keyword">if</span> t &gt; <span class="number">0</span>: tf.get_variable_scope().reuse_variables()</span><br><span class="line">                    cell_output, cell_state = cell(l_in_y[:, t, :], cell_state)</span><br><span class="line">                    self.cell_outputs.append(cell_output)</span><br><span class="line">                self._cell_final_state = cell_state</span><br><span class="line"></span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">'output_layer'</span>):</span><br><span class="line">                <span class="comment"># cell_outputs_reshaped (BATCH*TIME_STEP, CELL_SIZE)</span></span><br><span class="line">                cell_outputs_reshaped = tf.reshape(tf.concat(self.cell_outputs, <span class="number">1</span>), [<span class="number">-1</span>, self._cell_size])</span><br><span class="line">                Wo = self._weight_variable((self._cell_size, self._output_size))</span><br><span class="line">                bo = self._bias_variable((self._output_size,))</span><br><span class="line">                product = tf.matmul(cell_outputs_reshaped, Wo) + bo</span><br><span class="line">                <span class="comment"># _pred shape (batch*time_step, output_size)</span></span><br><span class="line">                self._pred = tf.nn.relu(product)    <span class="comment"># for displacement</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">with</span> tf.name_scope(<span class="string">'cost'</span>):</span><br><span class="line">            _pred = tf.reshape(self._pred, [self._batch_size, self._time_steps, self._output_size])</span><br><span class="line">            mse = self.ms_error(_pred, self._ys)</span><br><span class="line">            mse_ave_across_batch = tf.reduce_mean(mse, <span class="number">0</span>)</span><br><span class="line">            mse_sum_across_time = tf.reduce_sum(mse_ave_across_batch, <span class="number">0</span>)</span><br><span class="line">            self._cost = mse_sum_across_time</span><br><span class="line">            self._cost_ave_time = self._cost / self._time_steps</span><br><span class="line"></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">'trian'</span>):</span><br><span class="line">            self._lr = tf.convert_to_tensor(self._lr)</span><br><span class="line">            self.train_op = tf.train.AdamOptimizer(self._lr).minimize(self._cost)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ms_error</span><span class="params">(y_target, y_pre)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tf.square(tf.subtract(y_target, y_pre))</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_weight_variable</span><span class="params">(shape, name=<span class="string">'weights'</span>)</span>:</span></span><br><span class="line">        initializer = tf.random_normal_initializer(mean=<span class="number">0.</span>, stddev=<span class="number">0.5</span>, )</span><br><span class="line">        <span class="keyword">return</span> tf.get_variable(shape=shape, initializer=initializer, name=name)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_bias_variable</span><span class="params">(shape, name=<span class="string">'biases'</span>)</span>:</span></span><br><span class="line">        initializer = tf.constant_initializer(<span class="number">0.1</span>)</span><br><span class="line">        <span class="keyword">return</span> tf.get_variable(name=name, shape=shape, initializer=initializer)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    train_config = TrainConfig()</span><br><span class="line">    test_config = TestConfig()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># the wrong method to reuse parameters in train rnn</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'train_rnn'</span>):</span><br><span class="line">        train_rnn1 = RNN(train_config)</span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'test_rnn'</span>):</span><br><span class="line">        test_rnn1 = RNN(test_config)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># the right method to reuse parameters in train rnn</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">'rnn'</span>) <span class="keyword">as</span> scope:</span><br><span class="line">        sess = tf.Session()</span><br><span class="line">        train_rnn2 = RNN(train_config)</span><br><span class="line">        scope.reuse_variables()</span><br><span class="line">        test_rnn2 = RNN(test_config)</span><br><span class="line">        <span class="comment"># tf.initialize_all_variables() no long valid from</span></span><br><span class="line">        <span class="comment"># 2017-03-02 if using tensorflow &gt;= 0.12</span></span><br><span class="line">        <span class="keyword">if</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">1</span>]) &lt; <span class="number">12</span> <span class="keyword">and</span> int((tf.__version__).split(<span class="string">'.'</span>)[<span class="number">0</span>]) &lt; <span class="number">1</span>:</span><br><span class="line">            init = tf.initialize_all_variables()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            init = tf.global_variables_initializer()</span><br><span class="line">        sess.run(init)</span><br></pre></td></tr></table></figure>
-<h2 id="使用variable-scope的效果："><a href="#使用variable-scope的效果：" class="headerlink" title="使用variable_scope的效果："></a>使用variable_scope的效果：</h2><p><img src="/2018/12/16/rnn-use-variable/1.png" alt="rnn"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2187,7 +2214,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2290,7 +2317,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">60.3k</span>
+    <span title="Site words total count">62k</span>
   
 </div>
 <div class="powered-by">
