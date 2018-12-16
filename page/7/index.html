@@ -304,6 +304,220 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/数组与链表/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/数组与链表/" itemprop="url">数组与链表</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:51:52+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  789
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="内存的工作原理"><a href="#内存的工作原理" class="headerlink" title="内存的工作原理"></a>内存的工作原理</h1><h3 id="1-个人理解："><a href="#1-个人理解：" class="headerlink" title="1.个人理解："></a>1.个人理解：</h3><p>　　比如你要去逛超市，需要将东西寄存，寄存处有一个柜子，柜子有很多抽屉。每个抽屉可以放一样东西，你有两样东西，所以要了两个抽屉。这大概就是计算机内存的工作原理。计算机就像很多抽屉的集合体，每个抽屉都有地址。</p>
+<p>　　当你需要将数据存储到内存时，你请求计算机提供存储空间，计算机会给你一个存储地址。但是当你要存储多项数据时，有两种基本方式：1.使用数组 2.使用链表，但是他们并不是都适用于所有的情形，要进行适当的选择。</p>
+<h3 id="2-数组和链表"><a href="#2-数组和链表" class="headerlink" title="2.数组和链表"></a>2.数组和链表</h3><p>数组：在内存中都是相连的（紧靠在一起的）</p>
+<p>链表：链表中的严肃可存储在内存的任何地方。链表的每个元素都存储了下一个元素的地址，从而使得一系列随机的内存地址串在了一起。</p>
+<ul>
+<li><h4 id="访问元素（查询）：数组更好选择"><a href="#访问元素（查询）：数组更好选择" class="headerlink" title="访问元素（查询）：数组更好选择"></a>访问元素（查询）：数组更好选择</h4></li>
+</ul>
+<p>　　但是链表存在问题，比如当你需要读取链表的最后一个元素时，你不能直接读取，因为你根本不知道它所处的地址，所以必须先访问第一个元素，然后获取第二个元素的地址，在访问第三个，以此类推，直到访问到最后一个元素。当你需要同时读取所有元素时，链表的效率很高。但是当你需要跳跃读取某个元素，链表的效率很低。数组不一样，因为你是知道每个元素的地址的，根据数组的下标可以算出来。比如一个数组里有五个元素，起始地址为000，那么第五个元素的地址肯定是004.所以当你需要随机访问元素时，数组效率很高，可以迅速的找到数组的任何元素。在链表中，元素并非靠在一起，你无法迅速计算出第五个元素的内存地址，必须县访问第一个元素以获取第二个，依次下去。</p>
+<ul>
+<li><h4 id="插入操作（中间插入）：链表更好选择"><a href="#插入操作（中间插入）：链表更好选择" class="headerlink" title="插入操作（中间插入）：链表更好选择"></a>插入操作（中间插入）：链表更好选择</h4></li>
+</ul>
+<p>　　加入你要在中间插入一个元素，使用链表时，插入元素很简单，只需要修改前面那个元素的指针指向。但是使用数组时，则必须先将后面的元素都向后移动，如果没有足够的空间，可能还要将整个数组复制到其他地方。</p>
+<ul>
+<li><h4 id="删除操作：链表更好选择"><a href="#删除操作：链表更好选择" class="headerlink" title="删除操作：链表更好选择"></a>删除操作：链表更好选择</h4></li>
+</ul>
+<p>　　因为你只需要修改前一个元素指向的地址就行。使用数组，删除元素后，比如将后面的元素都向前移动。不同于插入，删除元素总能成功。如果内存中没有足够的空间，插入操作可能失败，但是任何情况下都能将元素删除</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">比较</th>
+<th style="text-align:center">数组</th>
+<th style="text-align:center">链表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">读取</td>
+<td style="text-align:center">O(1)</td>
+<td style="text-align:center">O(N)</td>
+</tr>
+<tr>
+<td style="text-align:center">插入</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:center">删除</td>
+<td style="text-align:center">O(N)</td>
+<td style="text-align:center">O(1)</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/折半查找/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -823,7 +1037,7 @@
           
             <h1 id="Python的入门"><a href="#Python的入门" class="headerlink" title="Python的入门"></a>Python的入门</h1><ul>
 <li><p>Win+R键，输入cmd，输入python，查看版本</p>
-<p><img src="/2018/12/12/Python3入门/C:/Users\DELL\Desktop\6.gif" alt="python version"></p>
+<p><img src="/2018/12/12/Python3入门/1.png" alt="Python3"></p>
 </li>
 <li><p>使用交互式IPython运行Python</p>
 <p>IPython是一个Python的交互式shell，比默认的Python shell好用多，支持变量自动补全，自动缩进，支持bash shell命令，内置了许多很有用的功能和函数</p>
@@ -1180,267 +1394,6 @@
 <li><p>非阻塞代码</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line">fs.readFile(<span class="string">'input.txt'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">console</span>.error(err);</span><br><span class="line">    <span class="built_in">console</span>.log(data.toString());</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'程序结束'</span>);</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Spring-Boot入门/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/Spring-Boot入门/" itemprop="url">Spring Boot入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T11:05:35+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.4k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、Spring-Boot入门"><a href="#一、Spring-Boot入门" class="headerlink" title="一、Spring Boot入门"></a>一、Spring Boot入门</h1><p>Spring Boot来简化Spring应用开发，约定大于配置，去繁从简，just run就能创建一个独立的，产品级别的应用</p>
-<h4 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h4><p>J2EE笨重的开发，繁多的配置，低下的开发效率，复杂的部署流程，第三方技术集成难度大</p>
-<h4 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h4><p>“Spring全家桶”时代</p>
-<p>Spring Boot–&gt;J2EE一站式解决方案</p>
-<p>Spring Cloud–&gt;分布式整体解决方案</p>
-<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><ul>
-<li>快速创建独立运行的Spring项目以及主流框架集成</li>
-<li>使用嵌入式的Servlet容器，应用无需打成WAR包</li>
-<li>starters(启动器)自动依赖与版本控制，想用web功能就导入web功能的启动器starters，想用redis就导入redis的starters，所有的企业级开发场景都有相应的starters启动器，导入就可自动依赖。</li>
-<li>大量的自动的配置，简化开发，也可修改默认值（通过spring boot的配置文件）</li>
-<li>无需配置XML，无代码生成，开箱即用（都是用一些写好的API，自动配置好XML，SpringBoot应用创建出来就能用，并不是说有一些自动生成的XML工具）</li>
-<li>准生产环境的运行时应用监控</li>
-<li>与云计算的天然集成</li>
-<li>ps(shift+tab退出无序列表)</li>
-</ul>
-<h4 id="缺点：易学难精"><a href="#缺点：易学难精" class="headerlink" title="缺点：易学难精"></a>缺点：易学难精</h4><h4 id="1、Spring-Boot简介"><a href="#1、Spring-Boot简介" class="headerlink" title="1、Spring Boot简介"></a>1、Spring Boot简介</h4><p>简化Spring应用开发的一个框架</p>
-<p>整个Spring技术栈的一个大集合</p>
-<p>J2EE开发的一站式解决方案</p>
-<h4 id="2、微服务"><a href="#2、微服务" class="headerlink" title="2、微服务"></a>2、微服务</h4><p><a href="https://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">微服务文档</a></p>
-<p>Microservices:a definition of this new architectural term</p>
-<p>微服务：架构风格</p>
-<p>the microservice architectural style  is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API.</p>
-<p>一个应用应该是一组小型服务：可以通过HTTP的方式进行互通</p>
-<h3 id="单体应用：ALL-IN-ONE所有的东西都写在一个里面"><a href="#单体应用：ALL-IN-ONE所有的东西都写在一个里面" class="headerlink" title="单体应用：ALL IN ONE所有的东西都写在一个里面"></a>单体应用：ALL IN ONE所有的东西都写在一个里面</h3><p>Traditional web application architecture</p>
-<p><img src="/2018/12/12/Spring-Boot入门/C:/Users\DELL\Desktop\单体.png" alt="单体应用"></p>
-<p>OA,CRM,ERP系统,以前都是创建一个应用然后将所有的页面，代码都放在这个应用里，然后把整个应用打包打成WAR包，然后部署到Tomcat上，应用访问数据库，提供前端访问的页面，这个应用就跑起来了，这是传统的WEB应用架构模式，传统的优点：比如开发测试简单，develop test deploy scale,开发，测试，部署，扩展也都简单。</p>
-<p>水平扩展也简单，当我们应用负载能力不行的时候，我们把相同的应用复制上十几份，放在十几个服务器里，十几个服务器都来跑我们这些应用程序，我们通过负载均衡机制，就可以来提高我们的并发能力。</p>
-<h4 id="单体应用的问题："><a href="#单体应用的问题：" class="headerlink" title="单体应用的问题："></a>单体应用的问题：</h4><p>这是一个牵一发而动全身的问题，有可能因为我们一个小小的修改，导致我们整个应用重新打包部署运行。</p>
-<p>更大的挑战是我们日益增长的软件需求，现在可能随便一个应用都有可能成为一个大的需求，大应用不可能全部ALL IN ONE写在一个里面，然后应用到底有多大，该如何维护，该如何分工合作，这是一个问题。</p>
-<h3 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h3><p><img src="/2018/12/12/Spring-Boot入门/C:/Users\DELL\Desktop\微服务.png" alt="微服务"></p>
-<h4 id="单体应用："><a href="#单体应用：" class="headerlink" title="单体应用："></a>单体应用：</h4><p>就是打破以前的传统方式，以前是将所有的功能单元放在一个应用里面。然后把整个应用部署到服务器上，如果服务器负载能力不行，把同一份应用水平复制，然后扩展到其他服务器。</p>
-<h4 id="微服务："><a href="#微服务：" class="headerlink" title="微服务："></a>微服务：</h4><p>一个微服务架构把每个功能元素放进一个独立的服务中，把每个功能元素独立出来，通过功能元素的动态组合，比如A服务器需要某个功能元素多，就多放一点，B服务器需要某个功能元素少，就少放一点</p>
-<p>并且通过跨服务器分发这些服务进行扩展，某些功能只在需要时才复制。也就是功能元素级别的复制，并不是整个应用的复制。1、节省了调用资源，把服务微化起来2、每一个服务都应该是一个可替换的，可独立升级的软件单元</p>
-<p><img src="/2018/12/12/Spring-Boot入门/C:/Users\DELL\Desktop\timg.jpg" alt="两者区别"></p>
-<p>每一个功能元素最终都是可独立替换，可独立升级的软件单元</p>
-<h4 id="SOA架构和微服务架构区别："><a href="#SOA架构和微服务架构区别：" class="headerlink" title="SOA架构和微服务架构区别："></a>SOA架构和微服务架构区别：</h4><ul>
-<li><p>SOA(Service Oriented Architecture)：面向服务的架构，一种设计方法，其中包含多个服务，服务之间通过相互依赖最终提供一系列的功能，一个服务通常以独立的形式存在于操作系统进程中，各个服务之间通过网络调用。</p>
-</li>
-<li><p>微服务架构：其实和SOA架构类似，微服务是在SOA上做的升华，微服务架构强调的一个重点是“业务需要彻底的组件化和服务化”，原有的但各业务系统会拆分成多个可以独立开发，设计，运行的小应用</p>
-<p>这些小应用之间通过服务完成交互和集成</p>
-</li>
-</ul>
-<h4 id="主要区别："><a href="#主要区别：" class="headerlink" title="主要区别："></a>主要区别：</h4><table>
-<thead>
-<tr>
-<th style="text-align:center">功能</th>
-<th style="text-align:center">SOA</th>
-<th style="text-align:center">微服务</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">组件大小</td>
-<td style="text-align:center">大块业务逻辑</td>
-<td style="text-align:center">单独任务或小块业务逻辑</td>
-</tr>
-<tr>
-<td style="text-align:center">耦合</td>
-<td style="text-align:center">通常松耦合</td>
-<td style="text-align:center">总是松耦合</td>
-</tr>
-<tr>
-<td style="text-align:center">公司架构</td>
-<td style="text-align:center">任何类型</td>
-<td style="text-align:center">小型，专注于功能交叉团队</td>
-</tr>
-<tr>
-<td style="text-align:center">管理</td>
-<td style="text-align:center">着重中央管理</td>
-<td style="text-align:center">着重分散管理</td>
-</tr>
-<tr>
-<td style="text-align:center">目标</td>
-<td style="text-align:center">确保应用能够交互操作</td>
-<td style="text-align:center">执行新功能，快速拓展开发团队</td>
-</tr>
-</tbody>
-</table>
-<h3 id="掌握内容："><a href="#掌握内容：" class="headerlink" title="掌握内容："></a>掌握内容：</h3><ul>
-<li>Spring框架</li>
-<li>熟练使用Maven进行项目构建和依赖管理</li>
-<li>熟练使用Eclipse、IDEA</li>
-</ul>
-<h3 id="环境约束："><a href="#环境约束：" class="headerlink" title="环境约束："></a>环境约束：</h3><ul>
-<li>JDK1.8</li>
-<li>Maven3.x:Maven 3.3以上版本</li>
-<li>IntelliJ IDEA</li>
-<li>Spring Boot 1.5.9.RELEASE</li>
 </ul>
 
           

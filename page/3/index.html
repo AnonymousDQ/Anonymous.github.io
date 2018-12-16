@@ -304,6 +304,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/MNIST数据集简介/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/MNIST数据集简介/" itemprop="url">MNIST数据集简介</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T14:02:35+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  517
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="MNIST数据集简介"><a href="#MNIST数据集简介" class="headerlink" title="MNIST数据集简介"></a>MNIST数据集简介</h2><p>MNIST(Mixed National Institute of Standards and Technology database)是一个计算机视觉数据集，它包含70000张手写数字的灰度图片，其中每张图片包含28*28个像素点。可以用一个数字数组来表示这张图片。</p>
+<p><img src="/2018/12/15/MNIST数据集简介/MNIST-Matrix.png" alt="MNIST Matrix"></p>
+<p>每张图片都有对应的标签，也就是图片对应的数字，例如上图的标签是1</p>
+<p>数据集被分成两部分：<strong>60000行的训练数据集(mnist.train)和10000行的测试数据集(mnist.test)</strong></p>
+<p>其中：<strong>60000行的训练集拆分为55000行的训练集和5000行的验证集</strong></p>
+<p>60000行的训练数据集是一个形状为[60000,784]的张量，第一个维度数字用来表示图片索引，第二个维度的数字用来索引每张图片中的像素点。在[60000,784]的张量里的每一个元素，都表示每张图片里的某个像素的强度值，值在0，1之间。</p>
+<p><img src="/2018/12/15/MNIST数据集简介/mnist-train-xs.png" alt="mnist-train-xs"></p>
+<p>60000行的训练数据集标签是在0到9的数字，用来描述给定图片里表示的数字，叫做“one-hot vectors”。一个one-hot向量除了某一位的数字是1以外，其余各维度数字都是0，也就是数字n将表示成一个只有在第n维度(从0开始)数字为1的10维度向量。比如，标签0将表示成[1,0,0,0,0,0,0,0,0,0]，而标签0是一个[60000,10]的数字矩阵</p>
+<p><img src="/2018/12/15/MNIST数据集简介/mnist-train-ys.png" alt="mnist-train-ys"></p>
+<p>在TensorFlow里面可以用如下代码导入MNIST数据集：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line"></span><br><span class="line">mnist=input_data.read_data_sets(<span class="string">"MNIST_data/"</span>,one-hot=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p>引入这两句，会自动在代码文件的路径上创建一个MNIST_data文件夹。</p>
+<p>比较烦人的是使用tensorflow.examples.tutorials.mnist import input_data读取数据的时候，经常出现网络连接超时。</p>
+<p><strong>解决方法：查看input_data.py</strong></p>
+<p><img src="/2018/12/15/MNIST数据集简介/input_data.png" alt="input_data"></p>
+<p>这段代码，会先检查文件是否存在，如果不存在才进行下载，我们可以自己动手下载MNIST数据。</p>
+<p>官网下载地址：<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST data</a></p>
+<p>注：下载好数据集不要解压。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/Visualize-Gradient-Descent可视化梯度下降/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1834,180 +2024,6 @@
           
             <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#条形图</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#产生随机数</span></span><br><span class="line">data = np.random.normal(<span class="number">0</span>, <span class="number">20</span>, <span class="number">1000</span>)</span><br><span class="line">bins = np.arange(<span class="number">-100</span>, <span class="number">100</span>, <span class="number">5</span>) <span class="comment"># fixed bin size</span></span><br><span class="line"></span><br><span class="line">plt.xlim([min(data)<span class="number">-5</span>, max(data)+<span class="number">5</span>])</span><br><span class="line">plt.hist(data, bins=bins, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#display the graph</span></span><br><span class="line">plt.title(<span class="string">'Random Gaussian data (fixed bin size)'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'variable X (bin size = 5)'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'count'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="/2018/12/15/用matplotlib包画条形图/条形图.png" alt="gaussian graph"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画折线图/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/用matplotlib包画折线图/" itemprop="url">用matplotlib包画折线图</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:14:30+08:00">
-                2018-12-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
-                    <span itemprop="name">TensorFlow</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  51
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#折线图</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#导入模块</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成数据</span></span><br><span class="line">x=np.linspace(<span class="number">-10000</span>,<span class="number">10000</span>,<span class="number">100</span>) <span class="comment">#将-10000到10000等区间分成100份</span></span><br><span class="line">y=x2+x3+x**<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示图像</span></span><br><span class="line">plt.plot(x,y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/用matplotlib包画折线图/折线图.png" alt="line"></p>
 
           
         
