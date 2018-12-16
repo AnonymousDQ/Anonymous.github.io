@@ -304,6 +304,410 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据库范式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/数据库范式/" itemprop="url">数据库范式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T20:55:44+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  627
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="范式-Normal-Form-NF"><a href="#范式-Normal-Form-NF" class="headerlink" title="范式(Normal Form,NF)"></a>范式(Normal Form,NF)</h1><p>设计关系型数据库时，需要遵从不同的规范要求，设计出合理的关系型数据库。越高的范式数据库冗余越小。</p>
+<ul>
+<li><p>范式的优点：消除重复数据，减少数据冗余，让数据库内的数据更好的组织，让磁盘空间得到更有效的利用。</p>
+</li>
+<li><p>范式的缺点：范式使得查询变得相当复杂，在查询的时候需要更多的连接，一些复合索引的列由于范式化的需要被分割到不同的表中，导致索引策略不佳。</p>
+</li>
+</ul>
+<p>第一范式(1NF)：每一个属性不可再分。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">范式</th>
+<th style="text-align:center">特征</th>
+<th style="text-align:center">详解</th>
+<th style="text-align:center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">第一范式1NF</td>
+<td style="text-align:center">每一个属性不可再分</td>
+<td style="text-align:center">1NF,对域添加的一个规范要求，所有的域都应该是原子性的也就是数据表的每一列都是不可分割的原子数据项，而不能是集合，数组等。也就是某个属性有多个值，必须将它拆分为不同的属性。不满足1NF的不是关系数据库。满足1NF的表必须要有主键，每个属性不可再分。</td>
+<td style="text-align:center">比如说员工表，有员工号，姓名，电话号码组成。但是一个人可能有座机号码和移动号码。需要将它拆分为两个属性，也就是员工表(员工号，姓名，座机号码，移动号码)</td>
+</tr>
+<tr>
+<td style="text-align:center">第二范式2NF</td>
+<td style="text-align:center">符合1NF,并且非主属性完全依赖于码</td>
+<td style="text-align:center">在1NF的基础上，每一个非主属性必须完全依赖于码，消除非主属性的对主键的部分函数依赖也即是实体的属性完全依赖于主关键字。完全依赖是不能存在只依赖主关键字的一部分。</td>
+<td style="text-align:center">选课关系(学号，课程号，成绩，学分)，码为组合关键字(课程号，学号)但是非主属性学分只依赖课程号，对关键字(学号，课程号)只是部份依赖。不是完全依赖。所以要拆分为两个关系模式：学生表(学号，课程号，分数)课程表(课程号，学分)，新的关系通过学生表中的外键课程号联系，需要时通过两个表的连接获取数据</td>
+</tr>
+<tr>
+<td style="text-align:center">第三范式3NF</td>
+<td style="text-align:center">符合1NF,且每个非主属性既不部分依赖码，也不传递依赖码也就是在2NF的基础上消除传递依赖</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/電商推薦系統/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/電商推薦系統/" itemprop="url">電商推薦系統</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T20:49:28+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  439
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="电商网站用户行为分析及服务推荐"><a href="#电商网站用户行为分析及服务推荐" class="headerlink" title="电商网站用户行为分析及服务推荐"></a>电商网站用户行为分析及服务推荐</h2><h4 id="推荐系统和搜索引擎"><a href="#推荐系统和搜索引擎" class="headerlink" title="推荐系统和搜索引擎"></a>推荐系统和搜索引擎</h4><ul>
+<li>搜索引擎满足有明确目标用户的需求</li>
+<li>推荐系统能够帮助用户发现其感兴趣的内容</li>
+</ul>
+<p>当用户访问网站页面时，系统会记录用户访问呢网站的日志，记录用户IP，用户访问的时间，访问内容等多项属性的记录。</p>
+<ul>
+<li>按地域研究用户访问呢时间，访问内容和访问次数等分析主题，深入了解用户对访问呢网站的行为和目的及关心的内容</li>
+<li>借助大量的用户的访问记录，发现用户的访问行为习惯，对不同需求的用户进行相关的服务页面的推荐。</li>
+</ul>
+<p>为了更好的帮助用户从海量数据中快速的发现感兴趣的网页，在目前相对单一的推荐系统上进行补充，采用协同过滤算法进行推荐。</p>
+<p>用于用户访问网站的数据记录很多，如果对数据不进行分类处理，对所有记录直接采用推荐系统给进行推荐。会出现问题：</p>
+<ul>
+<li>数据量太大意味着物品数与用户数很多，在模型构建用户与物品的系数矩阵的时候，出现设备内存空间不够的情况，并且模型计算需要消耗大量的时间</li>
+<li>用户区别很大，不同的用户关注的信息不一样，因此，即使能够得到推荐结果，其推荐效果也会不好。所以要进行分类处理与分析。</li>
+<li>需要对用户的兴趣爱好以及需求进行分类。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/马克思哲学/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2047,509 +2451,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/二叉树/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/二叉树/" itemprop="url">二叉树</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T16:36:24+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  959
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="二叉树的遍历："><a href="#二叉树的遍历：" class="headerlink" title="二叉树的遍历："></a>二叉树的遍历：</h2><ul>
-<li><p>前序遍历：根左右</p>
-</li>
-<li><p>中序遍历：左根右</p>
-</li>
-<li><p>后序遍历：左右根</p>
-</li>
-<li><p>层次遍历：一层一层的遍历，类似广度优先</p>
-</li>
-</ul>
-<h2 id="二叉树的存储结构"><a href="#二叉树的存储结构" class="headerlink" title="二叉树的存储结构"></a>二叉树的存储结构</h2><ul>
-<li>二叉树以二叉链表结构存储，也就是1个数据域，两个指针域（分别指向左右孩子）</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二叉树的二叉链表结构定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> ElemType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> *<span class="title">lchild</span>,*<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode,*BiTree</span><br></pre></td></tr></table></figure>
-<ul>
-<li>二叉树的建立，先按照前序遍历的方式建立二叉树，当然也可以按照中序遍历或者后序遍历的方式建立二叉树</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以前序遍历的方式建立二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBiTree</span><span class="params">(BiTree *T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ElemType ch;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;ch;</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">'#'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *T=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        *T=(BiTNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BiTNode));</span><br><span class="line">        <span class="keyword">if</span>(!*T)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">exit</span>(OVERFLOW);<span class="comment">//分配内存失败退出</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            (*T)-&gt;data=ch;<span class="comment">//生成结点</span></span><br><span class="line">            CreateBiTree(&amp;(*T)-&gt;lchild);<span class="comment">//构造左子树</span></span><br><span class="line">            CreateBiTree(&amp;(*T)-&gt;rchild);<span class="comment">//构造右子树</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归前序遍历二叉树"><a href="#递归前序遍历二叉树" class="headerlink" title="递归前序遍历二叉树"></a>递归前序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归方式前序遍历二叉树</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);<span class="comment">//输出了层数</span></span><br><span class="line">        PreOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PreOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归中序遍历二叉树"><a href="#递归中序遍历二叉树" class="headerlink" title="递归中序遍历二叉树"></a>递归中序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        InOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">        InOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归后序遍历二叉树"><a href="#递归后序遍历二叉树" class="headerlink" title="递归后序遍历二叉树"></a>递归后序遍历二叉树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归后序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        PostOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PostOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="中序遍历非递归"><a href="#中序遍历非递归" class="headerlink" title="中序遍历非递归"></a>中序遍历非递归</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrder</span><span class="params">(BiTree T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	InitStack(S);</span><br><span class="line">	BiTree p=T;<span class="comment">//p是遍历指针</span></span><br><span class="line">	<span class="keyword">while</span>(p||!isEmpty(S))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(p)<span class="comment">//根指针进站，遍历左子树</span></span><br><span class="line">		&#123;</span><br><span class="line">			Push(S,p);</span><br><span class="line">			p=p-&gt;lchild;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			Pop(S,p);</span><br><span class="line">			visit(p);</span><br><span class="line">			p=p-&gt;rchild;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="完整代码如下："><a href="#完整代码如下：" class="headerlink" title="完整代码如下："></a>完整代码如下：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;  </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> ElemType;<span class="comment">//二叉树的二叉链表结构，也就是二叉树的存储结构，1个数据域，2个指针域（分别指向左右子结点）</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> &#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BiTNode</span> <span class="title">lchild</span>,<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BiTNode,*BiTree;</span><br><span class="line"></span><br><span class="line"><span class="comment">//以前序遍历的方式建立二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBiTree</span><span class="params">(BiTree *T)</span> </span>&#123;</span><br><span class="line">    ElemType ch;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;ch;</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">'#'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *T=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">`       T=(BiTNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BiTNode));</span><br><span class="line">        <span class="keyword">if</span>(!T)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">exit</span>(OVERFLOW);<span class="comment">//分配内存失败退出</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">             (T)-&gt;data=ch;<span class="comment">//生成结点</span></span><br><span class="line">             CreateBiTree(&amp;(T)-&gt;lchild);<span class="comment">//构造左子树</span></span><br><span class="line">             CreateBiTree(&amp;(*T)-&gt;rchild);<span class="comment">//构造右子树</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line"><span class="comment">//将二叉树前序遍历输出</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Display</span><span class="params">(ElemType ch)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ch&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在输出的基础上，输出层数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Floor</span><span class="params">(ElemType ch,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ch&lt;&lt;<span class="string">"在第"</span>&lt;&lt;level&lt;&lt;<span class="string">"层"</span>&lt;&lt;end;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归方式前序遍历二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);<span class="comment">//输出了层数</span></span><br><span class="line">        PreOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PreOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        InOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">        InOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归后序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(BiTree T,<span class="keyword">int</span> level)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        PostOrderTraverse(T-&gt;lchild,level+<span class="number">1</span>);</span><br><span class="line">        PostOrderTraverse(T-&gt;rchild,level+<span class="number">1</span>);</span><br><span class="line">        Display(T-&gt;data);</span><br><span class="line">        Floor(T-&gt;data,level);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">int</span> level=<span class="number">1</span>;<span class="comment">//表示层数</span></span><br><span class="line">    BiTree T=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"请以前序遍历的方式输入二叉树："</span>;<span class="comment">//类似输入AB#D##C##</span></span><br><span class="line">    CreateBiTree(&amp;T);<span class="comment">//建立二叉树，没有树，无法遍历</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归前序遍历输出："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    PostOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;end;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归中序遍历输出为："</span>&lt;&lt;end;</span><br><span class="line">    InOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"递归后序遍历输出为："</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    PostOrderTraverse(T,level);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/Python3入门/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/Python3入门/" itemprop="url">Python3入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T11:06:14+08:00">
-                2018-12-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.5k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Python的入门"><a href="#Python的入门" class="headerlink" title="Python的入门"></a>Python的入门</h1><ul>
-<li><p>Win+R键，输入cmd，输入python，查看版本</p>
-<p><img src="/2018/12/12/Python3入门/C:/Users\DELL\Desktop\6.gif" alt="python version"></p>
-</li>
-<li><p>使用交互式IPython运行Python</p>
-<p>IPython是一个Python的交互式shell，比默认的Python shell好用多，支持变量自动补全，自动缩进，支持bash shell命令，内置了许多很有用的功能和函数</p>
-<h5 id="安装：pip-install-ipython"><a href="#安装：pip-install-ipython" class="headerlink" title="安装：pip install ipython"></a>安装：pip install ipython</h5></li>
-</ul>
-<h3 id="Python3基础语法"><a href="#Python3基础语法" class="headerlink" title="Python3基础语法"></a>Python3基础语法</h3><ul>
-<li><p>编码</p>
-<p>默认情况下，Python3源码文件以UTF-8编码，所有字符串都是UNICODE字符串</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  -*-coding:cp-1252 -*-</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>注释</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#这是第一个注释</span></span><br><span class="line">print(<span class="string">"hello,Python3！"</span>)</span><br><span class="line">多行注释，用<span class="string">'''或者"""</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">注释块</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">注释块</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>行与缩进</p>
-<p>python最具有特色就是使用缩进来表示代码块，不需要使用大括号{}</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">True</span>:</span><br><span class="line">    print(<span class="string">"True"</span>)</span><br><span class="line"> <span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"False"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>数字类型Number</p>
-<p>python中数字有四种类型：整数，布尔，浮点，复数</p>
-<ul>
-<li>int：整数，表示长整型</li>
-<li>bool：布尔，True，False</li>
-<li>float:浮点数，1.23,3E-2</li>
-<li>complex:复数，1+2j，1.1+2.2j</li>
-</ul>
-</li>
-<li><p>字符串String</p>
-<p>python中单引号和双引号使用完全相同</p>
-<p>三个引号，用来表示多行的字符串</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">word=<span class="string">'字符串'</span></span><br><span class="line">sentence=<span class="string">"这是一个句子"</span></span><br><span class="line">paragraph=<span class="string">"""这是一个段落</span></span><br><span class="line"><span class="string">，可以多行组成</span></span><br><span class="line"><span class="string">"""</span><span class="string">"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>import与from…import</p>
-<ul>
-<li><p>使用import或者from…import导入相应的模块</p>
-</li>
-<li><p>将整个模块导入：import module</p>
-</li>
-<li><p>从某个模块中导入某个函数：from module import function</p>
-</li>
-<li><p>从某个模块中导入多个函数：from module import function1,function2</p>
-</li>
-<li><p>将某个模块中的全部函数导入：from module import *</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入sys模块</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">print(<span class="string">"======================Python import module==========="</span>)</span><br><span class="line">print(<span class="string">'命令行参数为：'</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sys.argv:</span><br><span class="line">    print(i)</span><br><span class="line">print(<span class="string">'\n python 路径为'</span>,sys.path)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Python3基本数据类型</p>
-<ul>
-<li><p>python中的变量不需要生命，每个变量在使用之前都必须复制，变量赋值以后该变量才会被创建。</p>
-</li>
-<li><p>在Python中，变量就是变量，没有类型，我们所说的类型是变量所指的内存中对象的类型</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">couter=<span class="number">100</span><span class="comment">#整型变量</span></span><br><span class="line">miles=<span class="number">100.0</span><span class="comment">#浮点型变量</span></span><br><span class="line">name=<span class="string">'python3'</span><span class="comment">#字符串</span></span><br><span class="line">print(counter)</span><br><span class="line">print(miles)</span><br><span class="line">print(name)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Python3的标准数据类型</p>
-<ul>
-<li><p>Number数字</p>
-<ul>
-<li><p>Python3中支持，int,float,bool,complex</p>
-</li>
-<li><p>内置函数type()</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a,b,c,d=<span class="number">20</span>,<span class="number">1.1</span>,<span class="keyword">True</span>,<span class="number">1</span>+<span class="number">2j</span></span><br><span class="line">print(type(a),type(b),type(c),type(d))</span><br><span class="line"><span class="comment">#&lt;class 'int'&gt; &lt;class 'float'&gt; &lt;class 'bool'&gt; &lt;class 'complex'&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>内置函数isinstance(),类似java中instanceof</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">111</span></span><br><span class="line">isinstance(a,int)</span><br><span class="line"><span class="comment">#True</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>String字符串</p>
-<ul>
-<li><p>Python使用反斜杠\转义特殊字符，如果不想让反斜杠发生转义，可以再字符串前面添加一个r，表示原始字符串：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'Py\thon3'</span>)</span><br><span class="line"><span class="comment">#Py    thon3</span></span><br><span class="line">print(<span class="string">r'Py\thon3'</span>)</span><br><span class="line"><span class="comment">#Py\thon3</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>List列表</p>
-<p>List列表是Python中使用最频繁的数据类型</p>
-<p>列表可以完成大多数集合类的数据结构实现。</p>
-<p>变量[头下标:尾下标]</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">list=[<span class="string">'abcd'</span>,<span class="number">123</span>,<span class="number">2.1</span>,<span class="number">2</span>+<span class="number">1j</span>,<span class="keyword">True</span>]</span><br><span class="line">print(list)</span><br><span class="line">print(list[<span class="number">0</span>])</span><br><span class="line">print(list[<span class="number">1</span>:<span class="number">3</span>])<span class="comment">#输出第1</span></span><br><span class="line">print(list[<span class="number">2</span>:])<span class="comment">#下标从2开始输出所有，list元素下标从0开始</span></span><br><span class="line">print(list*<span class="number">2</span>)<span class="comment">#输出两次列表</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Tuple元组</p>
-<ul>
-<li>元组Tuple是不可以修改元素，写在()里，和list类似，只不过list写在[]里</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tuple=(<span class="string">'abcd'</span>,<span class="number">784</span>,<span class="number">1.11</span>,<span class="number">1</span>+<span class="number">2j</span>,<span class="keyword">True</span>)</span><br><span class="line">print(tuple)</span><br><span class="line">print(tuple[<span class="number">0</span>])</span><br><span class="line">print(tuple[<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line">print(tuple*<span class="number">2</span>)</span><br><span class="line">tuple[<span class="number">1</span>]=<span class="number">123</span><span class="comment">#修改元素元素的操作是非法的</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Set集合</p>
-<ul>
-<li><p>是由一个或者多个形态各异的大小整体组成</p>
-</li>
-<li><p>可以使用{}大括号，或者set()函数创建集合</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">student=&#123;<span class="string">'tom'</span>,<span class="number">123</span>,<span class="keyword">True</span>,<span class="number">1</span>+<span class="number">2j</span>,<span class="string">'tom'</span>&#125;</span><br><span class="line">print(student)<span class="comment">#输出集合，重复的元素被自动去掉</span></span><br><span class="line"><span class="comment">#成员测试</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">'tom'</span> <span class="keyword">in</span> student:</span><br><span class="line">    print(<span class="string">'tom在集合中'</span>)</span><br><span class="line"><span class="keyword">else</span> <span class="string">'Tom'</span> <span class="keyword">in</span> student:</span><br><span class="line">    print(<span class="string">'Tom不在集合中'</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment">#set可以进行集合运算</span></span><br><span class="line">a=set(<span class="string">'Hello'</span>)</span><br><span class="line">b=set(<span class="string">'Python3'</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(a-b)<span class="comment">#a和b的差集</span></span><br><span class="line">print(a|b)<span class="comment">#a和b的并集</span></span><br><span class="line">print(a&amp;b)<span class="comment">#a和b的交集</span></span><br><span class="line">print(a^b)<span class="comment">#a和b不同是存在的元素</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Dictionary字典</p>
-<ul>
-<li><p>列表List是有序的对象集合，字典是无需的对象集合。</p>
-</li>
-<li><p>字典中的元素是通过key来存取的，列表list中是通过下标来的</p>
-</li>
-<li><p>字典是一种映射类型，字典用{}，一个无序的key-value集合</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dict=&#123;&#125;</span><br><span class="line">dict[<span class="string">'one'</span>]=<span class="string">'Hello'</span></span><br><span class="line">dict[<span class="number">2</span>]=<span class="string">'Python3'</span></span><br><span class="line">dictionary=&#123;<span class="string">'name'</span>:<span class="string">'Hello'</span>,<span class="number">1</span>:<span class="string">"Python3"</span>,<span class="keyword">True</span>:<span class="number">1</span>,<span class="number">1</span>+<span class="number">2j</span>:<span class="number">1</span>+<span class="number">2j</span>,<span class="number">1.2</span>:<span class="number">1.2</span>&#125;</span><br><span class="line">print(dict[<span class="string">'one'</span>])<span class="comment">#输出键为'one'的值</span></span><br><span class="line">print(dict[<span class="number">2</span>])<span class="comment">#输出键为2的值</span></span><br><span class="line">print(dictionary)<span class="comment">#输出完整的字典</span></span><br><span class="line">print(dictionary.keys())<span class="comment">#输出所有的key</span></span><br><span class="line">print(dictionary.values())<span class="comment">#输出所有的值</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>不可变数据：Number数字，String字符串，Tuple元组</p>
-</li>
-<li><p>可变数据：List列表，Dictionary字典，Set集合</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Python3编程第一步"><a href="#Python3编程第一步" class="headerlink" title="Python3编程第一步"></a>Python3编程第一步</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Fibonacci series:</span></span><br><span class="line">a,b=<span class="number">0</span>,<span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> b&lt;<span class="number">10</span>:</span><br><span class="line">    print(b)</span><br><span class="line">    a,b=b,a+b</span><br></pre></td></tr></table></figure>
-<h5 id="end关键字"><a href="#end关键字" class="headerlink" title="end关键字"></a>end关键字</h5><p>关键字end可以用来将结果输出到同一行，或者在输出的末尾添加不同的字符</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Fibonacci series:</span></span><br><span class="line">a,b=<span class="number">0</span>,<span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> b&lt;<span class="number">10</span>:</span><br><span class="line">    print(b)</span><br><span class="line">    a,b=b,a+b</span><br><span class="line"><span class="comment">#1,1,2,3,5,8</span></span><br></pre></td></tr></table></figure>
-<h4 id="Python3条件控制"><a href="#Python3条件控制" class="headerlink" title="Python3条件控制"></a>Python3条件控制</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">condition=<span class="number">100</span></span><br><span class="line"><span class="keyword">if</span> condition:</span><br><span class="line">    print(<span class="string">'表达式条件为true'</span>)</span><br><span class="line">    print(condition)</span><br><span class="line">condition1=<span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> condition1:</span><br><span class="line">    print(<span class="string">'表达式条件为true'</span>)</span><br><span class="line">    print(condition1)</span><br><span class="line">print(<span class="string">'Hello,Python3'</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">age=int(input(<span class="string">'请输入年龄：'</span>))</span><br><span class="line">print(<span class="string">''</span>)</span><br><span class="line"><span class="keyword">if</span> age&lt;<span class="number">0</span>:</span><br><span class="line">    print(<span class="string">'你在逗我吧！'</span>)</span><br><span class="line"><span class="keyword">elif</span> age==<span class="number">1</span>:</span><br><span class="line">    print(<span class="string">'相当于14岁的人'</span>)</span><br><span class="line"><span class="keyword">elif</span> age==<span class="number">2</span>:</span><br><span class="line">    print(<span class="string">'相当于22岁的人'</span>)</span><br><span class="line"><span class="keyword">elif</span> age&gt;<span class="number">2</span>:</span><br><span class="line">    human=<span class="number">22</span>+(age<span class="number">-2</span>)*<span class="number">5</span></span><br><span class="line">    print(<span class="string">'对应人的年龄：'</span>,human)</span><br><span class="line"><span class="comment">#退出提示</span></span><br><span class="line">input(<span class="string">'点击enter键退出'</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">num=int(input(<span class="string">'输入一个数字：'</span>))</span><br><span class="line"><span class="keyword">if</span> num%<span class="number">2</span>==<span class="number">0</span>:</span><br><span class="line">    <span class="keyword">if</span> num%<span class="number">3</span>==<span class="number">0</span>:</span><br><span class="line">        print(<span class="string">'输入的数字可以整除2和3'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'输入的数字可以整除2，但不能整除3'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">if</span> num%<span class="number">3</span>==<span class="number">0</span>:</span><br><span class="line">        print(<span class="string">'输入的数字可以整除3，但不能整除2'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'输入的数字不能整除2和3'</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="Python3循环语句"><a href="#Python3循环语句" class="headerlink" title="Python3循环语句"></a>Python3循环语句</h4><ul>
-<li><p>while循环</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">counter=<span class="number">1</span></span><br><span class="line">n=<span class="number">100</span></span><br><span class="line">sum=<span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> couter&lt;=n:</span><br><span class="line">    sum=sum+counter</span><br><span class="line">    counter+=<span class="number">1</span></span><br><span class="line">print(<span class="string">'1到%d之和为：%d'</span>%(n,sum))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>for循环</p>
-<p>使用range()函数，生成数列</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    print(i)</span><br><span class="line">    <span class="comment">#0,1,2,3,4</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>,<span class="number">9</span>):</span><br><span class="line">    print(i)</span><br><span class="line">    <span class="comment">#5,6,7,8</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>,<span class="number">3</span>):</span><br><span class="line">    print(i)</span><br><span class="line">    <span class="comment">#0,3,6,9</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>pass语句</p>
-<p>pass是空语句，为了保持程序结构的完整性，不做任何事情，只是用作占位语句</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> letter <span class="keyword">in</span> <span class="string">'Python3'</span>:</span><br><span class="line">    <span class="keyword">if</span> letter==<span class="string">'o'</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    	print(<span class="string">'执行pass块'</span>)</span><br><span class="line">    print(<span class="string">'当前字母:'</span>,letter)</span><br><span class="line">print(<span class="string">'Hello,Python3'</span>)</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2602,7 +2503,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2705,7 +2606,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">52.8k</span>
+    <span title="Site words total count">54.5k</span>
   
 </div>
 <div class="powered-by">

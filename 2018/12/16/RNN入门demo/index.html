@@ -81,19 +81,20 @@
 
 
 
-<meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263#author:victor#import moduleimport tensorflow as tfimport numpy as npimport matplot">
+<meta name="description" content="RNN入门Demo​    耗费了大量时间来讲解RNN和LSTM的原理，并且这一块确实有点难以理解。实践是检验真理的唯一标准，废话不多说，直接上基于TensorFlow平台的RNN加上LSTM优化后的代码和运行效果。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用Batch Gradient Descent来拟合sinx">
-<meta property="og:url" content="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合sinx/index.html">
+<meta property="og:title" content="RNN入门demo">
+<meta property="og:url" content="http://yoursite.com/2018/12/16/RNN入门demo/index.html">
 <meta property="og:site_name" content="drqblog">
-<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263#author:victor#import moduleimport tensorflow as tfimport numpy as npimport matplot">
+<meta property="og:description" content="RNN入门Demo​    耗费了大量时间来讲解RNN和LSTM的原理，并且这一块确实有点难以理解。实践是检验真理的唯一标准，废话不多说，直接上基于TensorFlow平台的RNN加上LSTM优化后的代码和运行效果。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合sinx/1.gif">
-<meta property="og:updated_time" content="2018-12-15T05:54:50.920Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/RNN入门demo/1.gif">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/RNN入门demo/2.gif">
+<meta property="og:updated_time" content="2018-12-16T05:28:11.319Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用Batch Gradient Descent来拟合sinx">
-<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263#author:victor#import moduleimport tensorflow as tfimport numpy as npimport matplot">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合sinx/1.gif">
+<meta name="twitter:title" content="RNN入门demo">
+<meta name="twitter:description" content="RNN入门Demo​    耗费了大量时间来讲解RNN和LSTM的原理，并且这一块确实有点难以理解。实践是检验真理的唯一标准，废话不多说，直接上基于TensorFlow平台的RNN加上LSTM优化后的代码和运行效果。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/16/RNN入门demo/1.gif">
 
 
 
@@ -123,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合sinx/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/16/RNN入门demo/">
 
 
 
 
 
-  <title>用Batch Gradient Descent来拟合sinx | drqblog</title>
+  <title>RNN入门demo | drqblog</title>
   
 
 
@@ -309,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合sinx/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/RNN入门demo/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Victor Drq">
@@ -326,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">用Batch Gradient Descent来拟合sinx</h1>
+          <h1 class="post-title" itemprop="name headline">RNN入门demo</h1>
         
 
         <div class="post-meta">
@@ -338,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T13:48:05+08:00">
-                2018-12-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T13:11:21+08:00">
+                2018-12-16
               </time>
             
 
@@ -392,7 +393,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  282
+                  715
                 </span>
               
 
@@ -408,7 +409,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  3
                 </span>
               
             </div>
@@ -429,8 +430,19 @@
       
 
       
-        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="comment">#define a add_layer function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_layer</span><span class="params">(inputs, in_size, out_size, activation_function=None)</span>:</span></span><br><span class="line">    <span class="comment"># add one more layer and return the output of this layer</span></span><br><span class="line">    Weights = tf.Variable(tf.random_normal([in_size, out_size]))</span><br><span class="line">    biases = tf.Variable(tf.zeros([<span class="number">1</span>, out_size]))</span><br><span class="line">    Wx_plus_b = tf.matmul(inputs, Weights) + biases</span><br><span class="line">    <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        outputs = Wx_plus_b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        outputs = activation_function(Wx_plus_b)</span><br><span class="line">    <span class="keyword">return</span> outputs</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Make up some real data</span></span><br><span class="line">x_data = np.linspace(-np.pi,np.pi,<span class="number">300</span>)[:, np.newaxis]</span><br><span class="line">noise = np.random.normal(<span class="number">0</span>, <span class="number">0.05</span>, x_data.shape)</span><br><span class="line">y_data = np.sin(x_data) + noise</span><br><span class="line"> </span><br><span class="line"><span class="comment"># define placeholder for inputs to network</span></span><br><span class="line">xs = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line">ys = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line"><span class="comment"># add hidden layer</span></span><br><span class="line">l1 = add_layer(xs, <span class="number">1</span>, <span class="number">10</span>, activation_function=tf.nn.relu)</span><br><span class="line"><span class="comment"># add output layer</span></span><br><span class="line">prediction = add_layer(l1, <span class="number">10</span>, <span class="number">1</span>, activation_function=tf.nn.tanh)</span><br><span class="line"> </span><br><span class="line">loss = tf.reduce_mean(tf.square(ys - prediction))</span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.05</span>).minimize(loss)</span><br><span class="line"> </span><br><span class="line">init = tf.initialize_all_variables()</span><br><span class="line">sess = tf.Session()</span><br><span class="line">sess.run(init)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># plot the real data</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">ax.scatter(x_data, y_data)</span><br><span class="line"><span class="comment"># Interactive mode on</span></span><br><span class="line">plt.ion()</span><br><span class="line">plt.show()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5000</span>):</span><br><span class="line">    <span class="comment"># training</span></span><br><span class="line">    sess.run(train_step, feed_dict=&#123;xs: x_data, ys: y_data&#125;)</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">50</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># to visualize the result and remove the previous line </span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment">#ax.lines.remove(lines[0])             </span></span><br><span class="line">            <span class="comment">#每次抹除线，先暂停0.1秒</span></span><br><span class="line">             plt.pause(<span class="number">0.1</span>)</span><br><span class="line">             ax.lines.remove(lines[<span class="number">0</span>])  <span class="comment">#在图片中，去除掉第一个线段</span></span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        prediction_value = sess.run(prediction, feed_dict=&#123;xs: x_data&#125;)</span><br><span class="line">        <span class="comment"># plot the prediction</span></span><br><span class="line">        lines = ax.plot(x_data, prediction_value, <span class="string">'r-'</span>, lw=<span class="number">5</span>)</span><br><span class="line">        plt.pause(<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="/2018/12/15/用Batch-Gradient-Descent来拟合sinx/1.gif" alt="batch gradient descent sinx"></p>
+        <h2 id="RNN入门Demo"><a href="#RNN入门Demo" class="headerlink" title="RNN入门Demo"></a>RNN入门Demo</h2><p>​    耗费了大量时间来讲解RNN和LSTM的原理，并且这一块确实有点难以理解。实践是检验真理的唯一标准，废话不多说，直接上基于TensorFlow平台的RNN加上LSTM优化后的代码和运行效果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#什么是循环神经网络RNN</span></span><br><span class="line"><span class="comment">#What is Recurrent Neural Networks?(RNN)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.examples.tutorials.mnist <span class="keyword">import</span> input_data</span><br><span class="line">tf.reset_default_graph() </span><br><span class="line"></span><br><span class="line"><span class="comment">#Mnist data</span></span><br><span class="line">mnist=input_data.read_data_sets(<span class="string">'MNIST_data'</span>,one_hot=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#networks parameters</span></span><br><span class="line">lr=<span class="number">0.001</span><span class="comment">#learning rate</span></span><br><span class="line">training_iters=<span class="number">1000000</span><span class="comment">#iteration也就是循环多少次</span></span><br><span class="line">batch_size=<span class="number">128</span></span><br><span class="line">display_step=<span class="number">10</span></span><br><span class="line"></span><br><span class="line">n_inputs=<span class="number">28</span><span class="comment">#MNIST data input(image shape:28*28)</span></span><br><span class="line">n_steps=<span class="number">28</span><span class="comment">#time steps,inut的28行，作为28列输出</span></span><br><span class="line">n_hidden_units=<span class="number">128</span><span class="comment">#neurons in hidden layer</span></span><br><span class="line">n_classes=<span class="number">10</span><span class="comment">#MNIST classes(0-9digits)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tf.Graph input</span></span><br><span class="line">x=tf.placeholder(tf.float32,[<span class="keyword">None</span>,n_steps,n_inputs])</span><br><span class="line">y=tf.placeholder(tf.float32,[<span class="keyword">None</span>,n_classes])</span><br><span class="line"></span><br><span class="line"><span class="comment">#Define weights</span></span><br><span class="line">weights=&#123;</span><br><span class="line"><span class="comment">#(28,128)</span></span><br><span class="line"><span class="string">'in'</span>:tf.Variable(tf.random_normal([n_inputs,n_hidden_units])),</span><br><span class="line"><span class="comment">#(128,10)                                 </span></span><br><span class="line"><span class="string">'out'</span>:tf.Variable(tf.random_normal([n_hidden_units,n_classes]))  </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">#Define biases</span></span><br><span class="line">biases=&#123;</span><br><span class="line"><span class="comment">#(128,) </span></span><br><span class="line"><span class="string">'in'</span>:tf.Variable(tf.constant(<span class="number">0.1</span>,shape=[n_hidden_units,])),</span><br><span class="line"><span class="comment">#(10,)                             </span></span><br><span class="line"><span class="string">'out'</span>:tf.Variable(tf.constant(<span class="number">0.1</span>,shape=[n_classes,]))        </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Define RNN</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">RNN</span><span class="params">(X,weights,biases)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#hidden layer for input to cell</span></span><br><span class="line">    <span class="comment">#X(128 batch,28 steps,28 inputs)</span></span><br><span class="line">    <span class="comment">#把X转换成(128*28,28 inputs)</span></span><br><span class="line">    X=tf.reshape(X,[<span class="number">-1</span>,n_inputs])</span><br><span class="line">    <span class="comment">#把X转换成(128batch,28 steps,128 hidden)</span></span><br><span class="line">    X_in=tf.matmul(X,weights[<span class="string">'in'</span>]+biases[<span class="string">'in'</span>])</span><br><span class="line">    <span class="comment">#把X转换成(128batch,28steps,128hidden)</span></span><br><span class="line">    X_in=tf.reshape(X_in,[<span class="number">-1</span>,n_steps,n_hidden_units])</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">#cell</span></span><br><span class="line">    <span class="comment">#使用lstm(long-short Term Memory),因为使用RNN可能会存在梯度爆炸，用LSTM优化</span></span><br><span class="line">    <span class="comment">#RNN中一般会用tanh()函数作为激活函数</span></span><br><span class="line">    <span class="comment">#在迭代后期，会逐渐收敛，导致梯度趋于0，于是，出现了“梯度下降”的问题。</span></span><br><span class="line">    lstm_cell=tf.nn.rnn_cell.BasicLSTMCell(n_hidden_units,</span><br><span class="line">                                           forget_bias=<span class="number">1.0</span>,</span><br><span class="line">                                           state_is_tuple=<span class="keyword">True</span>)<span class="comment">#state_is_tuple，生成的是不是一个元组</span></span><br><span class="line">    <span class="comment">#lstm cell is divided into two parts(c_state,m_state),主线的state是c_state,副线的state是m_state</span></span><br><span class="line">    _init_state=lstm_cell.zero_state(batch_size,dtype=tf.float32)    </span><br><span class="line">    <span class="comment">#使用dynamic_rnn比rnn更好，优点在于对尺度不同的数据的处理上，会减少计算量</span></span><br><span class="line">    <span class="comment">#time_major,上面的28 steps是它，</span></span><br><span class="line">    outputs,states=tf.nn.dynamic_rnn(lstm_cell,X_in,initial_state=_init_state,time_major=<span class="keyword">False</span>)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">#hidden layer for output as the final results</span></span><br><span class="line">    <span class="comment">#method1：</span></span><br><span class="line">    results=tf.matmul(states[<span class="number">1</span>],weights[<span class="string">'out'</span>])+biases[<span class="string">'out'</span>]</span><br><span class="line">    <span class="comment">#method2:                 </span></span><br><span class="line">    <span class="comment">#or use unpack to list[(batch,outputs)..]*steps,就是把tensor解包成list</span></span><br><span class="line">    <span class="comment">#outputs=tf.unstack(tf.transpose(outputs,[1,0,2])) #states is the last outputs</span></span><br><span class="line">    <span class="comment">#选择最后一步的outputs,也就是-1</span></span><br><span class="line">    <span class="comment">#results=tf.matmul(outputs[-1],weights['out'])+biases['out']                              </span></span><br><span class="line">    <span class="keyword">return</span> results</span><br><span class="line">    </span><br><span class="line"><span class="comment">#prediction    </span></span><br><span class="line">pred=RNN(x,weights,biases)</span><br><span class="line"><span class="comment">#cost</span></span><br><span class="line">cost=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred,labels=y))</span><br><span class="line"><span class="comment">#train_op</span></span><br><span class="line">train_op=tf.train.AdamOptimizer(lr).minimize(cost)</span><br><span class="line"></span><br><span class="line">correct_pred=tf.equal(tf.argmax(pred,<span class="number">1</span>),tf.argmax(y,<span class="number">1</span>))</span><br><span class="line">accuracy=tf.reduce_mean(tf.cast(correct_pred,tf.float32))</span><br><span class="line"></span><br><span class="line"><span class="comment">#important step</span></span><br><span class="line">init=tf.initialize_all_variables()</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    step=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> step*batch_size&lt;training_iters:</span><br><span class="line">        batch_xs,batch_ys=mnist.train.next_batch(batch_size)</span><br><span class="line">        batch_xs=batch_xs.reshape([batch_size,n_steps,n_inputs])<span class="comment">#28行，28列，在加上要一个batch_size</span></span><br><span class="line">        sess.run([train_op],feed_dict=&#123;x:batch_xs,y:batch_ys&#125;)</span><br><span class="line">        <span class="keyword">if</span> step%<span class="number">20</span>==<span class="number">0</span>:</span><br><span class="line">            print(sess.run(accuracy,</span><br><span class="line">                           feed_dict=&#123;x:batch_xs,</span><br><span class="line">                                      y:batch_ys</span><br><span class="line">                                      &#125;</span><br><span class="line">                           )</span><br><span class="line">                 )</span><br><span class="line">        step+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><ul>
+<li>由于自己是CPU版本的TensorFlow，运行起来比较慢，只能慢慢等待咯</li>
+</ul>
+<p><img src="/2018/12/16/RNN入门demo/1.gif" alt="RNN"></p>
+<ul>
+<li><p>随着训练次数的增加，精确度也渐渐上升</p>
+<p><img src="/2018/12/16/RNN入门demo/2.gif" alt="RNN"></p>
+</li>
+<li><p>设置的训练100w次，每20步输出一次结果，由于时间太久，我就不一一截图了。训练结束后，精确度99%</p>
+</li>
+</ul>
 
       
     </div>
@@ -470,8 +482,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/" rel="next" title="用Batch Gradient Descent来拟合二次函数">
-                <i class="fa fa-chevron-left"></i> 用Batch Gradient Descent来拟合二次函数
+              <a href="/2018/12/16/LSTM长短期记忆网络/" rel="next" title="LSTM(Long-Short Term Memory)长短期记忆网络">
+                <i class="fa fa-chevron-left"></i> LSTM(Long-Short Term Memory)长短期记忆网络
               </a>
             
           </div>
@@ -480,8 +492,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/15/Visualize-Gradient-Descent可视化梯度下降/" rel="prev" title="Visualize Gradient Descent可视化梯度下降">
-                Visualize Gradient Descent可视化梯度下降 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/16/用RNN来预测学习Sinx曲线/" rel="prev" title="用RNN来预测学习Sinx曲线">
+                用RNN来预测学习Sinx曲线 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -645,7 +657,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行效果"><span class="nav-number">1.</span> <span class="nav-text">运行效果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN入门Demo"><span class="nav-number">1.</span> <span class="nav-text">RNN入门Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行效果"><span class="nav-number">2.</span> <span class="nav-text">运行效果</span></a></li></ol></div>
             
 
           </div>

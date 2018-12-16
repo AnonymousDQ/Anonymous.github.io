@@ -304,6 +304,354 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合sinx/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/用Batch-Gradient-Descent来拟合sinx/" itemprop="url">用Batch Gradient Descent来拟合sinx</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T13:48:05+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  282
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="comment">#define a add_layer function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_layer</span><span class="params">(inputs, in_size, out_size, activation_function=None)</span>:</span></span><br><span class="line">    <span class="comment"># add one more layer and return the output of this layer</span></span><br><span class="line">    Weights = tf.Variable(tf.random_normal([in_size, out_size]))</span><br><span class="line">    biases = tf.Variable(tf.zeros([<span class="number">1</span>, out_size]))</span><br><span class="line">    Wx_plus_b = tf.matmul(inputs, Weights) + biases</span><br><span class="line">    <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        outputs = Wx_plus_b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        outputs = activation_function(Wx_plus_b)</span><br><span class="line">    <span class="keyword">return</span> outputs</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Make up some real data</span></span><br><span class="line">x_data = np.linspace(-np.pi,np.pi,<span class="number">300</span>)[:, np.newaxis]</span><br><span class="line">noise = np.random.normal(<span class="number">0</span>, <span class="number">0.05</span>, x_data.shape)</span><br><span class="line">y_data = np.sin(x_data) + noise</span><br><span class="line"> </span><br><span class="line"><span class="comment"># define placeholder for inputs to network</span></span><br><span class="line">xs = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line">ys = tf.placeholder(tf.float32, [<span class="keyword">None</span>, <span class="number">1</span>])</span><br><span class="line"><span class="comment"># add hidden layer</span></span><br><span class="line">l1 = add_layer(xs, <span class="number">1</span>, <span class="number">10</span>, activation_function=tf.nn.relu)</span><br><span class="line"><span class="comment"># add output layer</span></span><br><span class="line">prediction = add_layer(l1, <span class="number">10</span>, <span class="number">1</span>, activation_function=tf.nn.tanh)</span><br><span class="line"> </span><br><span class="line">loss = tf.reduce_mean(tf.square(ys - prediction))</span><br><span class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.05</span>).minimize(loss)</span><br><span class="line"> </span><br><span class="line">init = tf.initialize_all_variables()</span><br><span class="line">sess = tf.Session()</span><br><span class="line">sess.run(init)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># plot the real data</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">ax.scatter(x_data, y_data)</span><br><span class="line"><span class="comment"># Interactive mode on</span></span><br><span class="line">plt.ion()</span><br><span class="line">plt.show()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5000</span>):</span><br><span class="line">    <span class="comment"># training</span></span><br><span class="line">    sess.run(train_step, feed_dict=&#123;xs: x_data, ys: y_data&#125;)</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">50</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># to visualize the result and remove the previous line </span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment">#ax.lines.remove(lines[0])             </span></span><br><span class="line">            <span class="comment">#每次抹除线，先暂停0.1秒</span></span><br><span class="line">             plt.pause(<span class="number">0.1</span>)</span><br><span class="line">             ax.lines.remove(lines[<span class="number">0</span>])  <span class="comment">#在图片中，去除掉第一个线段</span></span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        prediction_value = sess.run(prediction, feed_dict=&#123;xs: x_data&#125;)</span><br><span class="line">        <span class="comment"># plot the prediction</span></span><br><span class="line">        lines = ax.plot(x_data, prediction_value, <span class="string">'r-'</span>, lw=<span class="number">5</span>)</span><br><span class="line">        plt.pause(<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="/2018/12/15/用Batch-Gradient-Descent来拟合sinx/1.gif" alt="batch gradient descent sinx"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/" itemprop="url">用Batch Gradient Descent来拟合二次函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T13:35:45+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  484
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="用Batch-Gradient-Descent来拟合二次函数"><a href="#用Batch-Gradient-Descent来拟合二次函数" class="headerlink" title="用Batch Gradient Descent来拟合二次函数"></a>用Batch Gradient Descent来拟合二次函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#批量梯度下降算法</span></span><br><span class="line"><span class="comment">#author:victor</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#import module</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果可视化模块</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment">#定义一个添加神经层的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_layer</span><span class="params">(inputs,in_size,out_size,activation_function=None)</span>:</span></span><br><span class="line">    Weights=tf.Variable(tf.random_normal([in_size,out_size]))</span><br><span class="line">    biases=tf.Variable(tf.zeros([<span class="number">1</span>,out_size])+<span class="number">0.1</span>)<span class="comment">#因为biases（偏差）推荐值不能为0，所以加上一个0.1</span></span><br><span class="line">    <span class="comment">#Wx_plus_b=tf.matmul(inputs,Weights)+biases#inputs+Weights+biases</span></span><br><span class="line">    Wx_plus_b=tf.add(tf.matmul(inputs,Weights),biases)</span><br><span class="line">    <span class="keyword">if</span> activation_function <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">        outputs=Wx_plus_b</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        outputs=activation_function(Wx_plus_b)</span><br><span class="line">    <span class="keyword">return</span> outputs</span><br><span class="line"></span><br><span class="line">x_data=np.linspace(<span class="number">-1</span>,<span class="number">1</span>,<span class="number">300</span>)[:,np.newaxis]<span class="comment">#（-1,1）区间的生成300个数等差数列，np.newaxis定义格式为300个行</span></span><br><span class="line"><span class="comment">#define a noise，定义一个噪声，来让它不是正规的二次函数。</span></span><br><span class="line">noise=np.random.normal(<span class="number">0</span>,<span class="number">0.05</span>,x_data.shape)<span class="comment">#定义跟x_data数据一样的格式</span></span><br><span class="line"><span class="comment">#真实值</span></span><br><span class="line">y_data=np.square(x_data)<span class="number">-0.5</span>+noise<span class="comment">#这个是拟合函数y=x^2+nosie</span></span><br><span class="line"><span class="comment">#placeholder用来参数</span></span><br><span class="line">xs=tf.placeholder(tf.float32,[<span class="keyword">None</span>,<span class="number">1</span>])</span><br><span class="line">ys=tf.placeholder(tf.float32,[<span class="keyword">None</span>,<span class="number">1</span>])</span><br><span class="line"><span class="comment">#隐藏层随便有多少个神经元，越少，越差，先定义一个</span></span><br><span class="line">l1=add_layer(xs,<span class="number">1</span>,<span class="number">10</span>,activation_function=tf.nn.relu)</span><br><span class="line"><span class="comment">#预测值</span></span><br><span class="line">prediction=add_layer(l1,<span class="number">10</span>,<span class="number">1</span>,activation_function=<span class="keyword">None</span>)</span><br><span class="line"><span class="comment">#误差</span></span><br><span class="line">loss=tf.reduce_mean(tf.reduce_sum(tf.square(ys-prediction),</span><br><span class="line">                   reduction_indices=[<span class="number">1</span>]))</span><br><span class="line">train_step=tf.train.GradientDescentOptimizer(<span class="number">0.1</span>).minimize(loss)<span class="comment">#GradientDescentOptimizer给定一个learning rate,通常是小于1</span></span><br><span class="line"><span class="comment">#must step,初始化变量</span></span><br><span class="line">init=tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init)</span><br><span class="line">    <span class="comment">#显示图形</span></span><br><span class="line">    fig=plt.figure()</span><br><span class="line">    ax=fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">    ax.scatter(x_data,y_data)</span><br><span class="line">    plt.ion()<span class="comment">#就是让图片show了后不用暂停</span></span><br><span class="line">    plt.show()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):<span class="comment">#执行1000次</span></span><br><span class="line">        sess.run(train_step,feed_dict=&#123;xs:x_data,ys:y_data&#125;)<span class="comment">#只用通过placeholder的，都要用feed_dict传参数</span></span><br><span class="line">        <span class="keyword">if</span> i%<span class="number">50</span>:                  </span><br><span class="line">            <span class="comment">#to see the step improvement控制台看，每一步的误差减少</span></span><br><span class="line">            <span class="comment">#print(sess.run(loss,feed_dict=&#123;xs:x_data,ys:y_data&#125;))            </span></span><br><span class="line">            <span class="keyword">try</span>:  </span><br><span class="line">                <span class="comment">#预测值</span></span><br><span class="line">                prediction_value=sess.run(prediction,feed_dict=&#123;xs:x_data&#125;)</span><br><span class="line">                lines=ax.plot(x_data,prediction_value,<span class="string">'r-'</span>,lw=<span class="number">5</span>)             </span><br><span class="line">                <span class="comment">#每次抹除线，先暂停0.1秒</span></span><br><span class="line">                plt.pause(<span class="number">0.1</span>)</span><br><span class="line">                ax.lines.remove(lines[<span class="number">0</span>])  <span class="comment">#在图片中，去除掉第一个线段</span></span><br><span class="line">            <span class="keyword">except</span> Exception:</span><br><span class="line">                <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="/2018/12/15/用Batch-Gradient-Descent来拟合二次函数/1.gif" alt="batch gradient descent"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/Activation-Function/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1701,372 +2049,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/用matplotlib包画图/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/用matplotlib包画图/" itemprop="url">用matplotlib包画图</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:06:50+08:00">
-                2018-12-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
-                    <span itemprop="name">TensorFlow</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  308
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>​    最近深度学习发展非常迅猛，大有一统江湖的趋势。经过一段时间学习，发现自己对这种神奇的玄学非常感兴趣，希望能够进一步的研究。而这种研究性学科单纯地看论文比较难以明白，所以希望能够跟进大牛们写的代码深入学习。我发现很多大牛给的源码是基于python写的，于是就打算学习python。 </p>
-<p><strong>一、Spyder的用法</strong></p>
-<ul>
-<li>Spyder是一个简单的集成开发环境，它模拟MATLAB的‘工作空间’的功能，可以很方便的观察和修改数组的值。</li>
-<li>推荐您使用IPython Console，因为它比标准的Python Console的功能更多，并且建议您将它设置为默认控制台。</li>
-<li>命名空间（在任何给定时间内在console中定义的对象集合）在IPython中可以使用%reset命令清除。输入<strong>%reset</strong>然后按下<strong>enter键</strong>，用y确认。</li>
-<li>首先要进行工具栏设置，调出QT窗体来显示图形。</li>
-<li>第一步：选择工具栏的<strong>Tools–&gt;Preferences</strong></li>
-</ul>
-<p><img src="/2018/12/15/用matplotlib包画图/设置1.png" alt="setting1"></p>
-<ul>
-<li>第二步：点击IPython console选项</li>
-</ul>
-<p><img src="/2018/12/15/用matplotlib包画图/设置2.png" alt="setting2"></p>
-<ul>
-<li>第三步：选择Graphics选项，在Backend选择Qt5，然后保存重启就行</li>
-</ul>
-<p><img src="/2018/12/15/用matplotlib包画图/设置3.png" alt="setting3"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/TensorFlow入门demo/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/15/TensorFlow入门demo/" itemprop="url">TensorFlow入门demo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-15T11:01:13+08:00">
-                2018-12-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
-                    <span itemprop="name">TensorFlow</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  474
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#引入tensorflow模块</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment">#创建两个常量节点</span></span><br><span class="line">node1=tf.constant(<span class="number">3.2</span>)</span><br><span class="line">node2=tf.constant(<span class="number">4.8</span>)</span><br><span class="line"><span class="comment">#创建一个adder节点，，对上面节点执行+操作</span></span><br><span class="line">adder = node1 + node2</span><br><span class="line"><span class="comment">#打印一些节点</span></span><br><span class="line">print(adder)</span><br><span class="line"><span class="comment">#打印adder运行后的结果</span></span><br><span class="line">sess=tf.Session()</span><br><span class="line">print(sess.run(adder))</span><br><span class="line"><span class="comment">#创建两个占位Tensor节点</span></span><br><span class="line">a=tf.placeholder(tf.float32)</span><br><span class="line">b=tf.placeholder(tf.float32)</span><br><span class="line"><span class="comment">#创建一个adder节点，对上面两个节点执行+操作</span></span><br><span class="line">adder_node=a+b</span><br><span class="line"><span class="comment">#打印三个节点</span></span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br><span class="line">print(adder_node)</span><br><span class="line"><span class="comment">#运行一下，后面的dict参数是为占位tensor提供输入数据</span></span><br><span class="line">sess=tf.Session()</span><br><span class="line">print(sess.run(adder_node,&#123;a:<span class="number">3</span>,b:<span class="number">4.5</span>&#125;))</span><br><span class="line">print(sess.run(adder_node,&#123;a:[<span class="number">1</span>,<span class="number">3</span>],b:[<span class="number">2</span>,<span class="number">4</span>]&#125;))</span><br><span class="line"><span class="comment">#添加乘法操作</span></span><br><span class="line">add_and_triple=adder*<span class="number">3.</span></span><br><span class="line">print(sess.run(add_and_triple,&#123;a:<span class="number">3</span>,b:<span class="number">4.5</span>&#125;))</span><br><span class="line"><span class="comment">#创建变量w和b节点，并设置初始值</span></span><br><span class="line">w=tf.Variable([<span class="number">.1</span>],dtype=tf.float32)</span><br><span class="line">b=tf.Variable([<span class="number">-.1</span>],dtype=tf.float32)</span><br><span class="line"><span class="comment">#创建x节点，用来输入实验中的输入数据</span></span><br><span class="line">x=tf.placeholder(tf.float32)</span><br><span class="line"><span class="comment">#创建线性模型</span></span><br><span class="line">linear_model=w*x+b</span><br><span class="line"><span class="comment">#创建y节点，用来输入实验中得到的的输出数据，用于损失模型计算</span></span><br><span class="line">y=tf.placeholder(tf.float32)</span><br><span class="line"><span class="comment">#创建损失模型</span></span><br><span class="line">loss=tf.reduce_sum(tf.square(linear_model-y))</span><br><span class="line"><span class="comment">#创建Session用来计算模型</span></span><br><span class="line">sess=tf.Session()</span><br><span class="line">print(sess.run(w))</span><br><span class="line"><span class="comment">#提示打印w的值未初始化的异常</span></span><br><span class="line"><span class="comment">#变量tensor需要经过下面的init过程后才能使用：</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/TensorFlow入门demo/1.jpg" alt="demo"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#初始化变量</span></span><br><span class="line"><span class="comment">#再打印w的值，就可以看到之前赋的初始值</span></span><br><span class="line">init=tf.global_variables_initializer()</span><br><span class="line">sess.run(init)</span><br><span class="line">print(sess.run(w))</span><br><span class="line"><span class="comment">#变量初始化完之后，可以先对上面的w和b设置的初始值0.1和-0.1</span></span><br><span class="line"><span class="comment">#运行一下我们的线性模型看看结果：</span></span><br><span class="line">print(sess.run(linear_model,&#123;x:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">8</span>]&#125;))</span><br><span class="line"><span class="comment">#貌似与我们实验的实际输出差距很大，我们在运行一下损失模型</span></span><br><span class="line">print(sess.run(loss,&#123;x:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">8</span>],y:[<span class="number">4.8</span>,<span class="number">8.5</span>,<span class="number">10.4</span>,<span class="number">21</span>,<span class="number">25.3</span>]&#125;))</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/12/15/TensorFlow入门demo/2.jpg" alt="demo"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2119,7 +2101,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2222,7 +2204,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">52.8k</span>
+    <span title="Site words total count">54.5k</span>
   
 </div>
 <div class="powered-by">

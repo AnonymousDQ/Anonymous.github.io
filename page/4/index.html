@@ -304,6 +304,379 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的HashMap与Hashtable/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/JAVA中的HashMap与Hashtable/" itemprop="url">JAVA中的HashMap与Hashtable</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:51:11+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  136
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="HashMap和Hashtable"><a href="#HashMap和Hashtable" class="headerlink" title="HashMap和Hashtable"></a>HashMap和Hashtable</h2><p>　　<strong>都实现了Map接口，都是以key-value形式保存数据。</strong></p>
+<ul>
+<li><p>HashMap可以存放null</p>
+</li>
+<li><p>Hashtable不能存放null</p>
+</li>
+<li><p>HashMap不是线程安全类</p>
+</li>
+<li><p>Hashtable是线程安全类</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Hashtable;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCollection</span></span>&#123;</span><br><span class="line">    <span class="comment">//HashMap和Hashtable都实现了Map接口，key-value方式存数据</span></span><br><span class="line">    HashMap&lt;string,string&gt; hashMap=<span class="keyword">new</span> HashMap&lt;string,string&gt;();</span><br><span class="line">    <span class="comment">//HashMap可以用null作key，作value</span></span><br><span class="line">    hashMap.put(<span class="keyword">null</span>,<span class="string">"123"</span>);</span><br><span class="line">    hashMap.put(<span class="string">"123"</span>,<span class="keyword">null</span>);</span><br><span class="line">    Hashtable&lt;string,string&gt; hashtable=<span class="keyword">new</span> Hashtable&lt;string,string&gt;();</span><br><span class="line">    <span class="comment">//Hashtable不能用null作key，不能用null作value</span></span><br><span class="line">    hashtable.put(<span class="keyword">null</span>,<span class="string">"123"</span>);<span class="comment">//报错</span></span><br><span class="line">    hashtable.put(<span class="string">"123"</span>,<span class="keyword">null</span>);<span class="comment">//报错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的深拷贝与浅拷贝/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Victor Drq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="drqblog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/14/JAVA中的深拷贝与浅拷贝/" itemprop="url">JAVA中的深拷贝与浅拷贝</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T21:48:13+08:00">
+                2018-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  797
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Java中有两种类型变量，值类型和引用类型。"><a href="#Java中有两种类型变量，值类型和引用类型。" class="headerlink" title="Java中有两种类型变量，值类型和引用类型。"></a>Java中有两种类型变量，值类型和引用类型。</h1><ul>
+<li><p>对于值类型：<strong>copy是属于全盘复制，也就是深拷贝</strong></p>
+</li>
+<li><p>对于引用类型：<strong>一般的copy只是浅拷贝，相当于传递一个引用指针一样。</strong></p>
+</li>
+</ul>
+<p>而当引用类型进行深拷贝的时候必须<strong>实现Cloneable接口中提供的Clone方法</strong>。</p>
+<p>通俗的说：</p>
+<ul>
+<li><p>深拷贝：不仅复制对象的基本类型，还复制原来对象中的对象，完全产生一个新的对象。</p>
+</li>
+<li><p>浅拷贝：只是赋值对象的基本类型，对象还是属于原来的引用。如果是值类型直接拷贝到新的对象，引用类型则是复制一个引用到目标对象而已。</p>
+</li>
+</ul>
+<p>在有指针的情况下，浅拷贝只是增加了一个指针指向已经存在的内存而已。</p>
+<p>深拷贝不但增加了一个指针还申请了一个新的内存，让这个增加的指针指向新的内存。所以当采用深拷贝释放内存的时候不会出现重复释放同一个内存的错误。</p>
+<h3 id="浅拷贝代码如下："><a href="#浅拷贝代码如下：" class="headerlink" title="浅拷贝代码如下："></a>浅拷贝代码如下：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    </span><br><span class="line">    Teacher(String name,<span class="keyword">int</span> age)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">        <span class="keyword">this</span>.age=age;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">private</span> Teacher teacher;</span><br><span class="line">    </span><br><span class="line">    Student(String name,<span class="keyword">int</span> age,Teacher teacher)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">        <span class="keyword">this</span>.age=age;</span><br><span class="line">        <span class="keyword">this</span>.teacher=teacher;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//重写clone方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Student student=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            student=(Student)<span class="keyword">super</span>.clone();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(CloneNotSupportedException e)&#123;</span><br><span class="line">            e.printStack();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试浅拷贝</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShallowCopy</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Teacher teacher=<span class="keyword">new</span> Teacher(<span class="string">"流浪法师"</span>,<span class="number">50</span>);</span><br><span class="line">        Student student1=<span class="keyword">new</span> Student(<span class="string">"盖伦"</span>,<span class="number">30</span>,teacher);</span><br><span class="line">        Student student2=(Student)student1.clone();</span><br><span class="line">        </span><br><span class="line">        student2.teacher.name=<span class="string">"提莫"</span>;</span><br><span class="line">        student2.teacher.age=<span class="number">20</span>;</span><br><span class="line">        student2.name=<span class="string">"卡特"</span>;</span><br><span class="line">        student2.age=<span class="number">22</span>;</span><br><span class="line">        System.out.println(<span class="string">"student1的姓名:"</span>+student1.name+<span class="string">",student1的老师名字："</span></span><br><span class="line">        +student1.teacher.name+<span class="string">",student1的老师年龄："</span>+student1.teacher.age);<span class="comment">//盖伦，提莫，20</span></span><br><span class="line">        <span class="comment">//发现student2变了，student1变了，说明student1和student2的teacher引用是指向同一个对象。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="深拷贝代码如下："><a href="#深拷贝代码如下：" class="headerlink" title="深拷贝代码如下："></a>深拷贝代码如下：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    </span><br><span class="line">    Teacher(String name,<span class="keyword">int</span> age)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">        <span class="keyword">this</span>.age=age;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>&#123;</span><br><span class="line">        Object o=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            object=<span class="keyword">super</span>.clone();<span class="comment">//复制一个对象，相当于申请一片新的内存空间用来存储对象</span></span><br><span class="line">        &#125;<span class="keyword">catch</span>(CloneNotSupportedException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> object;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">private</span> Teacher teacher;</span><br><span class="line">    </span><br><span class="line">    Student(String name,<span class="keyword">int</span> age,Teacher teacher)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">        <span class="keyword">this</span>.age=age;</span><br><span class="line">        <span class="keyword">this</span>.teacher=teacher;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//重写clone方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Student student=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            student=(Student)<span class="keyword">super</span>.clone();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(CloneNotSupportedException e)&#123;</span><br><span class="line">            e.printStack();</span><br><span class="line">        &#125;</span><br><span class="line">        student.teacher=(Teacher)teacher.clone();<span class="comment">//进行深拷贝</span></span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试深拷贝</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeepCopy</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Teacher teacher=<span class="keyword">new</span> Teacher(<span class="string">"流浪法师"</span>,<span class="number">50</span>);</span><br><span class="line">        Student student1=<span class="keyword">new</span> Student(<span class="string">"盖伦"</span>,<span class="number">30</span>,teacher);</span><br><span class="line">        Student student2=(Student)student1.clone();</span><br><span class="line">        </span><br><span class="line">        student2.teacher.name=<span class="string">"提莫"</span>;</span><br><span class="line">        student2.teacher.age=<span class="number">20</span>;</span><br><span class="line">        student2.name=<span class="string">"卡特"</span>;</span><br><span class="line">        student2.age=<span class="number">22</span>;</span><br><span class="line">        System.out.println(<span class="string">"student1的姓名:"</span>+student1.name+<span class="string">",student1的老师名字："</span></span><br><span class="line">        +student1.teacher.name+<span class="string">",student1的老师年龄："</span>+student1.teacher.age);<span class="comment">//盖伦，流浪法师，50</span></span><br><span class="line">        <span class="comment">//发现student2变了，student1还是没变，</span></span><br><span class="line">        <span class="comment">//说明student1和student2的teacher引用不是指向同一个对象。</span></span><br><span class="line">        <span class="comment">//新增了一片存储空间，各自的引用指向了存储空间</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JAVA中的线程安全/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2431,410 +2804,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/数据库范式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/数据库范式/" itemprop="url">数据库范式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T20:55:44+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  627
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="范式-Normal-Form-NF"><a href="#范式-Normal-Form-NF" class="headerlink" title="范式(Normal Form,NF)"></a>范式(Normal Form,NF)</h1><p>设计关系型数据库时，需要遵从不同的规范要求，设计出合理的关系型数据库。越高的范式数据库冗余越小。</p>
-<ul>
-<li><p>范式的优点：消除重复数据，减少数据冗余，让数据库内的数据更好的组织，让磁盘空间得到更有效的利用。</p>
-</li>
-<li><p>范式的缺点：范式使得查询变得相当复杂，在查询的时候需要更多的连接，一些复合索引的列由于范式化的需要被分割到不同的表中，导致索引策略不佳。</p>
-</li>
-</ul>
-<p>第一范式(1NF)：每一个属性不可再分。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">范式</th>
-<th style="text-align:center">特征</th>
-<th style="text-align:center">详解</th>
-<th style="text-align:center">举例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">第一范式1NF</td>
-<td style="text-align:center">每一个属性不可再分</td>
-<td style="text-align:center">1NF,对域添加的一个规范要求，所有的域都应该是原子性的也就是数据表的每一列都是不可分割的原子数据项，而不能是集合，数组等。也就是某个属性有多个值，必须将它拆分为不同的属性。不满足1NF的不是关系数据库。满足1NF的表必须要有主键，每个属性不可再分。</td>
-<td style="text-align:center">比如说员工表，有员工号，姓名，电话号码组成。但是一个人可能有座机号码和移动号码。需要将它拆分为两个属性，也就是员工表(员工号，姓名，座机号码，移动号码)</td>
-</tr>
-<tr>
-<td style="text-align:center">第二范式2NF</td>
-<td style="text-align:center">符合1NF,并且非主属性完全依赖于码</td>
-<td style="text-align:center">在1NF的基础上，每一个非主属性必须完全依赖于码，消除非主属性的对主键的部分函数依赖也即是实体的属性完全依赖于主关键字。完全依赖是不能存在只依赖主关键字的一部分。</td>
-<td style="text-align:center">选课关系(学号，课程号，成绩，学分)，码为组合关键字(课程号，学号)但是非主属性学分只依赖课程号，对关键字(学号，课程号)只是部份依赖。不是完全依赖。所以要拆分为两个关系模式：学生表(学号，课程号，分数)课程表(课程号，学分)，新的关系通过学生表中的外键课程号联系，需要时通过两个表的连接获取数据</td>
-</tr>
-<tr>
-<td style="text-align:center">第三范式3NF</td>
-<td style="text-align:center">符合1NF,且每个非主属性既不部分依赖码，也不传递依赖码也就是在2NF的基础上消除传递依赖</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/電商推薦系統/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Victor Drq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="drqblog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/電商推薦系統/" itemprop="url">電商推薦系統</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T20:49:28+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  439
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="电商网站用户行为分析及服务推荐"><a href="#电商网站用户行为分析及服务推荐" class="headerlink" title="电商网站用户行为分析及服务推荐"></a>电商网站用户行为分析及服务推荐</h2><h4 id="推荐系统和搜索引擎"><a href="#推荐系统和搜索引擎" class="headerlink" title="推荐系统和搜索引擎"></a>推荐系统和搜索引擎</h4><ul>
-<li>搜索引擎满足有明确目标用户的需求</li>
-<li>推荐系统能够帮助用户发现其感兴趣的内容</li>
-</ul>
-<p>当用户访问网站页面时，系统会记录用户访问呢网站的日志，记录用户IP，用户访问的时间，访问内容等多项属性的记录。</p>
-<ul>
-<li>按地域研究用户访问呢时间，访问内容和访问次数等分析主题，深入了解用户对访问呢网站的行为和目的及关心的内容</li>
-<li>借助大量的用户的访问记录，发现用户的访问行为习惯，对不同需求的用户进行相关的服务页面的推荐。</li>
-</ul>
-<p>为了更好的帮助用户从海量数据中快速的发现感兴趣的网页，在目前相对单一的推荐系统上进行补充，采用协同过滤算法进行推荐。</p>
-<p>用于用户访问网站的数据记录很多，如果对数据不进行分类处理，对所有记录直接采用推荐系统给进行推荐。会出现问题：</p>
-<ul>
-<li>数据量太大意味着物品数与用户数很多，在模型构建用户与物品的系数矩阵的时候，出现设备内存空间不够的情况，并且模型计算需要消耗大量的时间</li>
-<li>用户区别很大，不同的用户关注的信息不一样，因此，即使能够得到推荐结果，其推荐效果也会不好。所以要进行分类处理与分析。</li>
-<li>需要对用户的兴趣爱好以及需求进行分类。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2887,7 +2856,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2990,7 +2959,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">52.8k</span>
+    <span title="Site words total count">54.5k</span>
   
 </div>
 <div class="powered-by">
